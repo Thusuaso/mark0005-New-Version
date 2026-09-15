@@ -1,21 +1,10 @@
-import nodemailer from "nodemailer";
-
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  return new Promise((resolve, reject) => {
-    const transporter = nodemailer.createTransport({
-      host: "mail.mekmar.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: "goz@mekmar.com",
-        pass: "_bwt64h-3SR_-G2O",
-      },
-      tls: {
-        // do not fail on invalid certs
-        rejectUnauthorized: false,
-      },
-    });
+  const email = String(body?.email ?? "").trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    throw createError({ statusCode: 400, statusMessage: "Invalid email" });
+  }
+  {
     const html = `
 <html
   dir="ltr"
@@ -523,138 +512,6 @@ export default defineEventHandler(async (event) => {
                               <!--[if mso]></td></tr></table><![endif]-->
                             </td>
                           </tr>
-                          <tr>
-                            <td
-                              align="left"
-                              class="esd-structure es-p20t es-p20r es-p20l"
-                              style="
-                                border-bottom: 1px solid gray;
-                                padding-bottom: 10px;
-                              "
-                            >
-                              <!--[if mso]><table width="560" cellpadding="0" cellspacing="0"><tr><td width="150" valign="top"><![endif]-->
-                              <table
-                                cellpadding="0"
-                                cellspacing="0"
-                                align="left"
-                                class="es-left"
-                                style="margin-top: 10px"
-                              >
-                                <tbody>
-                                  <tr>
-                                    <td
-                                      align="left"
-                                      width="150"
-                                      class="esd-container-frame"
-                                    >
-                                      <table
-                                        cellpadding="0"
-                                        cellspacing="0"
-                                        role="presentation"
-                                        width="100%"
-                                      >
-                                        <tbody>
-                                          <tr>
-                                            <td
-                                              align="center"
-                                              class="esd-block-image"
-                                              style="font-size: 0"
-                                            >
-                                              <a target="_blank">
-                                                <img
-                                                  src="https://fwknjce.stripocdn.email/content/guids/CABINET_6a119a8ebec252c9b4f40555c7629028894196e5950d3839e0ae62dc44270949/images/hakanyeni.jpg"
-                                                  alt=""
-                                                  width="110"
-                                                  height="110"
-                                                />
-                                              </a>
-                                            </td>
-                                          </tr>
-                                        </tbody>
-                                      </table>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                              <!--[if mso]></td><td width="20"></td><td width="390" valign="top"><![endif]-->
-                              <table
-                                cellpadding="0"
-                                cellspacing="0"
-                                align="right"
-                                class="es-right"
-                              >
-                                <tbody>
-                                  <tr>
-                                    <td
-                                      align="left"
-                                      width="320"
-                                      class="esd-container-frame es-m-p20b"
-                                    >
-                                      <table
-                                        cellpadding="0"
-                                        cellspacing="0"
-                                        role="presentation"
-                                        width="100%"
-                                        style="margin-top: 12px"
-                                      >
-                                        <tbody>
-                                          <tr>
-                                            <td
-                                              align="left"
-                                              class="esd-block-text"
-                                              style="
-                                                font-weight: bold;
-                                                padding-bottom: 5px;
-                                                padding-top: 7px;
-                                              "
-                                            >
-                                              Hakan KAN
-                                            </td>
-                                          </tr>
-
-                                          <tr>
-                                            <td
-                                              align="left"
-                                              class="esd-block-text"
-                                              style="padding-bottom: 5px"
-                                            >
-                                              Sales Specialist
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td
-                                              align="left"
-                                              class="esd-block-text"
-                                              style="padding-bottom: 5px"
-                                            >
-                                              <a
-                                                style="text-decoration: none"
-                                                href="mailto:export2@mekmar.com"
-                                                >export2@mekmar.com</a
-                                              >
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td
-                                              align="left"
-                                              class="esd-block-text"
-                                            >
-                                              <a
-                                                style="text-decoration: none"
-                                                href="https://web.whatsapp.com/send?phone=905426608084"
-                                                >+90 542 660 8084</a
-                                              >
-                                            </td>
-                                          </tr>
-                                        </tbody>
-                                      </table>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                              <!--[if mso]></td></tr></table><![endif]-->
-                            </td>
-                          </tr>
                           <tr></tr>
                           <tr></tr>
                         </tbody>
@@ -907,27 +764,30 @@ export default defineEventHandler(async (event) => {
 
       `;
     const html_2 = `
-      <h1>Mekmar.com katalog indiren mail adresi => ${body.email}</h1>
+      <h1>Mekmar.com katalog indiren mail adresi => ${escapeHtml(email)}</h1>
     `;
-    const options = {
-      from: "goz@mekmar.com",
-      to: body.email,
-      subject: "Mekmar.com Catalog",
-      html: html,
-    };
-    const options_2 = {
-      from: "goz@mekmar.com",
-      to: "bilgiislem@mekmar.com",
-      subject: "Mekmar.com Katalog Indirenler",
-      html: html_2,
-    };
-    transporter.sendMail(options_2);
-    transporter.sendMail(options).then((res: { response: string }) => {
-      if (res.response == "250 message sent ok ") {
-        resolve(true);
-      } else {
-        reject(false);
-      }
-    });
-  });
+
+    /* Bilgi islem bildirimi musteriye giden maili engellemesin */
+    mailTransporter
+      .sendMail({
+        from: MAIL_FROM,
+        to: "bilgiislem@mekmar.com",
+        subject: "Mekmar.com Katalog Indirenler",
+        html: html_2,
+      })
+      .catch((err: unknown) => console.error("Catalog notify mail failed:", err));
+
+    try {
+      await mailTransporter.sendMail({
+        from: `"Mekmar" <${MAIL_FROM}>`,
+        to: email,
+        subject: "Mekmar.com Catalog",
+        html,
+      });
+      return true;
+    } catch (err) {
+      console.error("Catalog mail failed:", err);
+      throw createError({ statusCode: 500, statusMessage: "Mail could not be sent" });
+    }
+  }
 });

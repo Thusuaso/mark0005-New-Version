@@ -1,17 +1,17 @@
+/* ==========================================================================
+   Global stiller
+   ========================================================================== */
+
 * {
   font-family: "Times New Roman", Times, serif;
 }
+
+/* --------------------------------------------------------------------------
+   Basliklar ve metin
+   -------------------------------------------------------------------------- */
+
 .header {
   font-size: 16px;
-  color: #1e58c4;
-  font-weight: bold;
-  margin: 0px auto;
-  text-align: center;
-  vertical-align: top;
-  text-decoration: none;
-}
-.header_project {
-  font-size: 18px;
   color: #1e58c4;
   font-weight: bold;
   margin: 0px auto;
@@ -29,508 +29,6 @@
   vertical-align: top;
   text-decoration: none;
 }
-.subheader_faq {
-  font-size: 14px;
-  color: black;
-  font-weight: normal;
-  margin: 0px auto;
-  text-align: left;
-  vertical-align: top;
-  text-decoration: none;
-  margin-top: 5px;
-}
-.about-description-en {
-  font-size: 16px;
-  text-align: justify;
-  vertical-align: top;
-  text-decoration: none;
-  margin: 0px auto;
-  padding: 0px;
-  line-height: 32px;
-}
-.about-description-fr {
-  font-size: 16px;
-  text-align: justify;
-  vertical-align: top;
-  text-decoration: none;
-  margin: 0px auto;
-  padding: 0px;
-  line-height: 24.5px;
-}
-.about-description-es {
-  font-size: 16px;
-  text-align: justify;
-  vertical-align: top;
-  text-decoration: none;
-  margin: 0px auto;
-  padding: 0px;
-  line-height: 24.6px;
-}
-.about-description-ru {
-  font-size: 16px;
-  text-align: justify;
-  vertical-align: top;
-  text-decoration: none;
-  margin: 0px auto;
-  padding: 0px;
-  line-height: 24.5px;
-}
-.about-description-ar {
-  font-size: 16px;
-  text-align: justify;
-  vertical-align: top;
-  text-decoration: none;
-  margin: 0px auto;
-  padding: 0px;
-  line-height: 40px;
-}
-
-.about-value-en {
-  font-size: 16px;
-  text-align: justify;
-  vertical-align: top;
-  text-decoration: none;
-  margin: 0px auto;
-  padding: 0px;
-  line-height: 32px;
-}
-.about-value-fr {
-  font-size: 16px;
-  text-align: justify;
-  vertical-align: top;
-  text-decoration: none;
-  margin: 0px auto;
-  padding: 0px;
-  line-height: 24.5px;
-}
-.about-value-es {
-  font-size: 16px;
-  text-align: justify;
-  vertical-align: top;
-  text-decoration: none;
-  margin: 0px auto;
-  padding: 0px;
-  line-height: 24.5px;
-}
-.about-value-ru {
-  font-size: 16px;
-  text-align: justify;
-  vertical-align: top;
-  text-decoration: none;
-  margin: 0px auto;
-  padding: 0px;
-  line-height: 23.5px;
-}
-.about-value-ar {
-  font-size: 16px;
-  text-align: justify;
-  vertical-align: top;
-  text-decoration: none;
-  margin: 0px auto;
-  padding: 0px;
-  line-height: 40px;
-}
-
-/*footer about us desc breakpoints*/
-/* @media (min-width: 576px) { 
-    .about-description-en {
-        font-size: 16px;
-        text-align: justify;
-        vertical-align: top;
-        text-decoration: none;
-        margin: 0px auto;
-        padding: 0px;
-        line-height: 14.5px;
-    }
-    .about-value-en{
-        font-size:16px;
-        text-align: justify;
-        vertical-align: top;
-        text-decoration: none;
-        margin: 0px auto;
-        padding: 0px;
-        line-height: 14.5px;
-    }
-
- } */
-
-@media (min-width: 768px) {
-  .about-description-en {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 14.5px;
-  }
-  .about-value-en {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 14.5px;
-  }
-  .about-description-fr {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 14px;
-  }
-  .about-value-fr {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 14px;
-  }
-  .about-description-es {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 14px;
-  }
-  .about-value-es {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 14px;
-  }
-  .about-description-ru {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 13px;
-  }
-  .about-value-ru {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 13px;
-  }
-  .about-description-ar {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 20px;
-  }
-  .about-value-ar {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 20px;
-  }
-}
-
-@media (min-width: 992px) {
-  .about-description-en {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 20px;
-  }
-  .about-value-en {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 20px;
-  }
-  .about-description-fr {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 17px;
-  }
-  .about-value-fr {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 17px;
-  }
-  .about-description-es {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 20px;
-  }
-  .about-value-es {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 20px;
-  }
-  .about-description-ru {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 18.5px;
-  }
-  .about-value-ru {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 18.5px;
-  }
-  .about-description-ar {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 25px;
-  }
-  .about-value-ar {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 24.5px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .about-description-en {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 24.5px;
-  }
-  .about-value-en {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 24.5px;
-  }
-
-  .about-description-fr {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 23px;
-  }
-  .about-value-fr {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 23px;
-  }
-
-  .about-description-es {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 21.5px;
-  }
-  .about-value-es {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 21.5px;
-  }
-  .about-description-ru {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 21px;
-  }
-  .about-value-ru {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 21px;
-  }
-
-  .about-description-ar {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 32.5px;
-  }
-  .about-value-ar {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 32px;
-  }
-}
-
-@media (min-width: 1400px) {
-  .about-description-en {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 32px;
-  }
-  .about-description-fr {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 24.5px;
-  }
-  .about-description-es {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 24.6px;
-  }
-  .about-description-ru {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 24.5px;
-  }
-
-  .about-value-ru {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 23.5px;
-  }
-  .about-description-ar {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 40px;
-  }
-
-  .about-value-en {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 32px;
-  }
-  .about-value-fr {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 24.5px;
-  }
-  .about-value-es {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 24.5px;
-  }
-
-  .about-value-ar {
-    font-size: 16px;
-    text-align: justify;
-    vertical-align: top;
-    text-decoration: none;
-    margin: 0px auto;
-    padding: 0px;
-    line-height: 40px;
-  }
-}
 
 .about-page-description {
   font-size: 14px;
@@ -540,13 +38,6 @@
   margin: 0px auto;
   padding: 0px;
   line-height: 35px;
-}
-
-.description_font {
-  font-size: 12px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid gray;
-  margin-bottom: 5px;
 }
 
 .description {
@@ -561,8 +52,7 @@
   margin-bottom: 10px;
   margin-top: 5px;
 }
-.description_font_2 {
-}
+
 .faq_description {
   width: 100%;
   height: auto;
@@ -574,15 +64,19 @@
   margin-bottom: 10px;
   margin-top: 10px;
 }
+
+/* --------------------------------------------------------------------------
+   Urun gorselleri ve kategori kartlari
+   -------------------------------------------------------------------------- */
+
 .product-img {
   width: 100%;
   height: 250px;
   box-shadow: 1px 2px 2px black;
   border-radius: 5px;
-  transition:
-    all,
-    0.7s 0s ease-in-out;
+  transition: all 0.7s 0s ease-in-out;
 }
+
 .product-img:hover {
   box-shadow: none;
   scale: 1.2;
@@ -644,110 +138,14 @@
 .customElement img {
   width: 100%;
   height: 250px;
-  object-fit: fill;
+  /* object-fit: fill gorselleri eziyordu; cover en-boy oranini korur */
+  object-fit: cover;
   box-shadow: 1px 1px 8px black;
   transition: all 1s ease-in-out;
 }
 
 .customElement img:hover {
   box-shadow: none;
-}
-
-/*Footer*/
-.personalContainer {
-  width: 100%;
-  height: 110px;
-  border: none;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  color: white;
-}
-
-.personalContainerLimited {
-  width: 100%;
-  height: auto;
-  margin: 0px auto;
-  padding: auto;
-  text-align: center;
-}
-
-.personalCardGrid {
-  width: 100%;
-  height: 130px;
-}
-
-.personalCardColumnOne {
-  display: inline-block;
-  float: left;
-  width: 30%;
-  height: 130px;
-}
-
-.personalCardColumnTwo {
-  display: inline-block;
-  float: left;
-  width: 70%;
-  height: 130px;
-  background: linear-gradient(
-    90deg,
-    rgba(42, 42, 45, 1) 0%,
-    rgba(114, 116, 120, 1) 50%,
-    rgba(250, 250, 250, 1) 100%
-  );
-}
-
-.personalCardColumnOne > img {
-  width: 100%;
-  height: 130px;
-  border-radius: 5px;
-}
-
-/*Footer News*/
-.gallery {
-  --s: 150px;
-  /* control the size */
-  --g: 10px;
-  /* control the gap */
-  --f: 1.5;
-  /* control the scale factor */
-
-  display: grid;
-  gap: var(--g);
-  width: calc(3 * var(--s) + 2 * var(--g));
-  aspect-ratio: 1;
-  grid-template-columns: repeat(3, auto);
-}
-
-.gallery > img {
-  width: 0;
-  height: 0;
-  min-height: 100%;
-  min-width: 100%;
-  object-fit: fill;
-  cursor: pointer;
-  filter: grayscale(80%);
-  transition: 0.35s linear;
-}
-
-.gallery img:hover {
-  filter: grayscale(0);
-  width: calc(var(--s) * var(--f));
-  height: calc(var(--s) * var(--f));
-}
-
-/*Videos*/
-
-.videosMain {
-}
-
-.iframe {
-  width: 350px;
-  height: 150px;
-}
-.iframe-video {
-  width: 100%;
-  height: 530px;
-  margin-bottom: 16px;
 }
 
 .product_detail_photo {
@@ -763,71 +161,1412 @@
   transition: all 0.6s 0s linear;
   cursor: pointer;
 }
+
 .product_detail_photo:hover {
-  width: 100%;
-  height: 250px;
-  margin: 0px;
-  padding: 0px;
-  border: none;
-  text-align: center;
-  vertical-align: top;
-  text-decoration: none;
-  cursor: pointer;
   box-shadow: none;
   scale: 1.1;
 }
 
+/* --------------------------------------------------------------------------
+   Urun detay galerisi
+   Gorsel sabit 450px yukseklige zorlaniyordu; object-fit yoktu, bu yuzden
+   dikey/kare fotograflar eziliyordu. Simdi sabit en-boy orani + cover.
+   -------------------------------------------------------------------------- */
+
 .product_gallery {
-  box-shadow: 2px 2px 5px gray;
   border: none;
+}
+
+.product_gallery .p-galleria {
+  border: none;
+  background: transparent;
+}
+
+.product_gallery .p-galleria-items-container {
   border-radius: 15px;
+  /* Kose yuvarlatmasi gorselin kendisine de uygulanmaliydi */
+  overflow: hidden;
+  box-shadow: 2px 2px 5px gray;
 }
-.footer-news-img {
+
+.product_gallery_frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  cursor: zoom-in;
+  background-color: #f4f4f4;
+}
+
+.product_gallery_frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.product_gallery_frame:hover img {
+  transform: scale(1.06);
+}
+
+.product_gallery_frame:focus-visible {
+  outline: 2px solid #1e58c4;
+  outline-offset: -2px;
+}
+
+.product_gallery_zoom,
+.product_gallery_counter {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+  transition: background-color 0.3s ease;
+}
+
+.product_gallery_zoom {
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}
+
+.product_gallery_frame:hover .product_gallery_zoom {
+  background-color: #1e58c4;
+}
+
+.product_gallery_counter {
+  bottom: 10px;
+  right: 10px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+/* Ok butonlari: gorselin uzerinde sabit durmak yerine hover'da belirir */
+
+.product_gallery .p-galleria-prev-button,
+.product_gallery .p-galleria-next-button {
+  background-color: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.product_gallery .p-galleria-items-container:hover .p-galleria-prev-button,
+.product_gallery .p-galleria-items-container:hover .p-galleria-next-button,
+.product_gallery .p-galleria-prev-button:focus-visible,
+.product_gallery .p-galleria-next-button:focus-visible {
+  opacity: 1;
+}
+
+.product_gallery .p-galleria-prev-button:hover,
+.product_gallery .p-galleria-next-button:hover {
+  background-color: #1e58c4;
+}
+
+/* Kucuk gorsel seridi */
+
+.product_gallery .p-galleria-thumbnails {
+  margin-top: 10px;
+  background: transparent;
+}
+
+.product_gallery .p-galleria-thumbnail-item {
+  padding: 0 5px;
+}
+
+.product_gallery_thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
   cursor: pointer;
-  width: 120px;
-  height: 110px;
-  margin-bottom: 10px;
+  opacity: 0.55;
+  transition: opacity 0.3s ease, box-shadow 0.3s ease;
 }
+
+.product_gallery_thumb:hover {
+  opacity: 0.85;
+}
+
+.product_gallery .p-galleria-thumbnail-item-current .product_gallery_thumb {
+  opacity: 1;
+  box-shadow: 0 0 0 2px #1e58c4;
+}
+
+/* --------------------------------------------------------------------------
+   Tam ekran gorunum
+   Kok elemanin tema cercevesi ve arka plani vardi; genislik gorselden buyuk
+   kaldiginda cerceve gorselin yaninda bos bir kutu olarak goruluyordu.
+   Cerceveyi kaldirip icerigi ortaliyoruz, boylece artan alan seffaf kaliyor.
+   -------------------------------------------------------------------------- */
+
+/* PrimeVue temasi cssLayer kullanmadigi icin ozgullugu .p-galleria ile artiriyoruz */
+
+.p-galleria.product_gallery_full {
+  max-width: 96vw;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+.product_gallery_full .p-galleria-content,
+.product_gallery_full .p-galleria-items-container,
+.product_gallery_full .p-galleria-items,
+.product_gallery_full .p-galleria-item,
+.product_gallery_full .p-galleria-thumbnails,
+.product_gallery_full .p-galleria-thumbnails-content {
+  background: transparent;
+  border: none;
+}
+
+.product_gallery_full .p-galleria-content,
+.product_gallery_full .p-galleria-items-container {
+  align-items: center;
+}
+
+.product_gallery_full .p-galleria-item {
+  justify-content: center;
+}
+
+.product_gallery_full .p-galleria-item img {
+  max-width: 100%;
+  /* Sabit vh yerine: kucuk gorsel seridi + kapat butonu icin yer ayirip kalani gorsele veriyoruz */
+  max-height: calc(100vh - 150px);
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.product_gallery_full .p-galleria-thumbnails {
+  margin-top: 12px;
+}
+
+.product_gallery_full .p-galleria-thumbnail-item {
+  padding: 0 4px;
+}
+
+.product_gallery_full .p-galleria-thumbnail-item .product_gallery_thumb {
+  width: 70px;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   URUN DETAY SEKMELERI
+   MazTabsBar yerine PrimeVue Tabs kullaniliyor. Kutulu/gri gorunum yerine
+   alt cizgi vurgusu: aktif sekme kayan bir cubukla belirtiliyor.
+   Ozgullukleri .p-tabs ile artiriyoruz — projede cssLayer kapali.
+   ========================================================================== */
+
+.p-tabs.product_tabs {
+  border: none;
+  background: transparent;
+}
+
+.product_tabs .p-tablist {
+  background: transparent;
+}
+
+.product_tabs .p-tablist-tab-list {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #e3e6ea;
+}
+
+.product_tabs .p-tab {
+  /* Uc sekme sutunu esit paylassin, metin uzunlugu hizayi bozmasin */
+  flex: 1 1 0;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #6c757d;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.875rem 0.5rem;
+  white-space: nowrap;
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+.product_tabs .p-tab:hover:not(.p-disabled) {
+  color: #1e58c4;
+  background-color: rgba(30, 88, 196, 0.06);
+}
+
+.product_tabs .p-tab.p-tab-active {
+  color: #1e58c4;
+  font-weight: 600;
+  background: transparent;
+}
+
+.product_tabs .p-tab:focus-visible {
+  outline: 2px solid #1e58c4;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.product_tabs .p-tablist-active-bar {
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: #1e58c4;
+}
+
+/* PrimeVue temasinin darkModeSelector'u "system" oldugu icin isletim sistemi
+   koyu temadayken panel metni beyaza donuyordu; site zemini her zaman beyaz,
+   bu yuzden rengi sabitliyoruz. */
+
+.product_tabs .p-tabpanels,
+.product_tabs .p-tabpanel {
+  background: transparent;
+  color: #212529;
+}
+
+.product_tabs .p-tabpanels {
+  padding: 1.25rem 0 0;
+}
+
+@media (max-width: 575.98px) {
+  .product_tabs .p-tab {
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    padding: 0.75rem 0.25rem;
+  }
+}
+
+/* ==========================================================================
+   URUN DETAY ACIKLAMA SEKMESI
+   Ozellikler eskiden gri bg-secondary seritler icinde ortali duruyordu ve
+   label/deger ayrimi belirsizdi. Simdi ince cizgili bir kunye listesi.
+   ========================================================================== */
+
+.product_desc {
+  text-align: left;
+}
+
+.product_specs {
+  margin: 0 0 0.5rem;
+  padding: 0;
+}
+
+.product_spec {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.125rem;
+  border-bottom: 1px solid #edf0f3;
+}
+
+.product_spec dt {
+  color: #6c757d;
+  font-size: 12px;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.product_spec dd {
+  margin: 0;
+  color: #212529;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.product_desc_title {
+  margin: 1.5rem 0 0.625rem;
+  padding-left: 0.625rem;
+  /* Mavi cizgi, footer basliklarindaki vurguyla ayni dilde */
+  border-left: 3px solid #1e58c4;
+  color: #1e58c4;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.product_desc_text {
+  margin: 0;
+  color: #343a40;
+  font-size: 14px;
+  /* justify dar sutunda kelime aralarinda bosluk nehirleri olusturuyordu */
+  text-align: left;
+  line-height: 1.85;
+}
+
+.product_tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.product_tag {
+  padding: 0.2rem 0.625rem;
+  border: 1px solid rgba(30, 88, 196, 0.18);
+  border-radius: 999px;
+  background-color: rgba(30, 88, 196, 0.06);
+  color: #1e58c4;
+  font-size: 12px;
+  font-style: italic;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   URUN DETAY KULLANIM ALANLARI SEKMESI
+   Eskiden gri bg-secondary seritlerdi; "YES/NO" metni isim kadar baskindi ve
+   liste taranamiyordu. Simdi ikonla durum, acikliama sekmesiyle ayni kunye
+   duzeni (etiket sol, deger sag, ince alt cizgi).
+   ========================================================================== */
+
+.product_app {
+  text-align: left;
+}
+
+.product_app_list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.product_app_item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.5rem 0.125rem;
+  border-bottom: 1px solid #edf0f3;
+}
+
+.product_app_icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.product_app_name {
+  flex: 1 1 auto;
+  color: #212529;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.product_app_status {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+}
+
+.product_app_item--yes .product_app_icon,
+.product_app_item--yes .product_app_status {
+  color: #3f8f2b;
+}
+
+/* Uygun olmayan kullanimlar listeyi domine etmesin diye soluk */
+
+.product_app_item--no .product_app_icon,
+.product_app_item--no .product_app_status {
+  color: #adb5bd;
+}
+
+.product_app_item--no .product_app_name {
+  color: #868e96;
+}
+
+.product_app_item--unknown .product_app_status {
+  color: #6c757d;
+  font-weight: normal;
+}
+
+/* Spesifikasyon ikonlari
+   data-bs-toggle="tooltip" hicbir yerde baslatilmadigi icin isimler hic
+   gorunmuyordu; basligi ikonun altina yaziyoruz. */
+
+.product_app_specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.product_app_spec {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  width: 88px;
+  padding: 0.5rem 0.25rem;
+  border: 1px solid #edf0f3;
+  border-radius: 10px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.product_app_spec:hover {
+  border-color: rgba(30, 88, 196, 0.35);
+  box-shadow: 0 2px 8px rgba(30, 88, 196, 0.1);
+}
+
+.product_app_spec img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.product_app_spec span {
+  color: #6c757d;
+  font-size: 11px;
+  line-height: 1.3;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+/* Test raporu bagi */
+
+.product_app_report {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid #e3e6ea;
+  border-radius: 10px;
+  color: #212529;
+  text-decoration: none;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.product_app_report:hover,
+.product_app_report:focus-visible {
+  border-color: rgba(30, 88, 196, 0.35);
+  background-color: rgba(30, 88, 196, 0.04);
+  color: #1e58c4;
+}
+
+.product_app_report img {
+  width: 72px;
+  height: auto;
+  flex: none;
+}
+
+.product_app_report_label {
+  flex: 1 1 auto;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+}
+
+.product_app_report_icon {
+  flex: none;
+  font-size: 1.75rem;
+  color: #1e58c4;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   URUN DETAY EBAT & FIYAT SEKMESI
+   Eskiden w-75 genisliginde ortali gri bir kutuydu; sekmedeki diger iki
+   listeyle hizalanmiyordu. Simdi ayni kunye duzeni.
+   ========================================================================== */
+
+.product_size {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.125rem;
+  border-bottom: 1px solid #edf0f3;
+  text-align: left;
+}
+
+.product_size_label {
+  color: #212529;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.product_size_price {
+  color: #212529;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* Fiyat gizliyken: dikkat ceken ama satiri ezmeyen kapsul buton */
+
+.product_size_cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  flex: none;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid rgba(30, 88, 196, 0.3);
+  border-radius: 999px;
+  background-color: rgba(30, 88, 196, 0.06);
+  color: #1e58c4;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.product_size_cta:hover,
+.product_size_cta:focus-visible {
+  background-color: #1e58c4;
+  border-color: #1e58c4;
+  color: #fff;
+}
+
+.product_size_cta i {
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   URUN DETAY EK FOTOGRAFLAR
+   Bootstrap col-sm-4 yerine kendi izgarasi: .customElement 19 dosyada
+   paylasildigi icin ona dokunmadan ayri siniflar tanimlandi.
+   Ust galeriyle ayni dil: 4/3 oran, yuvarlak kose, hover'da yakinlasma.
+   ========================================================================== */
+
+.product_photos {
+  display: grid;
+  /* Sabit 3 sutun yerine: sutun genisligi tabana oturur, sayisi kendi ayarlanir */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.625rem;
+}
+
+.product_photo {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  /* Eskiden 1px 1px 8px black vardi ve hover'da tamamen kayboluyordu */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  background-color: #f4f4f4;
+  transition: box-shadow 0.3s ease;
+}
+
+.product_photo:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.product_photo:focus-visible {
+  outline: 2px solid #1e58c4;
+  outline-offset: 2px;
+}
+
+.product_photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.product_photo:hover img {
+  transform: scale(1.06);
+}
+
+.product_photo_zoom {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  color: #fff;
+  font-size: 15px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.product_photo:hover .product_photo_zoom,
+.product_photo:focus-visible .product_photo_zoom {
+  opacity: 1;
+  background-color: #1e58c4;
+}
+
+@media (max-width: 575.98px) {
+  .product_photos {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.5rem;
+  }
+}
+
+/* ==========================================================================
+   NAVBAR (masaustu — mobil icin Navbarmobile.vue var)
+   Ayni navbar dil basina bir kez olmak uzere 5 kez kopyalanmisti (~1400
+   satir); tek bloga indirildi. Dil farki sadece logo adresi ve yazi
+   boyutuydu, ikisi de asagida degiskenlerle cozuluyor.
+   ========================================================================== */
+
+.site_header {
+  border-bottom: 1px solid #e9ecef;
+  background-color: #fff;
+}
+
+.site_header_inner {
+  gap: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.site_logo {
+  padding: 0;
+  margin: 0;
+  flex: none;
+}
+
+/* .logo_mekmar 300x62 sabitti; Navbarmobile de ayni sinifi kullandigi icin
+   global kurala dokunmadan sadece bu navbar icinde esnetiyoruz. */
+
+.site_logo .logo_mekmar {
+  width: auto;
+  height: 52px;
+  max-width: 100%;
+  margin: 0;
+}
+
+.site_nav_wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.site_nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* Eskiden dil basina el ile margin-left veriliyordu; gap isi kendi cozuyor */
+  gap: 0.125rem;
+  flex: 1 1 auto;
+}
+
+/* Arapca ve Kiril daha buyuk punto istiyordu — tek degisken */
+
+.site_nav--ar {
+  --nav-font: 17px;
+}
+
+.site_nav--fr,
+.site_nav--es,
+.site_nav--ru {
+  --nav-font: 13px;
+}
+
+.site_nav_link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.625rem;
+  color: #212529;
+  font-size: var(--nav-font, 14px);
+  font-weight: bold;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+/* Alt cizgi vurgusu, sekmelerdeki aktif cubukla ayni dil */
+
+.site_nav_link::after {
+  content: "";
+  position: absolute;
+  left: 0.625rem;
+  right: 0.625rem;
+  bottom: 0.125rem;
+  height: 2px;
+  border-radius: 2px;
+  background-color: #1e58c4;
+  transform: scaleX(0);
+  transition: transform 0.25s ease;
+}
+
+.site_nav_link:hover,
+.site_nav_link:focus-visible,
+.site_nav_link.router-link-exact-active {
+  color: #1e58c4;
+}
+
+.site_nav_link:hover::after,
+.site_nav_link:focus-visible::after,
+.site_nav_link.router-link-exact-active::after {
+  transform: scaleX(1);
+}
+
+/* Acilir menu oklari (Bootstrap .dropdown-toggle yerine) */
+
+.site_nav_link--toggle {
+  padding-right: 1.25rem;
+}
+
+.site_nav_link--toggle::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-70%) rotate(45deg);
+}
+
+/* --------------------------------------------------------------------------
+   Acilir menuler
+   -------------------------------------------------------------------------- */
+
+.site_menu,
+.site_mega {
+  margin-top: 0.375rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.site_menu {
+  min-width: 190px;
+}
+
+.site_menu li {
+  list-style: none;
+}
+
+.site_menu_link,
+.site_mega_link {
+  display: block;
+  padding: 0.375rem 0.625rem;
+  border-radius: 6px;
+  color: #212529;
+  font-size: 13px;
+  text-align: left;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.site_menu_link:hover,
+.site_menu_link:focus-visible,
+.site_mega_link:hover,
+.site_mega_link:focus-visible {
+  background-color: rgba(30, 88, 196, 0.07);
+  color: #1e58c4;
+}
+
+/* Urun mega menusu — eskiden sabit width:610px idi, dar ekranda tasiyordu.
+   display'i yalnizca .show durumunda veriyoruz: Bootstrap menuyu
+   display:none ile gizliyor, kosulsuz bir "display:grid" onu ezip menuyu
+   surekli acik birakir. Uc sinifla ozgullugu Bootstrap'in ustune cikariyoruz. */
+
+.dropdown-menu.site_mega.show {
+  display: grid;
+}
+
+.site_mega {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 0.5rem;
+  width: min(660px, 92vw);
+}
+
+.site_mega_col + .site_mega_col {
+  border-left: 1px solid #edf0f3;
+  padding-left: 0.5rem;
+}
+
+.site_mega_col ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site_mega_title {
+  margin: 0 0 0.375rem;
+  padding: 0 0.625rem 0.375rem;
+  border-bottom: 1px solid #edf0f3;
+  color: #1e58c4;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+/* --------------------------------------------------------------------------
+   Arama ve dil secimi
+   -------------------------------------------------------------------------- */
+
+.site_tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: none;
+}
+
+.site_search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.site_search_icon {
+  position: absolute;
+  left: 0.625rem;
+  color: #adb5bd;
+  font-size: 13px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.site_search .p-inputtext {
+  width: 160px;
+  padding: 0.375rem 0.625rem 0.375rem 2rem;
+  border: 1px solid #dee2e6;
+  border-radius: 999px;
+  background-color: #f8f9fa;
+  color: #212529;
+  font-size: 13px;
+  transition: width 0.25s ease, border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.site_search .p-inputtext:focus {
+  width: 210px;
+  border-color: #1e58c4;
+  background-color: #fff;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Yazarken acilan urun onerileri */
+
+.site_suggest {
+  position: absolute;
+  top: calc(100% + 0.375rem);
+  left: 0;
+  z-index: 1030;
+  width: max(320px, 100%);
+  max-width: 92vw;
+  padding: 0.375rem;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.site_suggest_group {
+  margin: 0;
+  padding: 0.375rem 0.625rem;
+  color: #6c757d;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-align: left;
+}
+
+.site_suggest_item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.375rem 0.625rem;
+  border-radius: 8px;
+  color: #212529;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.site_suggest_item img {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: #f4f4f4;
+}
+
+.site_suggest_item span {
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.site_suggest_item:hover,
+.site_suggest_item--active {
+  background-color: rgba(30, 88, 196, 0.07);
+  color: #1e58c4;
+}
+
+.site_suggest_all {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.5rem 0.625rem;
+  border: none;
+  border-top: 1px solid #edf0f3;
+  border-radius: 0 0 8px 8px;
+  background: transparent;
+  color: #1e58c4;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.site_suggest_all:hover {
+  background-color: rgba(30, 88, 196, 0.07);
+}
+
+.site_toggler {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+
+.site_toggler:focus {
+  box-shadow: none;
+  outline: 2px solid #1e58c4;
+  outline-offset: 2px;
+}
+
+/* Hamburger acildiginda (769-991px) menu dikey akar */
+
+@media (max-width: 991.98px) {
+  .site_nav_wrap {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .site_nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .site_nav_link {
+    padding: 0.5rem 0.25rem;
+  }
+
+  .site_nav_link::after {
+    left: 0.25rem;
+    right: auto;
+    width: 1.5rem;
+  }
+
+  .site_mega {
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .site_mega_col + .site_mega_col {
+    border-left: none;
+    border-top: 1px solid #edf0f3;
+    padding-left: 0;
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .site_search,
+  .site_search .p-inputtext {
+    width: 100%;
+  }
+
+  .site_search .p-inputtext:focus {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Sutun duzeni ve basliklar
+   .header ortali, altindaki metin sola hizali — tutarsizdi. Footer icinde
+   sola alip altina ince bir cizgi koyuyoruz.
+   -------------------------------------------------------------------------- */
+
+.footer-col .header {
+  text-align: left;
+  margin: 0 0 0.875rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #1e58c4;
+  display: inline-block;
+}
+
+.footer-col + .footer-col {
+  margin-top: 2rem;
+}
+
+@media (min-width: 576px) {
+  .footer-col + .footer-col {
+    margin-top: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Dil varyantlari
+   Eskiden 5 dil x 5 breakpoint = ~400 satir vardi, aralarindaki tek fark
+   line-height idi. Simdi tek kural + dil basina bir degisken.
+   -------------------------------------------------------------------------- */
+
+.about-description-en,
+.about-description-fr,
+.about-description-es,
+.about-description-ru,
+.about-description-ar,
+.about-value-en,
+.about-value-fr,
+.about-value-es,
+.about-value-ru,
+.about-value-ar {
+  font-size: 15px;
+  line-height: var(--footer-lh, 1.65);
+  /* Dar sutunlarda justify kelime aralarinda bosluk nehirleri olusturuyordu */
+  text-align: left;
+  margin: 0 0 0.75rem;
+  padding: 0;
+}
+
+.about-description-ru,
+.about-value-ru {
+  --footer-lh: 1.7;
+}
+
+.about-description-ar,
+.about-value-ar {
+  --footer-lh: 2;
+  text-align: right;
+  direction: rtl;
+}
+
+.footer_about_description {
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+/* --------------------------------------------------------------------------
+   About sutunu — deger listesi
+   -------------------------------------------------------------------------- */
+
+.footer-values {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.footer-values li {
+  position: relative;
+  padding-left: 1.125rem;
+  margin-bottom: 0.375rem;
+}
+
+/* Madde isareti yerine kucuk bir cizgi — serif metinle daha uyumlu */
+.footer-values li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 8px;
+  height: 1px;
+  background: #1e58c4;
+}
+
+/* Arapcada saga gec */
+.footer-values .about-value-ar {
+  padding-left: 0;
+  padding-right: 1.125rem;
+}
+
+.footer-values .about-value-ar::before {
+  left: auto;
+  right: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Sosyal ikonlar
+   Eskiden row/col-2 ile diziliyordu; alti gecince tasiyordu.
+   -------------------------------------------------------------------------- */
+
+.footer-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+}
+
+.footer-socials a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: #1357bc;
+  font-size: 18px;
+  text-decoration: none;
+  border: 1px solid #d7dee9;
+  border-radius: 4px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.footer-socials a:hover {
+  background: #1357bc;
+  border-color: #1357bc;
+  color: #fff;
+}
+
+.footer-socials a:focus-visible {
+  outline: 2px solid #1357bc;
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   News sutunu
+   Bootstrap row/col-4 yerine grid — bosluklar esit, gorseller hizali.
+   -------------------------------------------------------------------------- */
+
+.footer-news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.footer-news-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.footer-news-btn:focus-visible {
+  outline: 2px solid #1357bc;
+  outline-offset: 2px;
+}
+
+.footer-news-img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  margin: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  filter: grayscale(35%);
+  transition:
+    filter 0.3s ease,
+    transform 0.4s ease;
+}
+
+.footer-news-btn:hover .footer-news-img {
+  filter: grayscale(0);
+  transform: scale(1.05);
+}
+
+/* --------------------------------------------------------------------------
+   Personel kartlari
+   Eskiden float + sabit yukseklik (110px kapsayici, 130px ic grid) vardi;
+   cocuk ebeveynden tasiyordu. Simdi grid, yukseklik icerige gore.
+   -------------------------------------------------------------------------- */
+
+.personalContainer {
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.personalContainer:last-child {
+  margin-bottom: 0;
+}
+
+.personalContainerLimited {
+  width: 100%;
+}
+
+.personalCardGrid {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  align-items: stretch;
+  min-height: 130px;
+}
+
+.personalCardColumnOne {
+  width: auto;
+  height: auto;
+  float: none;
+  display: block;
+}
+
+.personalCardColumnOne > img {
+  width: 100%;
+  height: 100%;
+  min-height: 130px;
+  object-fit: cover;
+  border-radius: 0;
+  display: block;
+}
+
+.personalCardColumnTwo {
+  width: auto;
+  height: auto;
+  float: none;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.75rem 0.875rem;
+
+  /* Gradyan koyudan koyuya — yazi her noktada okunur kaliyor.
+     Eskisi sagda beyaza cikiyordu ve uzerindeki beyaz metin kayboluyordu. */
+  background: linear-gradient(90deg, #2a2a2d 0%, #4a4d52 100%);
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.personalName {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.personalJob {
+  color: #c9c9cc;
+  margin-bottom: 0.25rem;
+}
+
+.personalLink {
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+}
+
+.personalLink:hover .footer-span,
+.personalLink:focus-visible .footer-span {
+  text-decoration: underline;
+}
+
+.personalLink:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.personalIcon {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  display: block;
+}
+
+/* Eskiden color: black idi — koyu gradyan uzerinde okunmuyordu */
+.footer-span {
+  color: #fff;
+  padding-left: 6px;
+  word-break: break-word;
+}
+
+/* --------------------------------------------------------------------------
+   Galeri
+   -------------------------------------------------------------------------- */
+
+.gallery {
+  --s: 150px; /* boyut */
+  --g: 10px; /* bosluk */
+  --f: 1.5; /* buyutme carpani */
+
+  display: grid;
+  gap: var(--g);
+  width: calc(3 * var(--s) + 2 * var(--g));
+  aspect-ratio: 1;
+  grid-template-columns: repeat(3, auto);
+}
+
+.gallery > img {
+  width: 0;
+  height: 0;
+  min-height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  filter: grayscale(80%);
+  transition: 0.35s linear;
+}
+
+.gallery img:hover {
+  filter: grayscale(0);
+  width: calc(var(--s) * var(--f));
+  height: calc(var(--s) * var(--f));
+}
+
+.galleria-img {
+  width: 100%;
+  max-width: 900px;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Muhtelif
+   -------------------------------------------------------------------------- */
+
 .dropdown-item:active {
   background-color: #1357bc;
 }
+
 .logo_mekmar {
   width: 300px;
   height: 62px;
   margin: 0px auto;
   margin-top: 0px;
 }
-.footer-span {
-  color: black;
-  padding-left: 5px;
-}
-.footer-span:hover {
-  color: white;
-  text-decoration: none;
-}
-.categories-slide {
-}
+
 .categories-slide:hover {
   color: #1357bc;
 }
 
-.contact-personal:hover {
-  color: #1357bc;
-}
-
-.galleria-img {
-  width: 900px;
-  display: block;
-}
 .p-select-dropdown {
   display: none;
 }
 
+/* --------------------------------------------------------------------------
+   Mobil
+   -------------------------------------------------------------------------- */
+
 @media screen and (max-width: 576px) {
   .footer_about_description {
     font-size: 14px;
-    line-height: 100%;
   }
+
   .videosMain {
     display: block;
   }
@@ -835,20 +1574,59 @@
   .videosElement {
     width: 100%;
   }
+
   .carousel-custom {
     display: none;
   }
+
   .filter-custom {
     display: none;
   }
+
   .footer-news-img {
-    cursor: pointer;
-    width: 100px;
-    height: 100px;
-    margin-bottom: 10px;
+    height: 85px;
   }
-  .galleria-img {
-    width: 100%;
-    display: block;
+
+  .personalCardGrid {
+    grid-template-columns: 90px 1fr;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-img,
+  .product_detail_photo,
+  .customElement img,
+  .gallery > img,
+  .footer-socials a,
+  .footer-news-img {
+    transition: none;
+  }
+
+  .product-img:hover,
+  .product_detail_photo:hover {
+    scale: 1;
+  }
+
+  .footer-news-btn:hover .footer-news-img {
+    transform: none;
+  }
+
+  .customElement .card_title_3 {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   HARITA IFRAME'I (contact / about)
+   iframe width="600" sabitti; col-sm-6 daha dar oldugunda yanindaki formun
+   ustune tasiyordu. Kolon genisligine sigdir, 600x450 oranini koru.
+   ========================================================================== */
+
+figure.image.is-16by9 iframe {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
 }

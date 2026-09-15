@@ -1,85 +1,92 @@
 <template>
+  <!-- How It Works: tam genislik, row'un disinda -->
+
   <div class="row m-auto">
+    <div class="col-sm-12">
+      <SharedHowItWorks />
+      <SharedTrustBar />
+    </div>
     <div class="col-sm-3 mt-0 filter-custom">
-      <div class="customContainer mb-2">
-        <a :href="usastock.link">
-          <div class="customElement">
-            <img :src="usastock.img" :alt="usastock.alt" />
-            <div class="card_title_3" style="font-size: 14px">
-              {{ usastock.name }}
-            </div>
-          </div>
-        </a>
+      <div class="mb-3">
+        <CategoriesCard
+          :link="usastock.link"
+          :image="usastock.img"
+          :text="usastock.name"
+          ratio="1/1"
+          loading="eager"
+        />
       </div>
-      <div class="customContainer mb-2">
-        <a href="/es/catalog" target="_blank">
-          <div class="customElement">
-            <img
-              src="/image/online-catalog-main-photo-mekmar.webp"
-              alt="online-catalog"
-              loading="lazy"
-            />
-            <div class="card_title" style="font-size: 18px">
-              CATÁLOGO EN LÍNEA
-            </div>
-          </div>
-        </a>
+
+      <div class="mb-3">
+        <CategoriesCard
+          link="/es/catalog"
+          image="/image/online-catalog-main-photo-mekmar.webp"
+          text="CATÁLOGO EN LÍNEA"
+          ratio="1/1"
+          loading="eager"
+          new-tab
+        />
       </div>
-      <!-- <CategoriesSlides :slides="slides.slide3" /> -->
 
       <CategoriesSlides :slides="slides.slide1" />
       <CategoriesSlides :slides="slides.slide2" />
     </div>
+
     <div class="col-sm-9">
       <div class="row m-auto">
-        <div class="col-sm-4" v-for="category of categories" :key="category.id">
-          <CategoriesCard
+        <div
+          v-for="(category, i) of categories"
+          :key="category.id"
+          class="col-sm-4 mb-4"
+        >
+          <LazyCategoriesCard
             :link="category.link"
             :image="category.image"
             :text="category.name"
+            :loading="i < 3 ? 'eager' : 'lazy'"
+            ratio="1/1"
           />
         </div>
       </div>
     </div>
   </div>
+
   <!-- <SharedPopUp v-show="isVisible" v-if="session != 'false' && !isMobile" />
   <SharedPopUpMobile v-show="isVisible" v-if="session != 'false' && isMobile" /> -->
+  <SharedWhatsappFloat />
 </template>
+
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref } from "vue";
 import { useStore } from "~/store/index";
+
 const store = useStore();
 const categories = store.getCategories;
 const slides = store.getSlides;
 const usastock = store.getUsaStockMainMenu;
 
-/*Session and Banner */
-// const session = sessionStorage.getItem("modal_section_visible");
-// if (session == "false") {
-//   sessionStorage.setItem("modal_section_visible", "false");
-// }
-let isVisible = ref(true);
-let isMobile = ref(false);
-const handleKeydown = (event: any) => {
-  // Basılan tuşun 'Escape' (ESC) olup olmadığını kontrol edin
+/* --- Pop-up durumu (su an template'te kapali) --- */
+const isVisible = ref(true);
+const isMobile = ref(false);
+
+const closeModal = () => {
+  isVisible.value = false;
+  sessionStorage.setItem("modal_section_visible", "false");
+};
+
+const handleKeydown = (event: KeyboardEvent) => {
   if (event.key === "Escape") {
     closeModal();
   }
 };
-const closeModal = () => {
-  // Yalnızca modal açıksa kapatma olayını gönderin
-  isVisible.value = false;
-  // cookie.value = "false";
-  sessionStorage.setItem("modal_section_visible", "false");
-};
+
 onMounted(() => {
+  // SSR ile istemci ciktisinin ayrismamasi icin mount sonrasina alindi.
+  isMobile.value = window.innerWidth <= 768;
   document.addEventListener("keydown", handleKeydown);
 });
+
 onUnmounted(() => {
   document.removeEventListener("keydown", handleKeydown);
 });
-
-if (process.client) {
-  isMobile.value = window.innerWidth <= 768 ? true : false;
-}
-/*Session and Banner */
 </script>

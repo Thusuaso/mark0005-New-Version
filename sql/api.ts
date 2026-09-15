@@ -1,15 +1,24 @@
-import mssql from 'mssql';
+import mssql from "mssql";
 
-const sql = {
-    user:'userEC52E044DE',
-    password:'POlb33D8PQlo68S',
-    database:'Yeni_Mekmar_DB',
-    server:'94.73.151.2',
-    options: {
-        encrypt: false, // for azure
-        trustServerCertificate: false // change to true for local dev / self-signed certs
-      }
+const required = (key: string): string => {
+  const value = process.env[key];
+  if (!value) {
+    throw new Error(`Eksik ortam değişkeni: ${key}`);
+  }
+  return value;
 };
-const api = mssql.connect(sql);
+
+const config: mssql.config = {
+  user: required("DB_USER"),
+  password: required("DB_PASSWORD"),
+  database: required("DB_NAME"),
+  server: required("DB_SERVER"),
+  options: {
+    encrypt: false,
+    trustServerCertificate: false,
+  },
+};
+
+const api = mssql.connect(config);
 
 export default api;

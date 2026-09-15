@@ -9,14 +9,10 @@
     "videos": "ВИДЕО",
     "project": "ПРОЕКТЫ",
     "catalog": "КАТАЛОГ",
-    "usa": "АКЦИИ США",
     "categories": "КАТЕГОРИИ",
     "colors": "ЦВЕТА",
     "areas": "ОБЛАСТИ",
-    "usaabout": "О",
-    "usafaq": "FAQ",
-    "usacontact": "КОНТАКТ",
-    "usastock": "ЗАПАС",
+
     "faq": "Чзв"
   },
   "navbar_link": {
@@ -230,16 +226,6 @@
           "webp": "/image/personel/ozlem-yeni-2.webp",
           "id": 2,
           "watsappLink": "https://web.whatsapp.com/send?phone=905426608085"
-        },
-        {
-          "name": "Hakan",
-          "job": "специалист по продажам",
-          "email": "export2@mekmar.com",
-          "whatsapp": "+90 542 660 8084",
-          "image": "/image/personel/hakan-yeni.webp",
-          "webp": "/image/personel/hakan-yeni.webp",
-          "id": 3,
-          "watsappLink": "https://web.whatsapp.com/send?phone=905426608084"
         }
       ]
     }
@@ -504,17 +490,6 @@
         "webp": "https://cdn.mekmarimage.com/personel/250x250/ozlem-yeni-2.webp",
         "id": 2,
         "watsappLink": "https://web.whatsapp.com/send?phone=905426608085"
-      },
-      {
-        "name": "Hakan",
-        "job": "специалист по продажам",
-        "email": "export2@mekmar.com",
-        "email2": "",
-        "whatsapp": "+90 542 660 8084",
-        "image": "https://cdn.mekmarimage.com/personel/250x250/hakan-yeni.webp",
-        "webp": "https://cdn.mekmarimage.com/personel/250x250/hakan-yeni.webp",
-        "id": 3,
-        "watsappLink": "https://web.whatsapp.com/send?phone=905426608084"
       }
     ],
     "form": {

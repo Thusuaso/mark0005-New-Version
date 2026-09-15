@@ -1,0 +1,184 @@
+/* Site geneli bildirimler (vue-toast-notification uzerine ozel tema) */
+
+.v-toast {
+  padding: 1.25rem;
+  z-index: 2000; /* bootstrap modalinin (1055) ustunde kalsin */
+}
+
+.v-toast__item {
+  position: relative;
+  width: 380px;
+  max-width: calc(100vw - 2rem);
+  min-height: 0;
+  margin: 0 0 0.625rem;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff !important;
+  color: #111827 !important;
+  opacity: 1;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14), 0 2px 6px rgba(15, 23, 42, 0.06);
+  animation-duration: 260ms;
+}
+
+.v-toast__icon {
+  display: none !important;
+}
+
+.v-toast__text {
+  width: 100%;
+  margin: 0;
+  padding: 0 !important;
+}
+
+.mk-toast {
+  --mk-accent: #1e58c4;
+  --mk-accent-soft: rgba(30, 88, 196, 0.1);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.95rem 2.5rem 1.05rem 1rem;
+  border-inline-start: 4px solid var(--mk-accent);
+  font-family: inherit;
+  text-align: start;
+}
+
+.mk-toast[dir="rtl"] {
+  padding: 0.95rem 1rem 1.05rem 2.5rem;
+}
+
+.v-toast__item--success .mk-toast {
+  --mk-accent: #16a34a;
+  --mk-accent-soft: rgba(22, 163, 74, 0.12);
+}
+
+.v-toast__item--error .mk-toast {
+  --mk-accent: #dc2626;
+  --mk-accent-soft: rgba(220, 38, 38, 0.1);
+}
+
+.v-toast__item--warning .mk-toast {
+  --mk-accent: #d97706;
+  --mk-accent-soft: rgba(217, 119, 6, 0.12);
+}
+
+.mk-toast__icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--mk-accent-soft);
+  color: var(--mk-accent);
+  font-size: 1.05rem;
+}
+
+.mk-toast__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  padding-top: 0.1rem;
+}
+
+.mk-toast__title {
+  color: #111827;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.mk-toast__text {
+  color: #4b5563;
+  font-size: 13px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.mk-toast__title + .mk-toast__text {
+  color: #6b7280;
+}
+
+.mk-toast__text a {
+  color: var(--mk-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.mk-toast__close {
+  position: absolute;
+  top: 0.55rem;
+  inset-inline-end: 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  color: #9ca3af;
+  font-size: 1.15rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.v-toast__item:hover .mk-toast__close {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* Kalan sureyi gosteren ince cubuk; uzerine gelince durur */
+.mk-toast__progress {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--mk-accent);
+  opacity: 0.35;
+  transform-origin: left;
+  animation-name: mk-toast-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.mk-toast[dir="rtl"] .mk-toast__progress {
+  transform-origin: right;
+}
+
+.v-toast__item:hover .mk-toast__progress {
+  animation-play-state: paused;
+}
+
+@keyframes mk-toast-progress {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .v-toast {
+    padding: 0.75rem !important;
+  }
+
+  .v-toast__item {
+    width: 100%;
+    max-width: 100%;
+    align-self: center !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v-toast__item {
+    animation-duration: 1ms;
+  }
+
+  .mk-toast__progress {
+    display: none;
+  }
+}

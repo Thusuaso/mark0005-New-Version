@@ -44,21 +44,9 @@
           <SharedLangDropdown />
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <InputText
-              v-model="search"
-              v-if="!usa_link_status"
-              :placeholder="search_placeholder"
-              @keydown.prevent.enter="searchInput($event)"
-              @blur="searchInput($event)"
-              class="text-dark bg-light search_custom"
-            />
-            <InputText
-              v-model="search_usa"
-              v-else
-              :placeholder="usa_search.usa_search"
-              @keydown.prevent.enter="searchInputUsa($event)"
-              @blur="searchInputUsa($event)"
-              class="text-dark bg-light search_custom"
+            <SharedSearchBox
+              :key="String(usa_link_status)"
+              :usa="usa_link_status"
             />
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -87,47 +75,32 @@
                   {{ navbar.product }}
                 </a>
 
-                <ul class="dropdown-menu">
-                  <div class="row m-auto text-center" style="width: 610px">
-                    <div class="col-4" style="border-right: 1px solid gray">
-                      <h3 class="header border-bottom">
-                        {{ navbar.categories }}
-                      </h3>
+                <div class="dropdown-menu site_mega">
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.categories }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.categories" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                    <div class="col-4" style="border-right: 1px solid gray">
-                      <h3 class="header border-bottom">{{ navbar.colors }}</h3>
-
+                    </ul>
+                  </section>
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.colors }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.colors" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                    <div class="col-4">
-                      <h3 class="header border-bottom" c>{{ navbar.areas }}</h3>
-
+                    </ul>
+                  </section>
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.areas }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.areas" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                  </div>
-                </ul>
+                    </ul>
+                  </section>
+                </div>
               </li>
               <li class="nav-item dropdown custom_navbar_css_en">
                 <a
@@ -333,21 +306,9 @@
           >
           <SharedLangDropdown />
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <InputText
-              v-model="search"
-              v-if="!usa_link_status"
-              :placeholder="search_placeholder"
-              @keydown.prevent.enter="searchInput($event)"
-              @blur="searchInput($event)"
-              class="text-dark bg-light search_custom"
-            />
-            <InputText
-              v-model="search_usa"
-              v-else
-              :placeholder="usa_search.usa_search"
-              @keydown.prevent.enter="searchInputUsa($event)"
-              @blur="searchInputUsa($event)"
-              class="text-dark bg-light search_custom"
+            <SharedSearchBox
+              :key="String(usa_link_status)"
+              :usa="usa_link_status"
             />
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -376,47 +337,32 @@
                   {{ navbar.product }}
                 </a>
 
-                <ul class="dropdown-menu">
-                  <div class="row m-auto text-center" style="width: 610px">
-                    <div class="col-4" style="border-right: 1px solid gray">
-                      <h3 class="header border-bottom">
-                        {{ navbar.categories }}
-                      </h3>
+                <div class="dropdown-menu site_mega">
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.categories }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.categories" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                    <div class="col-4" style="border-right: 1px solid gray">
-                      <h3 class="header border-bottom">{{ navbar.colors }}</h3>
-
+                    </ul>
+                  </section>
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.colors }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.colors" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                    <div class="col-4">
-                      <h3 class="header border-bottom" c>{{ navbar.areas }}</h3>
-
+                    </ul>
+                  </section>
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.areas }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.areas" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                  </div>
-                </ul>
+                    </ul>
+                  </section>
+                </div>
               </li>
               <li class="nav-item dropdown custom_navbar_css_fr">
                 <a
@@ -623,21 +569,9 @@
           >
           <SharedLangDropdown />
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <InputText
-              v-model="search"
-              v-if="!usa_link_status"
-              :placeholder="search_placeholder"
-              @keydown.prevent.enter="searchInput($event)"
-              @blur="searchInput($event)"
-              class="text-dark bg-light search_custom"
-            />
-            <InputText
-              v-model="search_usa"
-              v-else
-              :placeholder="usa_search.usa_search"
-              @keydown.prevent.enter="searchInputUsa($event)"
-              @blur="searchInputUsa($event)"
-              class="text-dark bg-light search_custom"
+            <SharedSearchBox
+              :key="String(usa_link_status)"
+              :usa="usa_link_status"
             />
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -666,47 +600,32 @@
                   {{ navbar.product }}
                 </a>
 
-                <ul class="dropdown-menu">
-                  <div class="row m-auto text-center" style="width: 610px">
-                    <div class="col-4" style="border-right: 1px solid gray">
-                      <h3 class="header border-bottom">
-                        {{ navbar.categories }}
-                      </h3>
+                <div class="dropdown-menu site_mega">
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.categories }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.categories" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                    <div class="col-4" style="border-right: 1px solid gray">
-                      <h3 class="header border-bottom">{{ navbar.colors }}</h3>
-
+                    </ul>
+                  </section>
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.colors }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.colors" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                    <div class="col-4">
-                      <h3 class="header border-bottom" c>{{ navbar.areas }}</h3>
-
+                    </ul>
+                  </section>
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.areas }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.areas" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                  </div>
-                </ul>
+                    </ul>
+                  </section>
+                </div>
               </li>
               <li class="nav-item dropdown custom_navbar_css_es">
                 <a
@@ -913,21 +832,9 @@
           >
           <SharedLangDropdown />
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <InputText
-              v-model="search"
-              v-if="!usa_link_status"
-              :placeholder="search_placeholder"
-              @keydown.prevent.enter="searchInput($event)"
-              @blur="searchInput($event)"
-              class="text-dark bg-light search_custom"
-            />
-            <InputText
-              v-model="search_usa"
-              v-else
-              :placeholder="usa_search.usa_search"
-              @keydown.prevent.enter="searchInputUsa($event)"
-              @blur="searchInputUsa($event)"
-              class="text-dark bg-light search_custom"
+            <SharedSearchBox
+              :key="String(usa_link_status)"
+              :usa="usa_link_status"
             />
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -956,47 +863,32 @@
                   {{ navbar.product }}
                 </a>
 
-                <ul class="dropdown-menu">
-                  <div class="row m-auto text-center" style="width: 610px">
-                    <div class="col-4" style="border-right: 1px solid gray">
-                      <h3 class="header border-bottom">
-                        {{ navbar.categories }}
-                      </h3>
+                <div class="dropdown-menu site_mega">
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.categories }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.categories" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                    <div class="col-4" style="border-right: 1px solid gray">
-                      <h3 class="header border-bottom">{{ navbar.colors }}</h3>
-
+                    </ul>
+                  </section>
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.colors }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.colors" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                    <div class="col-4">
-                      <h3 class="header border-bottom" c>{{ navbar.areas }}</h3>
-
+                    </ul>
+                  </section>
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.areas }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.areas" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                  </div>
-                </ul>
+                    </ul>
+                  </section>
+                </div>
               </li>
               <li class="nav-item dropdown custom_navbar_css_ru">
                 <a
@@ -1207,21 +1099,9 @@
           >
           <SharedLangDropdown />
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <InputText
-              v-model="search"
-              v-if="!usa_link_status"
-              :placeholder="search_placeholder"
-              @keydown.prevent.enter="searchInput($event)"
-              @blur="searchInput($event)"
-              class="text-dark bg-light search_custom"
-            />
-            <InputText
-              v-model="search_usa"
-              v-else
-              :placeholder="usa_search.usa_search"
-              @keydown.prevent.enter="searchInputUsa($event)"
-              @blur="searchInputUsa($event)"
-              class="text-dark bg-light search_custom"
+            <SharedSearchBox
+              :key="String(usa_link_status)"
+              :usa="usa_link_status"
             />
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -1250,47 +1130,32 @@
                   {{ navbar.product }}
                 </a>
 
-                <ul class="dropdown-menu">
-                  <div class="row m-auto text-center" style="width: 610px">
-                    <div class="col-4" style="border-right: 1px solid gray">
-                      <h3 class="header border-bottom">
-                        {{ navbar.categories }}
-                      </h3>
+                <div class="dropdown-menu site_mega">
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.categories }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.categories" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                    <div class="col-4" style="border-right: 1px solid gray">
-                      <h3 class="header border-bottom">{{ navbar.colors }}</h3>
-
+                    </ul>
+                  </section>
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.colors }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.colors" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                    <div class="col-4">
-                      <h3 class="header border-bottom" c>{{ navbar.areas }}</h3>
-
+                    </ul>
+                  </section>
+                  <section class="site_mega_col">
+                    <h3 class="site_mega_title">{{ navbar.areas }}</h3>
+                    <ul>
                       <li v-for="item in navbar_link.areas" :key="item.id">
-                        <NuxtLink
-                          class="dropdown-item"
-                          tag="a"
-                          :to="item.link"
-                          >{{ item.title }}</NuxtLink
-                        >
+                        <NuxtLink class="site_mega_link" :to="item.link">{{ item.title }}</NuxtLink>
                       </li>
-                    </div>
-                  </div>
-                </ul>
+                    </ul>
+                  </section>
+                </div>
               </li>
               <li class="nav-item dropdown custom_navbar_css_ar">
                 <a
@@ -1462,7 +1327,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "~/store/index";
 const props = defineProps({
   navbar: {
@@ -1520,62 +1385,12 @@ langs.value.forEach((x) => {
   }
 });
 
-const search = ref("");
-const search_usa = ref("");
+/* Arama girdisi ve onerileri SharedSearchBox icinde; burada sadece
+   /usa altinda olup olmadigimizi gecmemiz yeterli. */
 const router = useRouter();
-const searchInput = (event: any) => {
-  const search_link = store.getSearchLink;
-  let search_word = "";
-  if (
-    event.target._value == "" ||
-    event.target._value == " " ||
-    event.target._value == undefined ||
-    event.target._value == null
-  ) {
-    router.push("/");
-  } else {
-    search_word = event.target._value.trimStart().replaceAll(" ", "_");
-    router.push(search_link + search_word);
-  }
-};
-const search_placeholder = store.getSearch;
-let usa_link_status = ref(false);
-const usa_search = store.getUsaSearch;
-watch(
-  () => router.currentRoute.value.fullPath,
-  () => {
-    let link = router.currentRoute.value.fullPath;
-    link = link.split("/")[1];
-    if (link == "usa") {
-      usa_link_status.value = true;
-    } else {
-      usa_link_status.value = false;
-    }
-  }
+const usa_link_status = computed(
+  () => router.currentRoute.value.fullPath.split("/")[1] === "usa"
 );
-let link = router.currentRoute.value.fullPath;
-link = link.split("/")[1];
-if (link == "usa") {
-  usa_link_status.value = true;
-} else {
-  usa_link_status.value = false;
-}
-const test = "";
-const searchInputUsa = (event: any) => {
-  const search_link = store.getUsaSearch.usa_search_link;
-  let search_word = "";
-  if (
-    event.target._value == "" ||
-    event.target._value == " " ||
-    event.target._value == undefined ||
-    event.target._value == null
-  ) {
-    router.push("/usa/stock");
-  } else {
-    search_word = event.target._value.trimStart().replaceAll(" ", "_");
-    router.push(search_link + search_word);
-  }
-};
 </script>
 <style scoped>
 @font-face {

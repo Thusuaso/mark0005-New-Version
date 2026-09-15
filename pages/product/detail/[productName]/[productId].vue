@@ -18,11 +18,13 @@
             <ProductsDetailGalleries :photos="photos" />
         </div>
         <div class="col-sm-6 first">
-            <MazTabs >
-                <MazTabsBar :items="tabs" style="box-shadow: 2px 2px 2px gray;font-size: 14px;"/>
-
-                <MazTabsContent>
-                    <MazTabsContentItem :tab="1" class="maz-py-5">
+            <Tabs value="1" class="product_tabs">
+                <TabList>
+                    <Tab v-for="(tab, index) in tabs" :key="tab.label" :value="String(index + 1)"
+                        :disabled="tab.disabled">{{ tab.label }}</Tab>
+                </TabList>
+                <TabPanels>
+                    <TabPanel value="1">
                         <ProductsDetailDescription :desc="detail.desc" :hash="controlString_2(detail.hash)"
                             :category="controlString(detail.category)" :stone="controlString(detail.stone)"
                             :code="controlString(detail.urunkod)" :desc_header="product.description"
@@ -30,21 +32,20 @@
                             :stone_header="product.tab_1_stonetype" :country_header="product.tab_1_country"
                             :variation_header="product.tab_1_varitaion" :country="'TURKEY'"
                             :variation="controlString(variation)" />
-                    </MazTabsContentItem>
-                    <MazTabsContentItem :tab="2" class="maz-py-5">
+                    </TabPanel>
+                    <TabPanel value="2">
                         <ProductsDetailApplication :application="application" :specification="specification"
                             :specification_header="product?.specification"
                             :test_report_header="product?.tab_2_test_report" :test_report="detail?.testrapor" />
-                    </MazTabsContentItem>
-                    <MazTabsContentItem :tab="3" class="maz-py-5">
-                        <div class=" m-auto text-center">
+                    </TabPanel>
+                    <TabPanel value="3">
+                        <div class="m-auto text-center">
                             <ProductsDetailSize v-for="size in sizes" :key="size" :size="size.ebat" :unit="detail.birim"
                                 :price="size.fiyat" />
-
                         </div>
-                    </MazTabsContentItem>
-                </MazTabsContent>
-            </MazTabs>
+                    </TabPanel>
+                </TabPanels>
+            </Tabs>
         </div>
     </div>
     <hr/>

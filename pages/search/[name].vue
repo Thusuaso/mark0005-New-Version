@@ -1,6 +1,4 @@
 <template>
-  <NuxtLoadingIndicator color="black" :height="5" />
-
   <div class="row m-auto text-center">
     <div class="col-sm-3 customFilter">
       <h1 class="header mt-3">CATEGORIES</h1>
@@ -32,9 +30,7 @@
       <div v-else>No Result</div>
     </div>
   </div>
-  <div>
-    <UsaSearch v-if="usa" :usa="usa" />
-  </div>
+  <div></div>
 </template>
 <script setup lang="ts">
 const { start, set, clear } = useLoadingIndicator();
@@ -48,19 +44,19 @@ const router = useRouter();
 await $fetch("/api/search/" + router.currentRoute._value.params.name).then(
   async (res) => {
     await store.setSearchProductList(res);
-  }
+  },
 );
 const usa = await $fetch(
-  `/api/usa/search/${router.currentRoute._value.params.name}`
+  `/api/usa/search/${router.currentRoute._value.params.name}`,
 );
 
 const products = control.lang_category_products(
   store.getSearchProducts.products,
-  store.getLang
+  store.getLang,
 );
 const categories_f = control.lang_filter(
   store.getSearchProducts.categories_f,
-  store.getLang
+  store.getLang,
 );
 set(100);
 clear();
