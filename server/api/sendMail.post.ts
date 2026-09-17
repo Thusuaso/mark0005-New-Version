@@ -2,6 +2,18 @@
    Outlook / Gmail / Apple Mail'de tutarli gorunmesi icin. */
 
 const CONTACT_TO = "export@mekmar.com";
+const SITE_URL = "https://www.mekmar.com";
+
+/* Istemciden gelen adresin sadece yolunu al; localhost vb. yerine her zaman canli alan adi */
+function toSiteUrl(raw: string) {
+  if (!raw) return "";
+  try {
+    const u = new URL(raw, SITE_URL);
+    return `${SITE_URL}${u.pathname}${u.search}`;
+  } catch {
+    return "";
+  }
+}
 
 const clean = (v: unknown) => escapeHtml(String(v ?? "").trim());
 
@@ -30,8 +42,8 @@ function buildContactEmail(body: any) {
   const productCode = clean(p?.code);
   const productSize = clean(p?.size);
   const productUnit = clean(p?.unit);
-  const rawUrl = String(p?.url ?? "").trim();
-  const productUrl = /^https?:\/\//i.test(rawUrl) ? clean(rawUrl) : "";
+  const rawUrl = toSiteUrl(String(p?.url ?? "").trim());
+  const productUrl = clean(rawUrl);
   const hasProduct = Boolean(productName || productCode || productSize);
   const productRow = (text: string, html: string) =>
     html

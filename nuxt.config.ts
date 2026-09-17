@@ -46,10 +46,7 @@ export default defineNuxtConfig({
   nitro: {
     preset: process.env.VERCEL ? undefined : "node-server",
     prerender: {
-      // crawlLinks: true,
-      routes: ["/", "sitemap.xml"],
-      // routes: ['/'],
-
+      routes: ["/"],
       failOnError: false,
     },
   },
