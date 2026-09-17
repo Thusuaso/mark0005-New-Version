@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
     return { ok: false, error: "not_found" };
   }
 
-  const created = createLoginCode(email);
+  const created = createLoginCode(event, email);
   if ("retryAfter" in created) {
     return { ok: false, error: "cooldown", retryAfter: created.retryAfter };
   }

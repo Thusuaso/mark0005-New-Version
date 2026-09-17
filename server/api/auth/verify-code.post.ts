@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     return { ok: false, error: "invalid" };
   }
 
-  const status = verifyLoginCode(email, code);
+  const status = verifyLoginCode(event, email, code);
   if (status !== "ok") {
     return { ok: false, error: status };
   }
