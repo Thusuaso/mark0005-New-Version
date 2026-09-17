@@ -6,33 +6,7 @@
       <SharedHowItWorks />
       <SharedTrustBar />
     </div>
-    <div class="col-sm-3 mt-0 filter-custom">
-      <div class="mb-3">
-        <CategoriesCard
-          :link="usastock.link"
-          :image="usastock.img"
-          :text="usastock.name"
-          ratio="1/1"
-          loading="eager"
-        />
-      </div>
-
-      <div class="mb-3">
-        <CategoriesCard
-          link="/es/catalog"
-          image="/image/online-catalog-main-photo-mekmar.webp"
-          text="CATÁLOGO EN LÍNEA"
-          ratio="1/1"
-          loading="eager"
-          new-tab
-        />
-      </div>
-
-      <CategoriesSlides :slides="slides.slide1" />
-      <CategoriesSlides :slides="slides.slide2" />
-    </div>
-
-    <div class="col-sm-9">
+    <div class="col-sm-12">
       <div class="row m-auto">
         <div
           v-for="(category, i) of categories"

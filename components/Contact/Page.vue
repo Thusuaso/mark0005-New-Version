@@ -7,11 +7,11 @@
       <p class="ct_subtitle">{{ t.subtitle }}</p>
 
       <div class="ct_quick">
-        <a :href="`mailto:${MAIN_EMAIL}`" class="ct_quick_btn">
+        <a v-for="mail in EMAILS" :key="mail" :href="`mailto:${mail}`" class="ct_quick_btn">
           <span class="ct_quick_icon"><i class="bi-envelope" aria-hidden="true"></i></span>
           <span class="ct_quick_body">
             <span class="ct_quick_label">{{ t.email_us }}</span>
-            <span class="ct_quick_value" dir="ltr">{{ MAIN_EMAIL }}</span>
+            <span class="ct_quick_value" dir="ltr">{{ mail }}</span>
           </span>
         </a>
         <a v-if="primary" :href="waLink(primary)" target="_blank" rel="noopener" class="ct_quick_btn ct_quick_btn--wa">
@@ -37,35 +37,8 @@
         <ContactForm :form="contact.form" />
       </section>
 
-      <!-- Ekip + ofis -->
+      <!-- Ofis -->
       <aside class="ct_side">
-        <section class="ct_card">
-          <h2 class="ct_h2 ct_h2--sm">{{ t.team_title }}</h2>
-          <ul class="ct_team">
-            <li v-for="p in team" :key="p.id ?? p.name" class="ct_person">
-              <img :src="p.image" :alt="p.name" class="ct_person_img" loading="lazy" />
-              <div class="ct_person_body">
-                <strong class="ct_person_name">{{ p.name }}</strong>
-                <span class="ct_person_job">{{ p.job }}</span>
-                <div class="ct_person_links">
-                  <a
-                    v-for="mail in [p.email, p.email2].filter(Boolean)"
-                    :key="mail"
-                    :href="`mailto:${mail}`"
-                    class="ct_chip"
-                    dir="ltr"
-                  >
-                    <i class="bi-envelope" aria-hidden="true"></i>{{ mail }}
-                  </a>
-                  <a v-if="p.whatsapp" :href="waLink(p)" target="_blank" rel="noopener" class="ct_chip ct_chip--wa" dir="ltr">
-                    <i class="bi-whatsapp" aria-hidden="true"></i>{{ p.whatsapp }}
-                  </a>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </section>
-
         <section class="ct_card ct_office">
           <div class="ct_map">
             <iframe
@@ -106,7 +79,7 @@ import { useStore } from "~/store/index";
 
 type Lang = "en" | "fr" | "es" | "ru" | "ar";
 
-const MAIN_EMAIL = "export@mekmar.com";
+const EMAILS = ["export@mekmar.com", "export1@mekmar.com"];
 const MAP_EMBED =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3152.041530640287!2d29.152639399999998!3d37.8124962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c7166da9d086c3%3A0x18ebec808bb03a9!2sMekmar!5e0!3m2!1str!2str!4v1766650735033!5m2!1str!2str";
 const MAP_DIRECTIONS = "https://www.google.com/maps/dir/?api=1&destination=37.8124962,29.1526394";
@@ -120,7 +93,6 @@ const texts: Record<
     email_us: string;
     form_title: string;
     form_text: string;
-    team_title: string;
     office_title: string;
     office_location: string;
     directions: string;
@@ -135,7 +107,6 @@ const texts: Record<
     email_us: "Email us",
     form_title: "Send us a message",
     form_text: "Fill in the form and our sales team will get back to you by email.",
-    team_title: "Our sales team",
     office_title: "Head office",
     office_location: "Denizli, Turkey",
     directions: "Get directions",
@@ -150,7 +121,6 @@ const texts: Record<
     email_us: "Écrivez-nous",
     form_title: "Envoyez-nous un message",
     form_text: "Remplissez le formulaire, notre équipe commerciale vous répondra par e-mail.",
-    team_title: "Notre équipe commerciale",
     office_title: "Siège social",
     office_location: "Denizli, Turquie",
     directions: "Itinéraire",
@@ -165,7 +135,6 @@ const texts: Record<
     email_us: "Escríbanos",
     form_title: "Envíenos un mensaje",
     form_text: "Complete el formulario y nuestro equipo de ventas le responderá por correo.",
-    team_title: "Nuestro equipo de ventas",
     office_title: "Oficina central",
     office_location: "Denizli, Turquía",
     directions: "Cómo llegar",
@@ -180,7 +149,6 @@ const texts: Record<
     email_us: "Напишите нам",
     form_title: "Отправьте сообщение",
     form_text: "Заполните форму, и наш отдел продаж ответит вам по электронной почте.",
-    team_title: "Отдел продаж",
     office_title: "Головной офис",
     office_location: "Денизли, Турция",
     directions: "Проложить маршрут",
@@ -194,7 +162,6 @@ const texts: Record<
     email_us: "راسلنا",
     form_title: "أرسل لنا رسالة",
     form_text: "املأ النموذج وسيرد عليك فريق المبيعات عبر البريد الإلكتروني.",
-    team_title: "فريق المبيعات",
     office_title: "المكتب الرئيسي",
     office_location: "دنيزلي، تركيا",
     directions: "الاتجاهات",
@@ -417,102 +384,6 @@ function waLink(p: any) {
   gap: 1.25rem;
 }
 
-/* Ekip */
-.ct_team {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-  margin: 1rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.ct_person {
-  display: flex;
-  gap: 0.9rem;
-}
-
-.ct_person + .ct_person {
-  padding-top: 0.9rem;
-  border-top: 1px solid var(--ct-line);
-}
-
-.ct_person_img {
-  flex: none;
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 0 0 3px #fff, 0 0 0 4px #dbe4f5;
-}
-
-.ct_person_body {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.ct_person_name {
-  color: var(--ct-ink);
-  font-size: 15.5px;
-}
-
-.ct_person_job {
-  color: var(--ct-muted);
-  font-size: 13px;
-}
-
-.ct_person_links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.55rem;
-}
-
-.ct_chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  max-width: 100%;
-  padding: 0.3rem 0.65rem;
-  border: 1px solid #dbe4f5;
-  border-radius: 999px;
-  background: #f5f8ff;
-  color: #1f2937;
-  font-size: 12.5px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-}
-
-.ct_chip i {
-  color: var(--ct-accent);
-}
-
-.ct_chip:hover {
-  border-color: var(--ct-accent);
-  background: var(--ct-accent);
-  color: #fff;
-}
-
-.ct_chip:hover i {
-  color: #fff;
-}
-
-.ct_chip--wa {
-  border-color: rgba(29, 168, 81, 0.3);
-  background: rgba(29, 168, 81, 0.07);
-}
-
-.ct_chip--wa i {
-  color: var(--ct-wa);
-}
-
-.ct_chip--wa:hover {
-  border-color: var(--ct-wa);
-  background: var(--ct-wa);
-}
-
 /* Ofis */
 .ct_office {
   overflow: hidden;
@@ -654,11 +525,6 @@ function waLink(p: any) {
 
   .ct_office_body {
     padding: 1rem 1.15rem 1.15rem;
-  }
-
-  .ct_person_img {
-    width: 56px;
-    height: 56px;
   }
 }
 </style>

@@ -1393,106 +1393,93 @@
 }
 
 /* --------------------------------------------------------------------------
-   Personel kartlari
-   Eskiden float + sabit yukseklik (110px kapsayici, 130px ic grid) vardi;
-   cocuk ebeveynden tasiyordu. Simdi grid, yukseklik icerige gore.
+   Iletisim sutunu — adres, e-posta, telefon
+   Personel kartlarinin (foto + isim + unvan) yerini aldi. Her satir tiklanabilir
+   bir kart: solda ikon rozeti, sagda ustte etiket / altta deger.
    -------------------------------------------------------------------------- */
 
-.personalContainer {
-  width: 100%;
-  border-radius: 6px;
-  overflow: hidden;
-  margin-bottom: 1rem;
-}
-
-.personalContainer:last-child {
-  margin-bottom: 0;
-}
-
-.personalContainerLimited {
-  width: 100%;
-}
-
-.personalCardGrid {
-  display: grid;
-  grid-template-columns: 110px 1fr;
-  align-items: stretch;
-  min-height: 130px;
-}
-
-.personalCardColumnOne {
-  width: auto;
-  height: auto;
-  float: none;
-  display: block;
-}
-
-.personalCardColumnOne > img {
-  width: 100%;
-  height: 100%;
-  min-height: 130px;
-  object-fit: cover;
-  border-radius: 0;
-  display: block;
-}
-
-.personalCardColumnTwo {
-  width: auto;
-  height: auto;
-  float: none;
-
+.footer-contact {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 0.2rem;
-  padding: 0.75rem 0.875rem;
-
-  /* Gradyan koyudan koyuya — yazi her noktada okunur kaliyor.
-     Eskisi sagda beyaza cikiyordu ve uzerindeki beyaz metin kayboluyordu. */
-  background: linear-gradient(90deg, #2a2a2d 0%, #4a4d52 100%);
-  color: #fff;
-  font-size: 13px;
-  line-height: 1.4;
+  gap: 0.5rem;
 }
 
-.personalName {
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.personalJob {
-  color: #c9c9cc;
-  margin-bottom: 0.25rem;
-}
-
-.personalLink {
-  display: inline-flex;
+.footer-contact-link {
+  display: flex;
   align-items: center;
-  color: #fff;
+  gap: 0.7rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #e3e8f2;
+  border-radius: 10px;
+  background: #fff;
+  color: #1f2937;
   text-decoration: none;
+  text-align: start;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.personalLink:hover .footer-span,
-.personalLink:focus-visible .footer-span {
-  text-decoration: underline;
+.footer-contact-link:hover,
+.footer-contact-link:focus-visible {
+  border-color: rgba(30, 88, 196, 0.45);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.07);
+  transform: translateY(-1px);
+  color: #1f2937;
 }
 
-.personalLink:focus-visible {
-  outline: 2px solid #fff;
+.footer-contact-link:focus-visible {
+  outline: 2px solid #1e58c4;
   outline-offset: 2px;
 }
 
-.personalIcon {
-  width: 14px;
-  height: 14px;
+.footer-contact-icon {
   flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: rgba(30, 88, 196, 0.09);
+  color: #1e58c4;
+}
+
+.footer-contact-icon svg {
+  width: 17px;
+  height: 17px;
   display: block;
 }
 
-/* Eskiden color: black idi — koyu gradyan uzerinde okunmuyordu */
-.footer-span {
-  color: #fff;
-  padding-left: 6px;
+.footer-contact-link--wa .footer-contact-icon {
+  background: rgba(29, 168, 81, 0.1);
+  color: #1da851;
+}
+
+.footer-contact-link--wa:hover,
+.footer-contact-link--wa:focus-visible {
+  border-color: rgba(29, 168, 81, 0.45);
+}
+
+.footer-contact-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.footer-contact-label {
+  color: #6b7280;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.footer-contact-value {
+  color: #1f2937;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
   word-break: break-word;
 }
 
@@ -1585,10 +1572,6 @@
 
   .footer-news-img {
     height: 85px;
-  }
-
-  .personalCardGrid {
-    grid-template-columns: 90px 1fr;
   }
 }
 
