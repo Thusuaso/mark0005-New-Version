@@ -1,0 +1,95 @@
+// Bootstrap, sadece bu uygulamanin kullandigi parcalar.
+//
+// Onceden "bootstrap/dist/css/bootstrap.min.css" import ediliyordu: 232 KB,
+// ve olculdugunde %84'u (192 KB) hicbir yerde referans edilmiyordu.
+// Uygulamanin yazdigi 636 sinif tokeni icinden yalnizca 92 tanesi Bootstrap
+// sinifi; asagidaki liste o 92 sinifin geldigi partial'lar.
+//
+// YENI BIR BOOTSTRAP BILESENI KULLANIRSAN ilgili @use satirini buraya eklemen
+// gerekir, yoksa sinif sessizce stilsiz kalir. Disarida birakilanlar en altta.
+
+// --- zorunlu cekirdek (CSS uretmez, degisken/mixin saglar) ---
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// Utilities API'si tek basina 69 KB uretiyordu, cunku her utility grubu bir de
+// responsive varyant seti (-sm -md -lg -xl -xxl) doguruyor. Asagida uygulamada
+// hicbir kullanimi olmayan gruplar cikariliyor.
+//
+// Bilerek map-remove (cikarma) kullaniliyor, keep-list degil: gozden kacan bir
+// anahtar burada "biraz fazla CSS" demek, keep-list'te ise "stilsiz kalan
+// sinif" demek olurdu.
+$utilities: map-remove(
+  $utilities,
+  // konumlandirma / gorunurluk
+  "align", "float", "object-fit", "opacity", "overflow", "overflow-x",
+  "overflow-y", "shadow", "focus-ring", "position", "top", "bottom", "start",
+  "end", "translate-middle", "visibility", "z-index", "user-select",
+  "pointer-events",
+  // kenarlik varyantlari (.border ve .border-info kaliyor)
+  "border-top", "border-end", "border-bottom", "border-start",
+  "subtle-border-color", "border-width", "border-opacity",
+  // boyut (.w-* ve .vh-100 kaliyor)
+  "max-width", "viewport-width", "min-viewport-width", "height", "max-height",
+  "min-viewport-height",
+  // flex detaylari (.d-flex, .justify-content-*, .align-items-* kaliyor)
+  "flex-grow", "flex-shrink", "align-content", "align-self", "order",
+  "gap", "row-gap", "column-gap",
+  // negatif margin'ler ve tek yonlu padding'ler
+  "negative-margin", "negative-margin-x", "negative-margin-y",
+  "negative-margin-top", "negative-margin-end", "negative-margin-bottom",
+  "negative-margin-start",
+  "padding-top", "padding-end", "padding-bottom", "padding-start",
+  // tipografi detaylari (.fs-*, .fw-*, .text-center, .text-break kaliyor)
+  "font-family", "font-style", "line-height", "text-transform", "white-space",
+  // renk detaylari (.text-* ve .bg-dark kaliyor)
+  "text-opacity", "text-color", "link-opacity", "link-offset",
+  "link-underline", "link-underline-opacity", "bg-opacity",
+  "subtle-background-color",
+  // "gradient" CIKARILMIYOR: .bg-gradient usa/stock detay sayfalarinda kullaniliyor.
+  // kose yuvarlama varyantlari (.rounded ve .rounded-pill kaliyor)
+  "rounded-top", "rounded-end", "rounded-bottom", "rounded-start"
+);
+
+// --- temel ---
+@import "bootstrap/scss/root";       // CSS degiskenleri (--bs-*)
+@import "bootstrap/scss/reboot";     // normalize
+@import "bootstrap/scss/type";       // .lead .list-unstyled .display-1
+@import "bootstrap/scss/containers"; // .container .container-fluid
+@import "bootstrap/scss/grid";       // .row .col-sm-*
+
+// --- kullanilan bilesenler ---
+// .fade / .collapse / .collapsing — Bootstrap JS'in calisma aninda ekledigi
+// siniflar da burada; data-bs-toggle="collapse" bunlara bagli.
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/buttons";    // .btn .btn-light .btn-success
+@import "bootstrap/scss/dropdown";   // data-bs-toggle="dropdown" (18 yerde)
+@import "bootstrap/scss/nav";        // .nav-item .nav-link
+@import "bootstrap/scss/navbar";     // .navbar* .navbar-expand-lg
+@import "bootstrap/scss/modal";      // data-bs-toggle="modal"
+@import "bootstrap/scss/close";      // .btn-close (modal kapatma)
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/spinners";
+
+// --- form parcalari (forms/_index yerine tek tek: select/range/validation
+//     hicbir yerde kullanilmiyor) ---
+@import "bootstrap/scss/forms/labels";       // .form-label
+@import "bootstrap/scss/forms/form-text";    // .form-text
+@import "bootstrap/scss/forms/form-control"; // .form-control
+
+// --- utilities API en sonda olmali (yukaridakileri ezebilmesi icin) ---
+@import "bootstrap/scss/utilities/api";
+
+// DISARIDA BIRAKILANLAR (uygulamada tek bir kullanimi yok):
+//   accordion, alert, breadcrumb, button-group, card, carousel, images,
+//   offcanvas, pagination, placeholders, popover, tables, toasts, tooltip,
+//   helpers, forms/{form-check,form-select,form-range,validation,
+//   floating-labels,input-group}
+// Not: .carousel gecen tek yer PrimeVue'nun kendi Carousel'i (.carousel-custom),
+// Bootstrap'in carousel'i degil.

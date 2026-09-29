@@ -11,9 +11,13 @@
       >
         <img
           class="logo_mekmar"
-          src="https://cdn.mekmarimage.com/logo/Mekmar-Logo-b%C3%BCy%C3%BCk-yaz%C4%B1l%C4%B1-01.webp"
+          :src="logoSrc"
           alt="mekmar-logo"
-          style="width: 300px; height: 42px"
+          width="600"
+          height="110"
+          style="width: 300px; height: auto"
+          fetchpriority="high"
+          decoding="sync"
         />
       </NuxtLink>
     </div>
@@ -281,9 +285,13 @@
       >
         <img
           class="logo_mekmar"
-          src="https://cdn.mekmarimage.com/logo/Mekmar-Logo-b%C3%BCy%C3%BCk-yaz%C4%B1l%C4%B1-01.webp"
+          :src="logoSrc"
           alt="mekmar-logo"
-          style="width: 300px; height: 42px"
+          width="600"
+          height="110"
+          style="width: 300px; height: auto"
+          fetchpriority="high"
+          decoding="sync"
         />
       </NuxtLink>
     </div>
@@ -544,9 +552,13 @@
       >
         <img
           class="logo_mekmar"
-          src="https://cdn.mekmarimage.com/logo/Mekmar-Logo-b%C3%BCy%C3%BCk-yaz%C4%B1l%C4%B1-01.webp"
+          :src="logoSrc"
           alt="mekmar-logo"
-          style="width: 300px; height: 42px"
+          width="600"
+          height="110"
+          style="width: 300px; height: auto"
+          fetchpriority="high"
+          decoding="sync"
         />
       </NuxtLink>
     </div>
@@ -807,9 +819,13 @@
       >
         <img
           class="logo_mekmar"
-          src="https://cdn.mekmarimage.com/logo/Mekmar-Logo-b%C3%BCy%C3%BCk-yaz%C4%B1l%C4%B1-01.webp"
+          :src="logoSrc"
           alt="mekmar-logo"
-          style="width: 300px; height: 42px"
+          width="600"
+          height="110"
+          style="width: 300px; height: auto"
+          fetchpriority="high"
+          decoding="sync"
         />
       </NuxtLink>
     </div>
@@ -1070,9 +1086,13 @@
       >
         <img
           class="logo_mekmar"
-          src="https://cdn.mekmarimage.com/logo/Mekmar-Logo-b%C3%BCy%C3%BCk-yaz%C4%B1l%C4%B1-01.webp"
+          :src="logoSrc"
           alt="mekmar-logo"
-          style="width: 300px; height: 42px"
+          width="600"
+          height="110"
+          style="width: 300px; height: auto"
+          fetchpriority="high"
+          decoding="sync"
         />
       </NuxtLink>
     </div>
@@ -1329,6 +1349,8 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import { useStore } from "~/store/index";
+/* Navbar.vue ile ayni tek logo varligi. */
+import logoSrc from "~/assets/image/mekmar-logo.webp";
 const props = defineProps({
   navbar: {
     type: Object,

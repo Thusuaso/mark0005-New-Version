@@ -1530,9 +1530,11 @@
   background-color: #1357bc;
 }
 
+/* height sabit 62px'ti; logonun gercek orani 600x110 (5.45) oldugu icin
+   gorseli dikeyde eziyordu. auto birakip orani gorsele birakiyoruz. */
 .logo_mekmar {
   width: 300px;
-  height: 62px;
+  height: auto;
   margin: 0px auto;
   margin-top: 0px;
 }

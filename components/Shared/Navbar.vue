@@ -6,7 +6,17 @@
         :to="selectedLang.link"
         aria-label="Mekmar"
       >
-        <img class="logo_mekmar" :src="logo_src" alt="mekmar-logo" />
+        <!-- Logo is the LCP element; high priority so it is not queued behind
+             other subresources. -->
+        <img
+          class="logo_mekmar"
+          :src="logoSrc"
+          alt="mekmar-logo"
+          width="600"
+          height="110"
+          fetchpriority="high"
+          decoding="sync"
+        />
       </NuxtLink>
 
       <button
@@ -131,6 +141,11 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useStore } from "~/store/index";
+/* Tek logo varligi: eskiden en/diger dil ayrimi vardi ve iki ayri dosyaya
+   (yerel 1x png / CDN'deki 3582px webp) gidiyordu. Artik ikisi de bu 600x110
+   webp'yi kullaniyor. assets/ altinda oldugu icin Vite hash'leyip /_nuxt/'a
+   koyuyor, yani "public, max-age=31536000, immutable" ile servis ediliyor. */
+import logoSrc from "~/assets/image/mekmar-logo.webp";
 
 defineProps<{
   navbar: Record<string, string>;
@@ -149,11 +164,6 @@ const store = useStore();
    render edilmiyordu; artik en'e dusuyor. */
 const selectedLang = computed(
   () => langs.find((x) => x.status === store.getLang) ?? langs[0],
-);
-const logo_src = computed(() =>
-  selectedLang.value.status === "en"
-    ? "/image/mekmar-logo.png"
-    : "https://cdn.mekmarimage.com/logo/Mekmar-Logo-b%C3%BCy%C3%BCk-yaz%C4%B1l%C4%B1-01.webp",
 );
 
 /* /usa altinda arama farkli bir kaynaktan besleniyor; SearchBox buna gore

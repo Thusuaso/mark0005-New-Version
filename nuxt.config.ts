@@ -62,14 +62,15 @@ export default defineNuxtConfig({
     "@nuxtjs/robots",
     "nuxt-lazytube",
   ],
-  plugins: ["~/plugins/ms_tag.ts"],
+  /* plugins/ dizini Nuxt tarafindan zaten otomatik taraniyor; ms_tag.client.ts
+     buradan ayrica listelenmiyor ki iki kez kaydedilmesin. */
 
   css: [
     "~/assets/css/default.css",
 
-    "bootstrap/dist/css/bootstrap.min.css",
+    "~/assets/css/bootstrap.custom.scss",
     "@fancyapps/ui/dist/fancybox/fancybox.css",
-    "~/assets/icons/font/bootstrap-icons.min.css",
+    "~/assets/icons/font/bootstrap-icons.subset.css",
     // "~/assets/css/tailwind.css",
   ],
 

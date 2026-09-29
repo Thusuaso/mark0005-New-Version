@@ -24,7 +24,10 @@
     </NuxtLayout>
   </div>
   <hr />
-  <SharedFooter :footer="footer" :lang="lang" />
+  <!-- Footer her sayfada ve her zaman fold altinda. hydrate-on-visible ile
+       SSR ciktisi aynen kaliyor (SEO/icerik etkilenmiyor), sadece hydration
+       gorunur alana girene kadar erteleniyor. -->
+  <LazySharedFooter :footer="footer" :lang="lang" hydrate-on-visible />
 </template>
 <script lang="ts" setup>
 import { useStore } from "~/store/index";
