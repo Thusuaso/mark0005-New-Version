@@ -1415,9 +1415,15 @@ const usa_link_status = computed(
 );
 </script>
 <style scoped>
+/* Yalnizca #catalog_link_mobile etiketlerinin harflerini iceren subset (1.4 KB).
+   Tam .ttf 93 KB'ti ve kritik istek zincirinin sonunda LCP'yi bekletiyordu.
+   Etiket metni degisirse: python scripts/subset-brand-font.py
+   swap ile yazi fontu inmeden once fallback ile ciziliyor. */
 @font-face {
   font-family: "Myriad Pro Bold Condensed";
-  src: url("../../assets/font/Myriad_Pro_Bold_Condensed.ttf") format("truetype");
+  font-display: swap;
+  src: url("../../assets/font/Myriad_Pro_Bold_Condensed.subset.woff2")
+    format("woff2");
 }
 #catalog_link_mobile {
   font-weight: bold;

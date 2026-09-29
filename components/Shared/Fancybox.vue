@@ -42,3 +42,11 @@ onBeforeUnmount(() => {
 <template>
     <slot />
 </template>
+
+<!-- Fancybox'in kendi CSS'i. nuxt.config'teki global css[] listesinden buraya
+     tasindi; boylece yalnizca galeri kullanan sayfalarda yukleniyor.
+     scoped DEGIL: Fancybox kendi DOM'unu body'ye ekliyor, scoped olsa
+     stiller o elemanlara ulasmazdi. -->
+<style>
+@import "@fancyapps/ui/dist/fancybox/fancybox.css";
+</style>

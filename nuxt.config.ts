@@ -69,7 +69,10 @@ export default defineNuxtConfig({
     "~/assets/css/default.css",
 
     "~/assets/css/bootstrap.custom.scss",
-    "@fancyapps/ui/dist/fancybox/fancybox.css",
+    /* Fancybox CSS'i (25 KB) burada global degil: tum kullanimi
+       components/Shared/Fancybox.vue sarmalayicisindan geciyor, o da yalnizca
+       galeri olan 4 sayfada render ediliyor. Global oldugu surece ana sayfa
+       dahil her HTML yanitina inline ediliyordu. */
     "~/assets/icons/font/bootstrap-icons.subset.css",
     // "~/assets/css/tailwind.css",
   ],
@@ -80,9 +83,42 @@ export default defineNuxtConfig({
         preset: Aura,
       },
     },
+    /* Onceden yalnizca `exclude` vardi; modulde `include: undefined` "hepsini
+       kaydet" anlamina geliyor, yani 123 bilesenin tamami kaydediliyordu.
+       Kullanilmayanlarin taban CSS'i de her sayfaya giriyordu: olculdugunde
+       DataTable'in 16 KB'i HTML'de duruyordu ama uygulamada hic kullanilmiyor.
+       Asagidaki liste kaynak taramasiyla cikarildi (PascalCase etiketler;
+       `<button>`/`<select>` gibi duz HTML etiketleri ayiklandi).
+
+       YENI BIR PrimeVue BILESENI KULLANIRSAN buraya eklemen gerekir, yoksa
+       bilesen cozulemez. Form kasitli olarak yok: `Form` etiketini
+       @vee-validate/nuxt sagliyor. */
     components: {
-      exclude: ["Form", "Editor", "Chart"],
+      include: [
+        "Breadcrumb",
+        "Button",
+        "Carousel",
+        "Galleria",
+        "InputText",
+        "ProgressBar",
+        "Select",
+        "Tabs",
+        "TabList",
+        "Tab",
+        "TabPanels",
+        "TabPanel",
+      ],
     },
+  },
+
+  /* Stiller artik HTML'e gomulmuyor, ayri .css dosyalarindan geliyor.
+     Varsayilan (true) ile olculdugunde HTML'in %72'si (643 KB) inline
+     <style> bloguydu; cache'lenemedigi icin her gezinmede yeniden geliyor ve
+     kritik istek zincirinin kokunu yavaslatiyordu. Dis dosya olarak bir kez
+     inip cache'lenebiliyor.
+     Takas: ilk yuklemede bir render-blocking CSS istegi ekleniyor. */
+  features: {
+    inlineStyles: false,
   },
 
   compatibilityDate: "2024-07-16",
