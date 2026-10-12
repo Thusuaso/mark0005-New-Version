@@ -30,18 +30,29 @@ const props = withDefaults(
 
 /* Sayilar tum dillerde ayni */
 const STAT_VALUES = [
-  { value: 4046, suffix: "+" },
-  { value: 71174, suffix: "+" },
-  { value: 972, suffix: "+" },
+  { value: 4250, suffix: "+" },
+  { value: 75000, suffix: "+" },
+  { value: 3000, suffix: "+" },
   { value: 2, suffix: "M+" },
 ];
 
-const texts: Record<Lang, { heading: string; stats: string[]; steps: Step[]; rail: string }> = {
+const texts: Record<
+  Lang,
+  { heading: string; stats: string[]; steps: Step[]; rail: string }
+> = {
   en: {
-    heading: "Direct from Turkey. Delivered worldwide.",
-    stats: ["Containers shipped", "Pallets delivered", "Samples sent", "Square metres produced"],
+    heading: "Direct from Turkiye. Delivered worldwide.",
+    stats: [
+      "Containers shipped",
+      "Pallets delivered",
+      "Samples sent",
+      "Square metres produced",
+    ],
     steps: [
-      { title: "Plan & mix products", summary: "Multiple SKUs in one container" },
+      {
+        title: "Plan & mix products",
+        summary: "Multiple SKUs in one container",
+      },
       { title: "Request samples", summary: "Fast DHL air express" },
       { title: "Approve production", summary: "Documented at every stage" },
       { title: "Ocean freight", summary: "Quality-checked and sealed" },
@@ -51,9 +62,17 @@ const texts: Record<Lang, { heading: string; stats: string[]; steps: Step[]; rai
   },
   fr: {
     heading: "Directement de Turquie. Livré dans le monde entier.",
-    stats: ["Conteneurs expédiés", "Palettes livrées", "Échantillons envoyés", "Mètres carrés produits"],
+    stats: [
+      "Conteneurs expédiés",
+      "Palettes livrées",
+      "Échantillons envoyés",
+      "Mètres carrés produits",
+    ],
     steps: [
-      { title: "Planifiez vos produits", summary: "Plusieurs références dans un conteneur" },
+      {
+        title: "Planifiez vos produits",
+        summary: "Plusieurs références dans un conteneur",
+      },
       { title: "Demandez des échantillons", summary: "Envoi express par DHL" },
       { title: "Validez la production", summary: "Documentée à chaque étape" },
       { title: "Fret maritime", summary: "Contrôlé et scellé" },
@@ -63,9 +82,17 @@ const texts: Record<Lang, { heading: string; stats: string[]; steps: Step[]; rai
   },
   es: {
     heading: "Directo desde Turquía. Entregado en todo el mundo.",
-    stats: ["Contenedores enviados", "Palés entregados", "Muestras enviadas", "Metros cuadrados producidos"],
+    stats: [
+      "Contenedores enviados",
+      "Palés entregados",
+      "Muestras enviadas",
+      "Metros cuadrados producidos",
+    ],
     steps: [
-      { title: "Planifique sus productos", summary: "Varias referencias en un contenedor" },
+      {
+        title: "Planifique sus productos",
+        summary: "Varias referencias en un contenedor",
+      },
       { title: "Solicite muestras", summary: "Envío urgente por DHL" },
       { title: "Apruebe la producción", summary: "Documentada en cada etapa" },
       { title: "Flete marítimo", summary: "Revisado y precintado" },
@@ -75,11 +102,22 @@ const texts: Record<Lang, { heading: string; stats: string[]; steps: Step[]; rai
   },
   ru: {
     heading: "Напрямую из Турции. Доставка по всему миру.",
-    stats: ["Контейнеров отправлено", "Паллет доставлено", "Образцов отправлено", "Квадратных метров произведено"],
+    stats: [
+      "Контейнеров отправлено",
+      "Паллет доставлено",
+      "Образцов отправлено",
+      "Квадратных метров произведено",
+    ],
     steps: [
-      { title: "Подбор продукции", summary: "Несколько позиций в одном контейнере" },
+      {
+        title: "Подбор продукции",
+        summary: "Несколько позиций в одном контейнере",
+      },
       { title: "Запрос образцов", summary: "Экспресс-доставка DHL" },
-      { title: "Утверждение производства", summary: "Фотоотчёт на каждом этапе" },
+      {
+        title: "Утверждение производства",
+        summary: "Фотоотчёт на каждом этапе",
+      },
       { title: "Морская перевозка", summary: "Проверено и опломбировано" },
       { title: "Доставка", summary: "Прямо до вашего адреса" },
     ],
@@ -87,7 +125,12 @@ const texts: Record<Lang, { heading: string; stats: string[]; steps: Step[]; rai
   },
   ar: {
     heading: "مباشرة من تركيا. نوصل إلى جميع أنحاء العالم.",
-    stats: ["حاوية تم شحنها", "منصة تم تسليمها", "عينة تم إرسالها", "متر مربع تم إنتاجه"],
+    stats: [
+      "حاوية تم شحنها",
+      "منصة تم تسليمها",
+      "عينة تم إرسالها",
+      "متر مربع تم إنتاجه",
+    ],
     steps: [
       { title: "خطط منتجاتك", summary: "عدة منتجات في حاوية واحدة" },
       { title: "اطلب العينات", summary: "شحن سريع عبر DHL" },
@@ -104,7 +147,8 @@ const lang = (String(store.getLang) in texts ? store.getLang : "en") as Lang;
 const T = texts[lang];
 
 const headingText = props.heading ?? T.heading;
-const statList: Stat[] = props.stats ?? STAT_VALUES.map((s, i) => ({ ...s, label: T.stats[i] }));
+const statList: Stat[] =
+  props.stats ?? STAT_VALUES.map((s, i) => ({ ...s, label: T.stats[i] }));
 const stepList: Step[] = props.steps ?? T.steps;
 const railLabel = T.rail;
 
@@ -208,14 +252,23 @@ const formatted = (index: number) =>
 </script>
 
 <template>
-  <section ref="root" class="hiw" aria-labelledby="hiw-heading" :dir="lang === 'ar' ? 'rtl' : undefined">
+  <section
+    ref="root"
+    class="hiw"
+    aria-labelledby="hiw-heading"
+    :dir="lang === 'ar' ? 'rtl' : undefined"
+  >
     <div class="hiw__inner">
       <!-- Baslik + istatistikler yan yana -->
       <div class="hiw__top">
         <h2 id="hiw-heading" class="hiw__heading">{{ headingText }}</h2>
 
         <dl class="hiw__stats">
-          <div v-for="(stat, i) in statList" :key="stat.label" class="hiw__stat">
+          <div
+            v-for="(stat, i) in statList"
+            :key="stat.label"
+            class="hiw__stat"
+          >
             <dt class="hiw__stat-value">{{ formatted(i) }}{{ stat.suffix }}</dt>
             <dd class="hiw__stat-label">{{ stat.label }}</dd>
           </div>

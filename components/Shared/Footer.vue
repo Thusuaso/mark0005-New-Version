@@ -55,7 +55,7 @@ const contactTexts: Record<string, ContactText> = {
   en: {
     header: "Contact",
     address_label: "Head office",
-    address: "Denizli, Turkey",
+    address: "Denizli, Turkiye",
     email_label: "Email",
     phone_label: "Phone",
   },
@@ -89,25 +89,25 @@ const contactTexts: Record<string, ContactText> = {
   },
 };
 
-const contactText = computed(
-  () => contactTexts[props.lang] ?? contactTexts.en
-);
+const contactText = computed(() => contactTexts[props.lang] ?? contactTexts.en);
 
 const contactPerson = computed<Record<string, any>>(
-  () => props.footer?.personal?.items?.[0] ?? {}
+  () => props.footer?.personal?.items?.[0] ?? {},
 );
 
 const mails = computed(
   () =>
     [contactPerson.value.email, contactPerson.value.email2].filter(
-      Boolean
-    ) as string[]
+      Boolean,
+    ) as string[],
 );
 
-const phone = computed(() => contactPerson.value.whatsapp as string | undefined);
+const phone = computed(
+  () => contactPerson.value.whatsapp as string | undefined,
+);
 
 const phoneDigits = computed(() =>
-  String(phone.value ?? "").replace(/[^\d+]/g, "")
+  String(phone.value ?? "").replace(/[^\d+]/g, ""),
 );
 
 const whatsappLink = computed(() => {
@@ -226,14 +226,25 @@ const whatsappLink = computed(() => {
               class="footer-contact-link"
             >
               <span class="footer-contact-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" />
                   <circle cx="12" cy="10" r="2.5" />
                 </svg>
               </span>
               <span class="footer-contact-body">
-                <span class="footer-contact-label">{{ contactText.address_label }}</span>
-                <span class="footer-contact-value">{{ contactText.address }}</span>
+                <span class="footer-contact-label">{{
+                  contactText.address_label
+                }}</span>
+                <span class="footer-contact-value">{{
+                  contactText.address
+                }}</span>
               </span>
             </a>
           </li>
@@ -241,13 +252,22 @@ const whatsappLink = computed(() => {
           <li v-for="mail of mails" :key="mail" class="footer-contact-item">
             <a :href="`mailto:${mail}`" class="footer-contact-link">
               <span class="footer-contact-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <rect x="2" y="4" width="20" height="16" rx="2" />
                   <path d="m2 7 10 6 10-6" />
                 </svg>
               </span>
               <span class="footer-contact-body">
-                <span class="footer-contact-label">{{ contactText.email_label }}</span>
+                <span class="footer-contact-label">{{
+                  contactText.email_label
+                }}</span>
                 <span class="footer-contact-value" dir="ltr">{{ mail }}</span>
               </span>
             </a>
@@ -256,12 +276,23 @@ const whatsappLink = computed(() => {
           <li v-if="phone" class="footer-contact-item">
             <a :href="`tel:${phoneDigits}`" class="footer-contact-link">
               <span class="footer-contact-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M6.5 3h3l1.5 4.5-2 1.2a12 12 0 0 0 5.3 5.3l1.2-2L20 13.5v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3Z" />
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M6.5 3h3l1.5 4.5-2 1.2a12 12 0 0 0 5.3 5.3l1.2-2L20 13.5v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3Z"
+                  />
                 </svg>
               </span>
               <span class="footer-contact-body">
-                <span class="footer-contact-label">{{ contactText.phone_label }}</span>
+                <span class="footer-contact-label">{{
+                  contactText.phone_label
+                }}</span>
                 <span class="footer-contact-value" dir="ltr">{{ phone }}</span>
               </span>
             </a>

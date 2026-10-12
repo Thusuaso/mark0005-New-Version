@@ -6,6 +6,12 @@
       <h1 class="pl_title">{{ t.title }}</h1>
       <p class="pl_subtitle">{{ t.subtitle }}</p>
 
+      <!-- Gorsellerin gercek projelerden oldugunu belirten not; metin dil
+           dosyalarindan (project.ai_notice) geliyor. -->
+      <p v-if="aiNotice" class="pl_notice">
+        <i class="bi-patch-check" aria-hidden="true"></i>{{ aiNotice }}
+      </p>
+
       <ul class="pl_stats">
         <li class="pl_stat">
           <strong>{{ projects.length }}</strong><span>{{ t.stat_projects }}</span>
@@ -91,6 +97,8 @@ const PAGE = 12;
 
 const store = useStore();
 const { lang, t, isRtl, contactLink } = useProjectTexts(store.getLang);
+
+const aiNotice = store.getProjectAiNotice as string;
 
 store.setLoading(ref(true));
 const list = await $fetch<any[]>("/api/projects/list").catch(() => []);
@@ -188,6 +196,27 @@ function resetFilters() {
   color: var(--pl-muted);
   font-size: 15px;
   line-height: 1.6;
+}
+
+.pl_notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 1.1rem 0 0;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--pl-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--pl-muted);
+  font-size: 12.5px;
+  line-height: 1.45;
+  text-align: start;
+}
+
+.pl_notice i {
+  flex: none;
+  color: var(--pl-accent);
+  font-size: 14px;
 }
 
 .pl_stats {

@@ -2,20 +2,38 @@
   <div class="ct" :dir="isRtl ? 'rtl' : 'ltr'">
     <!-- Baslik -->
     <header class="ct_hero">
-      <span class="ct_eyebrow"><i class="bi-chat-dots" aria-hidden="true"></i>{{ contact.header || t.eyebrow }}</span>
+      <span class="ct_eyebrow"
+        ><i class="bi-chat-dots" aria-hidden="true"></i
+        >{{ contact.header || t.eyebrow }}</span
+      >
       <h1 class="ct_title">{{ t.title }}</h1>
       <p class="ct_subtitle">{{ t.subtitle }}</p>
 
       <div class="ct_quick">
-        <a v-for="mail in EMAILS" :key="mail" :href="`mailto:${mail}`" class="ct_quick_btn">
-          <span class="ct_quick_icon"><i class="bi-envelope" aria-hidden="true"></i></span>
+        <a
+          v-for="mail in EMAILS"
+          :key="mail"
+          :href="`mailto:${mail}`"
+          class="ct_quick_btn"
+        >
+          <span class="ct_quick_icon"
+            ><i class="bi-envelope" aria-hidden="true"></i
+          ></span>
           <span class="ct_quick_body">
             <span class="ct_quick_label">{{ t.email_us }}</span>
             <span class="ct_quick_value" dir="ltr">{{ mail }}</span>
           </span>
         </a>
-        <a v-if="primary" :href="waLink(primary)" target="_blank" rel="noopener" class="ct_quick_btn ct_quick_btn--wa">
-          <span class="ct_quick_icon"><i class="bi-whatsapp" aria-hidden="true"></i></span>
+        <a
+          v-if="primary"
+          :href="waLink(primary)"
+          target="_blank"
+          rel="noopener"
+          class="ct_quick_btn ct_quick_btn--wa"
+        >
+          <span class="ct_quick_icon"
+            ><i class="bi-whatsapp" aria-hidden="true"></i
+          ></span>
           <span class="ct_quick_body">
             <span class="ct_quick_label">WhatsApp</span>
             <span class="ct_quick_value" dir="ltr">{{ primary.whatsapp }}</span>
@@ -28,7 +46,9 @@
       <!-- Form -->
       <section class="ct_card ct_form">
         <div class="ct_card_head">
-          <span class="ct_card_icon" aria-hidden="true"><i class="bi-send"></i></span>
+          <span class="ct_card_icon" aria-hidden="true"
+            ><i class="bi-send"></i
+          ></span>
           <div>
             <h2 class="ct_h2">{{ t.form_title }}</h2>
             <p class="ct_card_text">{{ t.form_text }}</p>
@@ -52,10 +72,19 @@
           <div class="ct_office_body">
             <div>
               <h2 class="ct_h2 ct_h2--sm">{{ t.office_title }}</h2>
-              <p class="ct_card_text"><i class="bi-geo-alt-fill" aria-hidden="true"></i>{{ t.office_location }}</p>
+              <p class="ct_card_text">
+                <i class="bi-geo-alt-fill" aria-hidden="true"></i
+                >{{ t.office_location }}
+              </p>
             </div>
-            <a :href="MAP_DIRECTIONS" target="_blank" rel="noopener" class="ct_btn ct_btn--ghost">
-              <i class="bi-sign-turn-right" aria-hidden="true"></i>{{ t.directions }}
+            <a
+              :href="MAP_DIRECTIONS"
+              target="_blank"
+              rel="noopener"
+              class="ct_btn ct_btn--ghost"
+            >
+              <i class="bi-sign-turn-right" aria-hidden="true"></i
+              >{{ t.directions }}
             </a>
           </div>
         </section>
@@ -64,12 +93,18 @@
 
     <!-- ABD -->
     <NuxtLink :to="usaLink" class="ct_usa">
-      <span class="ct_usa_icon" aria-hidden="true"><i class="bi-truck"></i></span>
+      <span class="ct_usa_icon" aria-hidden="true"
+        ><i class="bi-truck"></i
+      ></span>
       <span class="ct_usa_body">
         <strong>{{ t.usa_title }}</strong>
         <span>{{ t.usa_text }}</span>
       </span>
-      <i class="ct_usa_arrow" :class="isRtl ? 'bi-arrow-left' : 'bi-arrow-right'" aria-hidden="true"></i>
+      <i
+        class="ct_usa_arrow"
+        :class="isRtl ? 'bi-arrow-left' : 'bi-arrow-right'"
+        aria-hidden="true"
+      ></i>
     </NuxtLink>
   </div>
 </template>
@@ -82,7 +117,8 @@ type Lang = "en" | "fr" | "es" | "ru" | "ar";
 const EMAILS = ["export@mekmar.com", "export1@mekmar.com"];
 const MAP_EMBED =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3152.041530640287!2d29.152639399999998!3d37.8124962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c7166da9d086c3%3A0x18ebec808bb03a9!2sMekmar!5e0!3m2!1str!2str!4v1766650735033!5m2!1str!2str";
-const MAP_DIRECTIONS = "https://www.google.com/maps/dir/?api=1&destination=37.8124962,29.1526394";
+const MAP_DIRECTIONS =
+  "https://www.google.com/maps/dir/?api=1&destination=37.8124962,29.1526394";
 
 const texts: Record<
   Lang,
@@ -103,15 +139,18 @@ const texts: Record<
   en: {
     eyebrow: "Contact",
     title: "Let's talk about your project",
-    subtitle: "Questions about products, prices, samples or shipping? Send us a message or reach our sales team directly.",
+    subtitle:
+      "Questions about products, prices, samples or shipping? Send us a message or reach our sales team directly.",
     email_us: "Email us",
     form_title: "Send us a message",
-    form_text: "Fill in the form and our sales team will get back to you by email.",
+    form_text:
+      "Fill in the form and our sales team will get back to you by email.",
     office_title: "Head office",
-    office_location: "Denizli, Turkey",
+    office_location: "Denizli, Turkiye",
     directions: "Get directions",
     usa_title: "Located in the USA?",
-    usa_text: "Contact Mekmar USA for ready stock and fast delivery from our Atlanta warehouse.",
+    usa_text:
+      "Contact Mekmar USA for ready stock and fast delivery from our Atlanta warehouse.",
   },
   fr: {
     eyebrow: "Contact",
@@ -120,12 +159,14 @@ const texts: Record<
       "Des questions sur nos produits, prix, échantillons ou la livraison ? Envoyez-nous un message ou contactez directement notre équipe commerciale.",
     email_us: "Écrivez-nous",
     form_title: "Envoyez-nous un message",
-    form_text: "Remplissez le formulaire, notre équipe commerciale vous répondra par e-mail.",
+    form_text:
+      "Remplissez le formulaire, notre équipe commerciale vous répondra par e-mail.",
     office_title: "Siège social",
     office_location: "Denizli, Turquie",
     directions: "Itinéraire",
     usa_title: "Vous êtes aux États-Unis ?",
-    usa_text: "Contactez Mekmar USA pour du stock disponible et une livraison rapide depuis notre entrepôt d'Atlanta.",
+    usa_text:
+      "Contactez Mekmar USA pour du stock disponible et une livraison rapide depuis notre entrepôt d'Atlanta.",
   },
   es: {
     eyebrow: "Contacto",
@@ -134,12 +175,14 @@ const texts: Record<
       "¿Preguntas sobre productos, precios, muestras o envíos? Envíenos un mensaje o contacte directamente con nuestro equipo de ventas.",
     email_us: "Escríbanos",
     form_title: "Envíenos un mensaje",
-    form_text: "Complete el formulario y nuestro equipo de ventas le responderá por correo.",
+    form_text:
+      "Complete el formulario y nuestro equipo de ventas le responderá por correo.",
     office_title: "Oficina central",
     office_location: "Denizli, Turquía",
     directions: "Cómo llegar",
     usa_title: "¿Está en EE. UU.?",
-    usa_text: "Contacte con Mekmar USA para stock disponible y entrega rápida desde nuestro almacén de Atlanta.",
+    usa_text:
+      "Contacte con Mekmar USA para stock disponible y entrega rápida desde nuestro almacén de Atlanta.",
   },
   ru: {
     eyebrow: "Контакты",
@@ -148,17 +191,20 @@ const texts: Record<
       "Вопросы о продукции, ценах, образцах или доставке? Напишите нам или свяжитесь напрямую с отделом продаж.",
     email_us: "Напишите нам",
     form_title: "Отправьте сообщение",
-    form_text: "Заполните форму, и наш отдел продаж ответит вам по электронной почте.",
+    form_text:
+      "Заполните форму, и наш отдел продаж ответит вам по электронной почте.",
     office_title: "Головной офис",
     office_location: "Денизли, Турция",
     directions: "Проложить маршрут",
     usa_title: "Вы в США?",
-    usa_text: "Свяжитесь с Mekmar USA — товар в наличии и быстрая доставка со склада в Атланте.",
+    usa_text:
+      "Свяжитесь с Mekmar USA — товар в наличии и быстрая доставка со склада в Атланте.",
   },
   ar: {
     eyebrow: "اتصل بنا",
     title: "لنتحدث عن مشروعك",
-    subtitle: "هل لديك أسئلة حول المنتجات أو الأسعار أو العينات أو الشحن؟ أرسل لنا رسالة أو تواصل مباشرة مع فريق المبيعات.",
+    subtitle:
+      "هل لديك أسئلة حول المنتجات أو الأسعار أو العينات أو الشحن؟ أرسل لنا رسالة أو تواصل مباشرة مع فريق المبيعات.",
     email_us: "راسلنا",
     form_title: "أرسل لنا رسالة",
     form_text: "املأ النموذج وسيرد عليك فريق المبيعات عبر البريد الإلكتروني.",
@@ -166,7 +212,8 @@ const texts: Record<
     office_location: "دنيزلي، تركيا",
     directions: "الاتجاهات",
     usa_title: "هل أنت في الولايات المتحدة؟",
-    usa_text: "تواصل مع ميكمار USA للحصول على مخزون جاهز وتوصيل سريع من مستودعنا في أتلانتا.",
+    usa_text:
+      "تواصل مع ميكمار USA للحصول على مخزون جاهز وتوصيل سريع من مستودعنا في أتلانتا.",
   },
 };
 
@@ -176,7 +223,11 @@ const t = texts[lang];
 const isRtl = lang === "ar";
 const usaLink = lang === "en" ? "/usa/contact" : `/${lang}/usa/contact`;
 
-const contact = store.getContact as { header?: string; items?: any[]; form: Record<string, string> };
+const contact = store.getContact as {
+  header?: string;
+  items?: any[];
+  form: Record<string, string>;
+};
 const team = (contact?.items ?? []).filter((p) => p?.name);
 const primary = team[0];
 
@@ -208,7 +259,11 @@ function waLink(p: any) {
   border: 1px solid #e6ecf7;
   border-radius: 20px;
   background:
-    radial-gradient(120% 140% at 100% 0%, rgba(30, 88, 196, 0.12), transparent 55%),
+    radial-gradient(
+      120% 140% at 100% 0%,
+      rgba(30, 88, 196, 0.12),
+      transparent 55%
+    ),
     linear-gradient(180deg, #f5f8ff, #ffffff);
   text-align: center;
 }
@@ -263,7 +318,10 @@ function waLink(p: any) {
   color: var(--ct-ink);
   text-decoration: none;
   text-align: start;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .ct[dir="rtl"] .ct_quick_btn {
@@ -424,7 +482,10 @@ function waLink(p: any) {
   font-size: 13.5px;
   font-weight: 700;
   text-decoration: none;
-  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .ct_btn--ghost {
@@ -448,7 +509,9 @@ function waLink(p: any) {
   background: linear-gradient(135deg, #1e3a8a, #1e58c4);
   color: #fff;
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .ct_usa:hover {

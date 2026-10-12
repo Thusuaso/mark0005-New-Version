@@ -1346,6 +1346,90 @@
   outline-offset: 2px;
 }
 
+/* Marka renkleri — ikon class'i veriden (social.icon) geldigi icin
+   :has() ile <a> hover/focus durumu da ayni renge boyanir. */
+.footer-socials .bi-facebook {
+  color: #1877f2;
+}
+.footer-socials .bi-twitter-x {
+  color: #000;
+}
+.footer-socials .bi-youtube {
+  color: #ff0000;
+}
+.footer-socials .bi-instagram {
+  color: #e4405f;
+}
+.footer-socials .bi-pinterest {
+  color: #bd081c;
+}
+.footer-socials .bi-linkedin {
+  color: #0a66c2;
+}
+.footer-socials .bi-whatsapp {
+  color: #25d366;
+}
+.footer-socials .bi-telegram {
+  color: #229ed9;
+}
+
+.footer-socials a:hover .bi,
+.footer-socials a:focus-visible .bi {
+  color: #fff;
+}
+
+.footer-socials a:has(.bi-facebook):hover {
+  background: #1877f2;
+  border-color: #1877f2;
+}
+.footer-socials a:has(.bi-twitter-x):hover {
+  background: #000;
+  border-color: #000;
+}
+.footer-socials a:has(.bi-youtube):hover {
+  background: #ff0000;
+  border-color: #ff0000;
+}
+.footer-socials a:has(.bi-instagram):hover {
+  background: linear-gradient(45deg, #f09433, #dc2743 50%, #bc1888);
+  border-color: #dc2743;
+}
+.footer-socials a:has(.bi-pinterest):hover {
+  background: #bd081c;
+  border-color: #bd081c;
+}
+.footer-socials a:has(.bi-linkedin):hover {
+  background: #0a66c2;
+  border-color: #0a66c2;
+}
+.footer-socials a:has(.bi-whatsapp):hover {
+  background: #25d366;
+  border-color: #25d366;
+}
+.footer-socials a:has(.bi-telegram):hover {
+  background: #229ed9;
+  border-color: #229ed9;
+}
+
+.footer-socials a:has(.bi-facebook):focus-visible {
+  outline-color: #1877f2;
+}
+.footer-socials a:has(.bi-twitter-x):focus-visible {
+  outline-color: #000;
+}
+.footer-socials a:has(.bi-youtube):focus-visible {
+  outline-color: #ff0000;
+}
+.footer-socials a:has(.bi-instagram):focus-visible {
+  outline-color: #dc2743;
+}
+.footer-socials a:has(.bi-pinterest):focus-visible {
+  outline-color: #bd081c;
+}
+.footer-socials a:has(.bi-linkedin):focus-visible {
+  outline-color: #0a66c2;
+}
+
 /* --------------------------------------------------------------------------
    News sutunu
    Bootstrap row/col-4 yerine grid — bosluklar esit, gorseller hizali.

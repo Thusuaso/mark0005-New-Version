@@ -1,7 +1,7 @@
-import api from '~/sql/api';
-export default defineEventHandler(async(event)=>{
-    const id = getRouterParam(event,'id');
-    const detailSql = `
+import api from "~/sql/api";
+export default defineEventHandler(async (event) => {
+  const id = getRouterParam(event, "id");
+  const detailSql = `
         Select 
 			 k.ID,
 			 u.Fiyat,
@@ -9,7 +9,7 @@ export default defineEventHandler(async(event)=>{
             (select ms.StockSqft from MekmarCom_StockListYeni ms where ms.SkuNo = k.SkuNo) Stok_Sqft,
             k.SkuNo,
             u.Size,           
-            u.TurkeyStock,
+            u.TurkiyeStock,
 			u.urunadi_en,
 			u.aciklama_en,
 			u.anahtarlar_en,
@@ -43,7 +43,7 @@ export default defineEventHandler(async(event)=>{
             from DepoUrunKartTB k,DepoUrunKart_MekmarSiteTB u
 			where MekmarSite=1 and u.UrunId=k.ID and k.ID='${id}'
     `;
-    const photosSql = `
+  const photosSql = `
         select ('https://cdn.mekmarimage.com/usa-products/' + dum.Image) as image,
         ('https://cdn.mekmarimage.com/usa-products/' + dum.Webp) as webp,
 		dum.Sira
@@ -51,16 +51,15 @@ export default defineEventHandler(async(event)=>{
         where dum.UrunId='${id}'
 		order by dum.Sira
     `;
-    return new Promise(async(resolve,reject)=>{
-        (await api).query(detailSql,async (err,detail)=>{
-            (await api).query(photosSql,(err,photos)=>{
-                const data = {
-                    'detail':detail?.recordset[0],
-                    'photos':photos?.recordset
-                }
-                resolve(data);
-
-            });
-        });
-    })
+  return new Promise(async (resolve, reject) => {
+    (await api).query(detailSql, async (err, detail) => {
+      (await api).query(photosSql, (err, photos) => {
+        const data = {
+          detail: detail?.recordset[0],
+          photos: photos?.recordset,
+        };
+        resolve(data);
+      });
+    });
+  });
 });

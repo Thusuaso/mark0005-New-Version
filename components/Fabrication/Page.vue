@@ -2,13 +2,18 @@
   <div class="fab" :dir="isRtl ? 'rtl' : 'ltr'">
     <!-- Baslik -->
     <header class="fab_hero">
-      <span class="fab_eyebrow"><i class="bi-gear-wide-connected" aria-hidden="true"></i>{{ t.eyebrow }}</span>
+      <span class="fab_eyebrow"
+        ><i class="bi-gear-wide-connected" aria-hidden="true"></i
+        >{{ t.eyebrow }}</span
+      >
       <h1 class="fab_title">{{ t.title }}</h1>
       <p class="fab_subtitle">{{ t.subtitle }}</p>
 
       <ul class="fab_stats">
         <li v-for="s in t.stats" :key="s.label" class="fab_stat">
-          <span class="fab_stat_icon" aria-hidden="true"><i :class="s.icon"></i></span>
+          <span class="fab_stat_icon" aria-hidden="true"
+            ><i :class="s.icon"></i
+          ></span>
           <span>
             <strong class="fab_stat_value">{{ s.value }}</strong>
             <span class="fab_stat_label">{{ s.label }}</span>
@@ -27,20 +32,34 @@
         @click.prevent="scrollToSection(sec.key)"
       >
         <span class="fab_step_no">{{ String(i + 1).padStart(2, "0") }}</span>
-        <span class="fab_step_icon" aria-hidden="true"><i :class="sec.icon"></i></span>
+        <span class="fab_step_icon" aria-hidden="true"
+          ><i :class="sec.icon"></i
+        ></span>
         <span class="fab_step_body">
           <strong>{{ sec.title }}</strong>
           <span>{{ sec.short }}</span>
         </span>
-        <i v-if="i < sections.length - 1" class="fab_step_arrow" :class="isRtl ? 'bi-chevron-left' : 'bi-chevron-right'" aria-hidden="true"></i>
+        <i
+          v-if="i < sections.length - 1"
+          class="fab_step_arrow"
+          :class="isRtl ? 'bi-chevron-left' : 'bi-chevron-right'"
+          aria-hidden="true"
+        ></i>
       </a>
     </nav>
 
     <!-- Bolumler -->
     <SharedFancybox :options="{ Carousel: { transition: 'slide' } }">
-      <section v-for="(sec, i) in sections" :id="`section-${sec.key}`" :key="sec.id" class="fab_section">
+      <section
+        v-for="(sec, i) in sections"
+        :id="`section-${sec.key}`"
+        :key="sec.id"
+        class="fab_section"
+      >
         <div class="fab_section_head">
-          <span class="fab_section_no">{{ String(i + 1).padStart(2, "0") }}</span>
+          <span class="fab_section_no">{{
+            String(i + 1).padStart(2, "0")
+          }}</span>
           <div>
             <h2 class="fab_section_title">{{ sec.title }}</h2>
             <p class="fab_section_text">{{ sec.text }}</p>
@@ -57,7 +76,9 @@
             :data-caption="img.title"
           >
             <img :src="img.image" :alt="img.title" loading="lazy" />
-            <span class="fab_photo_zoom" aria-hidden="true"><i class="bi-arrows-fullscreen"></i></span>
+            <span class="fab_photo_zoom" aria-hidden="true"
+              ><i class="bi-arrows-fullscreen"></i
+            ></span>
             <span class="fab_photo_caption">{{ img.title }}</span>
           </a>
         </div>
@@ -66,13 +87,19 @@
 
     <!-- Iletisim cagrisi -->
     <section class="fab_cta">
-      <div class="fab_cta_icon" aria-hidden="true"><i class="bi-rulers"></i></div>
+      <div class="fab_cta_icon" aria-hidden="true">
+        <i class="bi-rulers"></i>
+      </div>
       <div class="fab_cta_body">
         <h2 class="fab_cta_title">{{ t.cta_title }}</h2>
         <p class="fab_cta_text">{{ t.cta_text }}</p>
       </div>
       <NuxtLink :to="contactLink" class="fab_btn">
-        {{ t.cta_button }}<i :class="isRtl ? 'bi-arrow-left' : 'bi-arrow-right'" aria-hidden="true"></i>
+        {{ t.cta_button
+        }}<i
+          :class="isRtl ? 'bi-arrow-left' : 'bi-arrow-right'"
+          aria-hidden="true"
+        ></i>
       </NuxtLink>
     </section>
   </div>
@@ -102,11 +129,23 @@ const texts: Record<
     eyebrow: "Fabrication",
     title: "From Quarry to Your Project",
     subtitle:
-      "We work hand in hand with selected quarries and factories in Turkey, and keep ready stock in the USA — so every stone is sourced, cut and delivered under our control.",
+      "We work hand in hand with selected quarries and factories in Turkiye, and keep ready stock in the USA — so every stone is sourced, cut and delivered under our control.",
     stats: [
-      { icon: "bi-calendar-check", value: "Since 2002", label: "Natural stone experience" },
-      { icon: "bi-patch-check", value: "30,000 m²", label: "Quality-controlled monthly" },
-      { icon: "bi-globe2", value: "Worldwide", label: "Shipping & ready stock in Atlanta" },
+      {
+        icon: "bi-calendar-check",
+        value: "Since 2002",
+        label: "Natural stone experience",
+      },
+      {
+        icon: "bi-patch-check",
+        value: "30,000 m²",
+        label: "Quality-controlled monthly",
+      },
+      {
+        icon: "bi-globe2",
+        value: "Worldwide",
+        label: "Shipping & ready stock in Atlanta",
+      },
     ],
     sections: {
       quarries: {
@@ -126,7 +165,8 @@ const texts: Record<
       },
     },
     cta_title: "Have a custom project in mind?",
-    cta_text: "Tell us your sizes and finishes — our team will prepare a tailored fabrication offer.",
+    cta_text:
+      "Tell us your sizes and finishes — our team will prepare a tailored fabrication offer.",
     cta_button: "Contact Us",
   },
   fr: {
@@ -135,9 +175,21 @@ const texts: Record<
     subtitle:
       "Nous travaillons main dans la main avec des carrières et des usines sélectionnées en Turquie, et disposons d'un stock aux États-Unis — chaque pierre est extraite, taillée et livrée sous notre contrôle.",
     stats: [
-      { icon: "bi-calendar-check", value: "Depuis 2002", label: "D'expérience en pierre naturelle" },
-      { icon: "bi-patch-check", value: "30 000 m²", label: "Contrôlés chaque mois" },
-      { icon: "bi-globe2", value: "Monde entier", label: "Expédition et stock à Atlanta" },
+      {
+        icon: "bi-calendar-check",
+        value: "Depuis 2002",
+        label: "D'expérience en pierre naturelle",
+      },
+      {
+        icon: "bi-patch-check",
+        value: "30 000 m²",
+        label: "Contrôlés chaque mois",
+      },
+      {
+        icon: "bi-globe2",
+        value: "Monde entier",
+        label: "Expédition et stock à Atlanta",
+      },
     ],
     sections: {
       quarries: {
@@ -157,7 +209,8 @@ const texts: Record<
       },
     },
     cta_title: "Vous avez un projet sur mesure ?",
-    cta_text: "Indiquez-nous vos dimensions et finitions — notre équipe préparera une offre de fabrication adaptée.",
+    cta_text:
+      "Indiquez-nous vos dimensions et finitions — notre équipe préparera une offre de fabrication adaptée.",
     cta_button: "Contactez-nous",
   },
   es: {
@@ -166,9 +219,21 @@ const texts: Record<
     subtitle:
       "Trabajamos de la mano con canteras y fábricas seleccionadas en Turquía y mantenemos stock en EE. UU., para que cada piedra se extraiga, corte y entregue bajo nuestro control.",
     stats: [
-      { icon: "bi-calendar-check", value: "Desde 2002", label: "De experiencia en piedra natural" },
-      { icon: "bi-patch-check", value: "30.000 m²", label: "Controlados cada mes" },
-      { icon: "bi-globe2", value: "Todo el mundo", label: "Envíos y stock en Atlanta" },
+      {
+        icon: "bi-calendar-check",
+        value: "Desde 2002",
+        label: "De experiencia en piedra natural",
+      },
+      {
+        icon: "bi-patch-check",
+        value: "30.000 m²",
+        label: "Controlados cada mes",
+      },
+      {
+        icon: "bi-globe2",
+        value: "Todo el mundo",
+        label: "Envíos y stock en Atlanta",
+      },
     ],
     sections: {
       quarries: {
@@ -188,7 +253,8 @@ const texts: Record<
       },
     },
     cta_title: "¿Tiene un proyecto a medida?",
-    cta_text: "Indíquenos medidas y acabados; nuestro equipo preparará una oferta de fabricación personalizada.",
+    cta_text:
+      "Indíquenos medidas y acabados; nuestro equipo preparará una oferta de fabricación personalizada.",
     cta_button: "Contáctenos",
   },
   ru: {
@@ -197,9 +263,21 @@ const texts: Record<
     subtitle:
       "Мы работаем с отобранными карьерами и заводами в Турции и держим склад в США — каждый камень добывается, обрабатывается и доставляется под нашим контролем.",
     stats: [
-      { icon: "bi-calendar-check", value: "С 2002 года", label: "Опыт работы с натуральным камнем" },
-      { icon: "bi-patch-check", value: "30 000 м²", label: "Контроль качества ежемесячно" },
-      { icon: "bi-globe2", value: "По всему миру", label: "Доставка и склад в Атланте" },
+      {
+        icon: "bi-calendar-check",
+        value: "С 2002 года",
+        label: "Опыт работы с натуральным камнем",
+      },
+      {
+        icon: "bi-patch-check",
+        value: "30 000 м²",
+        label: "Контроль качества ежемесячно",
+      },
+      {
+        icon: "bi-globe2",
+        value: "По всему миру",
+        label: "Доставка и склад в Атланте",
+      },
     ],
     sections: {
       quarries: {
@@ -219,7 +297,8 @@ const texts: Record<
       },
     },
     cta_title: "Есть индивидуальный проект?",
-    cta_text: "Сообщите размеры и виды обработки — наша команда подготовит персональное предложение.",
+    cta_text:
+      "Сообщите размеры и виды обработки — наша команда подготовит персональное предложение.",
     cta_button: "Связаться с нами",
   },
   ar: {
@@ -228,9 +307,17 @@ const texts: Record<
     subtitle:
       "نعمل جنبًا إلى جنب مع محاجر ومصانع مختارة في تركيا، ونحتفظ بمخزون جاهز في الولايات المتحدة — ليتم استخراج كل حجر وتقطيعه وتسليمه تحت إشرافنا.",
     stats: [
-      { icon: "bi-calendar-check", value: "منذ 2002", label: "خبرة في الحجر الطبيعي" },
+      {
+        icon: "bi-calendar-check",
+        value: "منذ 2002",
+        label: "خبرة في الحجر الطبيعي",
+      },
       { icon: "bi-patch-check", value: "30,000 م²", label: "فحص جودة شهريًا" },
-      { icon: "bi-globe2", value: "حول العالم", label: "شحن ومخزون جاهز في أتلانتا" },
+      {
+        icon: "bi-globe2",
+        value: "حول العالم",
+        label: "شحن ومخزون جاهز في أتلانتا",
+      },
     ],
     sections: {
       quarries: {
@@ -250,7 +337,8 @@ const texts: Record<
       },
     },
     cta_title: "هل لديك مشروع حسب الطلب؟",
-    cta_text: "أخبرنا بالمقاسات والتشطيبات — وسيُعدّ فريقنا عرض تصنيع مخصصًا لك.",
+    cta_text:
+      "أخبرنا بالمقاسات والتشطيبات — وسيُعدّ فريقنا عرض تصنيع مخصصًا لك.",
     cta_button: "تواصل معنا",
   },
 };
@@ -282,7 +370,9 @@ const sections = (fabrication?.items ?? [])
 
 /* Adres cubuguna #hash yazmadan kaydir (Fancybox hash ile galeri acmasin) */
 function scrollToSection(key: string) {
-  document.getElementById(`section-${key}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  document
+    .getElementById(`section-${key}`)
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 </script>
 
@@ -306,7 +396,11 @@ function scrollToSection(key: string) {
   border: 1px solid #e6ecf7;
   border-radius: 20px;
   background:
-    radial-gradient(120% 140% at 100% 0%, rgba(30, 88, 196, 0.12), transparent 55%),
+    radial-gradient(
+      120% 140% at 100% 0%,
+      rgba(30, 88, 196, 0.12),
+      transparent 55%
+    ),
     linear-gradient(180deg, #f5f8ff, #ffffff);
   text-align: center;
 }
@@ -409,7 +503,10 @@ function scrollToSection(key: string) {
   background: #fff;
   color: inherit;
   text-decoration: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .fab_step:hover {
@@ -592,7 +689,9 @@ function scrollToSection(key: string) {
   font-size: 13px;
   opacity: 0;
   transform: scale(0.85);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .fab_photo:hover .fab_photo_zoom,
@@ -660,7 +759,9 @@ function scrollToSection(key: string) {
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
-  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
 }
 
 .fab_btn:hover {

@@ -798,7 +798,7 @@
       },
       {
         "id": 5,
-        "name": "MTT Project - Turkey",
+        "name": "MTT Project - Turkiye",
         "url": "https://www.youtube.com/embed/Wg2VMMDhuHE?si=0w-xVWwFr9WwMiU2",
         "queue": "5",
         "videoId": "Wg2VMMDhuHE"
@@ -1431,7 +1431,8 @@
   "project": {
     "header": "MEKMAR PROJECTS",
     "description": "Description",
-    "suggested": "SUGGESTED PROJECTS"
+    "suggested": "SUGGESTED PROJECTS",
+    "ai_notice": "None of the photographs on this page are AI-generated."
   },
   "login": {
     "username": "Username",
@@ -1459,7 +1460,7 @@
     "about_header": "ABOUT",
     "contact_header": "CONTACT",
     "about": [
-      "MEKMAR is producing and supplying the best and high-quality natural stone products in Turkey.",
+      "MEKMAR is producing and supplying the best and high-quality natural stone products in Turkiye.",
       "We also have a warehouse in Stone Mountain, Atlanta.",
       "We have ready stocks of marble, travertine, limestone, and mosaic products in our Atlanta warehouse.",
       "We are sending 4-5 containers every month to our warehouse with our best seller products.",
@@ -1482,7 +1483,7 @@
       },
       {
         "question": "I want to buy from Mekmar USA. What are my options?",
-        "answer": "Mekmar USA is a producer of natural stone which keeps stocks in Atlanta for fast and reliable delivery for USA customers. We process orders for natural stone products in two ways. The first is selling orders per pallets out of our Atlanta warehouse around USA. The second is shipping container orders directly from our factory in Turkey and delivered to your port or your address."
+        "answer": "Mekmar USA is a producer of natural stone which keeps stocks in Atlanta for fast and reliable delivery for USA customers. We process orders for natural stone products in two ways. The first is selling orders per pallets out of our Atlanta warehouse around USA. The second is shipping container orders directly from our factory in Turkiye and delivered to your port or your address."
       },
       {
         "question": "Which forms of payment do you accept?",
@@ -1518,11 +1519,11 @@
       },
       {
         "question": "Where are you located? Do you have a showroom or store front?",
-        "answer": "Our factory is in Turkey while our warehouse in Stone Mountain, Atlanta. Unfortunately, we don’t have any showroom in USA right now."
+        "answer": "Our factory is in Turkiye while our warehouse in Stone Mountain, Atlanta. Unfortunately, we don’t have any showroom in USA right now."
       },
       {
         "question": "I want to order a sample, but the product I’m viewing doesn’t have that option. How do I order a sample for this product?",
-        "answer": "We can send samples of the product from our factory, from Turkey. For this, please get in touch with us."
+        "answer": "We can send samples of the product from our factory, from Turkiye. For this, please get in touch with us."
       },
       {
         "question": "How much does shipping cost?",
@@ -1530,7 +1531,7 @@
       },
       {
         "question": "Do you sell and ship to Canada?",
-        "answer": "Mekmar USA sells and ships to all consumers, no matter where they are located. If your order is located in our USA warehouse, we can ship these crates to you from warehouse. If not, we will ship them to you from Turkey."
+        "answer": "Mekmar USA sells and ships to all consumers, no matter where they are located. If your order is located in our USA warehouse, we can ship these crates to you from warehouse. If not, we will ship them to you from Turkiye."
       },
       {
         "question": "Can I delay a shipment or pick my delivery time?",

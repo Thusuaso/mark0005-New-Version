@@ -466,7 +466,7 @@ export default defineEventHandler(async (event) => {
                                                 padding-top: 7px;
                                               "
                                             >
-                                              Özlem OKUT
+                                              Ozlem OKUT
                                             </td>
                                           </tr>
                                           <tr>
@@ -775,7 +775,9 @@ export default defineEventHandler(async (event) => {
         subject: "Mekmar.com Katalog Indirenler",
         html: html_2,
       })
-      .catch((err: unknown) => console.error("Catalog notify mail failed:", err));
+      .catch((err: unknown) =>
+        console.error("Catalog notify mail failed:", err),
+      );
 
     try {
       await mailTransporter.sendMail({
@@ -787,7 +789,10 @@ export default defineEventHandler(async (event) => {
       return true;
     } catch (err) {
       console.error("Catalog mail failed:", err);
-      throw createError({ statusCode: 500, statusMessage: "Mail could not be sent" });
+      throw createError({
+        statusCode: 500,
+        statusMessage: "Mail could not be sent",
+      });
     }
   }
 });

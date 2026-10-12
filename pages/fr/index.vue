@@ -24,11 +24,16 @@
         </div>
       </div>
     </div>
+
+    <div class="col-sm-12">
+      <LazySharedBestSellers />
+    </div>
   </div>
 
   <!-- <SharedPopUp v-show="isVisible" v-if="session != 'false' && !isMobile" />
   <SharedPopUpMobile v-show="isVisible" v-if="session != 'false' && isMobile" /> -->
   <SharedWhatsappFloat />
+  <SharedSocialFloat />
 </template>
 
 <script setup lang="ts">

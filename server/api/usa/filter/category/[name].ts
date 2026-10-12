@@ -1,8 +1,8 @@
-import api from '~/sql/api';
-export default defineEventHandler(async(event)=>{
-    let name = getRouterParam(event,'name');
-    name = name?.replace('-',' ');
-    const productsSql = `
+import api from "~/sql/api";
+export default defineEventHandler(async (event) => {
+  let name = getRouterParam(event, "name");
+  name = name?.replace("-", " ");
+  const productsSql = `
                         Select
 			 k.ID,
 			 u.Fiyat,
@@ -20,11 +20,11 @@ export default defineEventHandler(async(event)=>{
             '/usa/stock/product/detail/' + TRIM(STR(k.ID)) as link
 
             from DepoUrunKartTB k,DepoUrunKart_MekmarSiteTB u,MekmarCom_StockListYeni ms,KategoriTB kt,UrunKartTB uk
-			where MekmarSite=1 and u.UrunId=k.ID and u.TurkeyStock=0 and ms.SkuNo = k.SkuNo and uk.ID = k.UrunKartID
+			where MekmarSite=1 and u.UrunId=k.ID and u.TurkiyeStock=0 and ms.SkuNo = k.SkuNo and uk.ID = k.UrunKartID
             and u.Yayinla=1 and  kt.ID = uk.KategoriID and kt.KategoriAdi='${name}' and ms.StockSqft >0
             order by ms.StockSqft desc
     `;
-    const usageAreaSql = `
+  const usageAreaSql = `
                    select
 			k.Id,
 			k.kullanim_en as name_en,
@@ -40,7 +40,7 @@ export default defineEventHandler(async(event)=>{
 			group by k.Id,k.kullanim_en,kullanim_fr,kullanim_es
 			order by count(*) desc
     `;
-    const categorySql = `
+  const categorySql = `
         select
             dbo.Get_KategoriAdi(d.UrunKartID) as name_en,
             count(*) as products,
@@ -52,7 +52,7 @@ export default defineEventHandler(async(event)=>{
             group by dbo.Get_KategoriAdi(d.UrunKartID)
             order by count(*) desc
     `;
-    const colorSql = `
+  const colorSql = `
                 select
             k.renk_en as name_en,
 			k.renk_fr as name_fr,
@@ -63,11 +63,11 @@ export default defineEventHandler(async(event)=>{
             DepoUrunKartTB d,DepoUrunKart_MekmarSiteTB k,MekmarCom_StockListYeni ms
             where
             d.MekmarSite=1 and k.UrunId = d.ID
-            and k.Yayinla=1 and k.TurkeyStock = 0 and d.SkuNo = ms.SkuNo and ms.StockSqft >0
+            and k.Yayinla=1 and k.TurkiyeStock = 0 and d.SkuNo = ms.SkuNo and ms.StockSqft >0
             group by k.renk_en,k.renk_fr,k.renk_es
             order by count(*) desc
     `;
-    const sizeSql = `
+  const sizeSql = `
                 select
             m.Size as name_en,
             '/usa/filter/size/' + m.LinkSize as link,
@@ -80,7 +80,7 @@ export default defineEventHandler(async(event)=>{
             group by m.Size,m.LinkSize 
             order by count(*) desc
     `;
-    const mosaicSizeSql = `
+  const mosaicSizeSql = `
 select
             m.Size as name_en,
             '/usa/filter/mosaic/size/' + m.LinkSize as link,
@@ -93,29 +93,27 @@ select
             group by m.Size,m.LinkSize
             order by count(*) desc
     `;
-    return new Promise(async(resolve,reject)=>{
-        (await api).query(productsSql,async(err,products)=>{
-            (await api).query(usageAreaSql,async(err,usage)=>{
-                (await api).query(categorySql,async (err,category)=>{
-                    (await api).query(colorSql,async(err,color)=>{
-                        (await api).query(sizeSql,async(err,size)=>{
-                            (await api).query(mosaicSizeSql,async(err,mosaic)=>{
-                                const data = {
-                                    products:products?.recordset,
-                                    usage:usage?.recordset,
-                                    category:category?.recordset,
-                                    color:color?.recordset,
-                                    size:size?.recordset,
-                                    mosaic:mosaic?.recordset
-                                };
-                                resolve(data);
-                            });
-                        });
-                    });
-                });
+  return new Promise(async (resolve, reject) => {
+    (await api).query(productsSql, async (err, products) => {
+      (await api).query(usageAreaSql, async (err, usage) => {
+        (await api).query(categorySql, async (err, category) => {
+          (await api).query(colorSql, async (err, color) => {
+            (await api).query(sizeSql, async (err, size) => {
+              (await api).query(mosaicSizeSql, async (err, mosaic) => {
+                const data = {
+                  products: products?.recordset,
+                  usage: usage?.recordset,
+                  category: category?.recordset,
+                  color: color?.recordset,
+                  size: size?.recordset,
+                  mosaic: mosaic?.recordset,
+                };
+                resolve(data);
+              });
             });
+          });
         });
+      });
     });
-
-    
+  });
 });
