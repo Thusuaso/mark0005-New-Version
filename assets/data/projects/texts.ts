@@ -18,6 +18,7 @@ export const projectTexts: Record<
     clear: string;
     view_project: string;
     all_projects: string;
+    more_projects: string;
     about: string;
     read_more: string;
     read_less: string;
@@ -32,7 +33,7 @@ export const projectTexts: Record<
   }
 > = {
   en: {
-    eyebrow: "Our Projects",
+    eyebrow: "Some of Our Projects",
     title: "Mekmar Projects Worldwide",
     subtitle:
       "From luxury hotels to private villas — discover how our natural stone brings projects to life around the world.",
@@ -46,6 +47,7 @@ export const projectTexts: Record<
     clear: "Clear filters",
     view_project: "View project",
     all_projects: "All projects",
+    more_projects: "More projects",
     about: "About the project",
     read_more: "Read more",
     read_less: "Show less",
@@ -59,7 +61,7 @@ export const projectTexts: Record<
     cta_button: "Contact Us",
   },
   fr: {
-    eyebrow: "Nos projets",
+    eyebrow: "Quelques-uns de nos projets",
     title: "Projets Mekmar dans le monde",
     subtitle:
       "Des hôtels de luxe aux villas privées — découvrez comment notre pierre naturelle donne vie à des projets dans le monde entier.",
@@ -73,6 +75,7 @@ export const projectTexts: Record<
     clear: "Effacer les filtres",
     view_project: "Voir le projet",
     all_projects: "Tous les projets",
+    more_projects: "Plus de projets",
     about: "À propos du projet",
     read_more: "Lire la suite",
     read_less: "Réduire",
@@ -86,7 +89,7 @@ export const projectTexts: Record<
     cta_button: "Contactez-nous",
   },
   es: {
-    eyebrow: "Nuestros proyectos",
+    eyebrow: "Algunos de nuestros proyectos",
     title: "Proyectos de Mekmar en el mundo",
     subtitle:
       "De hoteles de lujo a villas privadas: descubra cómo nuestra piedra natural da vida a proyectos en todo el mundo.",
@@ -100,6 +103,7 @@ export const projectTexts: Record<
     clear: "Borrar filtros",
     view_project: "Ver proyecto",
     all_projects: "Todos los proyectos",
+    more_projects: "Más proyectos",
     about: "Sobre el proyecto",
     read_more: "Leer más",
     read_less: "Mostrar menos",
@@ -113,7 +117,7 @@ export const projectTexts: Record<
     cta_button: "Contáctenos",
   },
   ru: {
-    eyebrow: "Наши проекты",
+    eyebrow: "Некоторые из наших проектов",
     title: "Проекты Mekmar по всему миру",
     subtitle:
       "От роскошных отелей до частных вилл — узнайте, как наш натуральный камень оживляет проекты по всему миру.",
@@ -132,6 +136,7 @@ export const projectTexts: Record<
     clear: "Сбросить фильтры",
     view_project: "Смотреть проект",
     all_projects: "Все проекты",
+    more_projects: "Больше проектов",
     about: "О проекте",
     read_more: "Читать далее",
     read_less: "Свернуть",
@@ -145,7 +150,7 @@ export const projectTexts: Record<
     cta_button: "Связаться с нами",
   },
   ar: {
-    eyebrow: "مشاريعنا",
+    eyebrow: "بعض من مشاريعنا",
     title: "مشاريع ميكمار حول العالم",
     subtitle: "من الفنادق الفاخرة إلى الفلل الخاصة — اكتشف كيف يُضفي حجرنا الطبيعي الحياة على المشاريع حول العالم.",
     stat_projects: "مشروع",
@@ -158,6 +163,7 @@ export const projectTexts: Record<
     clear: "مسح الفلاتر",
     view_project: "عرض المشروع",
     all_projects: "جميع المشاريع",
+    more_projects: "المزيد من المشاريع",
     about: "عن المشروع",
     read_more: "اقرأ المزيد",
     read_less: "عرض أقل",

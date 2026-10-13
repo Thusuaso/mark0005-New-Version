@@ -145,7 +145,7 @@ const texts: Record<
     form_title: "Send us a message",
     form_text:
       "Fill in the form and our sales team will get back to you by email.",
-    office_title: "Head office",
+    office_title: "Our factory",
     office_location: "Denizli, Turkiye",
     directions: "Get directions",
     usa_title: "Located in the USA?",
@@ -161,7 +161,7 @@ const texts: Record<
     form_title: "Envoyez-nous un message",
     form_text:
       "Remplissez le formulaire, notre équipe commerciale vous répondra par e-mail.",
-    office_title: "Siège social",
+    office_title: "Notre usine",
     office_location: "Denizli, Turquie",
     directions: "Itinéraire",
     usa_title: "Vous êtes aux États-Unis ?",
@@ -177,7 +177,7 @@ const texts: Record<
     form_title: "Envíenos un mensaje",
     form_text:
       "Complete el formulario y nuestro equipo de ventas le responderá por correo.",
-    office_title: "Oficina central",
+    office_title: "Nuestra fábrica",
     office_location: "Denizli, Turquía",
     directions: "Cómo llegar",
     usa_title: "¿Está en EE. UU.?",
@@ -193,7 +193,7 @@ const texts: Record<
     form_title: "Отправьте сообщение",
     form_text:
       "Заполните форму, и наш отдел продаж ответит вам по электронной почте.",
-    office_title: "Головной офис",
+    office_title: "Наша фабрика",
     office_location: "Денизли, Турция",
     directions: "Проложить маршрут",
     usa_title: "Вы в США?",
@@ -208,7 +208,7 @@ const texts: Record<
     email_us: "راسلنا",
     form_title: "أرسل لنا رسالة",
     form_text: "املأ النموذج وسيرد عليك فريق المبيعات عبر البريد الإلكتروني.",
-    office_title: "المكتب الرئيسي",
+    office_title: "مصنعنا",
     office_location: "دنيزلي، تركيا",
     directions: "الاتجاهات",
     usa_title: "هل أنت في الولايات المتحدة؟",

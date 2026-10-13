@@ -34,6 +34,7 @@ export const useStore = defineStore("store", {
     search_link: "",
     projects_suggested_header: "",
     projects_ai_notice: "",
+    projects_real_notice: "",
     usa_stock_main_menu: {},
     product_color_detail: [],
     filtered_header: {},
@@ -152,6 +153,9 @@ export const useStore = defineStore("store", {
     getProjectAiNotice(state) {
       return state.projects_ai_notice;
     },
+    getProjectRealNotice(state) {
+      return state.projects_real_notice;
+    },
     getUsaStockMainMenu(state) {
       return state.usa_stock_main_menu;
     },
@@ -216,6 +220,7 @@ export const useStore = defineStore("store", {
       this.projects_description = payload.project.description;
       this.projects_suggested_header = payload.project.suggested;
       this.projects_ai_notice = payload.project.ai_notice ?? "";
+      this.projects_real_notice = payload.project.real_notice ?? "";
       this.product = payload.product_detail;
       this.similar = payload.similar_products;
       this.login = payload.login;

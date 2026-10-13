@@ -1,11 +1,11 @@
 /* Bootstrap Icons - subset. GENERATED FILE, do not edit by hand.
-   Contains only the 64 icons this app actually uses.
+   Contains only the 74 icons this app actually uses.
    Regenerate with: python scripts/subset-icons.py */
 @font-face {
   font-display: swap;
   font-family: "bootstrap-icons";
-  src: url("./fonts/bootstrap-icons.subset.woff2?64-b3f59946") format("woff2"),
-       url("./fonts/bootstrap-icons.subset.woff?64-b3f59946") format("woff");
+  src: url("./fonts/bootstrap-icons.subset.woff2?74-5f72f894") format("woff2"),
+       url("./fonts/bootstrap-icons.subset.woff?74-5f72f894") format("woff");
 }
 
 .bi::before,
@@ -28,15 +28,18 @@
 .bi-arrow-right::before { content: "\f138"; }
 .bi-arrows-fullscreen::before { content: "\f14d"; }
 .bi-border-all::before { content: "\f1a9"; }
+.bi-box-arrow-right::before { content: "\f1c3"; }
 .bi-box-arrow-up-right::before { content: "\f1c5"; }
 .bi-box-seam::before { content: "\f1c7"; }
 .bi-bricks::before { content: "\f1ca"; }
 .bi-building-gear::before { content: "\f877"; }
 .bi-buildings::before { content: "\f87d"; }
 .bi-calendar-check::before { content: "\f1e2"; }
+.bi-calendar3::before { content: "\f214"; }
 .bi-camera-video-off::before { content: "\f21e"; }
 .bi-chat-dots::before { content: "\f24a"; }
 .bi-chat-left-text::before { content: "\f252"; }
+.bi-check-circle::before { content: "\f26b"; }
 .bi-check-circle-fill::before { content: "\f26a"; }
 .bi-check-lg::before { content: "\f633"; }
 .bi-chevron-down::before { content: "\f282"; }
@@ -56,14 +59,19 @@
 .bi-globe2::before { content: "\f3ef"; }
 .bi-grid-3x3::before { content: "\f3fa"; }
 .bi-images::before { content: "\f42b"; }
+.bi-inbox::before { content: "\f42d"; }
 .bi-info-circle::before { content: "\f431"; }
 .bi-info-lg::before { content: "\f646"; }
 .bi-instagram::before { content: "\f437"; }
 .bi-lightbulb::before { content: "\f46b"; }
 .bi-linkedin::before { content: "\f472"; }
+.bi-lock::before { content: "\f47b"; }
 .bi-minecart-loaded::before { content: "\f491"; }
 .bi-patch-check::before { content: "\f4b6"; }
+.bi-pencil::before { content: "\f4cb"; }
 .bi-person::before { content: "\f4e1"; }
+.bi-person-check-fill::before { content: "\f4d5"; }
+.bi-person-x::before { content: "\f4e0"; }
 .bi-pinterest::before { content: "\f663"; }
 .bi-play-btn::before { content: "\f4f1"; }
 .bi-play-circle::before { content: "\f4f3"; }
@@ -76,7 +84,9 @@
 .bi-shield-lock::before { content: "\f538"; }
 .bi-sign-turn-right::before { content: "\f832"; }
 .bi-soundwave::before { content: "\f57c"; }
+.bi-speedometer2::before { content: "\f580"; }
 .bi-tag::before { content: "\f5b0"; }
+.bi-telegram::before { content: "\f5b3"; }
 .bi-tree::before { content: "\f5e2"; }
 .bi-truck::before { content: "\f5ea"; }
 .bi-twitter-x::before { content: "\f8db"; }

@@ -6,15 +6,20 @@
       <h1 class="pl_title">{{ t.title }}</h1>
       <p class="pl_subtitle">{{ t.subtitle }}</p>
 
-      <!-- Gorsellerin gercek projelerden oldugunu belirten not; metin dil
-           dosyalarindan (project.ai_notice) geliyor. -->
-      <p v-if="aiNotice" class="pl_notice">
-        <i class="bi-patch-check" aria-hidden="true"></i>{{ aiNotice }}
-      </p>
+      <!-- Gorsellerin gercek projelerden oldugunu belirten notlar; metinler dil
+           dosyalarindan (project.ai_notice, project.real_notice) geliyor. -->
+      <div v-if="aiNotice || realNotice" class="pl_notices">
+        <p v-if="aiNotice" class="pl_notice">
+          <i class="bi-patch-check" aria-hidden="true"></i>{{ aiNotice }}
+        </p>
+        <p v-if="realNotice" class="pl_notice">
+          <i class="bi-buildings" aria-hidden="true"></i>{{ realNotice }}
+        </p>
+      </div>
 
       <ul class="pl_stats">
         <li class="pl_stat">
-          <strong>{{ projects.length }}</strong><span>{{ t.stat_projects }}</span>
+          <strong>100</strong><span>{{ t.stat_projects }}</span>
         </li>
         <li class="pl_stat">
           <strong>{{ countries.length }}</strong><span>{{ t.stat_countries }}</span>
@@ -45,7 +50,6 @@
         </select>
         <i class="bi-chevron-down pl_select_caret" aria-hidden="true"></i>
       </div>
-      <span class="pl_count">{{ t.results(filtered.length) }}</span>
     </div>
 
     <!-- Izgara -->
@@ -70,7 +74,7 @@
 
     <div v-if="filtered.length > limit" class="pl_more">
       <button type="button" class="pl_btn pl_btn--ghost" @click="limit += PAGE">
-        <i class="bi-plus-lg" aria-hidden="true"></i>{{ t.results(filtered.length - limit) }}
+        <i class="bi-plus-lg" aria-hidden="true"></i>{{ t.more_projects }}
       </button>
     </div>
 
@@ -92,6 +96,7 @@
 import { computed, ref, watch } from "vue";
 import { useStore } from "~/store/index";
 import { useProjectTexts } from "~/assets/data/projects/texts";
+import { yearsSince } from "~/utils/years";
 
 const PAGE = 12;
 
@@ -99,6 +104,7 @@ const store = useStore();
 const { lang, t, isRtl, contactLink } = useProjectTexts(store.getLang);
 
 const aiNotice = store.getProjectAiNotice as string;
+const realNotice = store.getProjectRealNotice as string;
 
 store.setLoading(ref(true));
 const list = await $fetch<any[]>("/api/projects/list").catch(() => []);
@@ -106,7 +112,7 @@ store.setProjects(Array.isArray(list) ? list : []);
 store.setLoading(ref(false));
 
 const projects = (store.getProjects as any[]).filter((p) => p?.name);
-const years = new Date().getFullYear() - 2002;
+const years = yearsSince();
 
 const countries = Object.entries(
   projects.reduce<Record<string, number>>((acc, p) => {
@@ -198,11 +204,19 @@ function resetFilters() {
   line-height: 1.6;
 }
 
+.pl_notices {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1.1rem 0 0;
+}
+
 .pl_notice {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  margin: 1.1rem 0 0;
+  margin: 0;
   padding: 0.4rem 0.85rem;
   border: 1px solid var(--pl-line);
   border-radius: 999px;
@@ -321,13 +335,6 @@ select.pl_input {
   outline: 0;
   border-color: var(--pl-accent);
   box-shadow: 0 0 0 4px rgba(30, 88, 196, 0.12);
-}
-
-.pl_count {
-  margin-inline-start: auto;
-  color: var(--pl-muted);
-  font-size: 13.5px;
-  white-space: nowrap;
 }
 
 /* Izgara */
@@ -454,10 +461,6 @@ select.pl_input {
   .pl_search,
   .pl_select {
     flex: 1 1 100%;
-  }
-
-  .pl_count {
-    margin-inline-start: 0;
   }
 
   .pl_grid {

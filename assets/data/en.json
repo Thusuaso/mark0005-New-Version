@@ -97,7 +97,7 @@
       "items": [
         {
           "id": 1,
-          "value": "We provide worldwide shipment service for 24 years."
+          "value": "We provide worldwide shipment service for {years} years."
         },
         {
           "id": 2,
@@ -413,7 +413,7 @@
       },
       {
         "id": 2,
-        "value": "Developing our production, quality control, and transportation solutions for 24 years by multiplying our product range and number of customers."
+        "value": "Developing our production, quality control, and transportation solutions for {years} years by multiplying our product range and number of customers."
       },
       {
         "id": 3,
@@ -1432,7 +1432,8 @@
     "header": "MEKMAR PROJECTS",
     "description": "Description",
     "suggested": "SUGGESTED PROJECTS",
-    "ai_notice": "None of the photographs on this page are AI-generated."
+    "ai_notice": "None of the photographs on this page are AI-generated.",
+    "real_notice": "All of them are real projects and installations."
   },
   "login": {
     "username": "Username",

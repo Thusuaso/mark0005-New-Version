@@ -1,22 +1,19 @@
-import mssql from "mssql";
 import api from "~/sql/api";
 
 /* 1. adim: mail adresi kayitli bir musteriye aitse o adrese giris kodu gonderir. */
 export default defineEventHandler(async (event) => {
   const body = await readBody<{ email?: string; lang?: string }>(event);
-  const email = String(body?.email ?? "").trim().toLowerCase();
+  const email = String(body?.email ?? "")
+    .trim()
+    .toLowerCase();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 100) {
     return { ok: false, error: "invalid_email" };
   }
 
-  const result = await (await api)
-    .request()
-    .input("email", mssql.VarChar(100), email)
-    .query(
-      `select top 1 adi, kullaniciadi, mailadres from MekmarCom_Musteriler
-       where lower(ltrim(rtrim(mailadres))) = @email`,
-    );
-  const customer = result.recordset[0];
+  /* Giris yetkisi ERP musteri kartindan geliyor: mail MusterilerTB'de kayitli
+     ve MekmarSite = 1 degilse kod bile gonderilmiyor (bkz. utils/customer.ts). */
+  const rows = await findCustomerRows(await api, email, "top 1 FirmaAdi");
+  const customer = rows[0];
   if (!customer) {
     return { ok: false, error: "not_found" };
   }
@@ -27,7 +24,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const mail = buildLoginCodeEmail({
-    name: String(customer.adi || customer.kullaniciadi || "").trim(),
+    name: String(customer.FirmaAdi ?? "").trim(),
     code: created.code,
     lang: normalizeLang(body?.lang),
     ttlMinutes: LOGIN_CODE_TTL_MINUTES,

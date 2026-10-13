@@ -100,7 +100,7 @@
       "items": [
         {
           "id": 1,
-          "value": "Nous fournissons un service d'expédition dans le monde entier depuis 24 ans."
+          "value": "Nous fournissons un service d'expédition dans le monde entier depuis {years} ans."
         },
         {
           "id": 2,
@@ -417,7 +417,7 @@
       },
       {
         "id": 2,
-        "value": "Développer nos solutions de production, de contrôle qualité et de transport depuis 24 ans en multipliant notre gamme de produits et notre nombre de clients."
+        "value": "Développer nos solutions de production, de contrôle qualité et de transport depuis {years} ans en multipliant notre gamme de produits et notre nombre de clients."
       },
       {
         "id": 3,
@@ -1446,7 +1446,8 @@
     "header": "PROJETS MEKMAR",
     "description": "Description",
     "suggested": "PROJETS SUGGÉRÉS",
-    "ai_notice": "Aucune des photographies de cette page n'est générée par IA."
+    "ai_notice": "Aucune des photographies de cette page n'est générée par IA.",
+    "real_notice": "Il s'agit de projets et de réalisations réels."
   },
   "login": {
     "username": "Nom d'utilisateur",

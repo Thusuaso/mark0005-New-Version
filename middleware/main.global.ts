@@ -2,6 +2,8 @@ import { useStore } from "~/store/index";
 
 import { ref } from "vue";
 
+import { fillYears, yearsSince } from "~/utils/years";
+
 /**
  * Dil verileri dinamik import ile yukleniyor.
  *
@@ -26,6 +28,26 @@ const langLoaders = {
 } as const;
 
 type LangKey = keyof typeof langLoaders;
+
+/* Dil dosyalarindaki {years} tokenleri burada dolduruluyor (bkz. utils/years.ts).
+   Sonuc dil basina onbellekte tutuluyor; boylece her gezinmede JSON'u yeniden
+   kopyalamiyoruz. Yil degisirse onbellek kendiliginden sifirlaniyor. */
+const prepared = new Map<LangKey, any>();
+let preparedYear = 0;
+
+function localeData(lang: LangKey, raw: any) {
+  const years = yearsSince();
+  if (years !== preparedYear) {
+    prepared.clear();
+    preparedYear = years;
+  }
+  let data = prepared.get(lang);
+  if (!data) {
+    data = fillYears(raw, lang, years);
+    prepared.set(lang, data);
+  }
+  return data;
+}
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
   const store = useStore();
@@ -52,6 +74,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
   cookie.value = lang;
   const data = await langLoaders[lang]();
-  await store.setMainStorage(data.default ?? data);
+  await store.setMainStorage(localeData(lang, data.default ?? data));
   await store.setLang(lang);
 });

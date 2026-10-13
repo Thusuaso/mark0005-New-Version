@@ -132,6 +132,7 @@
             :key="String(usa_link_status)"
             :usa="usa_link_status"
           />
+          <SharedAccountMenu />
           <SharedLangDropdown />
         </div>
       </div>

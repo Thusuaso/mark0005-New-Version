@@ -1,12 +1,17 @@
-import mssql from "mssql";
 import api from "~/sql/api";
 
 /* 2. adim: e-postadaki kodu dogrular; dogruysa "user" cerezini sunucu tarafinda yazar. */
 export default defineEventHandler(async (event) => {
   const body = await readBody<{ email?: string; code?: string }>(event);
-  const email = String(body?.email ?? "").trim().toLowerCase();
+  const email = String(body?.email ?? "")
+    .trim()
+    .toLowerCase();
   const code = String(body?.code ?? "").trim();
-  if (!email || !/^\d{6}$/.test(code)) {
+  if (
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+    email.length > 100 ||
+    !/^\d{6}$/.test(code)
+  ) {
     return { ok: false, error: "invalid" };
   }
 
@@ -15,24 +20,14 @@ export default defineEventHandler(async (event) => {
     return { ok: false, error: status };
   }
 
-  const result = await (await api)
-    .request()
-    .input("email", mssql.VarChar(100), email)
-    .query(
-      `select top 1 adi, kullaniciadi from MekmarCom_Musteriler
-       where lower(ltrim(rtrim(mailadres))) = @email`,
-    );
-  const customer = result.recordset[0];
+  const rows = await findCustomerRows(await api, email, "top 1 FirmaAdi, Ulke");
+  const customer = rows[0];
   if (!customer) {
     return { ok: false, error: "invalid" };
   }
 
-  setCookie(event, "user", email, {
-    path: "/",
-    maxAge: 60 * 60 * 24 * 30,
-    sameSite: "lax",
-    secure: !import.meta.dev,
-  });
+  // Imzali httpOnly oturum cerezi + arayuz icin okunabilir "user" cerezi
+  startSession(event, email);
 
   // Eski login akisindaki gibi bilgi islem'e giris bildirimi (hata girisi engellemez)
   const cell = (v: unknown) =>
@@ -43,8 +38,8 @@ export default defineEventHandler(async (event) => {
       to: "bilgiislem@mekmar.com",
       subject: "Mekmar.com Logged In",
       html: `<table style="border:1px solid gray;border-collapse:collapse;">
-        <tr><th style="border:1px solid gray;">Name</th><th style="border:1px solid gray;">Username</th><th style="border:1px solid gray;">Email</th></tr>
-        <tr>${cell(customer.adi)}${cell(customer.kullaniciadi)}${cell(email)}</tr>
+        <tr><th style="border:1px solid gray;">Company</th><th style="border:1px solid gray;">Country</th><th style="border:1px solid gray;">Email</th></tr>
+        <tr>${cell(customer.FirmaAdi)}${cell(customer.Ulke)}${cell(email)}</tr>
       </table>`,
     })
     .catch((err: unknown) => console.error("Login notify mail failed:", err));
