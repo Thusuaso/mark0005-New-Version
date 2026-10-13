@@ -15,6 +15,8 @@ import api from "~/sql/api";
  * - Ic bilgiler (AlisFiyati, UretimAciklama, Notlar, MekmarNot alanlari, komisyon,
  *   navlun vb.) bilerek secilmiyor; yalnizca musterinin kendi siparisine dair
  *   gorebilecegi alanlar donuyor.
+ * - Fiyat alanlari (SatisFiyati, SatisToplam) da panelde gosterilmedigi icin
+ *   bilerek secilmiyor ve yanita hic konmuyor.
  * - MusterilerTB'de MailAdresi alani "@", "null", "-" gibi bozuk degerler iceren
  *   kayitlar var (biri 48, biri 38 musteriye bagli). Oturumdaki e-posta giris
  *   akisinda gecerli e-posta formatindan geciyor, bu yuzden bu bozuk kayitlarla
@@ -82,8 +84,7 @@ export default defineEventHandler(async (event) => {
     `select su.SiparisNo, su.SiraNo,
             u.UrunAdi, k.KategoriAdi, y.YuzeyIslemAdi,
             o.En, o.Boy, o.Kenar,
-            b.BirimAdi, su.Miktar, su.Adet, su.KasaOlcusu,
-            su.SatisFiyati, su.SatisToplam
+            b.BirimAdi, su.Miktar, su.Adet, su.KasaOlcusu
        from SiparisUrunTB su
        left join UrunKartTB uk on uk.ID = su.UrunKartID
        left join UrunlerTB u on u.ID = uk.UrunID
@@ -131,8 +132,6 @@ export default defineEventHandler(async (event) => {
       unit: text(r.BirimAdi),
       quantity: num(r.Miktar),
       pieces: num(r.Adet),
-      price: num(r.SatisFiyati),
-      total: num(r.SatisToplam),
     });
   }
 
@@ -148,7 +147,6 @@ export default defineEventHandler(async (event) => {
       container: text(r.KonteynerNo),
       pallets: num(r.ToplamPalet),
       items: lines,
-      total: lines.reduce((sum, it) => sum + it.total, 0),
     };
   });
 

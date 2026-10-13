@@ -95,8 +95,6 @@
                     <th>{{ t.col_product }}</th>
                     <th>{{ t.col_size }}</th>
                     <th class="or_num">{{ t.col_qty }}</th>
-                    <th class="or_num">{{ t.col_price }}</th>
-                    <th class="or_num">{{ t.col_total }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -114,20 +112,8 @@
                       {{ fmtNum(it.quantity) }}
                       <span v-if="it.unit" class="or_unit">{{ it.unit }}</span>
                     </td>
-                    <td class="or_num">
-                      {{ it.price ? fmtMoney(it.price) : "—" }}
-                    </td>
-                    <td class="or_num">
-                      {{ it.total ? fmtMoney(it.total) : "—" }}
-                    </td>
                   </tr>
                 </tbody>
-                <tfoot v-if="o.total">
-                  <tr>
-                    <td :colspan="4">{{ t.col_total }}</td>
-                    <td class="or_num">{{ fmtMoney(o.total) }}</td>
-                  </tr>
-                </tfoot>
               </table>
             </div>
           </div>
@@ -151,8 +137,6 @@ type Item = {
   unit: string;
   quantity: number;
   pieces: number;
-  price: number;
-  total: number;
 };
 type Order = {
   order_no: string;
@@ -164,7 +148,6 @@ type Order = {
   container: string;
   pallets: number;
   items: Item[];
-  total: number;
 };
 
 const texts: Record<
@@ -188,8 +171,6 @@ const texts: Record<
     col_product: string;
     col_size: string;
     col_qty: string;
-    col_price: string;
-    col_total: string;
   }
 > = {
   en: {
@@ -211,8 +192,6 @@ const texts: Record<
     col_product: "Product",
     col_size: "Size",
     col_qty: "Quantity",
-    col_price: "Unit price",
-    col_total: "Total",
   },
   fr: {
     eyebrow: "Mon compte",
@@ -235,8 +214,6 @@ const texts: Record<
     col_product: "Produit",
     col_size: "Dimensions",
     col_qty: "Quantité",
-    col_price: "Prix unitaire",
-    col_total: "Total",
   },
   es: {
     eyebrow: "Mi cuenta",
@@ -259,8 +236,6 @@ const texts: Record<
     col_product: "Producto",
     col_size: "Medidas",
     col_qty: "Cantidad",
-    col_price: "Precio unitario",
-    col_total: "Total",
   },
   ru: {
     eyebrow: "Мой аккаунт",
@@ -282,8 +257,6 @@ const texts: Record<
     col_product: "Товар",
     col_size: "Размер",
     col_qty: "Количество",
-    col_price: "Цена за ед.",
-    col_total: "Итого",
   },
   ar: {
     eyebrow: "حسابي",
@@ -304,8 +277,6 @@ const texts: Record<
     col_product: "المنتج",
     col_size: "المقاس",
     col_qty: "الكمية",
-    col_price: "سعر الوحدة",
-    col_total: "الإجمالي",
   },
 };
 
@@ -375,13 +346,6 @@ function fmtDate(iso: string) {
 
 const fmtNum = (n: number) =>
   n.toLocaleString(locales[lang], { maximumFractionDigits: 2 });
-
-const fmtMoney = (n: number) =>
-  "$" +
-  n.toLocaleString(locales[lang], {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
 </script>
 
 <style scoped>
@@ -620,11 +584,6 @@ const fmtMoney = (n: number) =>
 .or_unit {
   color: var(--or-muted);
   font-size: 12px;
-}
-
-.or_table tfoot td {
-  border-bottom: 0;
-  font-weight: 700;
 }
 
 .or_empty {
