@@ -45,6 +45,7 @@
             id="catalog_link_mobile"
             >CATALOG</a
           >
+          <SharedAccountMenu />
           <SharedLangDropdown />
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -312,6 +313,7 @@
           <a class="navbar-brand" href="/fr/catalog" id="catalog_link_mobile"
             >CATALOGUE</a
           >
+          <SharedAccountMenu />
           <SharedLangDropdown />
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <SharedSearchBox
@@ -579,6 +581,7 @@
           <a class="navbar-brand" href="/es/catalog" id="catalog_link_mobile"
             >CATALOGAR</a
           >
+          <SharedAccountMenu />
           <SharedLangDropdown />
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <SharedSearchBox
@@ -846,6 +849,7 @@
           <a class="navbar-brand" href="/ru/catalog" id="catalog_link_mobile"
             >КАТАЛОГ</a
           >
+          <SharedAccountMenu />
           <SharedLangDropdown />
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <SharedSearchBox
@@ -1117,6 +1121,7 @@
             style="font-size: 30px"
             >كتالوج</a
           >
+          <SharedAccountMenu />
           <SharedLangDropdown />
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <SharedSearchBox
