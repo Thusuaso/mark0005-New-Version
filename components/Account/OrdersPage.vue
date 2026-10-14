@@ -74,10 +74,6 @@
                 <dt>{{ t.shipped }}</dt>
                 <dd>{{ fmtDate(o.shipped_at) }}</dd>
               </div>
-              <div v-if="o.eta">
-                <dt>{{ t.eta }}</dt>
-                <dd>{{ fmtDate(o.eta) }}</dd>
-              </div>
               <div v-if="o.container">
                 <dt>{{ t.container }}</dt>
                 <dd dir="ltr">{{ o.container }}</dd>
@@ -144,7 +140,6 @@ type Order = {
   status: string;
   project: string;
   shipped_at: string | null;
-  eta: string | null;
   container: string;
   pallets: number;
   items: Item[];
@@ -165,7 +160,6 @@ const texts: Record<
     stat_items: string;
     stat_last: string;
     shipped: string;
-    eta: string;
     container: string;
     pallets: string;
     col_product: string;
@@ -186,7 +180,6 @@ const texts: Record<
     stat_items: "Product lines",
     stat_last: "Latest order",
     shipped: "Loading date",
-    eta: "ETA",
     container: "Container",
     pallets: "Pallets",
     col_product: "Product",
@@ -208,7 +201,6 @@ const texts: Record<
     stat_items: "Lignes de produits",
     stat_last: "Dernière commande",
     shipped: "Date de chargement",
-    eta: "ETA",
     container: "Conteneur",
     pallets: "Palettes",
     col_product: "Produit",
@@ -230,7 +222,6 @@ const texts: Record<
     stat_items: "Líneas de producto",
     stat_last: "Último pedido",
     shipped: "Fecha de carga",
-    eta: "ETA",
     container: "Contenedor",
     pallets: "Palés",
     col_product: "Producto",
@@ -251,7 +242,6 @@ const texts: Record<
     stat_items: "Позиции",
     stat_last: "Последний заказ",
     shipped: "Дата загрузки",
-    eta: "ETA",
     container: "Контейнер",
     pallets: "Паллеты",
     col_product: "Товар",
@@ -271,7 +261,6 @@ const texts: Record<
     stat_items: "بنود المنتجات",
     stat_last: "أحدث طلب",
     shipped: "تاريخ التحميل",
-    eta: "الوصول المتوقع",
     container: "الحاوية",
     pallets: "الطبليات",
     col_product: "المنتج",

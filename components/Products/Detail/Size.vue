@@ -1,11 +1,7 @@
 <template>
   <div class="product_size">
     <span class="product_size_label">{{ size }}</span>
-    <span v-if="store.getAuthStatus" class="product_size_price"
-      >${{ price }}/{{ unit }}</span
-    >
     <button
-      v-else
       type="button"
       class="product_size_cta"
       data-bs-toggle="modal"
@@ -35,8 +31,14 @@
           </span>
           <h2 class="price_modal_title">{{ t.title }}</h2>
         </div>
-        <div class="price_modal_grid">
-          <section class="price_modal_panel price_modal_panel--login">
+        <div
+          class="price_modal_grid"
+          :class="{ 'price_modal_grid--single': store.getAuthStatus }"
+        >
+          <section
+            v-if="!store.getAuthStatus"
+            class="price_modal_panel price_modal_panel--login"
+          >
             <div class="price_modal_panel_head">
               <span class="price_modal_icon" aria-hidden="true">
                 <i class="bi-shield-lock"></i>
@@ -51,7 +53,11 @@
               @login_form_dialog_closed="dialog_closed"
             />
           </section>
-          <div class="price_modal_or" aria-hidden="true">
+          <div
+            v-if="!store.getAuthStatus"
+            class="price_modal_or"
+            aria-hidden="true"
+          >
             <span>{{ t.or }}</span>
           </div>
           <section class="price_modal_panel">
@@ -142,15 +148,15 @@ let lang = "";
 let get_price = ref("");
 lang = store.getLang;
 if (lang == "en") {
-  get_price.value = "Get Price";
+  get_price.value = "Ask For Price";
 } else if (lang == "fr") {
-  get_price.value = "Obtenir le prix";
+  get_price.value = "Demander le prix";
 } else if (lang == "es") {
-  get_price.value = "Obtener precio";
+  get_price.value = "Solicitar precio";
 } else if (lang == "ru") {
-  get_price.value = "Получить цену";
+  get_price.value = "Запросить цену";
 } else if (lang == "ar") {
-  get_price.value = "احصل على السعر";
+  get_price.value = "استفسر عن السعر";
 }
 
 const modal_texts = {
@@ -253,6 +259,10 @@ const t =
   grid-template-columns: minmax(0, 5fr) auto minmax(0, 7fr);
   gap: 1.25rem;
   align-items: stretch;
+}
+
+.price_modal_grid--single {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .price_modal_panel {

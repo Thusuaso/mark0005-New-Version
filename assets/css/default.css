@@ -697,13 +697,6 @@
   letter-spacing: 0.04em;
 }
 
-.product_size_price {
-  color: #212529;
-  font-size: 14px;
-  font-weight: bold;
-  white-space: nowrap;
-}
-
 /* Fiyat gizliyken: dikkat ceken ama satiri ezmeyen kapsul buton */
 
 .product_size_cta {
