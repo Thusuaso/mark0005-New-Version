@@ -188,7 +188,18 @@
             :aria-expanded="openYears.has(y.year)"
             @click="toggleYear(y.year)"
           >
-            <span class="pn_year_no">{{ y.year }}</span>
+            <span class="pn_year_main">
+              <span class="pn_year_no">{{ y.year }}</span>
+              <span v-if="sumsOf(y).length" class="pn_year_sums">
+                <span
+                  v-for="sum in sumsOf(y)"
+                  :key="sum.unit"
+                  class="pn_year_sum"
+                  ><strong>{{ fmtNum(sum.value) }}</strong
+                  ><span class="pn_unit">{{ sum.unit }}</span></span
+                >
+              </span>
+            </span>
             <span class="pn_year_meta">
               <span>{{ t.n_orders(y.orders) }}</span>
               <span class="pn_dot">·</span>
@@ -207,8 +218,10 @@
               <thead>
                 <tr>
                   <th>{{ t.col_product }}</th>
-                  <th class="pn_num">{{ t.col_qty }}</th>
-                  <th class="pn_num">{{ t.col_pieces }}</th>
+                  <th class="pn_num">SQM</th>
+                  <th class="pn_num">PCS</th>
+                  <th class="pn_num">MT</th>
+                  <th v-if="hasOther(y)" class="pn_num">{{ t.col_other }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -220,11 +233,20 @@
                     </span>
                   </td>
                   <td class="pn_num">
-                    {{ fmtNum(it.quantity) }}
-                    <span v-if="it.unit" class="pn_unit">{{ it.unit }}</span>
+                    {{ sqmOf(it) ? fmtNum(sqmOf(it)) : "—" }}
                   </td>
                   <td class="pn_num">
-                    {{ it.pieces ? fmtNum(it.pieces) : "—" }}
+                    {{ pcsOf(it) ? fmtNum(pcsOf(it)) : "—" }}
+                  </td>
+                  <td class="pn_num">
+                    {{ mtOf(it) ? fmtNum(mtOf(it)) : "—" }}
+                  </td>
+                  <td v-if="hasOther(y)" class="pn_num">
+                    <template v-if="isOther(it)">
+                      {{ fmtNum(it.quantity) }}
+                      <span v-if="it.unit" class="pn_unit">{{ it.unit }}</span>
+                    </template>
+                    <template v-else>—</template>
                   </td>
                 </tr>
               </tbody>
@@ -255,9 +277,9 @@ type SumItem = {
   name: string;
   category: string;
   finish: string;
+  unit_id: number;
   unit: string;
   quantity: number;
-  pieces: number;
 };
 type YearRow = { year: number; orders: number; items: SumItem[] };
 
@@ -297,8 +319,7 @@ const texts: Record<Lang, any> = {
     n_orders: (n: number) => `${n} ${n === 1 ? "order" : "orders"}`,
     n_items: (n: number) => `${n} ${n === 1 ? "product" : "products"}`,
     col_product: "Product",
-    col_qty: "Quantity",
-    col_pieces: "Pieces",
+    col_other: "Other",
     err_email: "Please enter a valid e-mail address.",
     err_taken: "This e-mail address belongs to another customer record.",
     err_field: "Please fill in all required fields.",
@@ -348,8 +369,7 @@ const texts: Record<Lang, any> = {
     n_orders: (n: number) => `${n} commande${n === 1 ? "" : "s"}`,
     n_items: (n: number) => `${n} produit${n === 1 ? "" : "s"}`,
     col_product: "Produit",
-    col_qty: "Quantité",
-    col_pieces: "Pièces",
+    col_other: "Autre",
     err_email: "Veuillez saisir une adresse e-mail valide.",
     err_taken: "Cette adresse e-mail appartient à une autre fiche client.",
     err_field: "Veuillez remplir tous les champs obligatoires.",
@@ -397,8 +417,7 @@ const texts: Record<Lang, any> = {
     n_orders: (n: number) => `${n} pedido${n === 1 ? "" : "s"}`,
     n_items: (n: number) => `${n} producto${n === 1 ? "" : "s"}`,
     col_product: "Producto",
-    col_qty: "Cantidad",
-    col_pieces: "Piezas",
+    col_other: "Otro",
     err_email: "Introduzca un correo electrónico válido.",
     err_taken: "Este correo pertenece a otra ficha de cliente.",
     err_field: "Rellene todos los campos obligatorios.",
@@ -445,8 +464,7 @@ const texts: Record<Lang, any> = {
     n_orders: (n: number) => `${n} заказ(ов)`,
     n_items: (n: number) => `${n} товар(ов)`,
     col_product: "Товар",
-    col_qty: "Количество",
-    col_pieces: "Штук",
+    col_other: "Другое",
     err_email: "Введите корректный адрес e-mail.",
     err_taken: "Этот адрес принадлежит другой карточке клиента.",
     err_field: "Заполните все обязательные поля.",
@@ -493,8 +511,7 @@ const texts: Record<Lang, any> = {
     n_orders: (n: number) => `${n} طلب`,
     n_items: (n: number) => `${n} منتج`,
     col_product: "المنتج",
-    col_qty: "الكمية",
-    col_pieces: "عدد القطع",
+    col_other: "أخرى",
     err_email: "يرجى إدخال بريد إلكتروني صحيح.",
     err_taken: "هذا البريد يتبع سجل عميل آخر.",
     err_field: "يرجى تعبئة جميع الحقول المطلوبة.",
@@ -679,6 +696,48 @@ const locales: Record<Lang, string> = {
 };
 const fmtNum = (n: number) =>
   n.toLocaleString(locales[lang], { maximumFractionDigits: 2 });
+
+/* UrunBirimTB kimlikleri. Miktar kolonu birime gore anlam degistirdigi icin
+   satirin miktari yalnizca kendi biriminin kolonunda gosteriliyor. */
+const SQM = 1;
+const PCS = 2;
+const MT = 3;
+
+const sqmOf = (it: SumItem) => (it.unit_id === SQM ? it.quantity : 0);
+const mtOf = (it: SumItem) => (it.unit_id === MT ? it.quantity : 0);
+
+const pcsOf = (it: SumItem) => (it.unit_id === PCS ? it.quantity : 0);
+
+/* Ton ve Sqft gibi birimler uc kolona girmiyor; kendi kolonunda birimiyle
+   yaziliyor ki miktar kaybolmasin. */
+const isOther = (it: SumItem) =>
+  it.unit_id !== SQM && it.unit_id !== PCS && it.unit_id !== MT;
+
+const hasOther = (y: YearRow) => y.items.some(isOther);
+
+/* Yil basligindaki toplamlar; sifir olan birim hic yazilmiyor. */
+function sumsOf(y: YearRow) {
+  let sqm = 0;
+  let pcs = 0;
+  let mt = 0;
+  const other = new Map<string, number>();
+  for (const it of y.items) {
+    sqm += sqmOf(it);
+    pcs += pcsOf(it);
+    mt += mtOf(it);
+    if (isOther(it)) {
+      const key = it.unit || "?";
+      other.set(key, (other.get(key) ?? 0) + it.quantity);
+    }
+  }
+  const out = [
+    { unit: "SQM", value: sqm },
+    { unit: "PCS", value: pcs },
+    { unit: "MT", value: mt },
+    ...[...other].map(([unit, value]) => ({ unit, value })),
+  ];
+  return out.filter((s) => s.value > 0);
+}
 </script>
 
 <style scoped>
@@ -942,6 +1001,7 @@ const fmtNum = (n: number) =>
 
 .pn_year_head {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -959,9 +1019,32 @@ const fmtNum = (n: number) =>
   background: #f8fafc;
 }
 
+.pn_year_main {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.85rem;
+  min-width: 0;
+}
+
 .pn_year_no {
   font-size: 1.05rem;
   font-weight: 700;
+}
+
+.pn_year_sums {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.75rem;
+  font-size: 13px;
+}
+
+.pn_year_sum strong {
+  font-weight: 600;
+}
+
+.pn_year_sum .pn_unit {
+  margin-inline-start: 0.2rem;
 }
 
 .pn_year_meta {

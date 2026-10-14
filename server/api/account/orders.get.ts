@@ -84,7 +84,7 @@ export default defineEventHandler(async (event) => {
     `select su.SiparisNo, su.SiraNo,
             u.UrunAdi, k.KategoriAdi, y.YuzeyIslemAdi,
             o.En, o.Boy, o.Kenar,
-            b.BirimAdi, su.Miktar, su.Adet, su.KasaOlcusu
+            su.UrunBirimID, b.BirimAdi, su.Miktar, su.KasaOlcusu
        from SiparisUrunTB su
        left join UrunKartTB uk on uk.ID = su.UrunKartID
        left join UrunlerTB u on u.ID = uk.UrunID
@@ -129,9 +129,12 @@ export default defineEventHandler(async (event) => {
       finish: text(r.YuzeyIslemAdi),
       size: size(r.En, r.Boy, r.Kenar),
       crate: text(r.KasaOlcusu),
+      /* UrunBirimTB: 1 Sqm, 2 Pcs, 3 Mt, 4 Ton, 5 Sqft. Miktar birime gore
+         anlam degistirdigi icin arayuz dogru kolona yazabilsin diye ID de
+         doniyor. Adet kolonu bilerek kullanilmiyor. */
+      unit_id: num(r.UrunBirimID),
       unit: text(r.BirimAdi),
       quantity: num(r.Miktar),
-      pieces: num(r.Adet),
     });
   }
 

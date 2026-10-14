@@ -51,12 +51,14 @@
             <span class="or_head_main">
               <span class="or_no">{{ o.order_no }}</span>
               <span v-if="o.project" class="or_project">{{ o.project }}</span>
+              <span v-if="sumsOf(o).length" class="or_sums">
+                <span v-for="sum in sumsOf(o)" :key="sum.unit" class="or_sum"
+                  ><strong>{{ fmtNum(sum.value) }}</strong
+                  ><span class="or_unit">{{ sum.unit }}</span></span
+                >
+              </span>
             </span>
             <span class="or_head_meta">
-              <span class="or_date"
-                ><i class="bi-calendar3" aria-hidden="true"></i
-                >{{ o.date ? fmtDate(o.date) : "—" }}</span
-              >
               <span v-if="o.status" class="or_badge">{{ o.status }}</span>
               <i
                 class="or_caret"
@@ -70,6 +72,10 @@
 
           <div v-if="open.has(o.order_no)" class="or_body">
             <dl class="or_facts">
+              <div v-if="o.date">
+                <dt>{{ t.order_date }}</dt>
+                <dd>{{ fmtDate(o.date) }}</dd>
+              </div>
               <div v-if="o.shipped_at">
                 <dt>{{ t.shipped }}</dt>
                 <dd>{{ fmtDate(o.shipped_at) }}</dd>
@@ -90,7 +96,12 @@
                   <tr>
                     <th>{{ t.col_product }}</th>
                     <th>{{ t.col_size }}</th>
-                    <th class="or_num">{{ t.col_qty }}</th>
+                    <th class="or_num">SQM</th>
+                    <th class="or_num">PCS</th>
+                    <th class="or_num">MT</th>
+                    <th v-if="hasOther(o)" class="or_num">
+                      {{ t.col_other }}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -105,8 +116,22 @@
                     </td>
                     <td>{{ it.size || "—" }}</td>
                     <td class="or_num">
-                      {{ fmtNum(it.quantity) }}
-                      <span v-if="it.unit" class="or_unit">{{ it.unit }}</span>
+                      {{ sqmOf(it) ? fmtNum(sqmOf(it)) : "—" }}
+                    </td>
+                    <td class="or_num">
+                      {{ pcsOf(it) ? fmtNum(pcsOf(it)) : "—" }}
+                    </td>
+                    <td class="or_num">
+                      {{ mtOf(it) ? fmtNum(mtOf(it)) : "—" }}
+                    </td>
+                    <td v-if="hasOther(o)" class="or_num">
+                      <template v-if="isOther(it)">
+                        {{ fmtNum(it.quantity) }}
+                        <span v-if="it.unit" class="or_unit">{{
+                          it.unit
+                        }}</span>
+                      </template>
+                      <template v-else>—</template>
                     </td>
                   </tr>
                 </tbody>
@@ -130,9 +155,9 @@ type Item = {
   category: string;
   finish: string;
   size: string;
+  unit_id: number;
   unit: string;
   quantity: number;
-  pieces: number;
 };
 type Order = {
   order_no: string;
@@ -159,12 +184,13 @@ const texts: Record<
     stat_orders: string;
     stat_items: string;
     stat_last: string;
+    order_date: string;
     shipped: string;
     container: string;
     pallets: string;
     col_product: string;
     col_size: string;
-    col_qty: string;
+    col_other: string;
   }
 > = {
   en: {
@@ -179,12 +205,13 @@ const texts: Record<
     stat_orders: "Orders",
     stat_items: "Product lines",
     stat_last: "Latest order",
+    order_date: "Order date",
     shipped: "Loading date",
     container: "Container",
     pallets: "Pallets",
     col_product: "Product",
     col_size: "Size",
-    col_qty: "Quantity",
+    col_other: "Other",
   },
   fr: {
     eyebrow: "Mon compte",
@@ -200,12 +227,13 @@ const texts: Record<
     stat_orders: "Commandes",
     stat_items: "Lignes de produits",
     stat_last: "Dernière commande",
+    order_date: "Date de commande",
     shipped: "Date de chargement",
     container: "Conteneur",
     pallets: "Palettes",
     col_product: "Produit",
     col_size: "Dimensions",
-    col_qty: "Quantité",
+    col_other: "Autre",
   },
   es: {
     eyebrow: "Mi cuenta",
@@ -221,12 +249,13 @@ const texts: Record<
     stat_orders: "Pedidos",
     stat_items: "Líneas de producto",
     stat_last: "Último pedido",
+    order_date: "Fecha de pedido",
     shipped: "Fecha de carga",
     container: "Contenedor",
     pallets: "Palés",
     col_product: "Producto",
     col_size: "Medidas",
-    col_qty: "Cantidad",
+    col_other: "Otro",
   },
   ru: {
     eyebrow: "Мой аккаунт",
@@ -241,12 +270,13 @@ const texts: Record<
     stat_orders: "Заказы",
     stat_items: "Позиции",
     stat_last: "Последний заказ",
+    order_date: "Дата заказа",
     shipped: "Дата загрузки",
     container: "Контейнер",
     pallets: "Паллеты",
     col_product: "Товар",
     col_size: "Размер",
-    col_qty: "Количество",
+    col_other: "Другое",
   },
   ar: {
     eyebrow: "حسابي",
@@ -260,12 +290,13 @@ const texts: Record<
     stat_orders: "الطلبات",
     stat_items: "بنود المنتجات",
     stat_last: "أحدث طلب",
+    order_date: "تاريخ الطلب",
     shipped: "تاريخ التحميل",
     container: "الحاوية",
     pallets: "الطبليات",
     col_product: "المنتج",
     col_size: "المقاس",
-    col_qty: "الكمية",
+    col_other: "أخرى",
   },
 };
 
@@ -331,6 +362,46 @@ function fmtDate(iso: string) {
     year: "numeric",
     timeZone: "UTC",
   });
+}
+
+/* UrunBirimTB kimlikleri; satirin miktari yalnizca kendi biriminin
+   kolonunda gosteriliyor (bkz. components/Account/PanelPage.vue). */
+const SQM = 1;
+const PCS = 2;
+const MT = 3;
+
+const sqmOf = (it: Item) => (it.unit_id === SQM ? it.quantity : 0);
+const pcsOf = (it: Item) => (it.unit_id === PCS ? it.quantity : 0);
+const mtOf = (it: Item) => (it.unit_id === MT ? it.quantity : 0);
+
+/* Ton ve Sqft uc kolona girmiyor; miktar kaybolmasin diye kendi kolonunda
+   birimiyle yaziliyor. */
+const isOther = (it: Item) =>
+  it.unit_id !== SQM && it.unit_id !== PCS && it.unit_id !== MT;
+
+const hasOther = (o: Order) => o.items.some(isOther);
+
+/* Siparis basligindaki toplamlar; sifir olan birim hic yazilmiyor. */
+function sumsOf(o: Order) {
+  let sqm = 0;
+  let pcs = 0;
+  let mt = 0;
+  const other = new Map<string, number>();
+  for (const it of o.items) {
+    sqm += sqmOf(it);
+    pcs += pcsOf(it);
+    mt += mtOf(it);
+    if (isOther(it)) {
+      const key = it.unit || "?";
+      other.set(key, (other.get(key) ?? 0) + it.quantity);
+    }
+  }
+  return [
+    { unit: "SQM", value: sqm },
+    { unit: "PCS", value: pcs },
+    { unit: "MT", value: mt },
+    ...[...other].map(([unit, value]) => ({ unit, value })),
+  ].filter((sum) => sum.value > 0);
 }
 
 const fmtNum = (n: number) =>
@@ -470,6 +541,22 @@ const fmtNum = (n: number) =>
   font-weight: 700;
 }
 
+.or_sums {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.7rem;
+  margin-top: 0.15rem;
+  font-size: 13px;
+}
+
+.or_sum strong {
+  font-weight: 600;
+}
+
+.or_sum .or_unit {
+  margin-inline-start: 0.2rem;
+}
+
 .or_project {
   color: var(--or-muted);
   font-size: 13px;
@@ -483,15 +570,6 @@ const fmtNum = (n: number) =>
   align-items: center;
   gap: 0.75rem;
   flex: none;
-}
-
-.or_date {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  color: var(--or-muted);
-  font-size: 13px;
-  white-space: nowrap;
 }
 
 .or_badge {

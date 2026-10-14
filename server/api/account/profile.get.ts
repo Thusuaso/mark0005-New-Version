@@ -55,9 +55,9 @@ export default defineEventHandler(async (event) => {
 
   const summary = await sumReq.query(
     `select year(s.SiparisTarihi) as yil,
-            u.UrunAdi, k.KategoriAdi, y.YuzeyIslemAdi, b.BirimAdi,
+            u.UrunAdi, k.KategoriAdi, y.YuzeyIslemAdi,
+            su.UrunBirimID, b.BirimAdi,
             sum(isnull(su.Miktar, 0)) as miktar,
-            sum(isnull(su.Adet, 0)) as adet,
             count(distinct s.SiparisNo) as siparis
        from SiparisUrunTB su
        join SiparislerTB s on s.SiparisNo = su.SiparisNo
@@ -69,7 +69,7 @@ export default defineEventHandler(async (event) => {
       where s.MusteriID in (${idParams.join(",")})
         and s.SiparisTarihi is not null
       group by year(s.SiparisTarihi), u.UrunAdi, k.KategoriAdi,
-               y.YuzeyIslemAdi, b.BirimAdi
+               y.YuzeyIslemAdi, su.UrunBirimID, b.BirimAdi
       order by yil desc, sum(isnull(su.Miktar, 0)) desc`,
   );
 
@@ -87,9 +87,11 @@ export default defineEventHandler(async (event) => {
       name: text(r.UrunAdi),
       category: text(r.KategoriAdi),
       finish: text(r.YuzeyIslemAdi),
+      /* UrunBirimTB: 1 Sqm, 2 Pcs, 3 Mt, 4 Ton, 5 Sqft. Panel miktari bu
+         kimlige gore dogru kolona yaziyor, bu yuzden ad degil ID donuyor. */
+      unit_id: num(r.UrunBirimID),
       unit: text(r.BirimAdi),
       quantity: num(r.miktar),
-      pieces: num(r.adet),
       orders: num(r.siparis),
     });
   }
