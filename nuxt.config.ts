@@ -138,6 +138,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       gtagId: "G-1VBK9JFP48",
+      adsId: "AW-18344097723",
       yandexMetricaId: "89814958",
     },
   },

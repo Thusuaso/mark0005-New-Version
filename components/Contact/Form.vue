@@ -93,7 +93,7 @@ import MazPhoneNumberInput from "maz-ui/components/MazPhoneNumberInput";
 import "maz-ui/styles";
 import { ref, reactive, useId } from "vue";
 import { useStore } from "~/store/index";
-
+import { trackConversion } from "~/composables/useConversion";
 const props = defineProps({
   form: {
     type: Object,
@@ -114,7 +114,8 @@ const store = useStore();
 const toast_texts = {
   en: {
     missing_title: "Please complete the form",
-    missing_text: (fields: string) => `The following fields are missing or invalid: ${fields}.`,
+    missing_text: (fields: string) =>
+      `The following fields are missing or invalid: ${fields}.`,
     success_title: "Your message has been sent",
     success_text: (name: string) =>
       `Thank you${name ? `, ${name}` : ""}! Our sales team will get back to you by email as soon as possible.`,
@@ -126,11 +127,13 @@ const toast_texts = {
     blocked_title: "This email address can't be used",
     blocked_text: "Please enter your own email address so we can reply to you.",
     paste_title: "Please type your email address",
-    paste_text: "Pasting is disabled in this field to make sure your address is entered correctly.",
+    paste_text:
+      "Pasting is disabled in this field to make sure your address is entered correctly.",
   },
   fr: {
     missing_title: "Veuillez compléter le formulaire",
-    missing_text: (fields: string) => `Les champs suivants sont manquants ou invalides : ${fields}.`,
+    missing_text: (fields: string) =>
+      `Les champs suivants sont manquants ou invalides : ${fields}.`,
     success_title: "Votre message a été envoyé",
     success_text: (name: string) =>
       `Merci${name ? `, ${name}` : ""} ! Notre équipe commerciale vous répondra par e-mail dans les plus brefs délais.`,
@@ -140,13 +143,16 @@ const toast_texts = {
     error_text:
       'Veuillez réessayer dans un instant ou écrivez-nous directement à <a href="mailto:export@mekmar.com">export@mekmar.com</a>.',
     blocked_title: "Cette adresse e-mail ne peut pas être utilisée",
-    blocked_text: "Veuillez saisir votre propre adresse e-mail afin que nous puissions vous répondre.",
+    blocked_text:
+      "Veuillez saisir votre propre adresse e-mail afin que nous puissions vous répondre.",
     paste_title: "Veuillez saisir votre adresse e-mail",
-    paste_text: "Le collage est désactivé dans ce champ pour garantir une adresse correcte.",
+    paste_text:
+      "Le collage est désactivé dans ce champ pour garantir une adresse correcte.",
   },
   es: {
     missing_title: "Complete el formulario",
-    missing_text: (fields: string) => `Los siguientes campos faltan o no son válidos: ${fields}.`,
+    missing_text: (fields: string) =>
+      `Los siguientes campos faltan o no son válidos: ${fields}.`,
     success_title: "Su mensaje ha sido enviado",
     success_text: (name: string) =>
       `¡Gracias${name ? `, ${name}` : ""}! Nuestro equipo de ventas le responderá por correo lo antes posible.`,
@@ -156,13 +162,16 @@ const toast_texts = {
     error_text:
       'Inténtelo de nuevo en unos momentos o escríbanos directamente a <a href="mailto:export@mekmar.com">export@mekmar.com</a>.',
     blocked_title: "No se puede usar esta dirección de correo",
-    blocked_text: "Introduzca su propia dirección de correo para que podamos responderle.",
+    blocked_text:
+      "Introduzca su propia dirección de correo para que podamos responderle.",
     paste_title: "Escriba su dirección de correo",
-    paste_text: "Pegar está desactivado en este campo para asegurar que la dirección sea correcta.",
+    paste_text:
+      "Pegar está desactivado en este campo para asegurar que la dirección sea correcta.",
   },
   ru: {
     missing_title: "Пожалуйста, заполните форму",
-    missing_text: (fields: string) => `Не заполнены или заполнены неверно: ${fields}.`,
+    missing_text: (fields: string) =>
+      `Не заполнены или заполнены неверно: ${fields}.`,
     success_title: "Ваше сообщение отправлено",
     success_text: (name: string) =>
       `Спасибо${name ? `, ${name}` : ""}! Наш отдел продаж ответит вам по электронной почте в ближайшее время.`,
@@ -172,13 +181,16 @@ const toast_texts = {
     error_text:
       'Попробуйте ещё раз чуть позже или напишите нам напрямую: <a href="mailto:export@mekmar.com">export@mekmar.com</a>.',
     blocked_title: "Этот адрес нельзя использовать",
-    blocked_text: "Пожалуйста, укажите свой адрес электронной почты, чтобы мы могли вам ответить.",
+    blocked_text:
+      "Пожалуйста, укажите свой адрес электронной почты, чтобы мы могли вам ответить.",
     paste_title: "Введите адрес электронной почты вручную",
-    paste_text: "Вставка в это поле отключена, чтобы адрес был указан правильно.",
+    paste_text:
+      "Вставка в это поле отключена, чтобы адрес был указан правильно.",
   },
   ar: {
     missing_title: "يرجى إكمال النموذج",
-    missing_text: (fields: string) => `الحقول التالية فارغة أو غير صحيحة: ${fields}.`,
+    missing_text: (fields: string) =>
+      `الحقول التالية فارغة أو غير صحيحة: ${fields}.`,
     success_title: "تم إرسال رسالتك",
     success_text: (name: string) =>
       `شكراً${name ? ` ${name}` : ""}! سيتواصل معك فريق المبيعات عبر البريد الإلكتروني في أقرب وقت.`,
@@ -194,11 +206,18 @@ const toast_texts = {
   },
 };
 const lang = store.getLang as string;
-const tt = toast_texts[(lang in toast_texts ? lang : "en") as keyof typeof toast_texts];
+const tt =
+  toast_texts[(lang in toast_texts ? lang : "en") as keyof typeof toast_texts];
 
 /* Kullanicinin yazdigi ad bildirimde HTML olarak basilmasin */
 const escapeHtml = (s: string) =>
-  s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+  s.replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+        c
+      ]!,
+  );
 
 const phoneNumber = ref("");
 const countryCode = ref("FR");
@@ -220,7 +239,8 @@ const touched = reactive({ name: false, email: false, description: false });
 const sending = ref(false);
 
 const isFilled = (value: string) => value.trim() !== "";
-const isMail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+const isMail = (value: string) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
 
 /* Hatalar ancak alana dokunulduktan (veya gonder'e basildiktan) sonra gosterilir */
 function showError(field: "name" | "email" | "description") {
@@ -247,7 +267,9 @@ async function sendMail() {
   if (missing.length) {
     $toast.warning({
       title: tt.missing_title,
-      text: tt.missing_text(missing.map((f) => `<strong>${f}</strong>`).join(", ")),
+      text: tt.missing_text(
+        missing.map((f) => `<strong>${f}</strong>`).join(", "),
+      ),
     });
     return;
   }
@@ -255,12 +277,18 @@ async function sendMail() {
   sending.value = true;
   try {
     const body = props.product
-      ? { ...model.value, product: { ...props.product, url: window.location.href } }
+      ? {
+          ...model.value,
+          product: { ...props.product, url: window.location.href },
+        }
       : model.value;
     await $fetch("/api/sendMail", { method: "POST", body });
+    trackConversion("form");
     const name = escapeHtml(model.value.name.trim().split(/\s+/)[0] || "");
     const productLabel = props.product
-      ? escapeHtml([props.product.name, props.product.size].filter(Boolean).join(" · "))
+      ? escapeHtml(
+          [props.product.name, props.product.size].filter(Boolean).join(" · "),
+        )
       : "";
     $toast.success({
       title: tt.success_title,
@@ -346,7 +374,9 @@ function onPaste() {
   background: #fff;
   color: #212529;
   font-size: 14px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .cf_field .cf_input {
@@ -416,7 +446,9 @@ function onPaste() {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 }
 
 .cf_btn:hover:not(:disabled) {
