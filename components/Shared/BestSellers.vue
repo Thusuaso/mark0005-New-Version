@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
- * Ana sayfada kategorilerin altindaki "Best Sellers" bolumu.
+ * Ana sayfada kategorilerin altindaki "Best Sellers of the Year" bolumu.
  *
  * Urun listesi server/api/products/bestsellers.get.ts icinde elle seciliyor;
  * isim/gorsel/link veritabanindan geliyor. Kart gorunumu kategorilerle ayni
@@ -14,24 +14,24 @@ type Lang = "en" | "fr" | "es" | "ru" | "ar";
 
 const texts: Record<Lang, { heading: string; description: string }> = {
   en: {
-    heading: "Best Sellers",
-    description: "The models our customers order most, ready to ship.",
+    heading: "Best Sellers of the Year",
+    description: "The models our customers have ordered most this year, ready to ship.",
   },
   fr: {
-    heading: "Meilleures ventes",
-    description: "Les modèles les plus commandés, prêts à être expédiés.",
+    heading: "Meilleures ventes de l'année",
+    description: "Les modèles les plus commandés cette année, prêts à être expédiés.",
   },
   es: {
-    heading: "Más vendidos",
-    description: "Los modelos más pedidos por nuestros clientes, listos para enviar.",
+    heading: "Los más vendidos del año",
+    description: "Los modelos más pedidos por nuestros clientes este año, listos para enviar.",
   },
   ru: {
-    heading: "Хиты продаж",
-    description: "Модели, которые заказывают чаще всего — готовы к отправке.",
+    heading: "Хиты продаж года",
+    description: "Модели, которые заказывали чаще всего в этом году — готовы к отправке.",
   },
   ar: {
-    heading: "الأكثر مبيعاً",
-    description: "الموديلات الأكثر طلباً من عملائنا، جاهزة للشحن.",
+    heading: "الأكثر مبيعاً هذا العام",
+    description: "الموديلات الأكثر طلباً من عملائنا هذا العام، جاهزة للشحن.",
   },
 };
 
