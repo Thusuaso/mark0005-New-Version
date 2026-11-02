@@ -1,4 +1,5 @@
 <template>
+  <div class="page-root">
   <h1 class="header mb-3">{{ detail.name.toUpperCase() }}</h1>
   <div class="row m-auto text-center mb-3">
     <div class="col-sm-6 mt-3">
@@ -74,6 +75,7 @@
     <div class="col-sm-3" v-for="sug in suggested" :key="sug.id">
       <ProductsCard :link="sug.link" :image="sug.image" :text="sug.name" />
     </div>
+  </div>
   </div>
 </template>
 <script setup lang="ts">

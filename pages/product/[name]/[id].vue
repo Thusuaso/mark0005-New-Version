@@ -1,19 +1,21 @@
 <script setup lang="ts">
 /**
- * Kategori urun listesi sayfasi.
+ * Kategori urun listesi sayfasi (ingilizce).
  *
- * Tanitim metinleri simdilik asagidaki CATEGORY_INTROS nesnesinde duruyor.
- * Dil dosyalarina tasimak icin:
- *   1. Nesneyi oldugu gibi en.json'a "category_intros" anahtari altina koy
- *   2. store'a getFilteredHeader ile ayni desende bir getCategoryIntros ekle
+ * Liste, filtreler ve filtre zincirleme mantigi
+ * components/Products/CategoryPage.vue icinde — bes dilin sayfasi da ayni
+ * bileseni kullaniyor. Bu dosyada yalnizca bu dile ait tanitim metinleri
+ * duruyor; onlar da `intro` slot'una veriliyor.
+ *
+ * Tanitim metinlerini dil dosyalarina tasimak icin:
+ *   1. CATEGORY_INTROS'u oldugu gibi en.json'a "category_intros" altina koy
+ *   2. store'a getFilteredHeader ile ayni desende getCategoryIntros ekle
  *   3. Buradaki sabiti sil, yerine: const CATEGORY_INTROS = store.getCategoryIntros
- * Anahtarlar string oldugu icin erisimde String() kullaniliyor — JSON'a
- * tasindiginda da ayni sekilde calisir.
+ * Anahtarlar string oldugu icin erisimde String() kullaniliyor.
  */
 
 import { computed } from "vue";
 import { useStore } from "~/store/index";
-import control from "~/lang/control";
 
 type CategoryIntro = { heading: string; body: string };
 
@@ -68,222 +70,60 @@ const route = useRoute();
 const store = useStore();
 
 const categoryId = computed(() => Number(route.params.id));
-
-/* useAsyncData: sunucuda cekilen veri istemciye tasiniyor, ikinci istek
-   atilmiyor. Duz "await $fetch" her iki tarafta da calisiyordu. */
-const { data: detail } = await useAsyncData(
-  () => `category-${route.params.id}`,
-  () => $fetch(`/api/products/${route.params.id}`),
-  { watch: [() => route.params.id] },
-);
-
-store.setCategoriesDetail(detail.value);
-store.setResetBreadcrumb();
-store.setNowBreadCrumb({
-  label: route.params.name,
-  route: route.fullPath,
-});
-
-const lang = store.getLang;
-const detailData = store.getCategoriesDetail;
-const headers = store.getFilteredHeader;
-
-const products = control.lang_category_products(detailData.products, lang);
-
-/*
-  Filtre gruplari. showFor null ise grup her kategoride gorunur,
-  doluysa yalnizca listedeki id'lerde.
-  Eskiden her grup icin "category_id == 1 || category_id == 2 || ..."
-  seklinde uzun zincirler vardi.
-*/
-const filterGroups = computed(() => {
-  const groups = [
-    {
-      key: "category",
-      header: headers.category,
-      items: control.lang_filter(detailData.category_f, lang),
-      showFor: null as number[] | null,
-    },
-    {
-      key: "color",
-      header: headers.color,
-      items: control.lang_filter(detailData.color_f, lang),
-      showFor: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-    },
-    {
-      key: "finish",
-      header: headers.finish,
-      items: control.lang_filter(detailData.finish_f, lang),
-      showFor: [1, 2, 3, 4, 8],
-    },
-    {
-      key: "edge",
-      header: headers.edge,
-      items: control.lang_filter(detailData.edge_f, lang),
-      showFor: [2],
-    },
-    {
-      key: "material",
-      header: headers.material,
-      items: control.lang_filter(detailData.material_f, lang),
-      showFor: [4, 7],
-    },
-    {
-      key: "style",
-      header: headers.style,
-      items: control.lang_filter(detailData.style_f, lang),
-      showFor: [2],
-    },
-    {
-      key: "type",
-      header: headers.type,
-      items: control.lang_filter(detailData.type_f, lang),
-      showFor: [5, 6, 9, 11, 18],
-    },
-  ];
-
-  return groups.filter(
-    (g) =>
-      (g.showFor === null || g.showFor.includes(categoryId.value)) &&
-      g.items?.length,
-  );
-});
-
 const intro = computed(() => CATEGORY_INTROS[String(categoryId.value)] ?? null);
-
-const isRtl = computed(() => lang === "ar");
+const isRtl = computed(() => store.getLang === "ar");
 </script>
 
 <template>
-  <div class="row m-auto">
-    <!-- Filtreler -->
-    <aside class="col-sm-3 filter-custom">
-      <section
-        v-for="group of filterGroups"
-        :key="group.key"
-        class="filter-group"
-      >
-        <h2 class="filter-group__header">{{ group.header }}</h2>
-
-        <ol class="filter-group__list">
-          <li v-for="item of group.items" :key="item.Id">
-            <ProductsFilter
-              :name="item.name"
-              :value="item.Filtered"
-              :link="item.link"
-            />
-          </li>
-        </ol>
-      </section>
-    </aside>
-
-    <!-- Urunler -->
-    <div class="col-sm-9">
-      <div class="row m-auto">
-        <div
-          v-for="(product, i) of products"
-          :key="product.Id"
-          class="col-sm-4 mb-4"
-        >
-          <ProductsCard
-            :text="product.name"
-            :image="product.image"
-            :link="product.link"
-            :loading="i < 3 ? 'eager' : 'lazy'"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Kategori tanitim metni -->
-  <section v-if="intro" class="row m-auto">
-    <div class="col-sm-12">
-      <article class="category-intro" :class="{ 'is-rtl': isRtl }">
+  <ProductsCategoryPage>
+    <template #intro>
+      <article v-if="intro" class="category-intro" :class="{ 'is-rtl': isRtl }">
         <h2 class="category-intro__header">{{ intro.heading }}</h2>
         <!-- eslint-disable-next-line vue/no-v-html -- statik, kendi metnimiz -->
         <div class="category-intro__body" v-html="intro.body"></div>
       </article>
-    </div>
-  </section>
+    </template>
+  </ProductsCategoryPage>
 </template>
 
 <style scoped>
-/* --- Filtreler --- */
-
-.filter-group {
-  border: 1px solid #e3e6ea;
-  border-radius: 4px;
-  padding: 0.875rem 1rem 1rem;
-  margin-bottom: 1rem;
-  background: #fff;
-}
-
-.filter-group__header {
-  font-size: 14px;
-  font-weight: bold;
-  color: #1e58c4;
-  text-align: left;
-  margin: 0 0 0.625rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #eef1f4;
-}
-
-.filter-group__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.filter-group__list > li {
-  padding: 0.25rem 0;
-}
-
-.filter-group__list > li + li {
-  border-top: 1px solid #f4f6f8;
-}
-
-/* --- Tanitim metni --- */
-
 .category-intro {
   max-width: 68ch;
-  margin: 2.5rem auto 3.5rem;
+  margin: clamp(2.5rem, 5vw, 4rem) auto clamp(2rem, 4vw, 3.5rem);
   padding-top: 1.75rem;
-  border-top: 1px solid #e3e6ea;
+  border-top: 1px solid var(--mk-border);
+  font-family: var(--mk-ff-body);
 }
 
 .category-intro__header {
-  font-size: 19px;
-  font-weight: bold;
-  color: #1e58c4;
-  text-align: left;
   margin: 0 0 0.875rem;
+  font-family: var(--mk-ff-display);
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-align: start;
+  text-transform: none;
+  color: var(--mk-ink);
 }
 
 .category-intro__body {
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 1.8;
-  text-align: left;
-  color: #2b2b2b;
+  text-align: start;
+  color: var(--mk-body);
 }
 
 /* Vurgular: eskiden italik + mavi idi, metin boyunca cok sik geciyor ve
    okumayi zorlastiriyordu. Sadece kalin biraktim. */
 .category-intro :deep(strong) {
-  font-weight: bold;
+  font-weight: 600;
   font-style: normal;
-  color: inherit;
+  color: var(--mk-ink);
 }
 
 /* --- Arapca --- */
-
 .category-intro.is-rtl {
   direction: rtl;
-}
-
-.category-intro.is-rtl .category-intro__header,
-.category-intro.is-rtl .category-intro__body {
-  text-align: right;
 }
 
 .category-intro.is-rtl .category-intro__body {

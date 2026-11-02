@@ -1,72 +1,9 @@
 <template>
-  <!-- How It Works: tam genislik, row'un disinda -->
-
-  <div class="row m-auto">
-    <div class="col-sm-12">
-      <SharedHowItWorks />
-      <SharedTrustBar />
-    </div>
-
-    <div class="col-sm-12">
-      <div class="row m-auto">
-        <div
-          v-for="(category, i) of categories"
-          :key="category.id"
-          class="col-sm-4 mb-4"
-        >
-          <LazyCategoriesCard
-            :link="category.link"
-            :image="category.image"
-            :text="category.name"
-            :loading="i < 3 ? 'eager' : 'lazy'"
-            ratio="1/1"
-          />
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-12">
-      <LazySharedBestSellers />
-    </div>
+  <div class="page-root">
+  <!-- Ana sayfanin tamami components/Home/Page.vue'da. Bes dilin index.vue'su
+       da ayni bileseni render ediyor; metinler store.getLang'e gore bolumlerin
+       icinde seciliyor. Dile ozel bir fark gerekirse Page.vue'ya prop eklenir,
+       bu dosyalar yine kopya kalmaz. -->
+  <HomePage />
   </div>
-
-  <!-- <SharedPopUp v-show="isVisible" v-if="session != 'false' && !isMobile" />
-  <SharedPopUpMobile v-show="isVisible" v-if="session != 'false' && isMobile" /> -->
-  <SharedWhatsappFloat />
-  <SharedSocialFloat />
 </template>
-
-<script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue";
-import { useStore } from "~/store/index";
-
-const store = useStore();
-const categories = store.getCategories;
-const slides = store.getSlides;
-const usastock = store.getUsaStockMainMenu;
-
-/* --- Pop-up durumu (su an template'te kapali) --- */
-const isVisible = ref(true);
-const isMobile = ref(false);
-
-const closeModal = () => {
-  isVisible.value = false;
-  sessionStorage.setItem("modal_section_visible", "false");
-};
-
-const handleKeydown = (event: KeyboardEvent) => {
-  if (event.key === "Escape") {
-    closeModal();
-  }
-};
-
-onMounted(() => {
-  // SSR ile istemci ciktisinin ayrismamasi icin mount sonrasina alindi.
-  isMobile.value = window.innerWidth <= 768;
-  document.addEventListener("keydown", handleKeydown);
-});
-
-onUnmounted(() => {
-  document.removeEventListener("keydown", handleKeydown);
-});
-</script>

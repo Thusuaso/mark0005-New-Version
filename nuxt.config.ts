@@ -3,6 +3,31 @@ import Aura from "@primevue/themes/aura";
 
 export default defineNuxtConfig({
   app: {
+    /* Sayfa gecis animasyonu. Siniflarin tanimi
+       assets/css/transitions.css icinde (global olmasi sart).
+       mode "out-in": iki sayfa ust uste binmiyor, boylece yukseklik
+       ziplamasi ve ayni anda iki h1 bulunmasi olmuyor. */
+    /* Sayfa gecisi KAPALI.
+
+       `{ name: "page", mode: "out-in" }` idi. Sayfalarin cogu
+       <script setup> icinde ust duzey `await` kullaniyor; bu onlari async
+       bilesen yapiyor ve Nuxt onlari <Suspense> ile sariyor.
+       <Transition mode="out-in"> + <Suspense> birlesimi Vue'nun cikan
+       dali tasirken dustugu bilinen bir hataya giriyor:
+
+         NotFoundError: Failed to execute 'insertBefore' on 'Node'
+           at activeBranch.transition.afterLeave
+
+       Her gezinmede yakalanmamis bir istisna uretiyordu ve ayni mekanizma
+       bazi sayfalarin tiklandiginda bos gelmesine yol aciyordu. Gecis
+       gorsel bir ayrinti, bu ise dogruluk sorunu — gecis kapatildi.
+
+       Geri acmak icin: asagidaki satiri geri getirin ve css dizisindeki
+       transitions.css yorumunu kaldirin. Kalici cozum, ust duzey
+       `await $fetch(...)` cagrilarini useAsyncData'ya cevirip sayfalari
+       Suspense'e bagimli olmaktan cikarmak. */
+    pageTransition: false,
+
     head: {
       title: "Mekmar | High-Quality Marble and Natural Stone Solutions",
       charset: "utf-8",
@@ -37,6 +62,38 @@ export default defineNuxtConfig({
           rel: "icon",
           href: "https://cdn.mekmarimage.com/logo/mekmar-up-icon.png",
         },
+
+        /* Tema yazi tipi: Libre Baskerville — assets/css/tokens.css
+           icindeki --mk-ff-*.
+
+           Yaninda iki tamamlayici: Libre Baskerville YALNIZCA latin ve
+           latin-ext alt kumelerini iceriyor, Kiril ve Arapca glifi YOK.
+           /ru ve /ar bu yuzden Georgia'ya dusuyor ve digerlerinden farkli
+           gorunuyordu. PT Serif Kiril'i, Noto Naskh Arabic Arapca'yi
+           tasiyor; ikisi de serif, ayni dilde duruyorlar.
+
+           Ekstra indirme maliyeti yok: Google Fonts her kesimi
+           unicode-range ile sunuyor, tarayici yalnizca sayfada gecen
+           karakterlerin alt kumesini indiriyor. Ingilizce bir sayfa
+           Kiril veya Arapca dosyalarina hic dokunmuyor.
+
+           preconnect'ler el yazimi: Google Fonts'un CSS'i ile .woff2
+           dosyalari iki ayri hosttan geliyor, ikisi de baglanti kurulumunu
+           beklemesin diye.
+
+           display=swap: font inene kadar metin sistem yazi tipiyle gorunur,
+           gorunmez metin (FOIT) olmaz. Font hic inmezse tokendeki
+           Georgia/"Times New Roman" zinciri devrede kalir. */
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossorigin: "",
+        },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@400;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap",
+        },
         // {rel:"canonical",href:'https://www.mekmar.com'}
       ],
       style: [],
@@ -66,6 +123,15 @@ export default defineNuxtConfig({
      buradan ayrica listelenmiyor ki iki kez kaydedilmesin. */
 
   css: [
+    /* Tasarim tokenlari (sadece :root degiskenleri, ~1 KB). Yeni bolumler
+       bunlari kullaniyor; default.css'ten ONCE yuklenmesi gerekmiyor ama
+       burada durmasi her sayfada hazir olmasini sagliyor. */
+    "~/assets/css/tokens.css",
+    /* Sayfa gecis siniflari (.page-enter-*, .page-leave-*). Yukaridaki
+       pageTransition kapali oldugu icin su an kullanilmiyor; dosya
+       geri acilmak istenirse diye duruyor.
+    "~/assets/css/transitions.css", */
+
     "~/assets/css/default.css",
 
     "~/assets/css/bootstrap.custom.scss",

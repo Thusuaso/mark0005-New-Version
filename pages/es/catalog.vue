@@ -1,4 +1,5 @@
 <template>
+  <div class="page-root">
   <p>
     Por favor, introduzca su dirección de correo electrónico para recibir el
     catálogo.
@@ -40,6 +41,7 @@
         {{ contact.form.send }}
       </button>
     </div>
+  </div>
   </div>
 </template>
 <script lang="ts" setup>
@@ -220,6 +222,6 @@ body {
   align-items: center;
   justify-content: center;
   background: linear-gradient(to bottom, #74abe2, #5563de);
-  font-family: "Ropa Sans", sans-serif;
+  font-family: var(--mk-ff-body);
 }
 </style>

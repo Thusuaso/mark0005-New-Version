@@ -387,85 +387,130 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+/* Gorunum yeni tasarimin mono diline cevrildi: eskiden marka mavisi
+   (#1e58c4) ve yuvarlak (10-14px) kartlar vardi, temanin siyah/beyaz
+   paletiyle catisiyordu. Mantik degismedi.
+
+   Dugmenin rengi `currentColor`'dan geliyor: Navbar seffaf modda kendi
+   :deep() kuraliyla beyaza cevirince bu ikon da kendiliginden beyaza
+   donuyor. Panel ise her zaman acik zeminde durdugu icin sabit renkli. */
+
 .am {
   position: relative;
   display: inline-flex;
 }
 
+/* --- Tetikleyici ikon --- */
 .am_btn {
+  /* Giris durumu noktasi (.am_btn--on::after) buna gore konumlaniyor. */
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 2.375rem;
+  height: 2.375rem;
   padding: 0;
-  border: 1px solid #e5e7eb;
-  border-radius: 999px;
-  background: #fff;
-  color: #374151;
-  font-size: 17px;
+  font-size: 1.0625rem;
+  color: inherit;
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 50%;
   cursor: pointer;
+  /* Cerceve metinle ayni renkte oldugu icin tam opak agir duruyor. */
+  opacity: 0.65;
+  transition: opacity 0.25s ease;
 }
 
-.am_btn:hover {
-  border-color: #1e58c4;
-  color: #1e58c4;
+.am_btn:hover,
+.am_btn:focus-visible {
+  opacity: 1;
 }
 
+.am_btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Giris yapilmisken dolu daire: durum bir renkle degil kontrastla
+   anlatiliyor, boylece seffaf/beyaz iki modda da okunuyor. */
 .am_btn--on {
-  border-color: #1e58c4;
-  background: rgba(30, 88, 196, 0.08);
-  color: #1e58c4;
+  opacity: 1;
 }
 
+.am_btn--on::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: 0;
+  bottom: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--mk-accent);
+  box-shadow: 0 0 0 2px var(--mk-cream);
+}
+
+/* --- Panel --- */
 .am_pop {
   position: absolute;
   top: calc(100% + 0.5rem);
   inset-inline-end: 0;
   z-index: 60;
   width: min(20rem, calc(100vw - 2rem));
-  padding: 1rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+  padding: 1.25rem;
+  font-family: var(--mk-ff-body);
+  color: var(--mk-body);
+  background: var(--mk-cream);
+  border: 1px solid rgba(48, 48, 47, 0.1);
+  border-radius: var(--mk-radius);
+  box-shadow:
+    0 1px 2px 1px rgba(3, 11, 30, 0.06),
+    0 10px 30px rgba(3, 11, 30, 0.12);
   text-align: start;
 }
 
 .am_title {
   margin: 0;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #111827;
+  font-family: var(--mk-ff-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--mk-ink);
 }
 
 .am_text {
-  margin: 0.35rem 0 0.75rem;
-  color: #6b7280;
-  font-size: 13px;
-  line-height: 1.45;
+  margin: 0.4rem 0 0.9rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--mk-body);
 }
 
+/* --- Form --- */
 .am_input {
   width: 100%;
-  padding: 0.55rem 0.7rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  font-size: 14px;
+  padding: 0.6rem 0.75rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: var(--mk-ink);
+  background: var(--mk-cream);
+  border: 1px solid var(--mk-border);
+  border-radius: var(--mk-radius);
   /* Tarayici koyu modunda arka plan karariyordu; acik temaya sabitliyoruz. */
   color-scheme: light;
-  background: #fff;
-  color: #111827;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .am_input::placeholder {
-  color: #9ca3af;
+  color: var(--mk-grey-2);
+  opacity: 0.6;
 }
 
 .am_input:focus {
   outline: none;
-  border-color: #1e58c4;
-  box-shadow: 0 0 0 3px rgba(30, 88, 196, 0.12);
+  border-color: var(--mk-ink);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
 }
 
 .am_input--code {
@@ -476,58 +521,80 @@ onBeforeUnmount(() => {
 
 .am_submit {
   width: 100%;
-  margin-top: 0.6rem;
-  padding: 0.55rem 0.8rem;
-  border: 0;
-  border-radius: 10px;
-  background: #1e58c4;
-  color: #fff;
-  font-size: 14px;
+  margin-top: 0.75rem;
+  padding: 0.65rem 0.9rem;
+  font-family: inherit;
+  font-size: 0.8125rem;
   font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mk-cream);
+  background: var(--mk-ink);
+  border: 1px solid var(--mk-ink);
+  border-radius: var(--mk-radius-pill);
   cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.am_submit:hover:not(:disabled) {
+  color: var(--mk-ink);
+  background: var(--mk-cream);
 }
 
 .am_submit:disabled {
-  opacity: 0.6;
+  opacity: 0.45;
   cursor: default;
 }
 
 .am_back {
   width: 100%;
-  margin-top: 0.4rem;
-  padding: 0.3rem;
-  border: 0;
+  margin-top: 0.5rem;
+  padding: 0.35rem;
+  font-family: inherit;
+  font-size: 0.75rem;
+  color: var(--mk-grey-2);
   background: none;
-  color: #6b7280;
-  font-size: 12.5px;
+  border: 0;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.am_err {
-  margin: 0.5rem 0 0;
-  color: #b42318;
-  font-size: 12.5px;
-  line-height: 1.4;
+.am_back:hover {
+  color: var(--mk-ink);
 }
 
+.am_err {
+  margin: 0.6rem 0 0;
+  font-size: 0.78125rem;
+  line-height: 1.45;
+  /* Hata tek renkli paletten sapiyor: kirmizi olmasa fark edilmez. */
+  color: #b42318;
+}
+
+/* --- Giris yapilmis durum --- */
 .am_who {
-  margin: 0 0 0.6rem;
-  padding-bottom: 0.6rem;
-  border-bottom: 1px solid #e5e7eb;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--mk-border);
 }
 
 .am_who_label {
   display: block;
-  color: #6b7280;
-  font-size: 12px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mk-grey-2);
 }
 
 .am_who_mail {
   display: block;
-  color: #111827;
-  font-size: 13.5px;
+  margin-top: 0.125rem;
+  font-size: 0.84375rem;
   font-weight: 600;
+  color: var(--mk-ink);
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -535,25 +602,36 @@ onBeforeUnmount(() => {
 .am_item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.625rem;
   width: 100%;
-  padding: 0.5rem 0.4rem;
-  border: 0;
-  border-radius: 8px;
+  padding: 0.55rem 0.5rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--mk-ink);
   background: none;
-  color: #111827;
-  font-size: 14px;
+  border: 0;
+  border-radius: var(--mk-radius);
   text-align: start;
   text-decoration: none;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .am_item:hover {
-  background: #f3f6fc;
-  color: #1e58c4;
+  background: var(--mk-cream-2);
 }
 
 .am_item--muted {
-  color: #6b7280;
+  color: var(--mk-grey-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .am_btn,
+  .am_input,
+  .am_submit,
+  .am_item {
+    transition: none;
+  }
 }
 </style>

@@ -1,4 +1,5 @@
 <template>
+  <div class="page-root">
   <p>Please enter your e-mail address for the catalog.</p>
   <div class="row">
     <div class="col-sm-6">
@@ -36,6 +37,7 @@
         {{ contact.form.send }}
       </Button>
     </div>
+  </div>
   </div>
 </template>
 <script lang="ts" setup>
@@ -216,6 +218,6 @@ body {
   align-items: center;
   justify-content: center;
   background: linear-gradient(to bottom, #74abe2, #5563de);
-  font-family: "Ropa Sans", sans-serif;
+  font-family: var(--mk-ff-body);
 }
 </style>

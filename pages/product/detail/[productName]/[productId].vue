@@ -1,4 +1,5 @@
 <template>
+  <div class="page-root">
   <!-- <Breadcrumb :home="home" :model="store.getBreadcrumb">
         <template #item="{ item, props }">
             <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
@@ -87,6 +88,7 @@
     <div class="col-sm-3" v-for="sug in suggested" :key="sug.id">
       <ProductsCard :link="sug.link" :image="sug.image" :text="sug.name" />
     </div>
+  </div>
   </div>
 </template>
 <script setup lang="ts">

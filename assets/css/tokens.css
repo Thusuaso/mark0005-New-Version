@@ -1,0 +1,102 @@
+/* ==========================================================================
+   Tasarim tokenlari
+   --------------------------------------------------------------------------
+   Referans tema: ordainit.com/html/reak/reak/index-4.html
+   Temanin duzeni/tipografisi korundu, paleti ise mermer/dogal tasa uygun
+   sekilde krem + koyu grafit olarak degistirildi:
+
+     siyah alanlar  -> #18191B  (--mk-ink)
+     beyaz alanlar  -> krem     (--mk-cream / --mk-cream-2)
+
+   Token adlari da buna gore: eskiden --mk-white / --mk-black / --mk-grey-1
+   / --mk-dark-card vardi, degerleri artik beyaz/siyah olmadigi icin adlar
+   yanilticiydi.
+
+   Sadece CSS degiskeni tanimlar, hicbir elemana kural yazmaz — bu yuzden
+   henuz yenilenmemis sayfalari etkilemez.
+   ========================================================================== */
+
+:root {
+  /* --- Koyu: zemin ve metin ---
+     Sicak siyah. Onceki deger #18191B idi: kanallari 24/25/27, yani mavi
+     en yuksek — krem zeminin yaninda soguk/mavimsi duruyordu. Bu deger
+     28/25/23 ile kirmizi tarafta, krem ve tas tonlariyla ayni sicaklikta.
+     Algilanan koyuluk neredeyse ayni (luminans farki ihmal edilebilir). */
+  --mk-ink: #1c1917;
+
+  /* --- Acik yuzeyler (krem) --- */
+  /* Birincil yuzey; temada beyaz olan her yer. */
+  --mk-cream: #f7f3e9;
+  /* Donusumlu bolumler icin bir ton koyusu; temada #f5f5f5 olan yerler. */
+  --mk-cream-2: #efeadc;
+
+  /* --- Metin --- */
+  --mk-body: #55524b; /* govde */
+  --mk-grey-2: #6b675f; /* ikincil / etiket */
+
+  /* --- Cizgiler --- */
+  /* Krem zeminde gri cizgi kirli duruyor; ikisi de sicak tonda. */
+  --mk-border: #e2dccb;
+  --mk-line-strong: #cfc6b2;
+
+  /* Tek sicak vurgu. Yalnizca kucuk detaylarda — aktif sekme, madde
+     isareti, acik akordeon isareti. Buyuk alanlarda kullanilmiyor. */
+  --mk-accent: #8a7355;
+
+  /* --- Tipografi (temadan) --- */
+  /* Site genelinde tek yazi tipi: Libre Baskerville. Govde ve basliklar
+     ayni aileyi paylasiyor; ayrim yalnizca agirlik ve boyutla kuruluyor.
+
+     Zincirdeki PT Serif ve Noto Naskh Arabic yedek DEGIL, tamamlayici:
+     Libre Baskerville'de Kiril ve Arapca glifi yok, tarayici karakter
+     bazinda ilerledigi icin latin harfleri Libre Baskerville'den, Kiril
+     PT Serif'ten, Arapca Noto Naskh Arabic'ten geliyor. Hicbiri inmezse
+     Georgia/Times zinciri devrede kalir. */
+  --mk-ff-body: "Libre Baskerville", "PT Serif", "Noto Naskh Arabic",
+    Georgia, "Times New Roman", serif;
+  --mk-ff-display: "Libre Baskerville", "PT Serif", "Noto Naskh Arabic",
+    Georgia, "Times New Roman", serif;
+
+  /* --- Bulaniklik (cam etkisi) --- */
+  /* Ust menunun kendi zemini ile uzerindeki ogelerin (arama, ikonlar, CTA)
+     bulanikligi KASITLI olarak farkli: ayni olsa ogeler menunun zeminine
+     karisiyor ve ust uste iki katman oldugu okunmuyordu. Menu daha hafif,
+     ogeler daha yogun. */
+  --mk-blur-nav: 16px;
+  --mk-blur-chip: 40px;
+
+  /* --- Bolum olcegi --- */
+  /* Temada pt-120/pb-120 sabit 120px; burada kucuk ekranda daralan
+     akiskan karsiligi. */
+  --mk-section-y: clamp(3.75rem, 8vw, 7.5rem);
+  /* Bolum icerik genisligi: metin satirlari genis ekranda bastan sona
+     uzamasin. */
+  --mk-container: 75rem;
+  /* Ust menu bundan besleniyor: logo + 7 menu ogesi + arama + ikonlar +
+     CTA ancak bu genislikte sikismadan sigiyor. */
+  --mk-container-wide: 96rem;
+
+  /* Sabit ust menunun yuksekligi: Navbar dolgusu (0.75rem x2) + logo (46px).
+     app.vue ic sayfalarda bu kadar ara bosluk koyuyor, Hero de ust
+     boslugunu buna gore hesapliyor. */
+  --mk-header-h: 5.375rem;
+
+  /* Mobil ust menu daha kisa: dolgu (0.5rem x2) + logo (30px) + cerceve.
+     Navbarmobile de fixed oldugu icin ic sayfalarda ayni kadar ara
+     bosluk gerekiyor. */
+  --mk-header-h-mobile: 3.5rem;
+
+  /* --- Dev baslik olcegi --- */
+  /* Temada .oit-section-title 144px, .fsz-120 120px, .fsz-60 60px.
+     Akiskan clamp'lerle kucuk ekranda tasmiyor. */
+  --mk-title-xl: clamp(2.75rem, 9vw, 9rem);
+  --mk-title-lg: clamp(2.25rem, 7vw, 7.5rem);
+  --mk-title-md: clamp(1.875rem, 4.5vw, 3.75rem);
+
+  /* --- Olcek --- */
+  --mk-radius-pill: 30px;
+  --mk-radius: 5px;
+
+  /* --- Hareket --- */
+  --mk-ease: cubic-bezier(0.2, 0.8, 0.3, 1);
+}

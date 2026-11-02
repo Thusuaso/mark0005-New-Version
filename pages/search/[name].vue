@@ -1,4 +1,5 @@
 <template>
+  <div class="page-root">
   <div class="row m-auto text-center">
     <div class="col-sm-3 customFilter">
       <h1 class="header mt-3">CATEGORIES</h1>
@@ -31,6 +32,7 @@
     </div>
   </div>
   <div></div>
+  </div>
 </template>
 <script setup lang="ts">
 const { start, set, clear } = useLoadingIndicator();

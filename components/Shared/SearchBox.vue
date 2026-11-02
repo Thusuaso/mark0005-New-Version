@@ -143,6 +143,25 @@ const close = () => {
   active.value = -1;
 };
 
+/* Gezindikten sonra kutu temiz kalsin. Oncesinde onceki sorgu yazili
+   kaliyordu ve yeni bir arama yapmak icin once elle silmek gerekiyordu;
+   ustelik acik kalan oneri paneli yeni sayfanin uzerine biniyordu. */
+const route = useRoute();
+watch(
+  () => route.fullPath,
+  () => {
+    clearTimeout(timer);
+    /* Ucan bir istek geri donerse yeni sayfada panel acmasin. */
+    requestId++;
+    products.value = [];
+    active.value = -1;
+    searched.value = false;
+    loading.value = false;
+    open.value = false;
+    term.value = "";
+  },
+);
+
 const goToSearch = () => {
   const value = term.value.trim();
   close();

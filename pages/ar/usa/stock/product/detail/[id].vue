@@ -1,4 +1,5 @@
 <template>
+  <div class="page-root">
     <h1 class="header mb-3">{{header.toUpperCase()}}</h1>
     <div class="row m-auto text-center">
         <div class="col-sm-5">
@@ -113,6 +114,7 @@
         </SharedFancybox>
 
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">

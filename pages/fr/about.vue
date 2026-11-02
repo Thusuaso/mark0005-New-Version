@@ -1,4 +1,5 @@
 <template>
+  <div class="page-root">
   <h1 class="header mb-3">{{ about.header }}</h1>
   <div class="row m-auto text-center">
     <div class="col-sm-6">
@@ -48,6 +49,7 @@
         ></iframe>
       </figure>
     </div>
+  </div>
   </div>
 </template>
 <script lang="ts" setup>
