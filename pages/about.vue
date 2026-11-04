@@ -24,11 +24,11 @@
           {{ item.value }}
         </li>
       </ul>
-      <br />
       <!-- Sosyal hesaplar: her ikon kendi marka renginde, uzerine
            gelindiginde o renk daireyi dolduruyor. Onceden hepsi tek bir
            maviydi (satir ici #1357bc), Bootstrap col-2 ile ekrana
            yayiliyordu ve baglantilarin erisilebilir adi yoktu. -->
+      <h3 class="soc__head">{{ t.follow }}</h3>
       <ul class="soc">
         <li v-for="social of about?.socials" :key="social.link" class="soc__item">
           <a
@@ -61,20 +61,46 @@
 </template>
 <script lang="ts" setup>
 import { useStore } from "~/store/index";
+
 const store = useStore();
 const about = store.getAbout;
+
+/* Ikon sirasinin ustundeki baslik. Oncesinde hicbir sey yoktu ve ikonlar
+   madde listesinin altinda baglamsiz duruyordu. */
+const FOLLOW: Record<string, string> = {
+  en: "Follow us on our social media",
+  fr: "Suivez-nous sur nos réseaux sociaux",
+  es: "Síganos en nuestras redes sociales",
+  ru: "Мы в социальных сетях",
+  ar: "تابعنا على وسائل التواصل الاجتماعي",
+};
+const lang = String(store.getLang || "en");
+const t = { follow: FOLLOW[lang] ?? FOLLOW.en };
 </script>
 
 <style scoped>
 /* --- Sosyal hesaplar --- */
+.soc__head {
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 1rem;
+  font-family: var(--mk-ff-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  /* Sayfanin eski stilleri basliklari ortaliyor; burada ikon sirasiyla
+     ayni hizada durmasi gerekiyor. */
+  text-align: start;
+  color: var(--mk-ink);
+}
+
 .soc {
   display: flex;
   flex-wrap: wrap;
-  /* Ustundeki metin sola hizali; ortalanmis bir ikon siraasi oradan
+  /* Ustundeki metin sola hizali; ortalanmis bir ikon sirasi oradan
      kopuk duruyordu. */
   justify-content: flex-start;
-  gap: 0.75rem;
-  margin: 0;
+  gap: 0.625rem;
+  /* Alttaki koyu footer'a yapismasin. */
+  margin: 0 0 clamp(2.5rem, 5vw, 4rem);
   padding: 0;
   list-style: none;
 }
@@ -87,13 +113,17 @@ const about = store.getAbout;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 3rem;
-  height: 3rem;
+  width: 3.25rem;
+  height: 3.25rem;
   border-radius: 50%;
-  /* Dinlenirken: zemin notr, ikon markanin kendi renginde. */
-  background: var(--mk-cream-2, #efeadc);
+  /* Zemin markanin kendi renginin cok acik tonu. Onceden krem
+     (--mk-cream-2) kullaniliyordu; bu sayfanin zemini BEYAZ oldugu icin
+     daireler camurlu bej lekeler gibi duruyordu. color-mix desteklenmeyen
+     tarayicida saydam kaliyor, ikon yine kendi renginde okunuyor. */
+  background: transparent;
+  background: color-mix(in srgb, var(--brand) 12%, transparent);
   color: var(--brand);
-  font-size: 1.25rem;
+  font-size: 1.375rem;
   line-height: 1;
   text-decoration: none;
   transition:

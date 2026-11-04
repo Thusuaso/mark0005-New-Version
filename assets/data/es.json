@@ -53,6 +53,11 @@
         "id": 11,
         "title": "Diseño CNC 3D",
         "link": "/es/product/3d-cnc-design/23"
+      },
+      {
+        "id": 12,
+        "title": "Diseño de piscinas",
+        "link": "/es/product/pool-design/24"
       }
     ],
     "colors": [
@@ -440,6 +445,12 @@
       "link": "/es/product/3d-cnc-design/23",
       "name": "DISEÑO CNC 3D",
       "image": "/image/categories/cnc_design-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 24,
+      "link": "/es/product/pool-design/24",
+      "name": "DISEÑO DE PISCINAS",
+      "image": "/image/categories/pool-design-category-main-photo-mekmar.webp"
     }
   ],
   "about": {

@@ -48,6 +48,11 @@
         "id": 11,
         "title": "Conception CNC 3D",
         "link": "/fr/product/3d-cnc-design/23"
+      },
+      {
+        "id": 12,
+        "title": "Conception de piscine",
+        "link": "/fr/product/pool-design/24"
       }
     ],
     "colors": [
@@ -431,6 +436,12 @@
       "link": "/fr/product/3d-cnc-design/23",
       "name": "CONCEPTION CNC 3D",
       "image": "/image/categories/cnc_design-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 24,
+      "link": "/fr/product/pool-design/24",
+      "name": "CONCEPTION DE PISCINE",
+      "image": "/image/categories/pool-design-category-main-photo-mekmar.webp"
     }
   ],
   "about": {

@@ -53,6 +53,11 @@
         "id": 11,
         "title": "3D ЧПУ-дизайн",
         "link": "/ru/product/3d-cnc-design/23"
+      },
+      {
+        "id": 12,
+        "title": "Дизайн бассейнов",
+        "link": "/ru/product/pool-design/24"
       }
     ],
     "colors": [
@@ -443,6 +448,12 @@
       "link": "/ru/product/3d-cnc-design/23",
       "name": "3D ЧПУ-ДИЗАЙН",
       "image": "/image/categories/cnc_design-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 24,
+      "link": "/ru/product/pool-design/24",
+      "name": "ДИЗАЙН БАССЕЙНОВ",
+      "image": "/image/categories/pool-design-category-main-photo-mekmar.webp"
     }
   ],
   "about": {

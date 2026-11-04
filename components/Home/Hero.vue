@@ -88,7 +88,9 @@ const texts: Record<
 };
 
 const store = useStore();
-const lang = (String(store.getLang) in texts ? String(store.getLang) : "en") as Lang;
+const lang = (
+  String(store.getLang) in texts ? String(store.getLang) : "en"
+) as Lang;
 const t = texts[lang];
 const isRtl = lang === "ar";
 
@@ -101,7 +103,10 @@ const contactLink = computed(() => links.contact ?? "/contact");
 const shots = computed<Shot[]>(() => {
   const fab = store.getFabrication as
     | {
-        items?: { id: any; images?: { id: any; image: string; title: string }[] }[];
+        items?: {
+          id: any;
+          images?: { id: any; image: string; title: string }[];
+        }[];
       }
     | undefined;
 
@@ -282,9 +287,7 @@ onBeforeUnmount(() => {
      serit ve --c-y kaydirmasi yuzunden), bu yuzden teorik orana biraz
      eklenmesi gerekiyor. Takasi acilis karesinin daha yakin plan
      gorunmesi. */
-  --c-zoom: calc(
-    max(100 / var(--c-w), 100 / var(--c-h)) * 1.25
-  );
+  --c-zoom: calc(max(100 / var(--c-w), 100 / var(--c-h)) * 1.25);
 
   /* Mevcut olcek: p=0'da --c-zoom, p=1'de 1 */
   --c-scale: calc(var(--c-zoom) - (var(--c-zoom) - 1) * var(--p));
@@ -423,7 +426,11 @@ onBeforeUnmount(() => {
   z-index: 3;
   pointer-events: none;
   background:
-    linear-gradient(to top, rgba(28, 25, 23, 0.78) 0%, rgba(28, 25, 23, 0.1) 52%),
+    linear-gradient(
+      to top,
+      rgba(28, 25, 23, 0.78) 0%,
+      rgba(28, 25, 23, 0.1) 52%
+    ),
     rgba(28, 25, 23, 0.18);
   /* Kolaj acildikca zemin siyaha donuyor, karartmaya gerek kalmiyor. */
   opacity: calc(1 - var(--p) * 0.75);
