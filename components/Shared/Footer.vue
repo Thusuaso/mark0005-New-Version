@@ -454,8 +454,11 @@ const year = new Date().getFullYear();
 
 .ft__intro-text {
   margin: 0;
-  max-width: 44rem;
-  font-size: 0.875rem;
+  /* 44rem + 14px, satir basina ~101 karakter ediyordu; okunur aralik 45-75.
+     ch, "0" rakaminin genisligi; Libre Baskerville'de bu ortalama kucuk
+     harften genis, yani 62ch olcuyle satira ~89 karakter siğiyordu. */
+  max-width: 50ch;
+  font-size: 1rem;
   line-height: 1.7;
 }
 
@@ -477,8 +480,8 @@ const year = new Date().getFullYear();
 .ft__point {
   position: relative;
   padding-inline-start: 1.375rem;
-  font-size: 0.8125rem;
-  line-height: 1.55;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 /* Madde isareti: temanin cizgi dili. */
@@ -511,13 +514,15 @@ const year = new Date().getFullYear();
   }
 }
 
+/* Onceden 11px, harf arasi 0.16em acilmis TUM BUYUK HARF bir mikro-etiketti.
+   Kolonun gercek basligi; kendi yaziminda ve okunur puntoda duruyor. */
 .ft__col-title {
   margin: 0 0 1.25rem;
-  font-size: 0.6875rem;
+  font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(247, 243, 233, 0.5);
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(247, 243, 233, 0.78);
 }
 
 .ft__col-title--gap {
@@ -536,12 +541,12 @@ const year = new Date().getFullYear();
 .ft__link {
   position: relative;
   display: inline-block;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
   text-decoration: none;
-  color: rgba(247, 243, 233, 0.72);
+  color: rgba(247, 243, 233, 0.78);
   transition:
     color 0.25s ease,
     padding-inline-start 0.3s ease-out;
@@ -622,19 +627,19 @@ const year = new Date().getFullYear();
 
 .ft__contact-label {
   display: block;
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(247, 243, 233, 0.45);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(247, 243, 233, 0.6);
 }
 
 .ft__contact-value {
   display: block;
-  margin-top: 0.1875rem;
-  font-size: 0.8125rem;
+  margin-top: 0.125rem;
+  font-size: 1rem;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.45;
   overflow-wrap: anywhere;
 }
 
@@ -730,9 +735,9 @@ const year = new Date().getFullYear();
 .ft__copy,
 .ft__made {
   margin: 0;
-  font-size: 0.75rem;
-  letter-spacing: 0.02em;
-  color: rgba(247, 243, 233, 0.5);
+  font-size: 0.875rem;
+  letter-spacing: 0;
+  color: rgba(247, 243, 233, 0.55);
 }
 
 .ft__galleria-img {

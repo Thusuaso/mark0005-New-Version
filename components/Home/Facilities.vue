@@ -30,38 +30,32 @@ type Group = { id: number | string; header: string; images: Photo[] };
 const texts: Record<
   Lang,
   {
-    eyebrow: string;
     title: string;
     line2: string;
     count: (n: number) => string;
   }
 > = {
   en: {
-    eyebrow: "Facilities",
     title: "Quarried, cut",
     line2: "and stocked",
     count: (n) => `${n} photos`,
   },
   fr: {
-    eyebrow: "Sites",
     title: "Extraite, taillée",
     line2: "et stockée",
     count: (n) => `${n} photos`,
   },
   es: {
-    eyebrow: "Instalaciones",
     title: "Extraída, cortada",
     line2: "y almacenada",
     count: (n) => `${n} fotos`,
   },
   ru: {
-    eyebrow: "Производство",
     title: "Добыча, обработка",
     line2: "и склад",
     count: (n) => `${n} фото`,
   },
   ar: {
-    eyebrow: "المنشآت",
     title: "يُستخرج ويُقطع",
     line2: "ويُخزّن",
     count: (n) => `${n} صور`,
@@ -102,7 +96,6 @@ const { el, shown } = useReveal();
     <div class="fc__inner">
       <UiSectionHead
         class="fc__head"
-        :eyebrow="t.eyebrow"
         :title="t.title"
         :line2="t.line2"
         size="xl"
@@ -129,10 +122,6 @@ const { el, shown } = useReveal();
                 :aria-controls="`fc-panel-${gi}`"
                 @click="toggle(gi)"
               >
-                <span class="pn__num" aria-hidden="true">
-                  {{ String(gi + 1).padStart(2, "0") }}
-                </span>
-
                 <span class="pn__titles">
                   <span class="pn__title">{{ group.header }}</span>
                   <span class="pn__count">{{ t.count(group.images.length) }}</span>
@@ -247,15 +236,6 @@ const { el, shown } = useReveal();
   outline-offset: 2px;
 }
 
-.pn__num {
-  flex: none;
-  font-size: 0.75rem;
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.08em;
-  color: var(--mk-grey-2);
-}
-
 .pn__titles {
   flex: 1 1 auto;
   min-width: 0;
@@ -278,10 +258,9 @@ const { el, shown } = useReveal();
 }
 
 .pn__count {
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  color: var(--mk-grey-2);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--mk-body);
 }
 
 /* --- + / − isareti --- */
@@ -410,8 +389,8 @@ const { el, shown } = useReveal();
   position: absolute;
   inset-inline: 0;
   bottom: 0;
-  padding: 2.5rem 0.75rem 0.75rem;
-  font-size: 0.75rem;
+  padding: 2.5rem 0.875rem 0.875rem;
+  font-size: 0.9375rem;
   font-weight: 500;
   line-height: 1.35;
   color: var(--mk-cream);

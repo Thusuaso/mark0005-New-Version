@@ -41,10 +41,6 @@ export default defineSitemapEventHandler(async (e) => {
         modifiedAt: new Date(),
       },
       {
-        _path: '/product/plasterboard/18',
-        modifiedAt: new Date(),
-      },
-      {
         _path: '/product/color/white/1',
         modifiedAt: new Date(),
       },
@@ -1869,26 +1865,6 @@ export default defineSitemapEventHandler(async (e) => {
         modifiedAt: new Date(),
       },
       {
-        _path: '/product/detail/standard-plasterboard/926',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/product/detail/fire-resistant-plasterboard/927',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/product/detail/water-resistant-plasterboard/928',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/product/detail/water-&-fire-resistand-plasterboard/929',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/product/detail/incombustible-class-a1-plasterboard/930',
-        modifiedAt: new Date(),
-      },
-      {
         _path: '/product/detail/marble-mosaic-mp-w-51/325',
         modifiedAt: new Date(),
       },
@@ -3140,10 +3116,6 @@ export default defineSitemapEventHandler(async (e) => {
         _path: '/product/filter/category/11/type/polish/30',
         modifiedAt: new Date(),
       },
-      {
-        _path: '/product/filter/category/18/type/plasterboard/31',
-        modifiedAt: new Date(),
-      },
 
       /*FR*/
       {
@@ -3184,10 +3156,6 @@ export default defineSitemapEventHandler(async (e) => {
       },
       {
         _path: '/fr/product/installation-materials/11',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/fr/product/plasterboard/18',
         modifiedAt: new Date(),
       },
       {
@@ -5015,26 +4983,6 @@ export default defineSitemapEventHandler(async (e) => {
         modifiedAt: new Date(),
       },
       {
-        _path: '/fr/product/detail/standard-plasterboard/926',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/fr/product/detail/fire-resistant-plasterboard/927',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/fr/product/detail/water-resistant-plasterboard/928',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/fr/product/detail/water-&-fire-resistand-plasterboard/929',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/fr/product/detail/incombustible-class-a1-plasterboard/930',
-        modifiedAt: new Date(),
-      },
-      {
         _path: '/fr/product/detail/marble-mosaic-mp-w-51/325',
         modifiedAt: new Date(),
       },
@@ -6286,10 +6234,6 @@ export default defineSitemapEventHandler(async (e) => {
         _path: '/fr/product/filter/category/11/type/polish/30',
         modifiedAt: new Date(),
       },
-      {
-        _path: '/fr/product/filter/category/18/type/plasterboard/31',
-        modifiedAt: new Date(),
-      },
 
       /*ES */
 
@@ -6331,10 +6275,6 @@ export default defineSitemapEventHandler(async (e) => {
       },
       {
         _path: '/es/product/installation-materials/11',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/es/product/plasterboard/18',
         modifiedAt: new Date(),
       },
       {
@@ -8162,26 +8102,6 @@ export default defineSitemapEventHandler(async (e) => {
         modifiedAt: new Date(),
       },
       {
-        _path: '/es/product/detail/standard-plasterboard/926',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/es/product/detail/fire-resistant-plasterboard/927',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/es/product/detail/water-resistant-plasterboard/928',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/es/product/detail/water-&-fire-resistand-plasterboard/929',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/es/product/detail/incombustible-class-a1-plasterboard/930',
-        modifiedAt: new Date(),
-      },
-      {
         _path: '/es/product/detail/marble-mosaic-mp-w-51/325',
         modifiedAt: new Date(),
       },
@@ -9433,10 +9353,6 @@ export default defineSitemapEventHandler(async (e) => {
         _path: '/es/product/filter/category/11/type/polish/30',
         modifiedAt: new Date(),
       },
-      {
-        _path: '/es/product/filter/category/18/type/plasterboard/31',
-        modifiedAt: new Date(),
-      },
 
       /*Ru */
 
@@ -9479,10 +9395,6 @@ export default defineSitemapEventHandler(async (e) => {
       },
       {
         _path: '/ru/product/installation-materials/11',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/ru/product/plasterboard/18',
         modifiedAt: new Date(),
       },
       {
@@ -11310,26 +11222,6 @@ export default defineSitemapEventHandler(async (e) => {
         modifiedAt: new Date(),
       },
       {
-        _path: '/ru/product/detail/standard-plasterboard/926',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/ru/product/detail/fire-resistant-plasterboard/927',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/ru/product/detail/water-resistant-plasterboard/928',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/ru/product/detail/water-&-fire-resistand-plasterboard/929',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/ru/product/detail/incombustible-class-a1-plasterboard/930',
-        modifiedAt: new Date(),
-      },
-      {
         _path: '/ru/product/detail/marble-mosaic-mp-w-51/325',
         modifiedAt: new Date(),
       },
@@ -12581,10 +12473,6 @@ export default defineSitemapEventHandler(async (e) => {
         _path: '/ru/product/filter/category/11/type/polish/30',
         modifiedAt: new Date(),
       },
-      {
-        _path: '/ru/product/filter/category/18/type/plasterboard/31',
-        modifiedAt: new Date(),
-      },
       
       /*Ar */
 
@@ -12629,10 +12517,6 @@ export default defineSitemapEventHandler(async (e) => {
       },
       {
         _path: '/ar/product/installation-materials/11',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/ar/product/plasterboard/18',
         modifiedAt: new Date(),
       },
       {
@@ -14460,26 +14344,6 @@ export default defineSitemapEventHandler(async (e) => {
         modifiedAt: new Date(),
       },
       {
-        _path: '/ar/product/detail/standard-plasterboard/926',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/ar/product/detail/fire-resistant-plasterboard/927',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/ar/product/detail/water-resistant-plasterboard/928',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/ar/product/detail/water-&-fire-resistand-plasterboard/929',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/ar/product/detail/incombustible-class-a1-plasterboard/930',
-        modifiedAt: new Date(),
-      },
-      {
         _path: '/ar/product/detail/marble-mosaic-mp-w-51/325',
         modifiedAt: new Date(),
       },
@@ -15729,10 +15593,6 @@ export default defineSitemapEventHandler(async (e) => {
       },
       {
         _path: '/ar/product/filter/category/11/type/polish/30',
-        modifiedAt: new Date(),
-      },
-      {
-        _path: '/ar/product/filter/category/18/type/plasterboard/31',
         modifiedAt: new Date(),
       },
       {

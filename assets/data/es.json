@@ -10,8 +10,8 @@
     "project": "PROYECTOS",
     "catalog": "CATALOGAR",
     "categories": "CATEGORIAS",
-    "colors": "COLORES",
-    "areas": "AREAS",
+    "colors": "FILTRAR POR COLOR",
+    "areas": "FILTRAR POR ZONA",
 
     "faq": "FAQ"
   },
@@ -47,11 +47,6 @@
         "id": 10,
         "title": "Materiels D'Installation",
         "link": "/es/product/installation-materials/11"
-      },
-      {
-        "id": 11,
-        "title": "Plaque de Platre",
-        "link": "/es/product/plasterboard/18"
       }
     ],
     "colors": [
@@ -385,7 +380,7 @@
     {
       "id": 9,
       "link": "/es/product/by-products/9",
-      "name": "PAR PRODUITS",
+      "name": "PRODUCTOS COMPLEMENTARIOS",
       "image": "/image/categories/by-products-category-main-photo-mekmar.webp"
     },
     {
@@ -393,12 +388,6 @@
       "link": "/es/product/installation-materials/11",
       "name": "MATÉRIAUX D'INSTALLATION",
       "image": "/image/categories/installation-materials-category-main-photo-mekmar.webp"
-    },
-    {
-      "id": 18,
-      "link": "/es/product/plasterboard/18",
-      "name": "PLAQUES DE PLÂTRE",
-      "image": "/image/categories/plasterboard-category-main-photo-mekmar.webp"
     }
   ],
   "about": {
@@ -510,7 +499,7 @@
     "items": [
       {
         "id": 1,
-        "header": "FABRICAS EN LAS QUE TRABAJAMOS",
+        "header": "SUBPROVEEDORES",
         "images": [
           {
             "id": 1,
@@ -536,7 +525,7 @@
       },
       {
         "id": 2,
-        "header": "CANTERAS QUE TRABAJAMOS",
+        "header": "CANTERAS",
         "images": [
           {
             "id": 1,
@@ -1172,20 +1161,20 @@
     ]
   },
   "product_detail": {
-    "description": "DESCRIPCION",
-    "tab_1": "DETALLA",
-    "tab_2": "SOLICITUD",
-    "tab_3": "TAMANO & PREMIO",
-    "tab_1_code": "CÓDIGO",
-    "tab_1_stonetype": "TIPO DE PIEDRA",
-    "tab_1_country": "PAÍS",
-    "tab_1_varitaion": "VARIACIÓN",
-    "tab_2_test_report": "INFORME DE PRUEBA // ESPECIFICACIONES TECNICAS",
+    "description": "Descripción",
+    "tab_1": "Detalla",
+    "tab_2": "Solicitud",
+    "tab_3": "Tamaño & premio",
+    "tab_1_code": "Código",
+    "tab_1_stonetype": "Tipo de piedra",
+    "tab_1_country": "País",
+    "tab_1_varitaion": "Variación",
+    "tab_2_test_report": "Informe de prueba / especificaciones técnicas",
     "tab_2_available": "Acabado disponible",
-    "benzerurun_title": "TE PUEDE INTERESAR...",
-    "onerilenurun_title": "PRODUCTOS SUGERIDOS",
-    "hastags": "ETIQUETAS",
-    "specification": "ESPECIFICACIONES DEL PRODUCTO"
+    "benzerurun_title": "Te puede interesar",
+    "onerilenurun_title": "Productos sugeridos",
+    "hastags": "Etiquetas",
+    "specification": "Especificaciones del producto"
   },
   "variation": {
     "var_1": "MÍNIMO",

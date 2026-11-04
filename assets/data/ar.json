@@ -10,7 +10,8 @@
     "project": "المشاريع",
     "catalog": "فهرس",
     "categories": "فئات",
-    "colors": "الألوان",
+    "colors": "تصفية حسب اللون",
+    "areas": "تصفية حسب المنطقة",
     "faq": "التعليمات"
   },
   "navbar_link": {
@@ -41,8 +42,7 @@
         "id": 10,
         "title": "مواد التثبيت",
         "link": "/ar/product/installation-materials/11"
-      },
-      { "id": 11, "title": "الجصي", "link": "/ar/product/plasterboard/18" }
+      }
     ],
     "colors": [
       { "id": 1, "title": "أبيض", "link": "/ar/product/color/white/1" },
@@ -372,7 +372,7 @@
     {
       "id": 9,
       "link": "/ar/product/by-products/9",
-      "name": "حسب المنتجات",
+      "name": "منتجات تكميلية",
       "image": "/image/categories/by-products-category-main-photo-mekmar.webp"
     },
     {
@@ -380,12 +380,6 @@
       "link": "/ar/product/installation-materials/11",
       "name": "مواد التثبيت",
       "image": "/image/categories/installation-materials-category-main-photo-mekmar.webp"
-    },
-    {
-      "id": 18,
-      "link": "/ar/product/plasterboard/18",
-      "name": "الجصي",
-      "image": "/image/categories/plasterboard-category-main-photo-mekmar.webp"
     }
   ],
   "about": {
@@ -493,7 +487,7 @@
     "items": [
       {
         "id": 1,
-        "header": "المصانع التي نعمل بها",
+        "header": "الموردون الفرعيون",
         "images": [
           {
             "id": 1,
@@ -519,7 +513,7 @@
       },
       {
         "id": 2,
-        "header": "المحاجر التي نعمل بها",
+        "header": "المحاجر",
         "images": [
           {
             "id": 1,

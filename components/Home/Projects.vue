@@ -21,36 +21,31 @@ type Lang = "en" | "fr" | "es" | "ru" | "ar";
 
 const texts: Record<
   Lang,
-  { eyebrow: string; title: string; line2: string; all: string }
+  { title: string; line2: string; all: string }
 > = {
   en: {
-    eyebrow: "Projects",
-    title: "Selected works",
-    line2: "worldwide ©",
+    title: "Featured",
+    line2: "products",
     all: "View all projects",
   },
   fr: {
-    eyebrow: "Projets",
-    title: "Travaux choisis",
-    line2: "dans le monde ©",
+    title: "Produits",
+    line2: "en vedette",
     all: "Voir tous les projets",
   },
   es: {
-    eyebrow: "Proyectos",
-    title: "Obras escogidas",
-    line2: "en todo el mundo ©",
+    title: "Productos",
+    line2: "destacados",
     all: "Ver todos los proyectos",
   },
   ru: {
-    eyebrow: "Проекты",
-    title: "Избранные работы",
-    line2: "по всему миру ©",
+    title: "Избранные",
+    line2: "товары",
     all: "Все проекты",
   },
   ar: {
-    eyebrow: "المشاريع",
-    title: "أعمال مختارة",
-    line2: "حول العالم ©",
+    title: "منتجات",
+    line2: "مميزة",
     all: "كل المشاريع",
   },
 };
@@ -78,7 +73,10 @@ const projects = computed(() => {
 
   return rows
     .filter((row) => row?.Image)
-    .slice(0, 4)
+    /* Vitrinde 6 proje: asagidaki 12 kolonluk dizilim dortluk bir desen
+       (genis-dar / dar-genis) ve 6'da ucuncu satir yine genis-dar olarak
+       kapaniyor. 5 ya da 7'de son satir yarim kaliyor. */
+    .slice(0, 6)
     .map((row) => ({
       id: row.ID,
       name: String(row[`ProjectName${suffix}`] || row.ProjectName || "").trim(),
@@ -103,7 +101,6 @@ const { el, shown } = useReveal();
     <div class="pj__inner">
       <UiSectionHead
         class="pj__head"
-        :eyebrow="t.eyebrow"
         :title="t.title"
         :line2="t.line2"
         size="xl"
@@ -164,10 +161,18 @@ const { el, shown } = useReveal();
   margin-bottom: clamp(2.5rem, 7vw, 6rem);
 }
 
-/* --- Izgara: temada iki kolon --- */
+/* --- Dizilim ---
+   Bir ustteki Categories bolumu zaten esit hucreli bir izgara (ayni boy
+   kart, ayni oran, ayni alt baslik). Projeler de oyle dizilince iki bolum
+   ust uste ayni sayfayi iki kez okutuyordu.
+
+   Burada hucreler kasitli olarak esit DEGIL: genis yatay bir kare ile dar
+   dikey bir kare donusumlu, ikincisi asagi kaydirilmis. Ayni icerik, baska
+   bir ritim. 12 kolonluk izgara yalnizca masaustunde; dar ekranda tek
+   kolona dusuyor, orada zaten kaydirma ritmi belirliyor. */
 .pj__grid {
   display: grid;
-  gap: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 2.5vw, 1.875rem);
+  gap: clamp(2.5rem, 6vw, 4rem) clamp(1rem, 2.5vw, 1.875rem);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -175,7 +180,36 @@ const { el, shown } = useReveal();
 
 @media (min-width: 48rem) {
   .pj__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    row-gap: clamp(3rem, 7vw, 6rem);
+  }
+
+  /* Satir 1: genis sol + dar sag (asagi kaydirilmis) */
+  .pj__cell:nth-child(4n + 1) {
+    grid-column: 1 / span 7;
+  }
+
+  .pj__cell:nth-child(4n + 2) {
+    grid-column: 9 / span 4;
+    margin-top: clamp(3rem, 9vw, 8rem);
+  }
+
+  /* Satir 2: dar sol (kaydirilmis) + genis sag — ayna goruntusu */
+  .pj__cell:nth-child(4n + 3) {
+    grid-column: 2 / span 4;
+    margin-top: clamp(1rem, 4vw, 3.5rem);
+  }
+
+  .pj__cell:nth-child(4n + 4) {
+    grid-column: 7 / span 6;
+  }
+
+  /* Dar hucreler dikey, genisler yatay kadrajli. Oranin degismesi iki
+     bolumu birbirinden ayiran en gorunur sey. */
+  .pj__cell:nth-child(4n + 2) .work__frame,
+  .pj__cell:nth-child(4n + 3) .work__frame {
+    aspect-ratio: 3 / 4;
   }
 }
 
@@ -225,21 +259,23 @@ const { el, shown } = useReveal();
   outline-offset: 4px;
 }
 
+/* Isim artik gorselin altinda kucuk bir etiket degil, bolumun ikinci
+   buyuk puntosu: kart ciftinin ritmini o tasiyor. */
 .work__row {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-top: 1.125rem;
+  gap: 0.25rem 1rem;
+  padding-top: clamp(1rem, 1.8vw, 1.5rem);
 }
 
 .work__name {
   margin: 0;
   font-family: var(--mk-ff-display);
-  font-size: clamp(1.0625rem, 2vw, 1.5rem);
+  font-size: clamp(1.375rem, 2.8vw, 2.25rem);
   font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
   text-transform: none;
   color: var(--mk-ink);
 }
@@ -266,13 +302,14 @@ const { el, shown } = useReveal();
   transform: scaleX(1);
 }
 
+/* Onceden 13px, harf arasi acilmis, TUM BUYUK HARF bir mikro-etiketti.
+   Ulke adi gercek bir bilgi; okunur puntoda ve kendi yazimiyla duruyor. */
 .work__country {
   flex: none;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--mk-grey-2);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--mk-body);
 }
 
 .pj__action {

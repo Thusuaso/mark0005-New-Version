@@ -2,12 +2,14 @@
 /**
  * components/Home/Categories.vue
  *
- * Temadaki "service" bolumunun karsiligi: kucuk etiket, dev iki satirli
- * baslik, altinda kategori izgarasi. Veri store'daki `categories`
+ * Temadaki "service" bolumunun karsiligi: dev iki satirli baslik, altinda
+ * kategori izgarasi. Veri store'daki `categories`
  * (assets/data/<lang>.json) — eski ana sayfadaki listeyle ayni.
  *
- * Kart gorunumu temanin project/service kartlarindaki dil: numaralanmis,
- * cerceve yok, baslikta hover'da acilan alt cizgi (.border-line).
+ * Kart gorunumu: cerceve yok, baslikta hover'da acilan alt cizgi. Kartlarin
+ * 01/02/03 numaralari kaldirildi (bilgi tasimiyorlardi) ve alttaki
+ * "View all products" butonu da kaldirildi — izgaranin kendisi zaten tum
+ * kategorileri gosteriyor.
  *
  * Ilk uc gorsel eager (fold'a yakin olabiliyor), gerisi lazy. Bolumun
  * kendisi Home/Page.vue tarafindan hydrate-on-visible ile tembel hidrate
@@ -22,37 +24,27 @@ type Lang = "en" | "fr" | "es" | "ru" | "ar";
 
 const texts: Record<
   Lang,
-  { eyebrow: string; title: string; line2: string; all: string }
+  { title: string; line2: string }
 > = {
   en: {
-    eyebrow: "Materials",
     title: "Stone that",
     line2: "builds places",
-    all: "View all products",
   },
   fr: {
-    eyebrow: "Matériaux",
     title: "La pierre qui",
     line2: "bâtit les lieux",
-    all: "Voir tous les produits",
   },
   es: {
-    eyebrow: "Materiales",
     title: "La piedra que",
     line2: "construye lugares",
-    all: "Ver todos los productos",
   },
   ru: {
-    eyebrow: "Материалы",
     title: "Камень, который",
     line2: "создаёт пространство",
-    all: "Все товары",
   },
   ar: {
-    eyebrow: "المواد",
     title: "حجر يبني",
     line2: "الأماكن",
-    all: "كل المنتجات",
   },
 };
 
@@ -62,11 +54,6 @@ const t = texts[lang];
 const isRtl = lang === "ar";
 
 const categories = computed<any[]>(() => (store.getCategories as any[]) ?? []);
-const links = store.getNavbarLinks as Record<string, string>;
-
-/* "Tum urunler" icin ayri bir liste sayfasi yok; ilk kategoriye gidiyor. */
-const allLink = computed(() => categories.value[0]?.link ?? links.home ?? "/");
-
 const { el, shown } = useReveal();
 </script>
 
@@ -82,7 +69,6 @@ const { el, shown } = useReveal();
     <div class="ct__inner">
       <UiSectionHead
         class="ct__head"
-        :eyebrow="t.eyebrow"
         :title="t.title"
         :line2="t.line2"
         size="xl"
@@ -109,17 +95,10 @@ const { el, shown } = useReveal();
 
             <div class="card__row">
               <h3 class="card__name"><span class="card__line">{{ category.name }}</span></h3>
-              <span class="card__num" aria-hidden="true">
-                {{ String(i + 1).padStart(2, "0") }}
-              </span>
             </div>
           </NuxtLink>
         </li>
       </ul>
-
-      <div class="ct__action">
-        <UiBtn :label="t.all" :to="allLink" variant="black" />
-      </div>
     </div>
   </section>
 </template>
@@ -251,21 +230,6 @@ const { el, shown } = useReveal();
 .card:hover .card__line::after,
 .card:focus-visible .card__line::after {
   transform: scaleX(1);
-}
-
-.card__num {
-  flex: none;
-  font-size: 0.75rem;
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.06em;
-  color: var(--mk-grey-2);
-}
-
-/* --- Alt buton --- */
-.ct__action {
-  margin-top: clamp(2.5rem, 6vw, 4.375rem);
-  text-align: center;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1273,9 +1273,8 @@ const usa_link_status = computed(
   margin: 0;
 }
 
-/* Masaustundeki ile ayni islem (Navbar.vue .nv--solid .nv__logo-img):
-   brightness(0) logoyu duz siyaha indiriyor, invert(0.11) --mk-ink
-   tonuna cikariyor. Boylece markanin mavi-yesili temaya giriyor. */
+/* Masaustundeki ile ayni kural (bkz. Navbar.vue .nv__logo-img):
+   hero uzerinde krem, kaydirildiktan sonra markanin kendi renkleri. */
 .nvm__logo-img {
   display: block;
   width: auto;
@@ -1287,14 +1286,14 @@ const usa_link_status = computed(
   transition: filter 0.35s ease;
 }
 
-/* Masaustundeki ile ayni: koyu zeminde krem, acik zeminde --mk-ink. */
+/* Hero uzerinde krem; acik zeminde logonun kendi renkleri. */
 .nvm--over .nvm__logo-img {
   filter: brightness(0) invert(0.96);
 }
 
 .nvm--solid .nvm__logo-img,
 .nvm:has(.navbar-collapse.show) .nvm__logo-img {
-  filter: brightness(0) invert(0.11);
+  filter: none;
 }
 
 .nvm__tools {

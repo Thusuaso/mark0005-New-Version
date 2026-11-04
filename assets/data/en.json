@@ -10,8 +10,8 @@
     "project": "PROJECTS",
     "catalog": "CATALOG",
     "categories": "CATEGORIES",
-    "colors": "COLORS",
-    "areas": "AREAS",
+    "colors": "FILTERED BY COLOR",
+    "areas": "FILTERED BY AREAS",
 
     "faq": "FAQ"
   },
@@ -43,8 +43,7 @@
         "id": 10,
         "title": "Installation Materials",
         "link": "/product/installation-materials/11"
-      },
-      { "id": 11, "title": "Plasterboard", "link": "/product/plasterboard/18" }
+      }
     ],
     "colors": [
       { "id": 1, "title": "White", "link": "/product/color/white/1" },
@@ -372,7 +371,7 @@
     {
       "id": 9,
       "link": "/product/by-products/9",
-      "name": "BY PRODUCTS",
+      "name": "COMPLEMENTARY PRODUCTS",
       "image": "/image/categories/by-products-category-main-photo-mekmar.webp"
     },
     {
@@ -380,12 +379,6 @@
       "link": "/product/installation-materials/11",
       "name": "INSTALLATION MATERIALS",
       "image": "/image/categories/installation-materials-category-main-photo-mekmar.webp"
-    },
-    {
-      "id": 18,
-      "link": "/product/plasterboard/18",
-      "name": "PLASTERBOARD",
-      "image": "/image/categories/plasterboard-category-main-photo-mekmar.webp"
     }
   ],
   "about": {
@@ -496,7 +489,7 @@
     "items": [
       {
         "id": 1,
-        "header": "FACTORIES THAT WE WORK",
+        "header": "SUB SUPPLIERS",
         "images": [
           {
             "id": 1,
@@ -522,7 +515,7 @@
       },
       {
         "id": 2,
-        "header": "QUARRIES THAT WE WORK",
+        "header": "QUARRIES",
         "images": [
           {
             "id": 1,
@@ -1159,20 +1152,20 @@
     ]
   },
   "product_detail": {
-    "description": "DESCRIPTION",
-    "tab_1": "DETAIL",
-    "tab_2": "APPLICATION",
-    "tab_3": "SIZE&PRICE",
-    "tab_1_code": "CODE",
-    "tab_1_stonetype": "STONE TYPE",
-    "tab_1_country": "COUNTRY",
-    "tab_1_varitaion": "VARIATION",
-    "tab_2_test_report": "Test Report/Technical Specification",
-    "tab_2_available": "Available Surfaces",
-    "benzerurun_title": "YOU MAY BE INTERESTED IN",
-    "onerilenurun_title": "SUGGESTED PRODUCTS",
-    "hastags": "HASHTAGS",
-    "specification": "PRODUCT SPECIFICATION"
+    "description": "Description",
+    "tab_1": "Detail",
+    "tab_2": "Application",
+    "tab_3": "Size & price",
+    "tab_1_code": "Code",
+    "tab_1_stonetype": "Stone type",
+    "tab_1_country": "Country",
+    "tab_1_varitaion": "Variation",
+    "tab_2_test_report": "Test report / technical specification",
+    "tab_2_available": "Available surfaces",
+    "benzerurun_title": "You may be interested in",
+    "onerilenurun_title": "Suggested products",
+    "hastags": "Hashtags",
+    "specification": "Product specification"
   },
   "variation": {
     "var_1": "MINIMUM",

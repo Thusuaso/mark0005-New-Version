@@ -23,3 +23,8 @@ logs
 .env.*
 !.env.example
 .qodo
+
+# agent skills (locally installed via npx skills)
+.agents/
+.claude/skills/
+.taste-skill/

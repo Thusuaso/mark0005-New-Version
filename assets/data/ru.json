@@ -10,8 +10,8 @@
     "project": "ПРОЕКТЫ",
     "catalog": "КАТАЛОГ",
     "categories": "КАТЕГОРИИ",
-    "colors": "ЦВЕТА",
-    "areas": "ОБЛАСТИ",
+    "colors": "ФИЛЬТР ПО ЦВЕТУ",
+    "areas": "ФИЛЬТР ПО ЗОНЕ",
 
     "faq": "Чзв"
   },
@@ -47,11 +47,6 @@
         "id": 10,
         "title": "Монтажные материалы",
         "link": "/ru/product/installation-materials/11"
-      },
-      {
-        "id": 11,
-        "title": "Гипсокартон",
-        "link": "/ru/product/plasterboard/18"
       }
     ],
     "colors": [
@@ -388,7 +383,7 @@
     {
       "id": 9,
       "link": "/ru/product/by-products/9",
-      "name": "ПО ПРОДУКЦИИ",
+      "name": "СОПУТСТВУЮЩИЕ ТОВАРЫ",
       "image": "/image/categories/by-products-category-main-photo-mekmar.webp"
     },
     {
@@ -396,12 +391,6 @@
       "link": "/ru/product/installation-materials/11",
       "name": "МОНТАЖНЫЕ МАТЕРИАЛЫ",
       "image": "/image/categories/installation-materials-category-main-photo-mekmar.webp"
-    },
-    {
-      "id": 18,
-      "link": "/ru/product/plasterboard/18",
-      "name": "ГИПСОКАРТОН",
-      "image": "/image/categories/plasterboard-category-main-photo-mekmar.webp"
     }
   ],
   "about": {
@@ -512,7 +501,7 @@
     "items": [
       {
         "id": 1,
-        "header": "ЗАВОДЫ, НА КОТОРЫХ МЫ РАБОТАЕМ",
+        "header": "СУБПОСТАВЩИКИ",
         "images": [
           {
             "id": 1,
@@ -538,7 +527,7 @@
       },
       {
         "id": 2,
-        "header": "КАРЬЕРЫ, В КОТОРЫХ МЫ РАБОТАЕМ",
+        "header": "КАРЬЕРЫ",
         "images": [
           {
             "id": 1,
@@ -1175,20 +1164,20 @@
     ]
   },
   "product_detail": {
-    "description": "ОПИСАНИЕ",
-    "tab_1": "ДЕТАЛИ",
-    "tab_2": "ПРИЛОЖЕНИЕ",
-    "tab_3": "РАЗМЕР И ЦЕНА",
-    "tab_1_code": "КОД",
-    "tab_1_stonetype": "ТИП КАМНЯ",
-    "tab_1_country": "СТРАНА",
-    "tab_1_varitaion": "ВАРИАЦИЯ",
-    "tab_2_test_report": "Отчет об испытаниях/Техническая спецификация",
+    "description": "Описание",
+    "tab_1": "Детали",
+    "tab_2": "Приложение",
+    "tab_3": "Размер и цена",
+    "tab_1_code": "Код",
+    "tab_1_stonetype": "Тип камня",
+    "tab_1_country": "Страна",
+    "tab_1_varitaion": "Вариация",
+    "tab_2_test_report": "Отчет об испытаниях / техническая спецификация",
     "tab_2_available": "Доступные поверхности",
-    "benzerurun_title": "ВАС МОЖЕТ ЗАИНТЕРЕСОВАТЬ",
-    "onerilenurun_title": "РЕКОМЕНДУЕМЫЕ ПРОДУКТЫ",
-    "hastags": "ХЭШТЕГИ",
-    "specification": "СПЕЦИФИКАЦИИ ПРОДУКТА"
+    "benzerurun_title": "Вас может заинтересовать",
+    "onerilenurun_title": "Рекомендуемые продукты",
+    "hastags": "Хэштеги",
+    "specification": "Спецификации продукта"
   },
   "variation": {
     "var_1": "МИНИМУМ",

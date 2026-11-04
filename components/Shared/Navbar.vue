@@ -33,8 +33,13 @@
           >
           <!-- div menu + bolum basina kendi listesi (ul icine div koymak
                gecersiz HTML'di). -->
+          <!-- Iki bolge: solda gercek taksonomi (kategoriler), sagda ayni
+               katalogu daraltan filtreler. Onceden ucu de ayni genislikte,
+               ayni stilde kolonlardi ve "Beyaz" ile "Mermer" ayni seviyede
+               duruyordu; oysa biri bir urun grubu, oteki o gruplarin
+               filtrelenmis gorunumu. Liste = gidilecek yer, etiket = daraltma. -->
           <div class="dropdown-menu nv__mega">
-            <section class="nv__mega-col">
+            <section class="nv__mega-col nv__mega-col--primary">
               <h3 class="nv__mega-title">{{ navbar.categories }}</h3>
               <ul>
                 <li v-for="item in navbar_link.categories" :key="item.id">
@@ -44,26 +49,34 @@
                 </li>
               </ul>
             </section>
-            <section class="nv__mega-col">
-              <h3 class="nv__mega-title">{{ navbar.colors }}</h3>
-              <ul>
-                <li v-for="item in navbar_link.colors" :key="item.id">
-                  <NuxtLink class="nv__mega-link" :to="item.link">{{
-                    item.title
-                  }}</NuxtLink>
-                </li>
-              </ul>
-            </section>
-            <section class="nv__mega-col">
-              <h3 class="nv__mega-title">{{ navbar.areas }}</h3>
-              <ul>
-                <li v-for="item in navbar_link.areas" :key="item.id">
-                  <NuxtLink class="nv__mega-link" :to="item.link">{{
-                    item.title
-                  }}</NuxtLink>
-                </li>
-              </ul>
-            </section>
+
+            <div class="nv__mega-filters">
+              <section class="nv__mega-group">
+                <h3 class="nv__mega-title nv__mega-title--filter">
+                  {{ navbar.colors }}
+                </h3>
+                <ul class="nv__chips">
+                  <li v-for="item in navbar_link.colors" :key="item.id">
+                    <NuxtLink class="nv__chip" :to="item.link">{{
+                      item.title
+                    }}</NuxtLink>
+                  </li>
+                </ul>
+              </section>
+
+              <section class="nv__mega-group">
+                <h3 class="nv__mega-title nv__mega-title--filter">
+                  {{ navbar.areas }}
+                </h3>
+                <ul class="nv__chips">
+                  <li v-for="item in navbar_link.areas" :key="item.id">
+                    <NuxtLink class="nv__chip" :to="item.link">{{
+                      item.title
+                    }}</NuxtLink>
+                  </li>
+                </ul>
+              </section>
+            </div>
           </div>
         </div>
 
@@ -295,17 +308,15 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
   margin: 0;
 }
 
-/* Logo varligi koyu lacivert/mavi. Tasarimda markanin kendi renkleri
-   gorunmemeli: koyu zeminde krem, acik zeminde --mk-ink.
+/* Logo iki durumda farkli gorunuyor:
 
-   `brightness(0)` logoyu once duz siyaha indiriyor (tum renk bilgisi
-   gidiyor), sonra invert() ile istenen tona cikariliyor:
-     invert(1)     -> #fff   ... krem icin 0.96 ile hafif kiriliyor
-     invert(0.11)  -> #1C1C1C ... --mk-ink (#1C1917) ile gozle ayirt
-                      edilemeyecek kadar yakin. Filtre notr gri uretiyor,
-                      yani sicak tonu birebir veremiyor.
-   Tam deger gerekiyorsa logonun krem ve ink surumleri varlik olarak
-   uretilmeli; filtre ile hex'e birebir oturmak mumkun degil. */
+   - Hero'nun uzerinde (.nv--over): fotografin uzerinde okunmasi icin krem.
+     `brightness(0)` once tum renk bilgisini siliyor, invert(0.96) krem
+     tonuna cikariyor.
+   - Kaydirildiktan sonra (.nv--solid): FILTRE YOK. Acik zeminde markanin
+     kendi renkleri (koyu lacivert-mavi) gorunuyor. Onceden burada da
+     brightness(0) invert(0.11) vardi, yani logo siyaha yakin notr bir
+     griye donuyordu ve marka rengi kayboluyordu. */
 .nv__logo-img {
   width: auto;
   /* Sabit 46px logo 251px genislik demekti ve 1460px altindaki her
@@ -322,7 +333,7 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
 }
 
 .nv--solid .nv__logo-img {
-  filter: brightness(0) invert(0.11);
+  filter: none;
 }
 
 /* --- Menu --- */
@@ -502,7 +513,8 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
 }
 
 .nv__mega {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Sol: kategoriler (asil taksonomi). Sag: filtreler. */
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
   gap: 0 1.5rem;
   /* Mega menu genis; ekrana sigmasi icin viewport'a gore sinirli. */
   width: min(48rem, 92vw);
@@ -520,8 +532,64 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
   padding-inline: 1.5rem;
 }
 
-.nv__mega-col + .nv__mega-col {
-  border-inline-start: 1px solid var(--mk-border);
+/* --- Filtre bolgesi ---
+   Kategorilerden tonla ayriliyor: ayri bir yuzey, icinde iki grup. */
+.nv__mega-filters {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1rem 1.5rem;
+  margin-inline-end: 1.25rem;
+  background: var(--mk-cream-2);
+  border-radius: var(--mk-radius);
+}
+
+.nv__mega-group + .nv__mega-group {
+  padding-top: 1rem;
+  border-top: 1px solid var(--mk-border);
+}
+
+/* Filtre basligi kategoriler basligi kadar baskin degil: alt cizgisi yok,
+   tonu bir adim soluk. */
+.nv__mega-title--filter {
+  padding-bottom: 0;
+  border-bottom: 0;
+  margin-bottom: 0.5rem;
+}
+
+/* Filtreler liste degil etiket: tiklanabilir birer daraltma. */
+.nv__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nv__chip {
+  display: inline-block;
+  padding: 0.3125rem 0.6875rem;
+  border-radius: var(--mk-radius-pill);
+  background: var(--mk-cream);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  color: var(--mk-ink);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.nv__chip:hover,
+.nv__chip:focus-visible {
+  background: var(--mk-ink);
+  color: var(--mk-cream);
+}
+
+.nv__chip:focus-visible {
+  outline: 2px solid var(--mk-ink);
+  outline-offset: 2px;
 }
 
 .nv__mega-col ul {

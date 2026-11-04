@@ -28,9 +28,9 @@ const VALUES = [
   { value: 2, suffix: "M+" },
 ];
 
-const texts: Record<Lang, { eyebrow: string; labels: string[] }> = {
+const texts: Record<Lang, { title: string; labels: string[] }> = {
   en: {
-    eyebrow: "By the numbers",
+    title: "By the numbers",
     labels: [
       "Containers shipped",
       "Pallets delivered",
@@ -39,7 +39,7 @@ const texts: Record<Lang, { eyebrow: string; labels: string[] }> = {
     ],
   },
   fr: {
-    eyebrow: "En chiffres",
+    title: "En chiffres",
     labels: [
       "Conteneurs expédiés",
       "Palettes livrées",
@@ -48,7 +48,7 @@ const texts: Record<Lang, { eyebrow: string; labels: string[] }> = {
     ],
   },
   es: {
-    eyebrow: "En cifras",
+    title: "En cifras",
     labels: [
       "Contenedores enviados",
       "Palés entregados",
@@ -57,7 +57,7 @@ const texts: Record<Lang, { eyebrow: string; labels: string[] }> = {
     ],
   },
   ru: {
-    eyebrow: "В цифрах",
+    title: "В цифрах",
     labels: [
       "Контейнеров отправлено",
       "Паллет доставлено",
@@ -66,7 +66,7 @@ const texts: Record<Lang, { eyebrow: string; labels: string[] }> = {
     ],
   },
   ar: {
-    eyebrow: "بالأرقام",
+    title: "بالأرقام",
     labels: [
       "حاوية تم شحنها",
       "منصة تم تسليمها",
@@ -149,10 +149,13 @@ const fmt = (i: number) => (counters.value[i] ?? 0).toLocaleString("en-US");
     ref="root"
     class="st"
     :dir="isRtl ? 'rtl' : undefined"
-    aria-labelledby="st-eyebrow"
+    aria-labelledby="st-title"
   >
     <div class="st__inner">
-      <p id="st-eyebrow" class="st__eyebrow">{{ t.eyebrow }}</p>
+      <!-- Onceden minik, harf arasi acilmis TUM BUYUK HARF bir etiketti ve
+           bolumun gercek bir basligi yoktu. Artik normal yazimli bir h2:
+           hem mikro-etiket gidiyor hem bolum adlandirilmis oluyor. -->
+      <h2 id="st-title" class="st__title">{{ t.title }}</h2>
 
       <dl class="st__grid">
         <div
@@ -185,12 +188,13 @@ const fmt = (i: number) => (counters.value[i] ?? 0).toLocaleString("en-US");
   margin-inline: auto;
 }
 
-.st__eyebrow {
+.st__title {
   margin: 0 0 clamp(1.75rem, 5vw, 3.75rem);
-  font-size: 0.875rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-family: var(--mk-ff-display);
+  font-size: var(--mk-title-md);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   color: var(--mk-ink);
 }
 
@@ -239,11 +243,10 @@ const fmt = (i: number) => (counters.value[i] ?? 0).toLocaleString("en-US");
 
 .stat__label {
   margin: 0;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: 0.02em;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.45;
   color: inherit;
-  opacity: 0.7;
+  opacity: 0.78;
 }
 </style>

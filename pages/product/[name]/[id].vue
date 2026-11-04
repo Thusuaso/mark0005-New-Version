@@ -60,10 +60,6 @@ const CATEGORY_INTROS: Record<string, CategoryIntro> = {
     heading: "What are installation materials?",
     body: "<strong>Installation materials</strong> for natural stone and tile projects include <strong>adhesives</strong>, <strong>sealers</strong> and <strong>grouts</strong>. Premium adhesives ensure a strong and lasting bond for all types of stone and tile surfaces, making them ideal for walls, floors and outdoor applications. Advanced stone sealers safeguard against stains, moisture and wear while preserving the natural beauty of the surface. Durable, color-matched grouts provide a polished finish and long-lasting performance. These materials are designed to handle the unique challenges of natural stone, ensuring a flawless finish that lasts. With easy application and professional-grade results, they simplify installation for both professionals and DIY enthusiasts.",
   },
-  "18": {
-    heading: "What is plasterboard?",
-    body: "<strong>Plasterboard</strong>, also known as <strong>drywall</strong> or <strong>gypsum board</strong>, is a lightweight, versatile building material used to create smooth interior walls and ceilings. Made from a core of gypsum sandwiched between layers of durable paper, plasterboard is known for its easy installation, cost-effectiveness and fire-resistant properties. It is available in moisture-resistant, fire-resistant and soundproof options, making it suitable for residential, commercial and industrial projects. Once installed, it can be painted, wallpapered or tiled. It offers excellent thermal and acoustic insulation, enhancing energy efficiency and noise reduction. Its ability to be easily cut and shaped allows for creative designs, making it an essential material for modern construction and renovation.",
-  },
 };
 
 const route = useRoute();

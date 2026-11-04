@@ -53,42 +53,37 @@ const SLOTS = ["c", "tl", "tr", "bl", "br"] as const;
 
 const texts: Record<
   Lang,
-  { eyebrow: string; heading: string; cta: string; aria: string; hint: string }
+  { heading: string; lede: string; cta: string; aria: string }
 > = {
   en: {
-    eyebrow: "Marble · Travertine · Limestone",
     heading: "Natural stone from our own quarries",
+    lede: "Marble, travertine and limestone — cut, finished and stocked in our own factories.",
     cta: "Get a quote",
     aria: "Scenes from our quarries, factories and warehouse",
-    hint: "Scroll",
   },
   fr: {
-    eyebrow: "Marbre · Travertin · Pierre calcaire",
     heading: "Pierre naturelle de nos propres carrières",
+    lede: "Marbre, travertin et pierre calcaire — taillés, finis et stockés dans nos propres usines.",
     cta: "Demander un devis",
     aria: "Scènes de nos carrières, usines et entrepôt",
-    hint: "Défiler",
   },
   es: {
-    eyebrow: "Mármol · Travertino · Piedra caliza",
     heading: "Piedra natural de nuestras propias canteras",
+    lede: "Mármol, travertino y piedra caliza: cortados, pulidos y almacenados en nuestras propias fábricas.",
     cta: "Solicitar presupuesto",
     aria: "Escenas de nuestras canteras, fábricas y almacén",
-    hint: "Desplazar",
   },
   ru: {
-    eyebrow: "Мрамор · Травертин · Известняк",
     heading: "Натуральный камень с наших карьеров",
+    lede: "Мрамор, травертин и известняк — распил, обработка и склад на наших собственных заводах.",
     cta: "Запросить расчёт",
     aria: "Кадры с наших карьеров, заводов и склада",
-    hint: "Прокрутите",
   },
   ar: {
-    eyebrow: "رخام · ترافرتين · حجر جيري",
     heading: "حجر طبيعي من محاجرنا الخاصة",
+    lede: "رخام وترافرتين وحجر جيري — يُقطع ويُصقل ويُخزّن في مصانعنا الخاصة.",
     cta: "اطلب عرض سعر",
     aria: "مشاهد من محاجرنا ومصانعنا ومستودعنا",
-    hint: "مرّر",
   },
 };
 
@@ -135,6 +130,11 @@ const p = ref(0);
 /* Pist yalnizca hareket acikken var; kapaliysa bolum tek ekran yuksekliginde
    ve kolaj dogrudan son halinde. */
 const still = ref(false);
+
+/* Baslik silindikten sonra gorunurlukten de cikariliyor (bkz. .hr--said).
+   Hareket kapaliyken p dogrudan 1 oluyor, o yuzden still disarida tutuldu:
+   yoksa reduced-motion kullanicisi basligi hic gormezdi. */
+const said = computed(() => !still.value && p.value > 0.62);
 
 const heroOverlay = useHeroOverlay();
 
@@ -199,7 +199,7 @@ onBeforeUnmount(() => {
   <section
     ref="root"
     class="hr"
-    :class="{ 'hr--still': still }"
+    :class="{ 'hr--still': still, 'hr--said': said }"
     :style="{ '--p': p }"
     :dir="isRtl ? 'rtl' : undefined"
     :aria-label="t.aria"
@@ -232,22 +232,22 @@ onBeforeUnmount(() => {
 
       <!-- Metin katmani -->
       <div class="hr__ui">
-        <!-- Baslik gorsel olarak kaldirildi (fotograflarin uzerini
-             kapatiyordu) ama DOM'da duruyor: her sayfanin bir h1'i olmasi
-             gerekiyor, arama motorlari ve ekran okuyucular bunu kullaniyor.
-             .hr__sr-only ile yalnizca gozden saklaniyor. -->
-        <h1 class="hr__sr-only">{{ t.heading }}</h1>
+        <!-- Baslik ekranda GORUNUR olmak zorunda: ilk ekran ziyaretcinin ilk
+             sorusunu buyuk puntoyla cevaplamali. Onceden .hr__sr-only ile
+             gizleniyordu (fotograflarin uzerini kapatmasin diye) ama o
+             haliyle sayfanin ilk uc ekraninda sirketin ne yaptigi hicbir
+             yerde yazmiyordu.
 
-        <p class="hr__eyebrow">{{ t.eyebrow }}</p>
+             Fotograflari kapatma itirazi --p ile cozuluyor: metin tek
+             fotografin ekrani kapladigi anda (p=0) tam opak, kolaj
+             toplandikca siliniyor. Yani once soz, sonra resim. -->
+        <div class="hr__say">
+          <h1 class="hr__title">{{ t.heading }}</h1>
+          <p class="hr__lede">{{ t.lede }}</p>
+        </div>
 
         <div class="hr__row">
           <UiBtn :label="t.cta" :to="contactLink" variant="blur" />
-
-          <!-- Kaydirma ipucu: kolaj acildikca kayboluyor -->
-          <p v-if="!still" class="hr__hint">
-            <span>{{ t.hint }}</span>
-            <span class="hr__hint-line" aria-hidden="true"></span>
-          </p>
         </div>
       </div>
     </div>
@@ -445,37 +445,63 @@ onBeforeUnmount(() => {
   padding-top: clamp(2rem, 6vh, 4rem);
 }
 
-/* Gorunmez ama okunabilir: ekran okuyucu ve arama motorlari icin.
-   display:none ya da visibility:hidden olmaz — ikisi de icerigi erisim
-   agacindan tamamen cikarir. */
-.hr__sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
+/* Basligin okunmasi gereken an p=0: tek fotograf ekrani kapliyor ve
+   altta hr__scrim zaten %78'e kadar koyu. Kolaj toplandikca (p -> 1)
+   metin siliniyor, fotograflar sahneyi devraliyor.
+
+   1.9 carpani: p=0.53 civarinda tamamen kayboluyor, yani kolaj daha
+   yerine oturmadan yoldan cekilmis oluyor. */
+.hr__say {
+  opacity: clamp(0, calc(1 - var(--p) * 1.9), 1);
+  transition: opacity 0.12s linear;
 }
 
-.hr__eyebrow {
+/* Metin silindikten sonra DOM'dan da cekilmeli: opacity:0 bir baslik hala
+   "fotograflarin uzerinde suruklenen sabit metin" olarak olculuyor (ve
+   ekran okuyucuya hala okunuyordu). Esik p=0.62, yani opacity zaten
+   0'a indikten sonra. */
+.hr--said .hr__say {
+  display: none;
+}
+
+/* Hareket kapaliyken pist yok ve p dogrudan 1 — yukaridaki formul metni
+   gizlerdi. Reduced motion kullanicisi basligi tam gormeli. */
+.hr--still .hr__say {
+  opacity: 1;
+}
+
+.hr__title {
   margin: 0;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(247, 243, 233, 0.72);
+  font-family: var(--mk-ff-display);
+  /* Bolum basliklarindan (--mk-title-xl) kasitli olarak kucuk: bu metin
+     fotografin uzerinde duruyor, orada ayni punto resmi yutuyor. */
+  font-size: clamp(2rem, 5.2vw, 4.25rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--mk-cream);
+  text-wrap: balance;
+  /* ch, bu elemanin KENDI puntosuna gore cozuluyor; olcu .hr__say uzerinde
+     verilirse govde puntosuna gore cozulur ve baslik dorde kirilir. */
+  max-width: 20ch;
+}
+
+.hr__lede {
+  margin: clamp(1rem, 2.2vh, 2rem) 0 0;
+  max-width: 46ch;
+  font-size: clamp(1rem, 1.35vw, 1.1875rem);
+  line-height: 1.6;
+  color: rgba(247, 243, 233, 0.86);
 }
 
 /* Dar ekranda saga sabitlenmis paylas/WhatsApp butonlari (58px + 20px
-   kenar bosluklu, position: fixed) satirin sonundaki kelimenin uzerine
-   biniyordu — "LIMESTONE" yarim gorunuyordu. Metin o sutuna girmesin
-   diye yer ayriliyor; sigmazsa alt satira geciyor. */
+   kenar bosluklu, position: fixed) metnin uzerine biniyordu. */
+/* Dar ekranda saga sabitlenmis paylas/WhatsApp butonlari yalnizca alt
+   serite denk geliyor; yer ayirmasi gereken destek cumlesi, baslik degil.
+   Baslik da daraltilirsa uc satira kiriliyordu. */
 @media (max-width: 36rem) {
-  .hr__eyebrow {
-    padding-inline-end: 5.5rem;
+  .hr__lede {
+    padding-inline-end: 4.5rem;
   }
 }
 
@@ -485,42 +511,6 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 1rem 1.5rem;
   margin-top: clamp(1rem, 2.5vh, 1.5rem);
-}
-
-/* --- Kaydirma ipucu --- */
-.hr__hint {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-  margin: 0;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(247, 243, 233, 0.6);
-  /* Kolaj acilmaya baslayinca ipucu gereksizlesiyor. */
-  opacity: calc(1 - var(--p) * 2.2);
-  pointer-events: none;
-}
-
-.hr__hint-line {
-  width: 2.5rem;
-  height: 1px;
-  background: currentColor;
-  transform-origin: inline-start;
-  animation: hint-slide 1.8s ease-in-out infinite;
-}
-
-@keyframes hint-slide {
-  0%,
-  100% {
-    transform: scaleX(0.4);
-    opacity: 0.5;
-  }
-  50% {
-    transform: scaleX(1);
-    opacity: 1;
-  }
 }
 
 /* --- Kucuk ekran --- */
@@ -555,16 +545,6 @@ onBeforeUnmount(() => {
   .hr__item--tr,
   .hr__item--br {
     inset-inline-start: 62%;
-  }
-
-  .hr__hint {
-    display: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hr__hint-line {
-    animation: none;
   }
 }
 </style>

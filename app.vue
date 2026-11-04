@@ -46,8 +46,14 @@
 
     <!-- Tek container: eskiden masaustu/mobil icin iki ayri dal vardi ve
          ikisi de NuxtPage render ediyordu. Aradaki tek fark ust bosluktu,
-         o da artik CSS'te. -->
-    <div class="container page-container">
+         o da artik CSS'te.
+
+         Urun detayi container'SIZ: ana sayfa gibi bolumleri kendi zeminini
+         kenardan kenara seriyor ve ic genisligi kendi sinirliyor. Container
+         icinde kalsa zeminler sayfanin ortasinda yuzen bloklar gibi
+         gorunuyordu. Ust bosluk yine var (ana sayfadan farki: menunun
+         altina giren tam ekran bir hero'su yok). -->
+    <div :class="isWide ? 'page-wide' : 'container page-container'">
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
@@ -82,6 +88,12 @@ const lang = store.getLang;
 const route = useRoute();
 const HOME_PATHS = new Set(["", "/fr", "/es", "/ru", "/ar"]);
 const isHome = computed(() => HOME_PATHS.has(route.path.replace(/\/+$/, "")));
+
+/* Container'siz (tam genislikte) render edilen ic sayfalar. Simdilik urun
+   detayi: bolumleri ana sayfadaki gibi kendi zeminini kenardan kenara
+   seriyor. Yeni bir sayfa bu dile gecirildiginde desenine buraya eklenir. */
+const WIDE_PATH = /^(\/(fr|es|ru|ar))?\/product\/detail\//;
+const isWide = computed(() => WIDE_PATH.test(route.path));
 </script>
 <style scoped>
 /* Sabit ust menunun yuksekligi. Navbar'daki dolgu (0.75rem x2) + logo
@@ -119,6 +131,12 @@ const isHome = computed(() => HOME_PATHS.has(route.path.replace(/\/+$/, "")));
    mobilde satir ici -5px idi). */
 .page-container {
   margin-top: 0.5rem;
+}
+
+/* Container'siz dal: genislik sinirlamasi ve yan dolgu yok, bolumler
+   zeminlerini kendileri seriyor. */
+.page-wide {
+  width: 100%;
 }
 
 @media (max-width: 1150px) {

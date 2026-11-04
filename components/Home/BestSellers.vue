@@ -24,31 +24,26 @@ import { useReveal } from "~/composables/useReveal";
 
 type Lang = "en" | "fr" | "es" | "ru" | "ar";
 
-const texts: Record<Lang, { eyebrow: string; title: string; line2: string }> = {
+const texts: Record<Lang, { title: string; line2: string }> = {
   en: {
-    eyebrow: "Best sellers",
-    title: "Most ordered",
-    line2: "this year",
+    title: "Best sellers",
+    line2: "of 2026",
   },
   fr: {
-    eyebrow: "Meilleures ventes",
-    title: "Les plus commandés",
-    line2: "cette année",
+    title: "Meilleures ventes",
+    line2: "de 2026",
   },
   es: {
-    eyebrow: "Más vendidos",
-    title: "Los más pedidos",
-    line2: "este año",
+    title: "Más vendidos",
+    line2: "de 2026",
   },
   ru: {
-    eyebrow: "Хиты продаж",
-    title: "Самое заказываемое",
-    line2: "в этом году",
+    title: "Хиты продаж",
+    line2: "2026 года",
   },
   ar: {
-    eyebrow: "الأكثر مبيعاً",
-    title: "الأكثر طلباً",
-    line2: "هذا العام",
+    title: "الأكثر مبيعاً",
+    line2: "لعام 2026",
   },
 };
 
@@ -88,7 +83,6 @@ const { el, shown } = useReveal();
     <div class="bs__inner">
       <UiSectionHead
         class="bs__head"
-        :eyebrow="t.eyebrow"
         :title="t.title"
         :line2="t.line2"
         size="xl"

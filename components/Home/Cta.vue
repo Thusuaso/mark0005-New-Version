@@ -17,10 +17,9 @@ type Lang = "en" | "fr" | "es" | "ru" | "ar";
 
 const texts: Record<
   Lang,
-  { eyebrow: string; title: string; line2: string; lede: string; primary: string; secondary: string }
+  { title: string; line2: string; lede: string; primary: string; secondary: string }
 > = {
   en: {
-    eyebrow: "Next step",
     title: "Let's talk",
     line2: "about stone",
     lede: "Send a drawing, a reference photo or just a material name. We quote within one business day.",
@@ -28,7 +27,6 @@ const texts: Record<
     secondary: "Download catalogue",
   },
   fr: {
-    eyebrow: "Prochaine étape",
     title: "Parlons",
     line2: "de la pierre",
     lede: "Envoyez un plan, une photo de référence ou simplement un nom de matériau. Devis en un jour ouvré.",
@@ -36,7 +34,6 @@ const texts: Record<
     secondary: "Télécharger le catalogue",
   },
   es: {
-    eyebrow: "Siguiente paso",
     title: "Hablemos",
     line2: "de piedra",
     lede: "Envíe un plano, una foto de referencia o solo el nombre de un material. Cotizamos en un día laborable.",
@@ -44,7 +41,6 @@ const texts: Record<
     secondary: "Descargar catálogo",
   },
   ru: {
-    eyebrow: "Следующий шаг",
     title: "Поговорим",
     line2: "о камне",
     lede: "Пришлите чертёж, референс или просто название материала. Расчёт в течение рабочего дня.",
@@ -52,7 +48,6 @@ const texts: Record<
     secondary: "Скачать каталог",
   },
   ar: {
-    eyebrow: "الخطوة التالية",
     title: "لنتحدث",
     line2: "عن الحجر",
     lede: "أرسل مخططاً أو صورة مرجعية أو اسم المادة فقط. نرسل العرض خلال يوم عمل واحد.",
@@ -84,7 +79,6 @@ const { el, shown } = useReveal();
     <div class="cta__inner">
       <UiSectionHead
         class="cta__head"
-        :eyebrow="t.eyebrow"
         :title="t.title"
         :line2="t.line2"
         size="lg"
