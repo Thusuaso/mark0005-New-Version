@@ -11,12 +11,13 @@
     "catalog": "CATALOGAR",
     "categories": "CATEGORIAS",
     "colors": "FILTRAR POR COLOR",
-    "areas": "FILTRAR POR ZONA",
+    "areas": "FILTRAR POR ÁREA DE APLICACIÓN",
 
     "faq": "FAQ"
   },
   "navbar_link": {
     "home": "/es",
+    "product": "/es/products",
     "about": "/es/about",
     "contact": "/es/contact",
     "fabrication": "/es/fabrication",
@@ -42,11 +43,16 @@
       },
       { "id": 7, "title": "Plaques", "link": "/es/product/slabs/7" },
       { "id": 8, "title": "Quartz", "link": "/es/product/quartz/8" },
-      { "id": 9, "title": "Par Produits", "link": "/es/product/by-product/9" },
+      { "id": 9, "title": "Productos complementarios", "link": "/es/product/by-product/9" },
       {
         "id": 10,
         "title": "Materiels D'Installation",
         "link": "/es/product/installation-materials/11"
+      },
+      {
+        "id": 11,
+        "title": "Diseño CNC 3D",
+        "link": "/es/product/3d-cnc-design/23"
       }
     ],
     "colors": [
@@ -113,7 +119,7 @@
         { "id": 3, "value": "Controlamos 30.000 m2 de producto mensualmente." },
         {
           "id": 4,
-          "value": "Suministramos soluciones naturales para proyectos arquitectónicos."
+          "value": "Suministramos soluciones naturales para proyectos arquitectónicos sostenibles."
         }
       ],
       "socials": [
@@ -202,6 +208,46 @@
           "id": 9,
           "image": "/image/news/news-9-b.webp",
           "name": "mekmar_suppliers_news_9"
+        },
+        {
+          "id": 10,
+          "image": "/image/news/news-10-b.webp",
+          "name": "mekmar_suppliers_news_10"
+        },
+        {
+          "id": 11,
+          "image": "/image/news/news-11-b.webp",
+          "name": "mekmar_suppliers_news_11"
+        },
+        {
+          "id": 12,
+          "image": "/image/news/news-12-b.webp",
+          "name": "mekmar_suppliers_news_12"
+        },
+        {
+          "id": 13,
+          "image": "/image/news/news-13-b.webp",
+          "name": "mekmar_suppliers_news_13"
+        },
+        {
+          "id": 14,
+          "image": "/image/news/news-14-b.webp",
+          "name": "mekmar_suppliers_news_14"
+        },
+        {
+          "id": 15,
+          "image": "/image/news/news-15-b.webp",
+          "name": "mekmar_suppliers_news_15"
+        },
+        {
+          "id": 16,
+          "image": "/image/news/news-16-b.webp",
+          "name": "mekmar_suppliers_news_16"
+        },
+        {
+          "id": 17,
+          "image": "/image/news/news-17-b.webp",
+          "name": "mekmar_suppliers_news_17"
         }
       ]
     },
@@ -388,6 +434,12 @@
       "link": "/es/product/installation-materials/11",
       "name": "MATÉRIAUX D'INSTALLATION",
       "image": "/image/categories/installation-materials-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 23,
+      "link": "/es/product/3d-cnc-design/23",
+      "name": "DISEÑO CNC 3D",
+      "image": "/image/categories/cnc_design-category-main-photo-mekmar.webp"
     }
   ],
   "about": {
@@ -551,7 +603,7 @@
       },
       {
         "id": 3,
-        "header": "NUESTRO ALMACEN EN EE. UU.",
+        "header": "NUESTRO ALMACÉN EN EE. UU.",
         "images": [
           {
             "id": 1,
@@ -1162,9 +1214,9 @@
   },
   "product_detail": {
     "description": "Descripción",
-    "tab_1": "Detalla",
-    "tab_2": "Solicitud",
-    "tab_3": "Tamaño & premio",
+    "tab_1": "Detalle",
+    "tab_2": "Aplicaciones",
+    "tab_3": "Tamaño y precio",
     "tab_1_code": "Código",
     "tab_1_stonetype": "Tipo de piedra",
     "tab_1_country": "País",

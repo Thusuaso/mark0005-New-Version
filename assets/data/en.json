@@ -11,12 +11,13 @@
     "catalog": "CATALOG",
     "categories": "CATEGORIES",
     "colors": "FILTERED BY COLOR",
-    "areas": "FILTERED BY AREAS",
+    "areas": "FILTERED BY APPLICATION AREAS",
 
     "faq": "FAQ"
   },
   "navbar_link": {
     "home": "/",
+    "product": "/products",
     "about": "/about",
     "contact": "/contact",
     "fabrication": "/fabrication",
@@ -38,11 +39,16 @@
       },
       { "id": 7, "title": "Slabs", "link": "/product/slabs/7" },
       { "id": 8, "title": "Quartz", "link": "/product/quartz/8" },
-      { "id": 9, "title": "By-product", "link": "/product/by-product/9" },
+      { "id": 9, "title": "Complementary Products", "link": "/product/by-product/9" },
       {
         "id": 10,
         "title": "Installation Materials",
         "link": "/product/installation-materials/11"
+      },
+      {
+        "id": 11,
+        "title": "3D CNC Design",
+        "link": "/product/3d-cnc-design/23"
       }
     ],
     "colors": [
@@ -105,7 +111,7 @@
         { "id": 3, "value": "We control 30.000 sqm product monthly." },
         {
           "id": 4,
-          "value": "We supply natural solutions for architectural projects."
+          "value": "We supply natural solutions for sustainable architectural projects."
         }
       ],
       "socials": [
@@ -194,6 +200,46 @@
           "id": 9,
           "image": "/image/news/news-9-b.webp",
           "name": "mekmar_suppliers_news_9"
+        },
+        {
+          "id": 10,
+          "image": "/image/news/news-10-b.webp",
+          "name": "mekmar_suppliers_news_10"
+        },
+        {
+          "id": 11,
+          "image": "/image/news/news-11-b.webp",
+          "name": "mekmar_suppliers_news_11"
+        },
+        {
+          "id": 12,
+          "image": "/image/news/news-12-b.webp",
+          "name": "mekmar_suppliers_news_12"
+        },
+        {
+          "id": 13,
+          "image": "/image/news/news-13-b.webp",
+          "name": "mekmar_suppliers_news_13"
+        },
+        {
+          "id": 14,
+          "image": "/image/news/news-14-b.webp",
+          "name": "mekmar_suppliers_news_14"
+        },
+        {
+          "id": 15,
+          "image": "/image/news/news-15-b.webp",
+          "name": "mekmar_suppliers_news_15"
+        },
+        {
+          "id": 16,
+          "image": "/image/news/news-16-b.webp",
+          "name": "mekmar_suppliers_news_16"
+        },
+        {
+          "id": 17,
+          "image": "/image/news/news-17-b.webp",
+          "name": "mekmar_suppliers_news_17"
         }
       ]
     },
@@ -379,6 +425,12 @@
       "link": "/product/installation-materials/11",
       "name": "INSTALLATION MATERIALS",
       "image": "/image/categories/installation-materials-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 23,
+      "link": "/product/3d-cnc-design/23",
+      "name": "3D CNC DESIGN",
+      "image": "/image/categories/cnc_design-category-main-photo-mekmar.webp"
     }
   ],
   "about": {
@@ -541,7 +593,7 @@
       },
       {
         "id": 3,
-        "header": "OUR USA WEREHOUSE",
+        "header": "OUR USA WAREHOUSE",
         "images": [
           {
             "id": 1,

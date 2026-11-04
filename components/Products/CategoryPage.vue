@@ -121,11 +121,24 @@ const { data, pending } = await useAsyncData(
   { watch: [() => route.params.id, () => route.query] },
 );
 
-/* Breadcrumb ve store eski davranisla ayni kalsin. */
+/* Breadcrumb: adres cubugundaki kategori adindan tureiyor (store'daki
+   eski push tabanli iz yerine — bkz. Shared/Breadcrumb.vue). Store
+   cagrilari geriye donuk uyumluluk icin duruyor. */
 store.setResetBreadcrumb();
 store.setNowBreadCrumb({
   label: route.params.name,
   route: route.fullPath,
+});
+
+const crumbs = computed(() => {
+  /* Ad verideki kategori listesinden; adres cubugundaki slug ("3d-cnc-design")
+     izde kotu okunuyordu. Bulunamazsa slug'a dusuyor. */
+  const match = ((store.getCategories as any[]) ?? []).find(
+    (c) => String(c?.link ?? "").endsWith("/" + categoryId.value),
+  );
+  const label =
+    match?.name || String(route.params.name ?? "").replace(/-/g, " ").trim();
+  return label ? [{ label }] : [];
 });
 
 const products = computed(() =>
@@ -199,6 +212,8 @@ const clearLink = computed(() => ({ path: route.path, query: {} }));
 
 <template>
   <div class="cp" :dir="isRtl ? 'rtl' : undefined">
+    <SharedBreadcrumb class="cp__crumbs" :items="crumbs" />
+
     <div class="cp__grid">
       <!-- Filtreler -->
       <aside class="cp__side" :aria-label="t.filters">

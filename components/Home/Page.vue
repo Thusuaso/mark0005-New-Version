@@ -8,7 +8,12 @@
  *
  * Bolum sirasi:
  *   hero → stats(rakamlar) → materials(kategoriler) → about → projects
- *   → facilities(akordeon) → best sellers → cta
+ *   → facilities(akordeon) → best sellers
+ *
+ * Kapanis bandi (Home/Cta.vue) kaldirildi: basligi ve alt cumlesi istek
+ * uzerine silinince geriye yalnizca iki buton kaliyordu; onlar da footer'a,
+ * logonun altina tasindi (components/Shared/Footer.vue .ft__cta). Cta.vue
+ * dosyasi duruyor ama hicbir yerde render edilmiyor.
  *
  * Temanin kendi sirasi about → service → projects → funfact idi; rakamlar
  * ve malzemeler istek uzerine hero'nun hemen altina alindi.
@@ -49,8 +54,6 @@
     <LazyHomeFacilities hydrate-on-visible />
 
     <LazyHomeBestSellers hydrate-on-visible />
-
-    <LazyHomeCta hydrate-on-visible />
 
     <SharedWhatsappFloat />
     <SharedSocialFloat />

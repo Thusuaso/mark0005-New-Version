@@ -117,7 +117,7 @@ const open = ref(false);
 .social_float {
   position: fixed;
   right: calc(20px + env(safe-area-inset-right, 0px));
-  bottom: calc(90px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(150px + env(safe-area-inset-bottom, 0px));
   z-index: 1040;
   display: flex;
   align-items: center;
@@ -317,7 +317,7 @@ const open = ref(false);
   /* Mobilde WhatsApp butonu 52px ve taban 14px. */
   .social_float {
     right: calc(14px + env(safe-area-inset-right, 0px));
-    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(136px + env(safe-area-inset-bottom, 0px));
   }
 
   .social_float_btn {

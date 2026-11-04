@@ -22,14 +22,19 @@
           navbar.home
         }}</NuxtLink>
 
-        <div class="dropdown nv__item">
-          <a
+        <!-- PRODUCTS artik hem baglanti hem menu: tiklayinca tum
+             kategorilerin listelendigi /products sayfasina gidiyor, uzerine
+             gelince (ya da klavyeyle odaklanilinca) mega menu aciliyor.
+
+             Bootstrap'in data-bs-toggle'i kaldirildi: ayni elemanda hem
+             toggle hem link olunca Bootstrap tiklamayi yutuyor ve sayfaya
+             gidilemiyordu. Acilma artik CSS'te :hover / :focus-within
+             uzerinden (bkz. .nv__item--mega). -->
+        <div class="dropdown nv__item nv__item--mega">
+          <NuxtLink
             class="nv__link nv__link--toggle"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            >{{ navbar.product }}</a
+            :to="navbar_link.product ?? '/products'"
+            >{{ navbar.product }}</NuxtLink
           >
           <!-- div menu + bolum basina kendi listesi (ul icine div koymak
                gecersiz HTML'di). -->
@@ -261,7 +266,8 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
   background: rgba(28, 25, 23, 0.18);
   backdrop-filter: blur(var(--mk-blur-nav)) saturate(120%);
   -webkit-backdrop-filter: blur(var(--mk-blur-nav)) saturate(120%);
-  border-bottom: 1px solid rgba(247, 243, 233, 0.12);
+  /* 1px alt cizgi kaldirildi: hero'nun uzerinde zaten karartma var,
+     cizgi fotografin icine yatay bir hat ciziyordu. */
 }
 
 /* Kaydirildiktan sonra / ic sayfalarda: krem zemin.
@@ -271,8 +277,9 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
   background: rgba(247, 243, 233, 0.88);
   backdrop-filter: blur(var(--mk-blur-nav)) saturate(120%);
   -webkit-backdrop-filter: blur(var(--mk-blur-nav)) saturate(120%);
-  border-bottom: 1px solid var(--mk-border);
-  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04);
+  /* Cizgi yerine yalnizca cok hafif bir golge: bulanik zemin (backdrop
+     blur) zaten serit ile icerigi ayiriyor. */
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.06);
 }
 
 /* backdrop-filter desteklenmiyorsa (eski tarayici) saydam zemin metni
@@ -504,6 +511,29 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
   opacity: 1;
 }
 
+/* --- PRODUCTS: hem baglanti hem menu ---
+   Bootstrap'in .show sinifi yerine panel :hover / :focus-within ile
+   aciliyor. focus-within klavye icin sart: Tab ile baslik ya da panel
+   icindeki herhangi bir baglanti odaklaninca menu acik kaliyor.
+
+   Dokunmatik cihazlarda bu dal zaten kullanilmiyor; 1150px altinda
+   Navbarmobile devrede (bkz. app.vue .nav-slot). */
+/* YALNIZCA display degisiyor. Burada `transform: none` yazmak panelin
+   ortalanmasini bozuyordu: temel kuralda `inset-inline-start: 50%` +
+   `translateX(-50%)` var, transform silinince panel 50% noktasindan
+   SAGA dogru aciliyordu (1920px'te tetikleyiciden 282px sagda). */
+.nv__item--mega:hover > .nv__mega,
+.nv__item--mega:focus-within > .nv__mega {
+  display: grid;
+}
+
+/* Fare basliktan panele inerken aradaki bosluga denk gelip menu
+   kapanmasin. */
+.nv__item--mega > .nv__mega {
+  margin-top: 0;
+  padding-top: 1.75rem;
+}
+
 /* Urun mega menusu. display yalnizca .show durumunda grid olmali:
    Bootstrap menuyu display:none ile gizliyor, kosulsuz bir grid onu ezip
    menuyu surekli acik birakirdi. Uc sinifla ozgullugu Bootstrap'in
@@ -656,6 +686,9 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
   font-family: var(--mk-ff-body);
   font-size: 0.8125rem;
   border-radius: var(--mk-radius-pill);
+  /* PrimeVue input'u dinlenirken de bir golge tasiyor; sayfanin geri
+     kalaninda golge yok, kutular tonla ayriliyor. */
+  box-shadow: none;
   transition:
     border-color 0.25s ease,
     background-color 0.25s ease;

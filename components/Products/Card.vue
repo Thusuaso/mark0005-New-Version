@@ -36,8 +36,8 @@ const isExternal = computed(
   <NuxtLink
     :to="link"
     :external="isExternal"
-    :target="isExternal ? '_blank' : undefined"
-    :rel="isExternal ? 'noopener noreferrer' : undefined"
+    target="_blank"
+    :rel="isExternal ? 'noopener noreferrer' : 'noopener'"
     class="pcard"
   >
     <div class="pcard__frame" :style="{ aspectRatio: ratio }">
@@ -61,19 +61,15 @@ const isExternal = computed(
   text-decoration: none;
 }
 
+/* Golge kaldirildi: kart zeminden ton farkiyla ayriliyor, kutu olarak
+   degil. Sitenin geri kalani (ana sayfa kartlari, urun detay fotograflari)
+   da ayni dili kullaniyor. Hover geri bildirimi artik golge buyutmek degil,
+   gorselin hafifce yakinlasmasi (.pcard__image). */
 .pcard__frame {
   position: relative;
   overflow: hidden;
   border-radius: 3px;
-  background: #f1ede8;
-  /* Eski kartta 8px'lik sert siyah golge vardi; daha yumusak ve yayvan */
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14);
-  transition: box-shadow 0.3s ease;
-}
-
-.pcard:hover .pcard__frame,
-.pcard:focus-visible .pcard__frame {
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  background: var(--mk-cream-2, #efeadc);
 }
 
 .pcard:focus-visible {

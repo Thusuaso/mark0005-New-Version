@@ -11,11 +11,12 @@
     "catalog": "فهرس",
     "categories": "فئات",
     "colors": "تصفية حسب اللون",
-    "areas": "تصفية حسب المنطقة",
+    "areas": "تصفية حسب مجال الاستخدام",
     "faq": "التعليمات"
   },
   "navbar_link": {
     "home": "/ar",
+    "product": "/ar/products",
     "about": "/ar/about",
     "contact": "/ar/contact",
     "fabrication": "/ar/fabrication",
@@ -37,11 +38,16 @@
       },
       { "id": 7, "title": "ألواح", "link": "/ar/product/slabs/7" },
       { "id": 8, "title": "كوارتز", "link": "/ar/product/quartz/8" },
-      { "id": 9, "title": "ثانوية", "link": "/ar/product/by-product/9" },
+      { "id": 9, "title": "منتجات تكميلية", "link": "/ar/product/by-product/9" },
       {
         "id": 10,
         "title": "مواد التثبيت",
         "link": "/ar/product/installation-materials/11"
+      },
+      {
+        "id": 11,
+        "title": "تصميم CNC ثلاثي الأبعاد",
+        "link": "/ar/product/3d-cnc-design/23"
       }
     ],
     "colors": [
@@ -106,7 +112,7 @@
           "value": "نحن ننتج جميع أنواع الحجر الطبيعي من البلاطة إلى الفسيفساء."
         },
         { "id": 3, "value": "نحن نتحكم في 30.000 متر مربع من المنتج شهريًا." },
-        { "id": 4, "value": "نحن نقدم الحلول الطبيعية للمشاريع المعمارية." }
+        { "id": 4, "value": "نحن نقدم الحلول الطبيعية للمشاريع المعمارية المستدامة." }
       ],
       "socials": [
         {
@@ -194,6 +200,46 @@
           "id": 9,
           "image": "/image/news/news-9-b.webp",
           "name": "mekmar_suppliers_news_9"
+        },
+        {
+          "id": 10,
+          "image": "/image/news/news-10-b.webp",
+          "name": "mekmar_suppliers_news_10"
+        },
+        {
+          "id": 11,
+          "image": "/image/news/news-11-b.webp",
+          "name": "mekmar_suppliers_news_11"
+        },
+        {
+          "id": 12,
+          "image": "/image/news/news-12-b.webp",
+          "name": "mekmar_suppliers_news_12"
+        },
+        {
+          "id": 13,
+          "image": "/image/news/news-13-b.webp",
+          "name": "mekmar_suppliers_news_13"
+        },
+        {
+          "id": 14,
+          "image": "/image/news/news-14-b.webp",
+          "name": "mekmar_suppliers_news_14"
+        },
+        {
+          "id": 15,
+          "image": "/image/news/news-15-b.webp",
+          "name": "mekmar_suppliers_news_15"
+        },
+        {
+          "id": 16,
+          "image": "/image/news/news-16-b.webp",
+          "name": "mekmar_suppliers_news_16"
+        },
+        {
+          "id": 17,
+          "image": "/image/news/news-17-b.webp",
+          "name": "mekmar_suppliers_news_17"
         }
       ]
     },
@@ -380,6 +426,12 @@
       "link": "/ar/product/installation-materials/11",
       "name": "مواد التثبيت",
       "image": "/image/categories/installation-materials-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 23,
+      "link": "/ar/product/3d-cnc-design/23",
+      "name": "تصميم CNC ثلاثي الأبعاد",
+      "image": "/image/categories/cnc_design-category-main-photo-mekmar.webp"
     }
   ],
   "about": {
@@ -1144,9 +1196,9 @@
   "product_detail": {
     "description": "وصف",
     "tab_1": "التفاصيل",
-    "tab_2": "طلب",
+    "tab_2": "الاستخدامات",
     "tab_3": "الحجم والسعر",
-    "tab_1_code": "شفرة",
+    "tab_1_code": "رمز المنتج",
     "tab_1_stonetype": "نوع الحجر",
     "tab_1_country": "دولة",
     "tab_1_varitaion": "تفاوت",

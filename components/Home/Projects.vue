@@ -114,7 +114,12 @@ const { el, shown } = useReveal();
           class="pj__cell"
           :style="{ '--i': i }"
         >
-          <NuxtLink class="work" :to="project.link">
+          <NuxtLink
+            class="work"
+            :to="project.link"
+            target="_blank"
+            rel="noopener"
+          >
             <div class="work__frame">
               <img
                 class="work__img"

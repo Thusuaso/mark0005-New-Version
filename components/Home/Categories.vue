@@ -27,24 +27,24 @@ const texts: Record<
   { title: string; line2: string }
 > = {
   en: {
-    title: "Stone that",
-    line2: "builds places",
+    title: "Sustained by Nature,",
+    line2: "Crafted for Life",
   },
   fr: {
-    title: "La pierre qui",
-    line2: "bâtit les lieux",
+    title: "Soutenus par la nature,",
+    line2: "façonnés pour la vie",
   },
   es: {
-    title: "La piedra que",
-    line2: "construye lugares",
+    title: "Sostenidos por la naturaleza,",
+    line2: "creados para la vida",
   },
   ru: {
-    title: "Камень, который",
-    line2: "создаёт пространство",
+    title: "Рождено природой,",
+    line2: "создано для жизни",
   },
   ar: {
-    title: "حجر يبني",
-    line2: "الأماكن",
+    title: "مستمد من الطبيعة،",
+    line2: "مصنوع للحياة",
   },
 };
 
@@ -82,7 +82,12 @@ const { el, shown } = useReveal();
           class="ct__cell"
           :style="{ '--i': i }"
         >
-          <NuxtLink class="card" :to="category.link">
+          <NuxtLink
+            class="card"
+            :to="category.link"
+            target="_blank"
+            rel="noopener"
+          >
             <div class="card__frame">
               <img
                 class="card__img"
@@ -115,6 +120,16 @@ const { el, shown } = useReveal();
 .ct__inner {
   width: min(var(--mk-container), 100%);
   margin-inline: auto;
+}
+
+/* Baslik --mk-title-xl (1920'de 144px) ile iki satira sigmiyor: bu bolumun
+   basligi artik kisa bir tanim degil, bir slogan. Olculdugunde en uzun
+   satir Ispanyolca "Sostenidos por la naturaleza," (29 karakter) ve 144px'te
+   1300px yer istiyor — kaba 1200px. Punto bu cumleye gore kuculdu, boylece
+   bes dilde de "Sustained by Nature," / "Crafted for Life" iki satirda
+   kaliyor. */
+.ct__head :deep(.head__title) {
+  font-size: clamp(1.5rem, 4.6vw, 5rem);
 }
 
 .ct__head {

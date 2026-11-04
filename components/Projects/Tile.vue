@@ -1,5 +1,6 @@
 <template>
-  <NuxtLink :to="link" class="pt">
+  <!-- Yeni sekmede aciliyor (istek uzerine). -->
+  <NuxtLink :to="link" class="pt" target="_blank" rel="noopener">
     <span class="pt_media">
       <img :src="image" :alt="name" loading="lazy" />
       <span v-if="country" class="pt_country"><i class="bi-geo-alt-fill" aria-hidden="true"></i>{{ country }}</span>

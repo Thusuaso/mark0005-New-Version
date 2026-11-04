@@ -56,32 +56,32 @@ const texts: Record<
   { heading: string; lede: string; cta: string; aria: string }
 > = {
   en: {
-    heading: "Natural stone from our own quarries",
-    lede: "Marble, travertine and limestone — cut, finished and stocked in our own factories.",
+    heading: "Natural stone from our own factories",
+    lede: "Marble, travertine and limestone — quarried, cut and finished by us.",
     cta: "Get a quote",
     aria: "Scenes from our quarries, factories and warehouse",
   },
   fr: {
-    heading: "Pierre naturelle de nos propres carrières",
-    lede: "Marbre, travertin et pierre calcaire — taillés, finis et stockés dans nos propres usines.",
+    heading: "Pierre naturelle de nos propres usines",
+    lede: "Marbre, travertin et pierre calcaire — extraits, taillés et finis par nos soins.",
     cta: "Demander un devis",
     aria: "Scènes de nos carrières, usines et entrepôt",
   },
   es: {
-    heading: "Piedra natural de nuestras propias canteras",
-    lede: "Mármol, travertino y piedra caliza: cortados, pulidos y almacenados en nuestras propias fábricas.",
+    heading: "Piedra natural de nuestras propias fábricas",
+    lede: "Mármol, travertino y piedra caliza: extraídos, cortados y pulidos por nosotros.",
     cta: "Solicitar presupuesto",
     aria: "Escenas de nuestras canteras, fábricas y almacén",
   },
   ru: {
-    heading: "Натуральный камень с наших карьеров",
-    lede: "Мрамор, травертин и известняк — распил, обработка и склад на наших собственных заводах.",
+    heading: "Натуральный камень с наших заводов",
+    lede: "Мрамор, травертин и известняк — добываем, распиливаем и обрабатываем сами.",
     cta: "Запросить расчёт",
     aria: "Кадры с наших карьеров, заводов и склада",
   },
   ar: {
-    heading: "حجر طبيعي من محاجرنا الخاصة",
-    lede: "رخام وترافرتين وحجر جيري — يُقطع ويُصقل ويُخزّن في مصانعنا الخاصة.",
+    heading: "حجر طبيعي من مصانعنا الخاصة",
+    lede: "رخام وترافرتين وحجر جيري — نستخرجه ونقطعه ونصقله بأنفسنا.",
     cta: "اطلب عرض سعر",
     aria: "مشاهد من محاجرنا ومصانعنا ومستودعنا",
   },
@@ -488,7 +488,11 @@ onBeforeUnmount(() => {
 
 .hr__lede {
   margin: clamp(1rem, 2.2vh, 2rem) 0 0;
-  max-width: 46ch;
+  /* 46ch bu cumle icin dardi: son satira tek kelime ("by us.") dusuyordu.
+     56ch'te kirilma iki dengeli satira bolunuyor ve satir basina karakter
+     hala okunur aralikta (45-75). */
+  max-width: 56ch;
+  text-wrap: pretty;
   font-size: clamp(1rem, 1.35vw, 1.1875rem);
   line-height: 1.6;
   color: rgba(247, 243, 233, 0.86);

@@ -459,42 +459,65 @@
 .product_app_specs {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.625rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* Onceden 88px'lik dikey kutucuklardi: 1px cerceve, 10px yuvarlak kose ve
+   altinda minik bir etiket. Ikonlar CDN'de 100x100 ve soluk oldugu icin o
+   boyutta yer tutucu gibi duruyorlardi.
+
+   Simdi yatay cip: ikon solda dolgulu bir karede, adi saginda okunur
+   puntoda. Hem derli toplu hem satirda yan yana dogal duruyor. */
 .product_app_spec {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
+  flex-direction: row;
   align-items: center;
-  gap: 0.25rem;
-  width: 88px;
-  padding: 0.5rem 0.25rem;
-  border: 1px solid #edf0f3;
-  border-radius: 10px;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  gap: 0.75rem;
+  width: auto;
+  padding: 0.5rem 1.125rem 0.5rem 0.5rem;
+  border: 0;
+  border-radius: var(--mk-radius-pill);
+  background-color: var(--mk-cream-2);
+  transition: background-color 0.25s ease;
 }
 
 .product_app_spec:hover {
-  border-color: rgba(30, 88, 196, 0.35);
-  box-shadow: 0 2px 8px rgba(30, 88, 196, 0.1);
+  background-color: var(--mk-border);
 }
 
-.product_app_spec img {
-  width: 56px;
-  height: 56px;
+/* Ikon kendi dolgulu yuzeyinde. Icerik ya cizili SVG (Shared/FinishIcon)
+   ya da taninmayan bir tip icin eski CDN gorseli. */
+.product_app_spec_icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 7px;
+  color: var(--mk-ink);
+  background-color: var(--mk-cream);
+  border-radius: 8px;
+}
+
+.product_app_spec_icon img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
 /* Onceden 11px ve #6c757d (krem zeminde 4.2:1 — AA esigi 4.5:1). */
 .product_app_spec span {
-  color: var(--mk-body);
-  font-size: 0.875rem;
+  color: var(--mk-ink);
+  font-size: 1rem;
+  font-weight: 500;
   line-height: 1.35;
-  text-align: center;
+  text-align: start;
   letter-spacing: 0;
+  white-space: nowrap;
 }
 
 /* Test raporu bagi */
@@ -519,22 +542,32 @@
   color: #1e58c4;
 }
 
-.product_app_report img {
-  width: 72px;
-  height: auto;
+/* Ikon kendi dolgulu yuzeyinde, yuzey ikonlariyla ayni olculerde. */
+.product_app_report_mark {
   flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 7px;
+  color: var(--mk-ink);
+  background-color: var(--mk-cream);
+  border-radius: 8px;
 }
 
 .product_app_report_label {
   flex: 1 1 auto;
-  font-size: 13px;
-  letter-spacing: 0.03em;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
+/* PDF isareti: eski mavi tema yerine sayfanin kendi mureekkebi. */
 .product_app_report_icon {
   flex: none;
-  font-size: 1.75rem;
-  color: #1e58c4;
+  font-size: 1.5rem;
+  color: var(--mk-body);
   line-height: 1;
 }
 

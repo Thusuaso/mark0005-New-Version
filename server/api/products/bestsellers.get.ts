@@ -10,13 +10,26 @@ import api from "~/sql/api";
  *
  * Siralama BEST_SELLER_IDS dizisindeki sira; SQL'in dondurdugu sira degil.
  */
+/* Sira kasitli olarak karisik: ayni aileden iki urun (lavabo, traverten,
+   mermer...) arka arkaya gelmiyor, boylece serit tek bir kategoriden
+   olusuyormus gibi gorunmuyor.
+
+   Her istekte yeniden karistirmak YANLIS olurdu: sunucu ile istemci farkli
+   sira uretir ve hidrasyon uyusmazligi cikar. Bu yuzden sira sabit ama
+   dagitilmis. */
 const BEST_SELLER_IDS = [
-  663, // Farmer Sink Model 105
-  802, // Vessel Sink Model 115
-  76, //  Vessel Sink Model 38
-  665, // Vessel Sink Model 107
-  1012, // Bathtub Model 107 — Bath & Kitchen vitrini
-  905, // Emperador Beige Marble Vase
+  663, //  Farmer Sink Model 105           — lavabo
+  451, //  Emperador Light Marble          — mermer
+  33, //   Classic Travertine              — traverten
+  279, //  Toros Black Marble              — mermer
+  802, //  Vessel Sink Model 115           — lavabo
+  787, //  Perla Limestone                 — kirectasi
+  229, //  Bianco Ibiza Marble             — mermer
+  41, //   Classic Vein Cut Travertine Honed — traverten
+  1012, // Bathtub Model 107               — kuvet
+  244, //  Tundra Grey Marble              — mermer
+  537, //  Bluestone                       — bazalt
+  395, //  Turkish Lilac Marble            — mermer
 ];
 
 const LANGS = ["en", "fr", "es", "ru", "ar"];

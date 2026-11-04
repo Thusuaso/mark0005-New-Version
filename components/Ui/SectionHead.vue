@@ -82,14 +82,20 @@ withDefaults(
 }
 
 /* Temadaki `pl-265`: ikinci satir belirgin sekilde iceri aliniyor.
-   Kucuk ekranda kaydirma yok — dev puntoda zaten yer kalmiyor. */
+   Kucuk ekranda kaydirma yok — dev puntoda zaten yer kalmiyor.
+
+   Girinti 16.5rem'den 10rem'e cekildi. Olculdugunde eski deger 1920px'te
+   264px yer kapliyordu ve "builds places" icin geriye 936px kaliyordu —
+   metnin tam genisligi de 937px, yani baslik bir pikselle ucuncu satira
+   kiriliyordu. Ispanyolca ve Rusca her genislikte kiriliyordu, Rusca
+   1920px'te 25px tasiyordu. Yeni degerle ucu de rahatliyor. */
 .head__line2 {
   display: inline-block;
 }
 
 @media (min-width: 62rem) {
   .head__line2 {
-    margin-inline-start: clamp(4rem, 16vw, 16.5rem);
+    margin-inline-start: clamp(3rem, 10vw, 10rem);
   }
 }
 </style>

@@ -68,9 +68,26 @@ const specification = control.lang_specification(
   detail?.kategori_id,
 );
 
-store.setBreadcrumb(store.getNowBreadCrumb);
-
 const isRtl = store.getLang === "ar";
+
+/* Breadcrumb: urunun kategorisi detay verisinden geliyor (kategori adi
+   dile gore, id ise kategori sayfasinin adresini bulmak icin). Kategori
+   listesindeki link zaten dil onekli ve "/<id>" ile bitiyor. */
+const categoryCrumb = computed(() => {
+  const name = String(detail?.category ?? "").trim();
+  if (!name) return null;
+  const id = detail?.kategori_id;
+  const match = ((store.getCategories as any[]) ?? []).find(
+    (c) => String(c?.link ?? "").endsWith("/" + id),
+  );
+  return { label: name, to: match?.link };
+});
+
+const crumbs = computed(() =>
+  [categoryCrumb.value, { label: String(detail?.name ?? "") }].filter(
+    Boolean,
+  ) as { label: string; to?: string }[],
+);
 
 /* Kunye satirlari: degeri bos olan satir hic basilmiyor — onceden bos bir
    deger "CODE —" gibi yarim bir satir birakiyordu. */
@@ -111,6 +128,8 @@ const hashtags = computed<string[]>(() =>
       :class="{ 'is-in': topShown }"
     >
       <div class="pd__top-inner">
+        <SharedBreadcrumb class="pd__crumbs" :items="crumbs" />
+
         <div class="pd__shot">
           <ProductsDetailGalleries :photos="photos" />
         </div>
@@ -332,11 +351,20 @@ const hashtags = computed<string[]>(() =>
   gap: clamp(2rem, 4vw, 3.5rem);
 }
 
+/* Iz iki kolonun da ustunde, tam genislikte. */
+.pd__crumbs {
+  margin-bottom: clamp(1rem, 2vw, 1.75rem);
+}
+
 @media (min-width: 62rem) {
   .pd__top-inner {
     /* Gorsel baskin: urun sayfasinda fotograf urunun kendisi. */
     grid-template-columns: minmax(0, 8fr) minmax(0, 5fr);
     align-items: start;
+  }
+
+  .pd__crumbs {
+    grid-column: 1 / -1;
   }
 }
 

@@ -11,11 +11,12 @@
     "catalog": "CATALOGUE",
     "categories": "CATÉGORIES",
     "colors": "FILTRER PAR COULEUR",
-    "areas": "FILTRER PAR ZONE",
+    "areas": "FILTRER PAR ZONE D'APPLICATION",
     "faq": "FAQ"
   },
   "navbar_link": {
     "home": "/fr",
+    "product": "/fr/products",
     "about": "/fr/about",
     "contact": "/fr/contact",
     "fabrication": "/fr/fabrication",
@@ -37,11 +38,16 @@
       },
       { "id": 7, "title": "Plaque", "link": "/fr/product/slabs/7" },
       { "id": 8, "title": "Quartz", "link": "/fr/product/quartz/8" },
-      { "id": 9, "title": "Sous-produit", "link": "/fr/product/by-product/9" },
+      { "id": 9, "title": "Produits complémentaires", "link": "/fr/product/by-product/9" },
       {
         "id": 10,
         "title": "Matériel d'installation",
         "link": "/fr/product/installation-materials/11"
+      },
+      {
+        "id": 11,
+        "title": "Conception CNC 3D",
+        "link": "/fr/product/3d-cnc-design/23"
       }
     ],
     "colors": [
@@ -104,7 +110,7 @@
         { "id": 3, "value": "Nous contrôlons 30 000 m² de produits par mois." },
         {
           "id": 4,
-          "value": "Nous fournissons des solutions naturelles pour les projets architecturaux."
+          "value": "Nous fournissons des solutions naturelles pour des projets architecturaux durables."
         }
       ],
       "socials": [
@@ -193,6 +199,46 @@
           "id": 9,
           "image": "/image/news/news-9-b.webp",
           "name": "mekmar_suppliers_news_9"
+        },
+        {
+          "id": 10,
+          "image": "/image/news/news-10-b.webp",
+          "name": "mekmar_suppliers_news_10"
+        },
+        {
+          "id": 11,
+          "image": "/image/news/news-11-b.webp",
+          "name": "mekmar_suppliers_news_11"
+        },
+        {
+          "id": 12,
+          "image": "/image/news/news-12-b.webp",
+          "name": "mekmar_suppliers_news_12"
+        },
+        {
+          "id": 13,
+          "image": "/image/news/news-13-b.webp",
+          "name": "mekmar_suppliers_news_13"
+        },
+        {
+          "id": 14,
+          "image": "/image/news/news-14-b.webp",
+          "name": "mekmar_suppliers_news_14"
+        },
+        {
+          "id": 15,
+          "image": "/image/news/news-15-b.webp",
+          "name": "mekmar_suppliers_news_15"
+        },
+        {
+          "id": 16,
+          "image": "/image/news/news-16-b.webp",
+          "name": "mekmar_suppliers_news_16"
+        },
+        {
+          "id": 17,
+          "image": "/image/news/news-17-b.webp",
+          "name": "mekmar_suppliers_news_17"
         }
       ]
     },
@@ -379,6 +425,12 @@
       "link": "/fr/product/installation-materials/11",
       "name": "MATÉRIAUX D'INSTALLATION",
       "image": "/image/categories/installation-materials-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 23,
+      "link": "/fr/product/3d-cnc-design/23",
+      "name": "CONCEPTION CNC 3D",
+      "image": "/image/categories/cnc_design-category-main-photo-mekmar.webp"
     }
   ],
   "about": {
@@ -541,7 +593,7 @@
       },
       {
         "id": 3,
-        "header": "NOTRE MAISON AUX ÉTATS-UNIS",
+        "header": "NOTRE ENTREPÔT AUX ÉTATS-UNIS",
         "images": [
           {
             "id": 1,

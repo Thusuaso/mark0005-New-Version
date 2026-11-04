@@ -7,8 +7,18 @@
 // tutuluyor; gelen istek de ayni sekilde normalize ediliyor.
 
 import redirects from '../data/redirects.json'
+import retired from '../data/retired.json'
 
 const MAP = redirects as Record<string, string>
+
+// Siteden cikarilan ama veritabaninda duran sayfalar (alcipan kategorisi ve
+// urunleri). Menuden, izgaradan ve sitemap'ten kaldirildilar; adresleri hala
+// calisiyordu ve disaridan link/arama sonucu geliyordu.
+//
+// Shopify haritasindan AYRI tutuluyor: asagidaki desen filtresi yalnizca
+// /products, /collections, /pages, /blogs yollarina bakiyor, bunlar ise
+// sitenin kendi yollari ve o filtreye hic takilmiyorlar.
+const RETIRED = retired as Record<string, string>
 
 // Shopify'in dil onekleri (/en-tr/products/... gibi) ve /collections/x/products/y
 // formu icin ikinci bir deneme yapiyoruz.
@@ -41,6 +51,12 @@ function lookup(path: string): string | undefined {
 
 export default defineEventHandler((event) => {
   const path = normalize(event.path)
+
+  // Once siteden cikarilan sayfalar.
+  const retiredTarget = RETIRED[path]
+  if (retiredTarget) {
+    return sendRedirect(event, retiredTarget, 301)
+  }
 
   // Sadece Shopify'dan miras kalan yol desenlerine bakiyoruz; geri kalan
   // istekler (asset, /api, normal sayfalar) hic map'e ugramadan geciyor.

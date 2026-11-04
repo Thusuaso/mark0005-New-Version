@@ -1213,7 +1213,8 @@ const usa_link_status = computed(
   background: rgba(28, 25, 23, 0.18);
   backdrop-filter: blur(var(--mk-blur-nav)) saturate(120%);
   -webkit-backdrop-filter: blur(var(--mk-blur-nav)) saturate(120%);
-  border-bottom: 1px solid rgba(247, 243, 233, 0.12);
+  /* Masaustundeki ile ayni: hero'nun uzerinde cizgi yok, karartma
+     zaten ayirim veriyor. */
   color: var(--mk-cream);
 }
 

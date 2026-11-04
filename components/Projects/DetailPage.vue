@@ -1,5 +1,10 @@
 <template>
   <div class="pd" :dir="isRtl ? 'rtl' : 'ltr'">
+    <SharedBreadcrumb
+      class="pd_crumbs"
+      :items="[{ label: projectsLabel, to: projectsLink }, { label: name }]"
+    />
+
     <!-- Geri + baslik -->
     <NuxtLink :to="projectsLink" class="pd_back">
       <i :class="isRtl ? 'bi-arrow-right' : 'bi-arrow-left'" aria-hidden="true"></i>{{ t.all_projects }}
@@ -118,6 +123,12 @@ import control from "~/lang/control";
 import { useProjectTexts } from "~/assets/data/projects/texts";
 
 const store = useStore();
+
+/* Izdeki "Projeler" basamagi: ust menudeki kisa ad. t.all_projects ("All
+   projects") geri baglantisinin metni; iz basamagi olarak tuhaf okunuyor. */
+const projectsLabel = computed(
+  () => ((store.getNavbar as Record<string, string>) ?? {}).project || "Projects",
+);
 const route = useRoute();
 const { lang, t, isRtl, contactLink, projectsLink } = useProjectTexts(store.getLang);
 

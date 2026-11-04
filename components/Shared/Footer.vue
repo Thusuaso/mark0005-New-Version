@@ -70,6 +70,8 @@ type FooterText = {
   follow: string;
   gallery: string;
   rights: string;
+  cta_primary: string;
+  cta_secondary: string;
 };
 
 const texts: Record<string, FooterText> = {
@@ -78,45 +80,55 @@ const texts: Record<string, FooterText> = {
     address_label: "Head office",
     address: "Denizli, Türkiye",
     nav: "Navigation",
-    follow: "Follow us",
+    follow: "Follow us on our social media",
     gallery: "Gallery",
     rights: "All rights reserved.",
+    cta_primary: "Get in touch",
+    cta_secondary: "Download catalogue",
   },
   fr: {
     contact: "Contact",
     address_label: "Siège social",
     address: "Denizli, Turquie",
     nav: "Navigation",
-    follow: "Suivez-nous",
+    follow: "Suivez-nous sur nos réseaux sociaux",
     gallery: "Galerie",
     rights: "Tous droits réservés.",
+    cta_primary: "Nous contacter",
+    cta_secondary: "Télécharger le catalogue",
   },
   es: {
     contact: "Contacto",
     address_label: "Oficina central",
     address: "Denizli, Turquía",
     nav: "Navegación",
-    follow: "Síganos",
+    follow: "Síganos en nuestras redes sociales",
     gallery: "Galería",
     rights: "Todos los derechos reservados.",
+    cta_primary: "Contáctenos",
+    cta_secondary: "Descargar catálogo",
   },
   ru: {
     contact: "Контакты",
     address_label: "Головной офис",
     address: "Денизли, Турция",
     nav: "Навигация",
-    follow: "Мы в соцсетях",
+    follow: "Мы в социальных сетях",
     gallery: "Галерея",
     rights: "Все права защищены.",
+    cta_primary: "Связаться с нами",
+    cta_secondary: "Скачать каталог",
   },
   ar: {
     contact: "اتصل بنا",
     address_label: "المكتب الرئيسي",
     address: "دنيزلي، تركيا",
     nav: "التنقل",
-    follow: "تابعنا",
+    follow: "تابعنا على وسائل التواصل الاجتماعي",
     gallery: "المعرض",
     rights: "جميع الحقوق محفوظة.",
+    cta_primary: "تواصل معنا",
+    cta_secondary: "تحميل الكتالوج",
   },
 };
 
@@ -171,6 +183,7 @@ const navItems = computed(() =>
 );
 
 const catalogLink = computed(() => links.value.catalog as string | undefined);
+const contactLink = computed(() => (links.value.contact as string) ?? "/contact");
 
 const year = new Date().getFullYear();
 </script>
@@ -192,6 +205,18 @@ const year = new Date().getFullYear();
               decoding="async"
             />
           </NuxtLink>
+
+          <!-- Ana sayfanin kapanis bandindaki iki buton buraya alindi:
+               "Let's talk about stone" basligi ve altindaki cumle istek
+               uzerine kaldirildi, geriye sadece eylemler kalinca onlari
+               ayri bir bolum olarak tutmanin anlami yoktu. Footer'da her
+               sayfadan erisilebiliyorlar. -->
+          <div class="ft__cta">
+            <UiBtn :label="t.cta_primary" :to="contactLink" variant="white" />
+            <!-- Katalog bir PDF (cdn.mekmarimage.com); ic yonlendirici ile
+                 degil dogrudan acilmasi gerekiyor. -->
+            <UiBtn :label="t.cta_secondary" :href="catalogLink" variant="blur" />
+          </div>
         </div>
 
         <div class="ft__intro">
@@ -415,8 +440,9 @@ const year = new Date().getFullYear();
 .ft__top {
   display: grid;
   gap: clamp(2rem, 5vw, 4rem);
-  padding-bottom: clamp(2.5rem, 6vw, 4rem);
-  border-bottom: 1px solid rgba(247, 243, 233, 0.12);
+  /* Alttaki 1px cizgi kaldirildi: koyu footer'da bolumler bosluklaa
+     ayriliyor, cizgiyle degil. */
+  padding-bottom: clamp(3.5rem, 7vw, 5.5rem);
 }
 
 @media (min-width: 62rem) {
@@ -428,6 +454,15 @@ const year = new Date().getFullYear();
 
 .ft__logo {
   display: inline-block;
+}
+
+/* Logonun hemen altinda, yan yana iki eylem. Dar ekranda alt alta
+   geciyorlar (flex-wrap) ve butonlar kendi genisliklerini koruyor. */
+.ft__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
 }
 
 .ft__logo-img {
@@ -718,7 +753,9 @@ const year = new Date().getFullYear();
 
 /* --- Telif seridi --- */
 .ft__bar {
-  border-top: 1px solid rgba(247, 243, 233, 0.12);
+  /* Ustteki 1px cizgi yerine bir ton adimi: serit zeminden hafifce
+     koyu, ayrim yine okunuyor. */
+  background: rgba(0, 0, 0, 0.22);
 }
 
 .ft__bar-inner {

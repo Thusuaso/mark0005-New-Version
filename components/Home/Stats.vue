@@ -219,7 +219,7 @@ const fmt = (i: number) => (counters.value[i] ?? 0).toLocaleString("en-US");
   gap: clamp(1.5rem, 4vw, 3.5rem);
   padding: clamp(1.25rem, 3vw, 2rem);
   min-height: clamp(9rem, 18vw, 13rem);
-  border: 1px solid var(--mk-border);
+  /* Cerceve yerine dolgu: kart zeminden tonla ayriliyor. */
   background: var(--mk-cream);
   color: var(--mk-ink);
 }

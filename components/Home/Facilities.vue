@@ -191,13 +191,18 @@ const { el, shown } = useReveal();
   margin-bottom: clamp(2.5rem, 7vw, 5rem);
 }
 
-/* --- Akordeon --- */
+/* --- Akordeon ---
+   Satirlar onceden ust/alt 1px cizgilerle ayriliyordu. Artik her satir
+   kendi yuzeyi: zeminden bir ton acik bir panel, aralarinda ince bosluk.
+   Ayrim yine net, yatay hat yok. */
 .fc__list {
-  border-top: 1px solid var(--mk-border);
+  display: grid;
+  gap: 0.375rem;
 }
 
 .pn {
-  border-bottom: 1px solid var(--mk-border);
+  background: var(--mk-cream);
+  padding-inline: clamp(1rem, 2.5vw, 1.75rem);
   opacity: 0;
   transform: translateY(0.875rem);
   transition:
@@ -269,7 +274,8 @@ const { el, shown } = useReveal();
   flex: none;
   width: 2.5rem;
   height: 2.5rem;
-  border: 1px solid var(--mk-border);
+  border: 0;
+  background: var(--mk-cream-2);
   border-radius: 50%;
   transition:
     background-color 0.3s ease,

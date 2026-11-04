@@ -100,7 +100,12 @@ const { el, shown } = useReveal();
         :showNavigators="true"
       >
         <template #item="{ data: product }">
-          <NuxtLink class="pc" :to="product.link">
+          <NuxtLink
+            class="pc"
+            :to="product.link"
+            target="_blank"
+            rel="noopener"
+          >
             <div class="pc__frame">
               <img
                 class="pc__img"
@@ -168,8 +173,8 @@ const { el, shown } = useReveal();
   height: 2.75rem;
   margin: 0;
   color: var(--mk-ink);
-  background: var(--mk-cream);
-  border: 1px solid var(--mk-border);
+  background: var(--mk-cream-2);
+  border: 0;
   border-radius: 50%;
   transition:
     background-color 0.3s ease,
