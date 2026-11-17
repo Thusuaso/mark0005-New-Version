@@ -1,4 +1,5 @@
 <template>
+  <div class="page-root">
                 <h1 class="header mb-3">{{usa.about_header}}</h1>
 
     <div class="row m-auto">
@@ -12,6 +13,7 @@
 
         </div>
     </div>
+  </div>
 </template>
 <script setup lang="ts">
     import {useStore} from '~/store/index';

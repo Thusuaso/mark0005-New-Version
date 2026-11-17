@@ -5,7 +5,7 @@
                 <div class="card_title2" style="font-size:16px;">
                     {{ text }}
                 </div>
-                <img class="lazyload" :src="image" />
+                <img class="lazyload" :src="image" :alt="text" />
                 <div class="card_title" style="font-size:16px;">
                     ${{ price }} / {{ stock }} sqft / {{ size }}
                 </div>

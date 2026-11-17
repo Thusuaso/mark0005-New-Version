@@ -2,8 +2,42 @@
    Global stiller
    ========================================================================== */
 
+/* Govde yazi tipi her yerde. Zincirin sonundaki sistem ailesi tokenin
+   KENDI icinde duruyor (bkz. --mk-ff-body); burada ayrica Georgia/Times
+   yaziliydi, yani token cozulemedigi anda sayfa serif'e dusuyordu —
+   govde artik sans oldugu icin yanlis yedek. */
 * {
-  font-family: "Times New Roman", Times, serif;
+  font-family: var(--mk-ff-body);
+}
+
+/* Govde metninin olculeri (15px / 27px / agirlik 300) BURADA DEGIL:
+   assets/css/bootstrap.custom.scss icinde, Bootstrap'in $font-size-base /
+   $line-height-base / $font-weight-base degiskenleri uzerinden veriliyor.
+   Sebebi cascade sirasi — Bootstrap'in _reboot.scss'i `body` seliciyle
+   ayni ozgullukte kural yaziyor ve bu dosyadan SONRA yuklendigi icin
+   buraya yazilan degerleri eziyor. Ayrintili not o dosyada. */
+
+/* Basliklarin ailesi. Site genelinde tek yazi tipi oldugu icin
+   --mk-ff-display su an --mk-ff-body ile AYNI degeri gosteriyor, yani bu
+   kural bugun bir sey degistirmiyor. Yine de duruyor: baslik ailesi
+   ileride yeniden ayrilmak istenirse tokendaki tek satir yetiyor,
+   basliklarin govdeden kurtulmasi icin gereken acik kural (yukaridaki `*`
+   secicisine karsi) burada hazir bekliyor.
+
+   Yalnizca AILE veriliyor:
+     · punto yok — onu her bolum kendi olceginden (--mk-title-*) seciyor;
+     · RENK YOK — koyu zeminli bolumlerdeki basliklar (kapanis bandi,
+       footer, hero) rengi atalarindan miras aliyor. Buraya
+       `color: var(--mk-heading)` yazilsa eleman secicisi o mirasi keser
+       ve o basliklar koyu zeminde koyu metne donerdi. Baslik rengi
+       bilesen seviyesinde veriliyor (bkz. Ui/SectionHead.vue). */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--mk-ff-display);
 }
 
 /* --------------------------------------------------------------------------
@@ -20,16 +54,59 @@
   text-decoration: none;
 }
 
+/* "OUR MISSION" / "OUR VISION" basliklari (yalnizca about sayfalari).
+   ONCESI: 14px, font-weight: normal, siyah — yani ALTINDAKI madde
+   metniyle birebir ayni punto ve agirlik. Iki baslik da listenin bir
+   maddesi gibi okunuyordu, bolumlerin nerede baslayip bittigi
+   anlasilmiyordu.
+
+   DIKKAT, bu yorumda yol deseni YAZILMASIN: "pages" altindaki about
+   dosyalarini yildizli bir desenle yazmak yorumu erken kapatiyor
+   (desenin icindeki yildiz-bolu dizisi CSS yorum sonu demek) ve
+   hemen asagidaki kural cope gidiyor. Bir kez oldu: baslik 28px'lik
+   Bootstrap h3 varsayilaniyla, ortalanmis halde kaldi.
+
+   `start` / `margin-inline`: Arapca about sayfasi da ayni sinifi
+   kullaniyor, `left` yazilsa baslik orada yanlis kenarda kalirdi.
+   Ust kapsayicida Bootstrap'in .text-center'i var; buradaki dogrudan
+   bildirim onun kalitimini eziyor. */
 .subheader {
-  font-size: 14px;
-  color: black;
-  font-weight: normal;
-  margin: 0px auto;
-  text-align: left;
+  display: block;
+  font-family: var(--mk-ff-display, inherit);
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  color: var(--mk-ink, #141414);
+  /* "OUR VISION" bir onceki listenin devami gibi degil YENI bir bolum
+     olarak okunmali, ama 64px fazlaydi: iki blok birbirinden kopuyordu.
+     36px, basligin kendi puntosunun (22px) bir bucuk kati — ayirmaya
+     yetiyor, kopartmiyor. */
+  margin: clamp(1.75rem, 3vw, 2.25rem) 0 0.75rem;
+  text-align: start;
   vertical-align: top;
   text-decoration: none;
 }
 
+/* Ilk baslik kolonun en ustunde; ust bosluk orada sayfa basligiyla
+   arasini gereksiz aciyor. */
+.subheader:first-child {
+  margin-block-start: 0;
+}
+
+/* Mission / vision maddeleri (yalnizca about sayfalari).
+
+   ONCESI `line-height: 35px` idi — 14px'lik metinde 2.5 orani. Satirlar
+   o kadar aciliyordu ki iki satira tasan bir madde tek bir paragraf
+   degil ayri ayri satirlar gibi okunuyor, kolon da gereksiz uzuyordu.
+   Bolumdeki "cok fazla bosluk" hissinin asil kaynagi basliklarin arasi
+   degil BURASIYDI.
+
+   Simdi 1.7 (sitenin govde metni ile ayni oran) ve maddelerin ARASINA
+   ayri bir bosluk konuyor: satirlar siki, maddeler ayrik. Sabit px
+   yerine oran kullanilmasinin bir sebebi daha var — kullanici tarayici
+   yazi boyutunu buyuttugunde 35px sabit kaliyor ve satirlar ust uste
+   biniyordu. */
 .about-page-description {
   font-size: 14px;
   text-align: left;
@@ -37,7 +114,11 @@
   text-decoration: none;
   margin: 0px auto;
   padding: 0px;
-  line-height: 35px;
+  line-height: 1.7;
+}
+
+li.about-page-description + li.about-page-description {
+  margin-block-start: 0.625rem;
 }
 
 .description {
@@ -182,11 +263,11 @@
   background: transparent;
 }
 
+/* Onceden 15px yuvarlak kose ve "2px 2px 5px gray" bir golge vardi.
+   Sayfanin geri kalaninda kutular golgeyle degil ton farkiyla ayriliyor. */
 .product_gallery .p-galleria-items-container {
-  border-radius: 15px;
-  /* Kose yuvarlatmasi gorselin kendisine de uygulanmaliydi */
   overflow: hidden;
-  box-shadow: 2px 2px 5px gray;
+  background-color: var(--mk-cream-2);
 }
 
 .product_gallery_frame {
@@ -195,7 +276,7 @@
   aspect-ratio: 4 / 3;
   overflow: hidden;
   cursor: zoom-in;
-  background-color: #f4f4f4;
+  background-color: var(--mk-cream-2);
 }
 
 .product_gallery_frame img {
@@ -210,8 +291,67 @@
   transform: scale(1.06);
 }
 
+/* --- Urun videolari ---
+   Urun medyalari tek listede geliyor (MekmarCom_Fotolar) ve icinde .mp4
+   satirlari da var. Asagisi o satirlarin fotograflarla AYNI kareye
+   oturmasini sagliyor; yoksa video kendi oranini dayatip izgarayi
+   bozuyor. */
+
+/* Video karesinde imlec buyutec degil: tiklama buyutmuyor, oynatiyor. */
+.product_gallery_frame--video {
+  cursor: default;
+  /* Videonun kendi kenarlari fotograf gibi kirpilmasin diye koyu zemin:
+     dikey bir video 4/3 karede yanlardan bosluk birakiyor. */
+  background-color: var(--mk-ink);
+}
+
+.product_gallery_video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* contain, cover degil: videonun kenarlarini kirpmak goruntunun
+     bir kismini kaliciyla yok eder — fotografta kabul edilebilir, 
+     videoda degil. */
+  object-fit: contain;
+}
+
+/* Serit: video kucuk resmi <img> degil, <video> + ucgen rozet sarmalayici. */
+.product_gallery_thumb--video {
+  position: relative;
+  overflow: hidden;
+}
+
+.product_gallery_thumb--video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background-color: var(--mk-ink);
+  pointer-events: none;
+}
+
+.product_gallery_thumb_play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+/* Tam ekran galeride video. */
+.product_gallery_full_video {
+  max-width: 100%;
+  max-height: 80vh;
+  display: block;
+}
+
 .product_gallery_frame:focus-visible {
-  outline: 2px solid #1e58c4;
+  outline: 2px solid var(--mk-ink);
   outline-offset: -2px;
 }
 
@@ -237,7 +377,7 @@
 }
 
 .product_gallery_frame:hover .product_gallery_zoom {
-  background-color: #1e58c4;
+  background-color: var(--mk-ink);
 }
 
 .product_gallery_counter {
@@ -268,14 +408,25 @@
 
 .product_gallery .p-galleria-prev-button:hover,
 .product_gallery .p-galleria-next-button:hover {
-  background-color: #1e58c4;
+  background-color: var(--mk-ink);
 }
 
 /* Kucuk gorsel seridi */
 
-.product_gallery .p-galleria-thumbnails {
-  margin-top: 10px;
+/* Serit krem sayfada siyah bir bant olarak duruyordu: PrimeVue'nun ic
+   `-content` kabi koyu zeminini normal galeride de tasiyordu, yalnizca tam
+   ekran varyanti sifirlanmisti. */
+.product_gallery .p-galleria-thumbnails,
+.product_gallery .p-galleria-thumbnails-content,
+.product_gallery .p-galleria-thumbnail-nav-button {
+  margin-top: 0;
   background: transparent;
+  border: none;
+  color: var(--mk-ink);
+}
+
+.product_gallery .p-galleria-thumbnails {
+  margin-top: 0.625rem;
 }
 
 .product_gallery .p-galleria-thumbnail-item {
@@ -297,9 +448,12 @@
   opacity: 0.85;
 }
 
+/* Serit artik krem zeminde (bkz. yukarida): aktif isaret de koyu olmali,
+   krem bir halka zeminde kayboluyordu. */
 .product_gallery .p-galleria-thumbnail-item-current .product_gallery_thumb {
   opacity: 1;
-  box-shadow: 0 0 0 2px #1e58c4;
+  outline: 2px solid var(--mk-ink);
+  outline-offset: -2px;
 }
 
 /* --------------------------------------------------------------------------
@@ -361,169 +515,17 @@
   border-radius: 6px;
 }
 
-/* ==========================================================================
-   URUN DETAY SEKMELERI
-   MazTabsBar yerine PrimeVue Tabs kullaniliyor. Kutulu/gri gorunum yerine
-   alt cizgi vurgusu: aktif sekme kayan bir cubukla belirtiliyor.
-   Ozgullukleri .p-tabs ile artiriyoruz — projede cssLayer kapali.
-   ========================================================================== */
-
-.p-tabs.product_tabs {
-  border: none;
-  background: transparent;
-}
-
-.product_tabs .p-tablist {
-  background: transparent;
-}
-
-.product_tabs .p-tablist-tab-list {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #e3e6ea;
-}
-
-.product_tabs .p-tab {
-  /* Uc sekme sutunu esit paylassin, metin uzunlugu hizayi bozmasin */
-  flex: 1 1 0;
-  justify-content: center;
-  border: none;
-  background: transparent;
-  color: #6c757d;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 0.875rem 0.5rem;
-  white-space: nowrap;
-  transition: color 0.25s ease, background-color 0.25s ease;
-}
-
-.product_tabs .p-tab:hover:not(.p-disabled) {
-  color: #1e58c4;
-  background-color: rgba(30, 88, 196, 0.06);
-}
-
-.product_tabs .p-tab.p-tab-active {
-  color: #1e58c4;
-  font-weight: 600;
-  background: transparent;
-}
-
-.product_tabs .p-tab:focus-visible {
-  outline: 2px solid #1e58c4;
-  outline-offset: -2px;
-  box-shadow: none;
-}
-
-.product_tabs .p-tablist-active-bar {
-  height: 3px;
-  border-radius: 3px 3px 0 0;
-  background: #1e58c4;
-}
-
-/* PrimeVue temasinin darkModeSelector'u "system" oldugu icin isletim sistemi
-   koyu temadayken panel metni beyaza donuyordu; site zemini her zaman beyaz,
-   bu yuzden rengi sabitliyoruz. */
-
-.product_tabs .p-tabpanels,
-.product_tabs .p-tabpanel {
-  background: transparent;
-  color: #212529;
-}
-
-.product_tabs .p-tabpanels {
-  padding: 1.25rem 0 0;
-}
-
-@media (max-width: 575.98px) {
-  .product_tabs .p-tab {
-    font-size: 12px;
-    letter-spacing: 0.03em;
-    padding: 0.75rem 0.25rem;
-  }
-}
-
-/* ==========================================================================
-   URUN DETAY ACIKLAMA SEKMESI
-   Ozellikler eskiden gri bg-secondary seritler icinde ortali duruyordu ve
-   label/deger ayrimi belirsizdi. Simdi ince cizgili bir kunye listesi.
-   ========================================================================== */
-
-.product_desc {
-  text-align: left;
-}
-
-.product_specs {
-  margin: 0 0 0.5rem;
-  padding: 0;
-}
-
-.product_spec {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.5rem 0.125rem;
-  border-bottom: 1px solid #edf0f3;
-}
-
-.product_spec dt {
-  color: #6c757d;
-  font-size: 12px;
-  font-weight: normal;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.product_spec dd {
-  margin: 0;
-  color: #212529;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: right;
-}
-
+/* Onceden mavi, 14px, harf arasi acilmis ve solunda 3px mavi cizgi vardi.
+   Artik sitenin geri kalaniyla ayni dilde bir alt baslik: display yuzu,
+   okunur punto, cizgi yok. */
 .product_desc_title {
-  margin: 1.5rem 0 0.625rem;
-  padding-left: 0.625rem;
-  /* Mavi cizgi, footer basliklarindaki vurguyla ayni dilde */
-  border-left: 3px solid #1e58c4;
-  color: #1e58c4;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  text-align: left;
-}
-
-.product_desc_text {
-  margin: 0;
-  color: #343a40;
-  font-size: 14px;
-  /* justify dar sutunda kelime aralarinda bosluk nehirleri olusturuyordu */
-  text-align: left;
-  line-height: 1.85;
-}
-
-.product_tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.product_tag {
-  padding: 0.2rem 0.625rem;
-  border: 1px solid rgba(30, 88, 196, 0.18);
-  border-radius: 999px;
-  background-color: rgba(30, 88, 196, 0.06);
-  color: #1e58c4;
-  font-size: 12px;
-  font-style: italic;
-  white-space: nowrap;
+  margin: clamp(1.75rem, 3vw, 2.5rem) 0 0.875rem;
+  font-family: var(--mk-ff-display);
+  color: var(--mk-ink);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-align: start;
 }
 
 /* ==========================================================================
@@ -543,50 +545,50 @@
   list-style: none;
 }
 
+/* 1px alt cizgi yerine bosluk; puntolar okunur boya cikti. */
 .product_app_item {
   display: flex;
   align-items: baseline;
-  gap: 0.5rem;
-  padding: 0.5rem 0.125rem;
-  border-bottom: 1px solid #edf0f3;
+  gap: 0.625rem;
+  padding: 0.5rem 0;
 }
 
 .product_app_icon {
-  font-size: 13px;
+  font-size: 1rem;
   line-height: 1;
 }
 
 .product_app_name {
   flex: 1 1 auto;
-  color: #212529;
-  font-size: 13px;
-  letter-spacing: 0.04em;
+  color: var(--mk-ink);
+  font-size: 1rem;
+  letter-spacing: 0;
 }
 
 .product_app_status {
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 0.06em;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .product_app_item--yes .product_app_icon,
 .product_app_item--yes .product_app_status {
-  color: #3f8f2b;
+  color: #3f7d2e;
 }
 
 /* Uygun olmayan kullanimlar listeyi domine etmesin diye soluk */
 
 .product_app_item--no .product_app_icon,
 .product_app_item--no .product_app_status {
-  color: #adb5bd;
+  color: var(--mk-line-strong);
 }
 
 .product_app_item--no .product_app_name {
-  color: #868e96;
+  color: var(--mk-grey-2);
 }
 
 .product_app_item--unknown .product_app_status {
-  color: #6c757d;
+  color: var(--mk-body);
   font-weight: normal;
 }
 
@@ -597,41 +599,65 @@
 .product_app_specs {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.625rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* Onceden 88px'lik dikey kutucuklardi: 1px cerceve, 10px yuvarlak kose ve
+   altinda minik bir etiket. Ikonlar CDN'de 100x100 ve soluk oldugu icin o
+   boyutta yer tutucu gibi duruyorlardi.
+
+   Simdi yatay cip: ikon solda dolgulu bir karede, adi saginda okunur
+   puntoda. Hem derli toplu hem satirda yan yana dogal duruyor. */
 .product_app_spec {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
+  flex-direction: row;
   align-items: center;
-  gap: 0.25rem;
-  width: 88px;
-  padding: 0.5rem 0.25rem;
-  border: 1px solid #edf0f3;
-  border-radius: 10px;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  gap: 0.75rem;
+  width: auto;
+  padding: 0.5rem 1.125rem 0.5rem 0.5rem;
+  border: 0;
+  border-radius: var(--mk-radius-pill);
+  background-color: var(--mk-cream-2);
+  transition: background-color 0.25s ease;
 }
 
 .product_app_spec:hover {
-  border-color: rgba(30, 88, 196, 0.35);
-  box-shadow: 0 2px 8px rgba(30, 88, 196, 0.1);
+  background-color: var(--mk-border);
 }
 
-.product_app_spec img {
-  width: 56px;
-  height: 56px;
+/* Ikon kendi dolgulu yuzeyinde. Icerik ya cizili SVG (Shared/FinishIcon)
+   ya da taninmayan bir tip icin eski CDN gorseli. */
+.product_app_spec_icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 7px;
+  color: var(--mk-ink);
+  background-color: var(--mk-cream);
+  border-radius: 8px;
+}
+
+.product_app_spec_icon img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
+/* Onceden 11px ve #6c757d (krem zeminde 4.2:1 — AA esigi 4.5:1). */
 .product_app_spec span {
-  color: #6c757d;
-  font-size: 11px;
-  line-height: 1.3;
-  text-align: center;
-  letter-spacing: 0.02em;
+  color: var(--mk-ink);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: start;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
 /* Test raporu bagi */
@@ -641,12 +667,12 @@
   align-items: center;
   gap: 0.75rem;
   margin-top: 1.5rem;
-  padding: 0.625rem 0.875rem;
-  border: 1px solid #e3e6ea;
-  border-radius: 10px;
-  color: #212529;
+  padding: 0.875rem 1.125rem;
+  border: 0;
+  background-color: var(--mk-cream-2);
+  color: var(--mk-ink);
   text-decoration: none;
-  transition: border-color 0.25s ease, background-color 0.25s ease;
+  transition: background-color 0.25s ease;
 }
 
 .product_app_report:hover,
@@ -656,22 +682,32 @@
   color: #1e58c4;
 }
 
-.product_app_report img {
-  width: 72px;
-  height: auto;
+/* Ikon kendi dolgulu yuzeyinde, yuzey ikonlariyla ayni olculerde. */
+.product_app_report_mark {
   flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 7px;
+  color: var(--mk-ink);
+  background-color: var(--mk-cream);
+  border-radius: 8px;
 }
 
 .product_app_report_label {
   flex: 1 1 auto;
-  font-size: 13px;
-  letter-spacing: 0.03em;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
+/* PDF isareti: eski mavi tema yerine sayfanin kendi mureekkebi. */
 .product_app_report_icon {
   flex: none;
-  font-size: 1.75rem;
-  color: #1e58c4;
+  font-size: 1.5rem;
+  color: var(--mk-body);
   line-height: 1;
 }
 
@@ -681,20 +717,25 @@
    listeyle hizalanmiyordu. Simdi ayni kunye duzeni.
    ========================================================================== */
 
+/* Ebat satiri: sayfanin aksiyonu burada, o yuzden satir dolgulu bir yuzey.
+   Onceden 13px bir metin ve altinda 1px cizgi vardi; ayrim artik zemin
+   tonundan geliyor. */
 .product_size {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 0.5rem 0.125rem;
-  border-bottom: 1px solid #edf0f3;
-  text-align: left;
+  gap: 0.75rem 1.5rem;
+  padding: 1rem 1.25rem;
+  background-color: var(--mk-cream);
+  text-align: start;
 }
 
 .product_size_label {
-  color: #212529;
-  font-size: 13px;
-  letter-spacing: 0.04em;
+  color: var(--mk-ink);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 /* Fiyat gizliyken: dikkat ceken ama satiri ezmeyen kapsul buton */
@@ -702,30 +743,34 @@
 .product_size_cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: 0.5rem;
   flex: none;
-  padding: 0.25rem 0.75rem;
-  border: 1px solid rgba(30, 88, 196, 0.3);
-  border-radius: 999px;
-  background-color: rgba(30, 88, 196, 0.06);
-  color: #1e58c4;
-  font-size: 12px;
-  letter-spacing: 0.04em;
+  padding: 0.6rem 1.25rem;
+  border: 0;
+  border-radius: var(--mk-radius-pill);
+  background-color: var(--mk-ink);
+  color: var(--mk-cream);
+  font-family: inherit;
+  font-size: 1rem;
+  letter-spacing: 0;
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color 0.25s ease, color 0.25s ease,
-    border-color 0.25s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .product_size_cta:hover,
 .product_size_cta:focus-visible {
-  background-color: #1e58c4;
-  border-color: #1e58c4;
-  color: #fff;
+  background-color: var(--mk-accent);
+  color: var(--mk-cream);
+}
+
+.product_size_cta:focus-visible {
+  outline: 2px solid var(--mk-ink);
+  outline-offset: 2px;
 }
 
 .product_size_cta i {
-  font-size: 12px;
+  font-size: 1rem;
   line-height: 1;
 }
 
@@ -739,30 +784,24 @@
 .product_photos {
   display: grid;
   /* Sabit 3 sutun yerine: sutun genisligi tabana oturur, sayisi kendi ayarlanir */
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 0.75rem;
-  margin-top: 0.625rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: clamp(0.75rem, 1.6vw, 1.25rem);
+  margin-top: 0;
 }
 
+/* Golge ve yuvarlak kose kaldirildi: fotograflar zeminden tonla ayriliyor,
+   kutu olarak degil. */
 .product_photo {
   position: relative;
   display: block;
   overflow: hidden;
   aspect-ratio: 4 / 3;
-  border-radius: 12px;
-  /* Eskiden 1px 1px 8px black vardi ve hover'da tamamen kayboluyordu */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-  background-color: #f4f4f4;
-  transition: box-shadow 0.3s ease;
-}
-
-.product_photo:hover {
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  background-color: var(--mk-cream);
 }
 
 .product_photo:focus-visible {
-  outline: 2px solid #1e58c4;
-  outline-offset: 2px;
+  outline: 2px solid var(--mk-ink);
+  outline-offset: 3px;
 }
 
 .product_photo img {
@@ -775,6 +814,19 @@
 
 .product_photo:hover img {
   transform: scale(1.06);
+}
+
+/* Izgaradaki video: fotograflarla ayni 4/3 karede, kendi oynaticisiyla. */
+.product_photo--video {
+  cursor: default;
+  background-color: var(--mk-ink);
+}
+
+.product_photo--video video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
 }
 
 .product_photo_zoom {
@@ -799,7 +851,7 @@
 .product_photo:hover .product_photo_zoom,
 .product_photo:focus-visible .product_photo_zoom {
   opacity: 1;
-  background-color: #1e58c4;
+  background-color: var(--mk-ink);
 }
 
 @media (max-width: 575.98px) {

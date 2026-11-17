@@ -1,4 +1,5 @@
 <template>
+  <div class="page-root">
     <h1 class="header mb-3">{{faq_header}}</h1>
     <div class="row m-auto text-center">
         <div class="col-sm-12">
@@ -10,6 +11,7 @@
             
         </div>
     </div>
+  </div>
 </template>
 <script setup lang="ts">
     import { useStore } from '~/store/index';

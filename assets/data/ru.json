@@ -1,22 +1,23 @@
 {
   "navbar": {
-    "home": "ДОМ",
-    "product": "ПРОДУКТЫ",
-    "info": "ИНФОРМАЦИЯ",
+    "home": "Дом",
+    "product": "Продукты",
+    "info": "Информация",
     "about": "О",
-    "contact": "КОНТАКТ",
-    "fabrication": "ИЗГОТОВЛЕНИЕ",
-    "videos": "ВИДЕО",
-    "project": "ПРОЕКТЫ",
-    "catalog": "КАТАЛОГ",
-    "categories": "КАТЕГОРИИ",
-    "colors": "ЦВЕТА",
-    "areas": "ОБЛАСТИ",
+    "contact": "Контакт",
+    "fabrication": "Изготовление",
+    "videos": "Видео",
+    "project": "Проекты",
+    "catalog": "Каталог",
+    "categories": "Категории",
+    "colors": "Фильтр по цвету",
+    "areas": "Фильтр по области применения",
 
-    "faq": "Чзв"
+    "faq": "ЧЗВ"
   },
   "navbar_link": {
     "home": "/ru",
+    "product": "/ru/products",
     "about": "/ru/about",
     "contact": "/ru/contact",
     "fabrication": "/ru/fabrication",
@@ -40,18 +41,23 @@
       { "id": 8, "title": "Кварц", "link": "/ru/product/quartz/8" },
       {
         "id": 9,
-        "title": "Побочный продукт",
+        "title": "Сопутствующие товары",
         "link": "/ru/product/by-product/9"
+      },
+      {
+        "id": 11,
+        "title": "3D ЧПУ-дизайн",
+        "link": "/ru/product/3d-cnc-design/23"
+      },
+      {
+        "id": 12,
+        "title": "Дизайн бассейнов",
+        "link": "/ru/product/pool-design/24"
       },
       {
         "id": 10,
         "title": "Монтажные материалы",
         "link": "/ru/product/installation-materials/11"
-      },
-      {
-        "id": 11,
-        "title": "Гипсокартон",
-        "link": "/ru/product/plasterboard/18"
       }
     ],
     "colors": [
@@ -121,7 +127,7 @@
         },
         {
           "id": 4,
-          "value": "Мы поставляем натуральные решения для архитектурных проектов."
+          "value": "Мы поставляем натуральные решения для устойчивых архитектурных проектов."
         }
       ],
       "socials": [
@@ -210,6 +216,36 @@
           "id": 9,
           "image": "/image/news/news-9-b.webp",
           "name": "mekmar_suppliers_news_9"
+        },
+        {
+          "id": 10,
+          "image": "/image/news/news-10-b.webp",
+          "name": "mekmar_suppliers_news_10"
+        },
+        {
+          "id": 11,
+          "image": "/image/news/news-11-b.webp",
+          "name": "mekmar_suppliers_news_11"
+        },
+        {
+          "id": 12,
+          "image": "/image/news/news-12-b.webp",
+          "name": "mekmar_suppliers_news_12"
+        },
+        {
+          "id": 13,
+          "image": "/image/news/news-13-b.webp",
+          "name": "mekmar_suppliers_news_13"
+        },
+        {
+          "id": 14,
+          "image": "/image/news/news-14-b.webp",
+          "name": "mekmar_suppliers_news_14"
+        },
+        {
+          "id": 15,
+          "image": "/image/news/news-15-b.webp",
+          "name": "mekmar_suppliers_news_15"
         }
       ]
     },
@@ -220,7 +256,6 @@
           "name": "Ozlem",
           "job": "специалист по продажам",
           "email": "export@mekmar.com",
-          "email2": "export1@mekmar.com",
           "whatsapp": "+90 542 660 8085",
           "image": "/image/personel/ozlem-yeni-2.webp",
           "webp": "/image/personel/ozlem-yeni-2.webp",
@@ -388,20 +423,26 @@
     {
       "id": 9,
       "link": "/ru/product/by-products/9",
-      "name": "ПО ПРОДУКЦИИ",
+      "name": "СОПУТСТВУЮЩИЕ ТОВАРЫ",
       "image": "/image/categories/by-products-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 23,
+      "link": "/ru/product/3d-cnc-design/23",
+      "name": "3D ЧПУ-ДИЗАЙН",
+      "image": "/image/categories/cnc_design-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 24,
+      "link": "/ru/product/pool-design/24",
+      "name": "ДИЗАЙН БАССЕЙНОВ",
+      "image": "/image/categories/pool-design-category-main-photo-mekmar.webp"
     },
     {
       "id": 11,
       "link": "/ru/product/installation-materials/11",
       "name": "МОНТАЖНЫЕ МАТЕРИАЛЫ",
       "image": "/image/categories/installation-materials-category-main-photo-mekmar.webp"
-    },
-    {
-      "id": 18,
-      "link": "/ru/product/plasterboard/18",
-      "name": "ГИПСОКАРТОН",
-      "image": "/image/categories/plasterboard-category-main-photo-mekmar.webp"
     }
   ],
   "about": {
@@ -483,8 +524,7 @@
       {
         "name": "Ozlem",
         "job": "специалист по продажам",
-        "email": "export1@mekmar.com",
-        "email2": "export@mekmar.com",
+        "email": "export@mekmar.com",
         "whatsapp": "+90 542 660 8085",
         "image": "https://cdn.mekmarimage.com/personel/250x250/ozlem-yeni-2.webp",
         "webp": "https://cdn.mekmarimage.com/personel/250x250/ozlem-yeni-2.webp",
@@ -512,59 +552,134 @@
     "items": [
       {
         "id": 1,
-        "header": "ЗАВОДЫ, НА КОТОРЫХ МЫ РАБОТАЕМ",
+        "header": "ПРОИЗВОДСТВО",
         "images": [
           {
             "id": 1,
-            "title": "Эпоксидная линия для бежевого мрамора",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_1.webp"
+            "title": "Ручная доводка рифлёных панелей",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_01.webp"
           },
           {
             "id": 2,
-            "title": "Фабрика Бьянко Ибица",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_4.webp"
+            "title": "Загрузка слэбов в контейнер",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_02.webp"
           },
           {
             "id": 3,
-            "title": "Процесс обработки пазов для лестниц",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_2.webp"
+            "title": "Многодисковая распиловочная линия",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_03.webp"
           },
           {
             "id": 4,
-            "title": "Резка угловых лестниц с ЧПУ",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_3.webp"
+            "title": "Распил травертина мостовым станком",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_04.webp"
+          },
+          {
+            "id": 5,
+            "title": "Участок резки плитки",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_05.webp"
+          },
+          {
+            "id": 6,
+            "title": "Гидроабразивная резка на ЧПУ",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_06.webp"
+          },
+          {
+            "id": 7,
+            "title": "Линия эпоксидной и сетчатой основы",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_07.webp"
+          },
+          {
+            "id": 8,
+            "title": "Линия шпатлевания травертина",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_08.webp"
+          },
+          {
+            "id": 9,
+            "title": "Линия производства плитки",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_09.webp"
+          },
+          {
+            "id": 10,
+            "title": "Склад готовой плитки",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_10.webp"
+          },
+          {
+            "id": 11,
+            "title": "Калибровка и полировка слэбов",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_11.webp"
+          },
+          {
+            "id": 12,
+            "title": "Склад слэбов",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_12.webp"
+          },
+          {
+            "id": 13,
+            "title": "Площадка хранения в ящиках",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_13.webp"
+          },
+          {
+            "id": 14,
+            "title": "Упакованные заказы к отгрузке",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_14.webp"
+          },
+          {
+            "id": 15,
+            "title": "Колотые панели на стеллажах",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_15.webp"
+          },
+          {
+            "id": 16,
+            "title": "Сверление на ЧПУ",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_16.webp"
           }
         ]
       },
       {
         "id": 2,
-        "header": "КАРЬЕРЫ, В КОТОРЫХ МЫ РАБОТАЕМ",
+        "header": "КАРЬЕРЫ",
         "images": [
           {
             "id": 1,
             "title": "Мраморный карьер Бьянко Ибица",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_1.webp"
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_01.jpg"
           },
           {
             "id": 2,
-            "title": "Турецкий мраморный карьер Калакатта",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_2.webp"
+            "title": "Классический травертиновый карьер",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_02.jpg"
           },
           {
             "id": 3,
-            "title": "Классический травертиновый карьер",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_3.webp"
+            "title": "Пикассо Травертиновый карьер",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_03.jpg"
           },
           {
             "id": 4,
-            "title": "Пикассо Травертиновый карьер",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_4.webp"
+            "title": "Блоки серого мрамора в карьере",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_04.jpg"
+          },
+          {
+            "id": 5,
+            "title": "Погрузчик у забоя карьера",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_05.jpg"
+          },
+          {
+            "id": 6,
+            "title": "Уступ карьера",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_06.jpg"
+          },
+          {
+            "id": 7,
+            "title": "Ступенчатые уступы карьера",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_07.jpg"
           }
         ]
       },
       {
         "id": 3,
-        "header": "НАШ СКЛАД В США",
+        "header": "СКЛАД В США",
         "images": [
           {
             "id": 1,
@@ -1175,20 +1290,20 @@
     ]
   },
   "product_detail": {
-    "description": "ОПИСАНИЕ",
-    "tab_1": "ДЕТАЛИ",
-    "tab_2": "ПРИЛОЖЕНИЕ",
-    "tab_3": "РАЗМЕР И ЦЕНА",
-    "tab_1_code": "КОД",
-    "tab_1_stonetype": "ТИП КАМНЯ",
-    "tab_1_country": "СТРАНА",
-    "tab_1_varitaion": "ВАРИАЦИЯ",
-    "tab_2_test_report": "Отчет об испытаниях/Техническая спецификация",
+    "description": "Описание",
+    "tab_1": "Детали",
+    "tab_2": "Применение",
+    "tab_3": "Размер и цена",
+    "tab_1_code": "Код",
+    "tab_1_stonetype": "Тип камня",
+    "tab_1_country": "Страна",
+    "tab_1_varitaion": "Вариация",
+    "tab_2_test_report": "Отчет об испытаниях / техническая спецификация",
     "tab_2_available": "Доступные поверхности",
-    "benzerurun_title": "ВАС МОЖЕТ ЗАИНТЕРЕСОВАТЬ",
-    "onerilenurun_title": "РЕКОМЕНДУЕМЫЕ ПРОДУКТЫ",
-    "hastags": "ХЭШТЕГИ",
-    "specification": "СПЕЦИФИКАЦИИ ПРОДУКТА"
+    "benzerurun_title": "Вас может заинтересовать",
+    "onerilenurun_title": "Рекомендуемые продукты",
+    "hastags": "Хэштеги",
+    "specification": "Спецификации продукта"
   },
   "variation": {
     "var_1": "МИНИМУМ",

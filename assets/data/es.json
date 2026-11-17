@@ -1,22 +1,23 @@
 {
   "navbar": {
-    "home": "HOGAR",
-    "product": "PRODUCTO",
-    "info": "INFO",
-    "about": "SOBRE",
-    "contact": "CONTACTO",
-    "fabrication": "FABRICACION",
-    "videos": "VIDEOS",
-    "project": "PROYECTOS",
-    "catalog": "CATALOGAR",
-    "categories": "CATEGORIAS",
-    "colors": "COLORES",
-    "areas": "AREAS",
+    "home": "Hogar",
+    "product": "Producto",
+    "info": "Info",
+    "about": "Sobre",
+    "contact": "Contacto",
+    "fabrication": "Fabricacion",
+    "videos": "Videos",
+    "project": "Proyectos",
+    "catalog": "Catalogar",
+    "categories": "Categorias",
+    "colors": "Filtrar por color",
+    "areas": "Filtrar por área de aplicación",
 
     "faq": "FAQ"
   },
   "navbar_link": {
     "home": "/es",
+    "product": "/es/products",
     "about": "/es/about",
     "contact": "/es/contact",
     "fabrication": "/es/fabrication",
@@ -42,16 +43,21 @@
       },
       { "id": 7, "title": "Plaques", "link": "/es/product/slabs/7" },
       { "id": 8, "title": "Quartz", "link": "/es/product/quartz/8" },
-      { "id": 9, "title": "Par Produits", "link": "/es/product/by-product/9" },
+      { "id": 9, "title": "Productos complementarios", "link": "/es/product/by-product/9" },
+      {
+        "id": 11,
+        "title": "Diseño CNC 3D",
+        "link": "/es/product/3d-cnc-design/23"
+      },
+      {
+        "id": 12,
+        "title": "Diseño de piscinas",
+        "link": "/es/product/pool-design/24"
+      },
       {
         "id": 10,
         "title": "Materiels D'Installation",
         "link": "/es/product/installation-materials/11"
-      },
-      {
-        "id": 11,
-        "title": "Plaque de Platre",
-        "link": "/es/product/plasterboard/18"
       }
     ],
     "colors": [
@@ -118,7 +124,7 @@
         { "id": 3, "value": "Controlamos 30.000 m2 de producto mensualmente." },
         {
           "id": 4,
-          "value": "Suministramos soluciones naturales para proyectos arquitectónicos."
+          "value": "Suministramos soluciones naturales para proyectos arquitectónicos sostenibles."
         }
       ],
       "socials": [
@@ -207,6 +213,36 @@
           "id": 9,
           "image": "/image/news/news-9-b.webp",
           "name": "mekmar_suppliers_news_9"
+        },
+        {
+          "id": 10,
+          "image": "/image/news/news-10-b.webp",
+          "name": "mekmar_suppliers_news_10"
+        },
+        {
+          "id": 11,
+          "image": "/image/news/news-11-b.webp",
+          "name": "mekmar_suppliers_news_11"
+        },
+        {
+          "id": 12,
+          "image": "/image/news/news-12-b.webp",
+          "name": "mekmar_suppliers_news_12"
+        },
+        {
+          "id": 13,
+          "image": "/image/news/news-13-b.webp",
+          "name": "mekmar_suppliers_news_13"
+        },
+        {
+          "id": 14,
+          "image": "/image/news/news-14-b.webp",
+          "name": "mekmar_suppliers_news_14"
+        },
+        {
+          "id": 15,
+          "image": "/image/news/news-15-b.webp",
+          "name": "mekmar_suppliers_news_15"
         }
       ]
     },
@@ -217,7 +253,6 @@
           "name": "Ozlem",
           "job": "Especialista En Ventas",
           "email": "export@mekmar.com",
-          "email2": "export1@mekmar.com",
           "whatsapp": "+90 542 660 8085",
           "image": "/image/personel/ozlem-yeni-2.webp",
           "webp": "/image/personel/ozlem-yeni-2.webp",
@@ -385,20 +420,26 @@
     {
       "id": 9,
       "link": "/es/product/by-products/9",
-      "name": "PAR PRODUITS",
+      "name": "PRODUCTOS COMPLEMENTARIOS",
       "image": "/image/categories/by-products-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 23,
+      "link": "/es/product/3d-cnc-design/23",
+      "name": "DISEÑO CNC 3D",
+      "image": "/image/categories/cnc_design-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 24,
+      "link": "/es/product/pool-design/24",
+      "name": "DISEÑO DE PISCINAS",
+      "image": "/image/categories/pool-design-category-main-photo-mekmar.webp"
     },
     {
       "id": 11,
       "link": "/es/product/installation-materials/11",
       "name": "MATÉRIAUX D'INSTALLATION",
       "image": "/image/categories/installation-materials-category-main-photo-mekmar.webp"
-    },
-    {
-      "id": 18,
-      "link": "/es/product/plasterboard/18",
-      "name": "PLAQUES DE PLÂTRE",
-      "image": "/image/categories/plasterboard-category-main-photo-mekmar.webp"
     }
   ],
   "about": {
@@ -480,8 +521,7 @@
       {
         "name": "Ozlem",
         "job": "Especialista En Ventas",
-        "email2": "export@mekmar.com",
-        "email": "export1@mekmar.com",
+        "email": "export@mekmar.com",
 
         "whatsapp": "+90 542 660 8085",
         "image": "https://cdn.mekmarimage.com/personel/250x250/ozlem-yeni-2.webp",
@@ -510,59 +550,134 @@
     "items": [
       {
         "id": 1,
-        "header": "FABRICAS EN LAS QUE TRABAJAMOS",
+        "header": "PRODUCCIÓN",
         "images": [
           {
             "id": 1,
-            "title": "Línea Epoxi Mármol Beige",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_1.webp"
+            "title": "Acabado Manual de Paneles Acanalados",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_01.webp"
           },
           {
             "id": 2,
-            "title": "Fábrica Bianco Ibiza",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_4.webp"
+            "title": "Carga de Placas en Contenedor",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_02.webp"
           },
           {
             "id": 3,
-            "title": "Proceso de Ranurado Para Escaleras",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_2.webp"
+            "title": "Línea de Corte Multidisco",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_03.webp"
           },
           {
             "id": 4,
-            "title": "Escaleras en Ángulo de Corte CNC",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_3.webp"
+            "title": "Corte de Travertino con Sierra Puente",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_04.webp"
+          },
+          {
+            "id": 5,
+            "title": "Estación de Corte de Baldosas",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_05.webp"
+          },
+          {
+            "id": 6,
+            "title": "Conformado CNC por Chorro de Agua",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_06.webp"
+          },
+          {
+            "id": 7,
+            "title": "Línea de Epoxi y Malla",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_07.webp"
+          },
+          {
+            "id": 8,
+            "title": "Línea de Masillado del Travertino",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_08.webp"
+          },
+          {
+            "id": 9,
+            "title": "Línea de Producción de Baldosas",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_09.webp"
+          },
+          {
+            "id": 10,
+            "title": "Almacén de Baldosas Terminadas",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_10.webp"
+          },
+          {
+            "id": 11,
+            "title": "Calibrado y Pulido de Placas",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_11.webp"
+          },
+          {
+            "id": 12,
+            "title": "Nave de Stock de Placas",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_12.webp"
+          },
+          {
+            "id": 13,
+            "title": "Patio de Stock en Cajas",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_13.webp"
+          },
+          {
+            "id": 14,
+            "title": "Pedidos Encajonados Listos para Exportar",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_14.webp"
+          },
+          {
+            "id": 15,
+            "title": "Paneles de Cara Partida en Estanterías",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_15.webp"
+          },
+          {
+            "id": 16,
+            "title": "Perforación CNC",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_16.webp"
           }
         ]
       },
       {
         "id": 2,
-        "header": "CANTERAS QUE TRABAJAMOS",
+        "header": "CANTERAS",
         "images": [
           {
             "id": 1,
             "title": "Cantera de Mármol Bianco Ibiza",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_1.webp"
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_01.jpg"
           },
           {
             "id": 2,
-            "title": "Cantera Turca de Mármol Calacatta",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_2.webp"
+            "title": "Cantera de Travertino Clásica",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_02.jpg"
           },
           {
             "id": 3,
-            "title": "Cantera de Travertino Clásica",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_3.webp"
+            "title": "Cantera de Travertino Picasso",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_03.jpg"
           },
           {
             "id": 4,
-            "title": "Cantera de Travertino Picasso",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_4.webp"
+            "title": "Bloques de Mármol Gris en la Cantera",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_04.jpg"
+          },
+          {
+            "id": 5,
+            "title": "Cargadora en el Frente de Cantera",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_05.jpg"
+          },
+          {
+            "id": 6,
+            "title": "Frente de Banco de Cantera",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_06.jpg"
+          },
+          {
+            "id": 7,
+            "title": "Bancos Escalonados de la Cantera",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_07.jpg"
           }
         ]
       },
       {
         "id": 3,
-        "header": "NUESTRO ALMACEN EN EE. UU.",
+        "header": "ALMACÉN EN EE. UU.",
         "images": [
           {
             "id": 1,
@@ -1172,20 +1287,20 @@
     ]
   },
   "product_detail": {
-    "description": "DESCRIPCION",
-    "tab_1": "DETALLA",
-    "tab_2": "SOLICITUD",
-    "tab_3": "TAMANO & PREMIO",
-    "tab_1_code": "CÓDIGO",
-    "tab_1_stonetype": "TIPO DE PIEDRA",
-    "tab_1_country": "PAÍS",
-    "tab_1_varitaion": "VARIACIÓN",
-    "tab_2_test_report": "INFORME DE PRUEBA // ESPECIFICACIONES TECNICAS",
+    "description": "Descripción",
+    "tab_1": "Detalle",
+    "tab_2": "Aplicaciones",
+    "tab_3": "Tamaño y precio",
+    "tab_1_code": "Código",
+    "tab_1_stonetype": "Tipo de piedra",
+    "tab_1_country": "País",
+    "tab_1_varitaion": "Variación",
+    "tab_2_test_report": "Informe de prueba / especificaciones técnicas",
     "tab_2_available": "Acabado disponible",
-    "benzerurun_title": "TE PUEDE INTERESAR...",
-    "onerilenurun_title": "PRODUCTOS SUGERIDOS",
-    "hastags": "ETIQUETAS",
-    "specification": "ESPECIFICACIONES DEL PRODUCTO"
+    "benzerurun_title": "Te puede interesar",
+    "onerilenurun_title": "Productos sugeridos",
+    "hastags": "Etiquetas",
+    "specification": "Especificaciones del producto"
   },
   "variation": {
     "var_1": "MÍNIMO",

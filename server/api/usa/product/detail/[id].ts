@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
             (select ms.StockSqft from MekmarCom_StockListYeni ms where ms.SkuNo = k.SkuNo) Stok_Sqft,
             k.SkuNo,
             u.Size,           
-            u.TurkiyeStock,
+            u.TurkeyStock,
 			u.urunadi_en,
 			u.aciklama_en,
 			u.anahtarlar_en,

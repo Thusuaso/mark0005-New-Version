@@ -39,7 +39,7 @@ const isRtl = lang === "ar";
 .wa_float {
   position: fixed;
   right: calc(20px + env(safe-area-inset-right, 0px));
-  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(80px + env(safe-area-inset-bottom, 0px));
   z-index: 1040;
   display: flex;
   align-items: center;
@@ -120,7 +120,7 @@ const isRtl = lang === "ar";
 @media (max-width: 767.98px) {
   .wa_float {
     right: calc(14px + env(safe-area-inset-right, 0px));
-    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(74px + env(safe-area-inset-bottom, 0px));
   }
 
   .wa_float_btn {

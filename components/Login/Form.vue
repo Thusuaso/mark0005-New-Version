@@ -344,7 +344,7 @@ function reset() {
 .auth_code {
   height: 56px;
   text-align: center;
-  font-family: "Courier New", Courier, monospace;
+  font-family: var(--mk-ff-body);
   font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: 0.45em;

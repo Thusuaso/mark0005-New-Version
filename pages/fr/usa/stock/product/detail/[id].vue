@@ -1,4 +1,5 @@
 <template>
+  <div class="page-root">
     <h1 class="header mb-3">{{header.toUpperCase()}}</h1>
     <div class="row m-auto text-center">
         <div class="col-sm-5">
@@ -11,7 +12,7 @@
                 data-fancybox="gallery" :href="first_photo">
                 <div class="customContainer " style="height:450px;">
                     <div class="customElement" style="height:450px;">
-                        <img class="lazyload" :src="first_photo" style="height:450px;" />
+                        <img class="lazyload" :src="first_photo" :alt="header" style="height:450px;" />
 
 
                     </div>
@@ -104,7 +105,7 @@
                 data-fancybox="gallery">
                 <div class="customContainer ">
                     <div class="customElement">
-                        <img class="lazyload" :src="img.image" />
+                        <img class="lazyload" :src="img.image" :alt="header" />
 
 
                     </div>
@@ -113,6 +114,7 @@
         </SharedFancybox>
 
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">

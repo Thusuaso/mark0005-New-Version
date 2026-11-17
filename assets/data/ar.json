@@ -10,11 +10,13 @@
     "project": "المشاريع",
     "catalog": "فهرس",
     "categories": "فئات",
-    "colors": "الألوان",
+    "colors": "تصفية حسب اللون",
+    "areas": "تصفية حسب مجال الاستخدام",
     "faq": "التعليمات"
   },
   "navbar_link": {
     "home": "/ar",
+    "product": "/ar/products",
     "about": "/ar/about",
     "contact": "/ar/contact",
     "fabrication": "/ar/fabrication",
@@ -36,13 +38,22 @@
       },
       { "id": 7, "title": "ألواح", "link": "/ar/product/slabs/7" },
       { "id": 8, "title": "كوارتز", "link": "/ar/product/quartz/8" },
-      { "id": 9, "title": "ثانوية", "link": "/ar/product/by-product/9" },
+      { "id": 9, "title": "منتجات تكميلية", "link": "/ar/product/by-product/9" },
+      {
+        "id": 11,
+        "title": "تصميم CNC ثلاثي الأبعاد",
+        "link": "/ar/product/3d-cnc-design/23"
+      },
+      {
+        "id": 12,
+        "title": "تصميم حمامات السباحة",
+        "link": "/ar/product/pool-design/24"
+      },
       {
         "id": 10,
         "title": "مواد التثبيت",
         "link": "/ar/product/installation-materials/11"
-      },
-      { "id": 11, "title": "الجصي", "link": "/ar/product/plasterboard/18" }
+      }
     ],
     "colors": [
       { "id": 1, "title": "أبيض", "link": "/ar/product/color/white/1" },
@@ -106,7 +117,7 @@
           "value": "نحن ننتج جميع أنواع الحجر الطبيعي من البلاطة إلى الفسيفساء."
         },
         { "id": 3, "value": "نحن نتحكم في 30.000 متر مربع من المنتج شهريًا." },
-        { "id": 4, "value": "نحن نقدم الحلول الطبيعية للمشاريع المعمارية." }
+        { "id": 4, "value": "نحن نقدم الحلول الطبيعية للمشاريع المعمارية المستدامة." }
       ],
       "socials": [
         {
@@ -194,6 +205,36 @@
           "id": 9,
           "image": "/image/news/news-9-b.webp",
           "name": "mekmar_suppliers_news_9"
+        },
+        {
+          "id": 10,
+          "image": "/image/news/news-10-b.webp",
+          "name": "mekmar_suppliers_news_10"
+        },
+        {
+          "id": 11,
+          "image": "/image/news/news-11-b.webp",
+          "name": "mekmar_suppliers_news_11"
+        },
+        {
+          "id": 12,
+          "image": "/image/news/news-12-b.webp",
+          "name": "mekmar_suppliers_news_12"
+        },
+        {
+          "id": 13,
+          "image": "/image/news/news-13-b.webp",
+          "name": "mekmar_suppliers_news_13"
+        },
+        {
+          "id": 14,
+          "image": "/image/news/news-14-b.webp",
+          "name": "mekmar_suppliers_news_14"
+        },
+        {
+          "id": 15,
+          "image": "/image/news/news-15-b.webp",
+          "name": "mekmar_suppliers_news_15"
         }
       ]
     },
@@ -204,7 +245,6 @@
           "name": "Ozlem",
           "job": "أخصائي مبيعات",
           "email": "export@mekmar.com",
-          "email2": "export1@mekmar.com",
           "whatsapp": "+90 542 660 8085",
           "image": "/image/personel/ozlem-yeni-2.webp",
           "webp": "/image/personel/ozlem-yeni-2.webp",
@@ -372,20 +412,26 @@
     {
       "id": 9,
       "link": "/ar/product/by-products/9",
-      "name": "حسب المنتجات",
+      "name": "منتجات تكميلية",
       "image": "/image/categories/by-products-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 23,
+      "link": "/ar/product/3d-cnc-design/23",
+      "name": "تصميم CNC ثلاثي الأبعاد",
+      "image": "/image/categories/cnc_design-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 24,
+      "link": "/ar/product/pool-design/24",
+      "name": "تصميم حمامات السباحة",
+      "image": "/image/categories/pool-design-category-main-photo-mekmar.webp"
     },
     {
       "id": 11,
       "link": "/ar/product/installation-materials/11",
       "name": "مواد التثبيت",
       "image": "/image/categories/installation-materials-category-main-photo-mekmar.webp"
-    },
-    {
-      "id": 18,
-      "link": "/ar/product/plasterboard/18",
-      "name": "الجصي",
-      "image": "/image/categories/plasterboard-category-main-photo-mekmar.webp"
     }
   ],
   "about": {
@@ -464,8 +510,7 @@
       {
         "name": "Ozlem",
         "job": "أخصائي مبيعات",
-        "email": "export1@mekmar.com",
-        "email2": "export@mekmar.com",
+        "email": "export@mekmar.com",
         "whatsapp": "+90 542 660 8085",
         "image": "https://cdn.mekmarimage.com/personel/250x250/ozlem-yeni-2.webp",
         "webp": "https://cdn.mekmarimage.com/personel/250x250/ozlem-yeni-2.webp",
@@ -493,59 +538,134 @@
     "items": [
       {
         "id": 1,
-        "header": "المصانع التي نعمل بها",
+        "header": "الإنتاج",
         "images": [
           {
             "id": 1,
-            "title": "خط إيبوكسي رخام بيج",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_1.webp"
+            "title": "تشطيب يدوي للألواح المحزّزة",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_01.webp"
           },
           {
             "id": 2,
-            "title": "مصنع بيانكو إيبيزا",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_4.webp"
+            "title": "تحميل الألواح في الحاوية",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_02.webp"
           },
           {
             "id": 3,
-            "title": "عملية الأخدود للسلالم",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_2.webp"
+            "title": "خط القطع متعدد الشفرات",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_03.webp"
           },
           {
             "id": 4,
-            "title": "CNC قطع السلالم الزاوية",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_3.webp"
+            "title": "قطع الترافرتين بمنشار الجسر",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_04.webp"
+          },
+          {
+            "id": 5,
+            "title": "محطة قطع البلاط",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_05.webp"
+          },
+          {
+            "id": 6,
+            "title": "التشكيل بنفث الماء CNC",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_06.webp"
+          },
+          {
+            "id": 7,
+            "title": "خط الإيبوكسي والشبك",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_07.webp"
+          },
+          {
+            "id": 8,
+            "title": "خط معجنة الترافرتين",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_08.webp"
+          },
+          {
+            "id": 9,
+            "title": "خط إنتاج البلاط",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_09.webp"
+          },
+          {
+            "id": 10,
+            "title": "مستودع البلاط الجاهز",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_10.webp"
+          },
+          {
+            "id": 11,
+            "title": "معايرة وتلميع الألواح",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_11.webp"
+          },
+          {
+            "id": 12,
+            "title": "صالة تخزين الألواح",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_12.webp"
+          },
+          {
+            "id": 13,
+            "title": "ساحة التخزين بالصناديق",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_13.webp"
+          },
+          {
+            "id": 14,
+            "title": "طلبيات معبأة جاهزة للتصدير",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_14.webp"
+          },
+          {
+            "id": 15,
+            "title": "ألواح مكسورة الوجه على الرفوف",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_15.webp"
+          },
+          {
+            "id": 16,
+            "title": "الحفر بـ CNC",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_16.webp"
           }
         ]
       },
       {
         "id": 2,
-        "header": "المحاجر التي نعمل بها",
+        "header": "المحاجر",
         "images": [
           {
             "id": 1,
             "title": "بيانكو إيبيزا محجر الرخام",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_1.webp"
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_01.jpg"
           },
           {
             "id": 2,
-            "title": "محجر رخام كالكوتا التركي",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_2.webp"
+            "title": "محجر الحجر الجيري الكلاسيكي",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_02.jpg"
           },
           {
             "id": 3,
-            "title": "محجر الحجر الجيري الكلاسيكي",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_3.webp"
+            "title": "محجر بيكاسو الترافرتين",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_03.jpg"
           },
           {
             "id": 4,
-            "title": "محجر بيكاسو الترافرتين",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_4.webp"
+            "title": "كتل رخام رمادي في المحجر",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_04.jpg"
+          },
+          {
+            "id": 5,
+            "title": "لودر عند جبهة المحجر",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_05.jpg"
+          },
+          {
+            "id": 6,
+            "title": "جدار مصطبة المحجر",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_06.jpg"
+          },
+          {
+            "id": 7,
+            "title": "مصاطب المحجر المتدرجة",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_07.jpg"
           }
         ]
       },
       {
         "id": 3,
-        "header": "مستودعنا في الولايات المتحدة الأمريكية",
+        "header": "مستودع في الولايات المتحدة الأمريكية",
         "images": [
           {
             "id": 1,
@@ -1150,9 +1270,9 @@
   "product_detail": {
     "description": "وصف",
     "tab_1": "التفاصيل",
-    "tab_2": "طلب",
+    "tab_2": "الاستخدامات",
     "tab_3": "الحجم والسعر",
-    "tab_1_code": "شفرة",
+    "tab_1_code": "رمز المنتج",
     "tab_1_stonetype": "نوع الحجر",
     "tab_1_country": "دولة",
     "tab_1_varitaion": "تفاوت",

@@ -1,22 +1,23 @@
 {
   "navbar": {
-    "home": "HOME",
-    "product": "PRODUCTS",
-    "info": "INFO",
-    "about": "ABOUT",
-    "contact": "CONTACT",
-    "fabrication": "FABRICATION",
-    "videos": "VIDEOS",
-    "project": "PROJECTS",
-    "catalog": "CATALOG",
-    "categories": "CATEGORIES",
-    "colors": "COLORS",
-    "areas": "AREAS",
+    "home": "Home",
+    "product": "Products",
+    "info": "Info",
+    "about": "About",
+    "contact": "Contact",
+    "fabrication": "Fabrication",
+    "videos": "Videos",
+    "project": "Projects",
+    "catalog": "Catalog",
+    "categories": "Categories",
+    "colors": "Filtered by color",
+    "areas": "Filtered by application areas",
 
     "faq": "FAQ"
   },
   "navbar_link": {
     "home": "/",
+    "product": "/products",
     "about": "/about",
     "contact": "/contact",
     "fabrication": "/fabrication",
@@ -38,13 +39,22 @@
       },
       { "id": 7, "title": "Slabs", "link": "/product/slabs/7" },
       { "id": 8, "title": "Quartz", "link": "/product/quartz/8" },
-      { "id": 9, "title": "By-product", "link": "/product/by-product/9" },
+      { "id": 9, "title": "Complementary Products", "link": "/product/by-product/9" },
+      {
+        "id": 11,
+        "title": "3D CNC Design",
+        "link": "/product/3d-cnc-design/23"
+      },
+      {
+        "id": 12,
+        "title": "Pool Design",
+        "link": "/product/pool-design/24"
+      },
       {
         "id": 10,
         "title": "Installation Materials",
         "link": "/product/installation-materials/11"
-      },
-      { "id": 11, "title": "Plasterboard", "link": "/product/plasterboard/18" }
+      }
     ],
     "colors": [
       { "id": 1, "title": "White", "link": "/product/color/white/1" },
@@ -106,7 +116,7 @@
         { "id": 3, "value": "We control 30.000 sqm product monthly." },
         {
           "id": 4,
-          "value": "We supply natural solutions for architectural projects."
+          "value": "We supply natural solutions for sustainable architectural projects."
         }
       ],
       "socials": [
@@ -195,6 +205,36 @@
           "id": 9,
           "image": "/image/news/news-9-b.webp",
           "name": "mekmar_suppliers_news_9"
+        },
+        {
+          "id": 10,
+          "image": "/image/news/news-10-b.webp",
+          "name": "mekmar_suppliers_news_10"
+        },
+        {
+          "id": 11,
+          "image": "/image/news/news-11-b.webp",
+          "name": "mekmar_suppliers_news_11"
+        },
+        {
+          "id": 12,
+          "image": "/image/news/news-12-b.webp",
+          "name": "mekmar_suppliers_news_12"
+        },
+        {
+          "id": 13,
+          "image": "/image/news/news-13-b.webp",
+          "name": "mekmar_suppliers_news_13"
+        },
+        {
+          "id": 14,
+          "image": "/image/news/news-14-b.webp",
+          "name": "mekmar_suppliers_news_14"
+        },
+        {
+          "id": 15,
+          "image": "/image/news/news-15-b.webp",
+          "name": "mekmar_suppliers_news_15"
         }
       ]
     },
@@ -205,7 +245,6 @@
           "name": "Ozlem",
           "job": "Sales Specialist",
           "email": "export@mekmar.com",
-          "email2": "export1@mekmar.com",
           "whatsapp": "+90 542 660 8085",
           "image": "/image/personel/ozlem-yeni-2.webp",
           "webp": "/image/personel/ozlem-yeni-2.webp",
@@ -372,20 +411,26 @@
     {
       "id": 9,
       "link": "/product/by-products/9",
-      "name": "BY PRODUCTS",
+      "name": "COMPLEMENTARY PRODUCTS",
       "image": "/image/categories/by-products-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 23,
+      "link": "/product/3d-cnc-design/23",
+      "name": "3D CNC DESIGN",
+      "image": "/image/categories/cnc_design-category-main-photo-mekmar.webp"
+    },
+    {
+      "id": 24,
+      "link": "/product/pool-design/24",
+      "name": "POOL DESIGN",
+      "image": "/image/categories/pool-design-category-main-photo-mekmar.webp"
     },
     {
       "id": 11,
       "link": "/product/installation-materials/11",
       "name": "INSTALLATION MATERIALS",
       "image": "/image/categories/installation-materials-category-main-photo-mekmar.webp"
-    },
-    {
-      "id": 18,
-      "link": "/product/plasterboard/18",
-      "name": "PLASTERBOARD",
-      "image": "/image/categories/plasterboard-category-main-photo-mekmar.webp"
     }
   ],
   "about": {
@@ -467,8 +512,7 @@
       {
         "name": "Ozlem",
         "job": "Sales Specialist",
-        "email": "export1@mekmar.com",
-        "email2": "export@mekmar.com",
+        "email": "export@mekmar.com",
         "whatsapp": "+90 542 660 8085",
         "image": "https://cdn.mekmarimage.com/personel/250x250/ozlem-yeni-2.webp",
         "webp": "https://cdn.mekmarimage.com/personel/250x250/ozlem-yeni-2.webp",
@@ -496,59 +540,134 @@
     "items": [
       {
         "id": 1,
-        "header": "FACTORIES THAT WE WORK",
+        "header": "PRODUCTION",
         "images": [
           {
             "id": 1,
-            "title": "Beige Marble Epoxy Line",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_1.webp"
+            "title": "Hand Finishing Fluted Panels",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_01.webp"
           },
           {
             "id": 2,
-            "title": "Bianco Ibiza Factory",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_4.webp"
+            "title": "Loading Slabs Into Container",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_02.webp"
           },
           {
             "id": 3,
-            "title": "Groove Process for Stairs",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_2.webp"
+            "title": "Multi-Blade Cutting Line",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_03.webp"
           },
           {
             "id": 4,
-            "title": "CNC Cutting Angled Stairs",
-            "image": "/image/fabrication/fab_1/Mekmar_Factory_3.webp"
+            "title": "Bridge Saw Cutting Travertine",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_04.webp"
+          },
+          {
+            "id": 5,
+            "title": "Tile Cutting Station",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_05.webp"
+          },
+          {
+            "id": 6,
+            "title": "CNC Water-Jet Shaping",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_06.webp"
+          },
+          {
+            "id": 7,
+            "title": "Epoxy and Mesh Backing Line",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_07.webp"
+          },
+          {
+            "id": 8,
+            "title": "Filling Line for Travertine",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_08.webp"
+          },
+          {
+            "id": 9,
+            "title": "Tile Production Line",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_09.webp"
+          },
+          {
+            "id": 10,
+            "title": "Finished Tile Warehouse",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_10.webp"
+          },
+          {
+            "id": 11,
+            "title": "Slab Calibration and Polishing",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_11.webp"
+          },
+          {
+            "id": 12,
+            "title": "Slab Stock Hall",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_12.webp"
+          },
+          {
+            "id": 13,
+            "title": "Crated Stock Yard",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_13.webp"
+          },
+          {
+            "id": 14,
+            "title": "Crated Orders Ready for Export",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_14.webp"
+          },
+          {
+            "id": 15,
+            "title": "Split-Face Panels on Racks",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_15.webp"
+          },
+          {
+            "id": 16,
+            "title": "CNC Drilling",
+            "image": "/image/fabrication/fab_1/Mekmar_Factory_16.webp"
           }
         ]
       },
       {
         "id": 2,
-        "header": "QUARRIES THAT WE WORK",
+        "header": "QUARRIES",
         "images": [
           {
             "id": 1,
             "title": "Bianco Ibiza Marble Quarry",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_1.webp"
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_01.jpg"
           },
           {
             "id": 2,
-            "title": "Turkish Calacatta Marble Quarry",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_2.webp"
+            "title": "Classic Travertine Quarry",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_02.jpg"
           },
           {
             "id": 3,
-            "title": "Classic Travertine Quarry",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_3.webp"
+            "title": "Picasso Travertine Quarry",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_03.jpg"
           },
           {
             "id": 4,
-            "title": "Picasso Travertine Quarry",
-            "image": "/image/fabrication/fab_2/Mekmar_Quarry_4.webp"
+            "title": "Grey Marble Blocks at the Quarry",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_04.jpg"
+          },
+          {
+            "id": 5,
+            "title": "Loader at the Quarry Face",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_05.jpg"
+          },
+          {
+            "id": 6,
+            "title": "Quarry Bench Wall",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_06.jpg"
+          },
+          {
+            "id": 7,
+            "title": "Terraced Quarry Benches",
+            "image": "/image/fabrication/fab_2/Mekmar_Quarry_07.jpg"
           }
         ]
       },
       {
         "id": 3,
-        "header": "OUR USA WEREHOUSE",
+        "header": "USA WAREHOUSE",
         "images": [
           {
             "id": 1,
@@ -1159,20 +1278,20 @@
     ]
   },
   "product_detail": {
-    "description": "DESCRIPTION",
-    "tab_1": "DETAIL",
-    "tab_2": "APPLICATION",
-    "tab_3": "SIZE&PRICE",
-    "tab_1_code": "CODE",
-    "tab_1_stonetype": "STONE TYPE",
-    "tab_1_country": "COUNTRY",
-    "tab_1_varitaion": "VARIATION",
-    "tab_2_test_report": "Test Report/Technical Specification",
-    "tab_2_available": "Available Surfaces",
-    "benzerurun_title": "YOU MAY BE INTERESTED IN",
-    "onerilenurun_title": "SUGGESTED PRODUCTS",
-    "hastags": "HASHTAGS",
-    "specification": "PRODUCT SPECIFICATION"
+    "description": "Description",
+    "tab_1": "Detail",
+    "tab_2": "Application",
+    "tab_3": "Size & price",
+    "tab_1_code": "Code",
+    "tab_1_stonetype": "Stone type",
+    "tab_1_country": "Country",
+    "tab_1_varitaion": "Variation",
+    "tab_2_test_report": "Test report / technical specification",
+    "tab_2_available": "Available surfaces",
+    "benzerurun_title": "You may be interested in",
+    "onerilenurun_title": "Suggested products",
+    "hastags": "Hashtags",
+    "specification": "Product specification"
   },
   "variation": {
     "var_1": "MINIMUM",

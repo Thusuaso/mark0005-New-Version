@@ -1,3 +1,46 @@
+/* Emekliye ayrilan kategoriler: artik satilmiyor, sayfalari
+   server/data/retired.json ile baska bir kategoriye yonlendiriliyor.
+   Ama urunleri veritabaninda hala `yayinla=1` oldugu icin filtre
+   sorgusu (GROUP BY ... where mp.yayinla=1) onlari saymaya devam
+   ediyordu — yani filtre, tiklandiginda baska yere yonlenen bir
+   kategori gosteriyordu.
+
+   18 = Plasterboard (alcipan), 5 urun.
+
+   Kalici cozum veritabaninda: o bes urunun `yayinla` alanini 0 yapmak.
+   O zaman kategori filtreden, aramadan ve sayac toplamlarindan
+   kendiliginden duser ve buradaki listeye gerek kalmaz. */
+const RETIRED_CATEGORY_IDS = [18];
+
+/* Kategori filtresi satirlarinin linki `/product/<slug>/<id>` seklinde.
+   Renk/finis/kenar filtreleri daha uzun (`/product/filter/category/...`),
+   bu yuzden asagidaki kalip yalnizca kategori satirlarini yakaliyor —
+   diger filtre listeleri etkilenmiyor. */
+const CATEGORY_LINK = /^\/product\/[^/]+\/(\d+)$/;
+
+function isRetiredCategory(row: any): boolean {
+  const id = CATEGORY_LINK.exec(String(row?.link ?? ""))?.[1];
+  return !!id && RETIRED_CATEGORY_IDS.includes(Number(id));
+}
+
+/* SQL Server'in LOWER()'i Turkce siralama (collation) altinda 'I' harfini
+   NOKTASIZ 'ı' yapiyor. Kategori linkleri `LOWER(mk.kategori_link)` ile
+   uretildigi icin "Installation-Materials" -> "ınstallation-materials"
+   oluyordu; tarayicida `/product/%C4%B1nstallation-materials/11` diye
+   gorunuyor.
+
+   Sayfa yine aciliyor (yol eslesmesini sondaki id yapiyor, slug degil)
+   ama ayni sayfaya iki ayri adres olusuyor: ana sayfa ve site haritasi
+   noktali "installation-materials" kullaniyor, filtre noktasizini. Arama
+   motoru acisindan bu kopya icerik.
+
+   Urun adlari icin ayni sorun SQL tarafinda `REPLACE(...,'ı','i')` ile
+   cozulmus; kategori linki sorgusunda unutulmus ve o sorgu 16 ayri
+   dosyada tekrar ediyor. Burada tek yerden duzeltiliyor. */
+function fixTurkishSlug(link: string): string {
+  return link.replace(/ı/g, "i").replace(/İ/g, "i");
+}
+
 const project = {
     lang_project(payload: any, lang: any) {
         let data: { name: any; country: any;link:any }[] = [];
@@ -89,6 +132,13 @@ const project = {
     },
     lang_filter(payload: any, lang: any) {
         let data: any[] = [];
+        /* Butun filtre listeleri (kategori, renk, finis, kenar, malzeme,
+           stil, tip) bu fonksiyondan geciyor — emekli kategoriyi tek
+           yerden eleyebilmemizin sebebi bu. Dil oneki eklenmeden ONCE
+           suzuluyor, cunku kalip oneksiz linke gore yazildi. */
+        payload = (payload ?? [])
+            .filter((x: any) => !isRetiredCategory(x))
+            .map((x: any) => ({ ...x, link: fixTurkishSlug(String(x?.link ?? "")) }));
         if (lang == 'en') {
             payload.forEach((x: any) => {
                 data.push({...x, 'name': x.name_en, 'link':x.link });

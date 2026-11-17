@@ -10,6 +10,41 @@
 
 // --- zorunlu cekirdek (CSS uretmez, degisken/mixin saglar) ---
 @import "bootstrap/scss/functions";
+
+// --- govde tipografisi: Bootstrap'in KENDI degiskenleri uzerinden ---
+// Bu dort satir "variables" importundan ONCE gelmek zorunda (oradaki
+// tanimlar !default).
+//
+// Neden burada ve default.css'te degil: Bootstrap'in _reboot.scss'i
+//
+//   body { font-family: var(--bs-body-font-family);
+//          font-size: var(--bs-body-font-size);
+//          font-weight: var(--bs-body-font-weight);
+//          line-height: var(--bs-body-line-height); }
+//
+// kuralini yaziyor ve nuxt.config.ts'teki css dizisinde bu dosya
+// default.css'TEN SONRA geliyor. Ayni secici (`body`), ayni ozgulluk,
+// sonra gelen kazaniyor — yani default.css'e yazilan govde olculeri
+// sessizce eziliyordu. Olculdugunde Roboto 300 hic indirilmiyordu bile,
+// cunku 300 agirligi hicbir yere uygulanmiyordu.
+//
+// Degerler www.gammastone.com'dan: 16px / 24px satir yuksekligi /
+// agirlik 400. (Oncesinde stone.gamastone.com'dan 15px/1.8/300 idi;
+// o yanlis referansti. Ayrica Helvetica/Arial'in Light kesimi cogu
+// sistemde yok, yani 300 bu yazi tipiyle zaten tutmuyordu.)
+// Tokenlardaki --mk-body-* ile ayni; tek kaynak olmasi icin
+// buraya da CSS degiskeni yazilabilirdi ama Bootstrap bu degerleri SCSS
+// tarafinda hesaplarda da kullaniyor (form-control dolgusu, satir
+// yuksekligi), o yuzden ham deger veriliyor. Birini degistirirsen
+// digerini de guncelle.
+//
+// Ek faydasi: ayni degerler --bs-body-* uzerinden Bootstrap'in form
+// alanlarina ve butonlarina da geciyor, yani formlar govde metniyle ayni
+// olcekte duruyor.
+$font-family-base: var(--mk-ff-body);
+$font-size-base: 1rem; // 16px
+$line-height-base: 1.5; // 24/16
+$font-weight-base: 400;
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/variables-dark";
 @import "bootstrap/scss/maps";

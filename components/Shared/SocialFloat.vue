@@ -29,19 +29,31 @@
     <button
       type="button"
       class="social_float_btn"
+      :class="{ 'is-open': open }"
       :aria-label="t.label"
       :aria-expanded="open"
       @click="open = !open"
     >
-      <!-- Ikon yerine sosyal medya logolarinin 2x2 kucuk onizlemesi;
-           ilk dort sosyal hesap veriden geliyor. Renk CSS'ten (beyaz) —
-           marka renkleri acilan listede. -->
-      <span class="social_float_grid" aria-hidden="true">
-        <i
-          v-for="social of previewSocials"
-          :key="social.link"
-          :class="social.icon"
-        ></i>
+      <!-- Eskiden ilk dort hesabin logosu 2x2 sikisiyordu: 58px icinde dort
+           marka ikonu okunmuyor, kalabalik duruyordu. Yerine tek bir
+           "paylas" isareti — ucu nokta, ikisi cizgiyle bagli. Acikken X'e
+           donusuyor, yani dugme ayni zamanda kapatma dugmesi oldugunu
+           soyluyor. -->
+      <span class="social_float_mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="2.6" />
+          <circle cx="6" cy="12" r="2.6" />
+          <circle cx="18" cy="19" r="2.6" />
+          <path d="M8.3 10.8 15.7 6.4M8.3 13.2l7.4 4.4" />
+        </svg>
+      </span>
+
+      <span class="social_float_close" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.8" stroke-linecap="round">
+          <path d="M7 7l10 10M17 7 7 17" />
+        </svg>
       </span>
     </button>
   </div>
@@ -73,8 +85,9 @@ const socials = computed(() => {
 
 const BRANDS: Record<string, string> = {
   facebook: "#1877f2",
-  twitter: "#000000",
-  x: "#000000",
+  /* X/Twitter siyahi paletin koyusuyla ayni tutuluyor. */
+  twitter: "#141414",
+  x: "#141414",
   youtube: "#ff0000",
   instagram: "#e4405f",
   pinterest: "#bd081c",
@@ -83,28 +96,34 @@ const BRANDS: Record<string, string> = {
   telegram: "#229ed9",
 };
 
-/* Butonun uzerindeki mini logo izgarasi: ilk dort hesap. */
-const previewSocials = computed(() => socials.value.slice(0, 4));
-
+/* Taninmayan bir hesap gelirse marka rengi yerine temanin vurgu tonu. */
 const brandColor = (name?: string) =>
-  BRANDS[String(name).toLowerCase()] ?? "#1357bc";
+  BRANDS[String(name).toLowerCase()] ?? "#141414";
 
 const open = ref(false);
 </script>
 
 <style scoped>
+/* Gorunum temaya cekildi: eskiden marka mavisi gradyan (#3b86e8 -> #0c3f8f)
+   bir dugme ve acilan listede her hesabin kendi marka rengi vardi; krem +
+   grafit paletle catisiyordu.
+
+   Simdi dugme koyu grafit (--mk-ink) uzerine krem ikonlar, acilan ikonlar da
+   krem zemin + grafit ikon. Marka renkleri yalnizca hover'da beliriyor —
+   hangi hesaba bakildigi anlasiliyor ama durgun halde palet bozulmuyor. */
+
 /* WhatsApp butonunun hemen ustunde duruyor: 20px taban + 58px buton + 12px
    bosluk. WhatsappFloat.vue'daki olculer degisirse burayi da guncelle. */
 .social_float {
   position: fixed;
   right: calc(20px + env(safe-area-inset-right, 0px));
-  bottom: calc(90px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(150px + env(safe-area-inset-bottom, 0px));
   z-index: 1040;
   display: flex;
   align-items: center;
 }
 
-/* WhatsApp butonuyla ayni olcu (58px) — ikisi dikey eksende hizali duruyor. */
+/* WhatsApp butonuyla ayni olcu (58px) — ikisi dikey eksende hizali. */
 .social_float_btn {
   position: relative;
   display: inline-flex;
@@ -113,20 +132,23 @@ const open = ref(false);
   width: 58px;
   height: 58px;
   padding: 0;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 50%;
-  background: linear-gradient(145deg, #3b86e8 0%, #1357bc 55%, #0c3f8f 100%);
-  overflow: hidden;
+  background: var(--mk-ink);
+  /* overflow: hidden YOK: cevredeki nabiz halkasi (::before) dugmenin
+     disina dogru buyuyor, kirpilmamasi gerekiyor. Ic katmanlar kendi
+     border-radius'lariyla zaten daire icinde kaliyor. */
   cursor: pointer;
   box-shadow:
-    0 10px 26px rgba(19, 87, 188, 0.4),
-    0 2px 6px rgba(15, 23, 42, 0.18);
+    0 10px 26px rgba(20, 20, 20, 0.32),
+    0 2px 6px rgba(20, 20, 20, 0.18);
   transition:
     transform 0.2s ease,
+    background-color 0.25s ease,
     box-shadow 0.2s ease;
 }
 
-/* Ust kenarda yumusak parlama — cam hissi. */
+/* Ust kenarda cok hafif parlama — cam hissi, ama krem tonunda. */
 .social_float_btn::after {
   content: "";
   position: absolute;
@@ -134,38 +156,94 @@ const open = ref(false);
   border-radius: 50%;
   background: radial-gradient(
     120% 80% at 30% 10%,
-    rgba(255, 255, 255, 0.38),
+    rgba(255, 255, 255, 0.16),
     rgba(255, 255, 255, 0) 62%
   );
   pointer-events: none;
 }
 
-/* Mini logolar 2x2 — buton tek basina "sosyal medya" oldugunu anlatsin. */
-.social_float_grid {
-  position: relative;
+/* --- Isaret --- */
+/* Iki katman ust uste: paylas isareti ve X. Acikken yerlerini degistiriyorlar
+   (biri doner-kaybolur, digeri doner-gelir), yani dugme hem acma hem kapatma
+   oldugunu kendisi anlatiyor. */
+.social_float_mark,
+.social_float_close {
+  position: absolute;
+  inset: 0;
   z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 3px;
-  place-items: center;
-  line-height: 1;
-  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mk-cream);
+  transition:
+    opacity 0.28s var(--mk-ease),
+    transform 0.4s var(--mk-ease);
 }
 
-.social_float_grid i {
-  font-size: 15px;
+.social_float_mark svg,
+.social_float_close svg {
+  width: 21px;
+  height: 21px;
+}
+
+.social_float_close {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.7);
+}
+
+.social_float_btn.is-open .social_float_mark {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.7);
+}
+
+.social_float_btn.is-open .social_float_close {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+/* Dugmenin cevresinde ince bir halka: durgun halde nabiz gibi atiyor,
+   dikkat ceksin ama rahatsiz etmesin. Acikken duruyor. */
+.social_float_btn::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid var(--mk-accent);
+  opacity: 0;
+  animation: sf-ring 3.2s var(--mk-ease) infinite;
+  pointer-events: none;
+}
+
+.social_float_btn.is-open::before,
+.social_float:hover .social_float_btn::before {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes sf-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
 }
 
 .social_float:hover .social_float_btn,
 .social_float:focus-within .social_float_btn {
   transform: scale(1.06);
+  /* Acikken vurgu tonuna donuyor: liste acildi geri bildirimi. */
+  background: var(--mk-accent);
   box-shadow:
-    0 14px 32px rgba(19, 87, 188, 0.5),
-    0 2px 6px rgba(15, 23, 42, 0.18);
+    0 14px 32px rgba(20, 20, 20, 0.38),
+    0 2px 6px rgba(20, 20, 20, 0.18);
 }
 
 .social_float_btn:focus-visible {
-  outline: 3px solid #0c3f8f;
+  outline: 3px solid var(--mk-accent);
   outline-offset: 3px;
 }
 
@@ -206,13 +284,13 @@ const open = ref(false);
   justify-content: center;
   width: 42px;
   height: 42px;
-  border: 1px solid rgba(15, 23, 42, 0.06);
+  border: 1px solid var(--mk-border);
   border-radius: 50%;
-  background: #fff;
-  color: var(--brand, #1357bc);
+  background: var(--mk-cream);
+  color: var(--mk-ink);
   font-size: 19px;
   text-decoration: none;
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.16);
+  box-shadow: 0 6px 18px rgba(20, 20, 20, 0.16);
   transition:
     background-color 0.2s ease,
     border-color 0.2s ease,
@@ -221,16 +299,17 @@ const open = ref(false);
     transform 0.2s ease;
 }
 
+/* Marka rengi yalnizca hover'da: durgun halde palet tek ses. */
 .social_float_list a:hover {
-  background: var(--brand, #1357bc);
-  border-color: var(--brand, #1357bc);
-  color: #fff;
+  background: var(--brand, var(--mk-accent));
+  border-color: var(--brand, var(--mk-accent));
+  color: var(--mk-cream);
   transform: translateY(-3px);
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.24);
+  box-shadow: 0 10px 22px rgba(20, 20, 20, 0.24);
 }
 
 .social_float_list a:focus-visible {
-  outline: 3px solid var(--brand, #1357bc);
+  outline: 3px solid var(--brand, var(--mk-accent));
   outline-offset: 2px;
 }
 
@@ -238,7 +317,7 @@ const open = ref(false);
   /* Mobilde WhatsApp butonu 52px ve taban 14px. */
   .social_float {
     right: calc(14px + env(safe-area-inset-right, 0px));
-    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(136px + env(safe-area-inset-bottom, 0px));
   }
 
   .social_float_btn {
@@ -246,8 +325,10 @@ const open = ref(false);
     height: 52px;
   }
 
-  .social_float_grid i {
-    font-size: 13px;
+  .social_float_mark svg,
+  .social_float_close svg {
+    width: 19px;
+    height: 19px;
   }
 
   .social_float_list {
@@ -262,6 +343,13 @@ const open = ref(false);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .social_float_btn::before {
+    animation: none;
+    opacity: 0;
+  }
+
+  .social_float_mark,
+  .social_float_close,
   .social_float_btn,
   .social_float_list li,
   .social_float_list a {

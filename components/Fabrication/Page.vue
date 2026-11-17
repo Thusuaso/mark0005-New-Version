@@ -75,11 +75,28 @@
             :data-fancybox="`fab_${sec.key}`"
             :data-caption="img.title"
           >
-            <img :src="img.image" :alt="img.title" loading="lazy" />
+            <!-- <img> DEGIL <NuxtImg>: fab_1'e 16, fab_2'ye 7 yeni
+                 fotograf eklendi ve hepsi 4096x4096, 1.4-4.7 MB. Ham
+                 halleriyle bu sayfa tek acilista ~60 MB indiriyordu;
+                 NuxtImg kutunun olcusune gore kuculmus surumleri
+                 uretiyor. Fancybox'a giden <a href> hala ORIJINALI
+                 gosteriyor — buyutunce tam cozunurluk gelsin diye. -->
+            <NuxtImg
+              :src="img.image"
+              :alt="img.title"
+              sizes="xs:100vw sm:100vw md:50vw lg:50vw xl:640px xxl:640px"
+              loading="lazy"
+              decoding="async"
+            />
+            <!-- FOTOGRAF USTU YAZI KALDIRILDI (.fab_photo_caption).
+                 Ad kaybolmadi: tiklaninca Fancybox'ta alt yazi olarak
+                 geliyor (data-caption) ve <NuxtImg>'in alt metninde
+                 ekran okuyucuya veriliyor. Ana sayfadaki ayni izgarada
+                 (Home/Facilities.vue) da bu yazilar kaldirilmisti;
+                 ikisi artik ayni dili konusuyor. -->
             <span class="fab_photo_zoom" aria-hidden="true"
               ><i class="bi-arrows-fullscreen"></i
             ></span>
-            <span class="fab_photo_caption">{{ img.title }}</span>
           </a>
         </div>
       </section>
@@ -154,14 +171,14 @@ const texts: Record<
         text: "Marble and travertine blocks are selected directly at the source for consistent colour, veining and quality.",
       },
       factories: {
-        title: "Factories We Work With",
+        title: "Production",
         short: "Precision processing",
         text: "Modern production lines — epoxy, CNC cutting and custom processing — turn raw blocks into finished products.",
       },
       warehouse: {
-        title: "Our USA Warehouse",
+        title: "USA Warehouse",
         short: "Ready stock",
-        text: "Samples, available stock and special orders ready to ship from our warehouse in the United States.",
+        text: "Samples, available stock and special orders ready to ship from the warehouse in the United States.",
       },
     },
     cta_title: "Have a custom project in mind?",
@@ -198,14 +215,14 @@ const texts: Record<
         text: "Les blocs de marbre et de travertin sont sélectionnés directement à la source pour une couleur, un veinage et une qualité constants.",
       },
       factories: {
-        title: "Nos usines partenaires",
+        title: "Production",
         short: "Transformation précise",
         text: "Des lignes de production modernes — époxy, découpe CNC et façonnage sur mesure — transforment les blocs bruts en produits finis.",
       },
       warehouse: {
-        title: "Notre entrepôt aux États-Unis",
+        title: "Entrepôt aux États-Unis",
         short: "Stock disponible",
-        text: "Échantillons, stock disponible et commandes spéciales prêts à être expédiés depuis notre entrepôt aux États-Unis.",
+        text: "Échantillons, stock disponible et commandes spéciales prêts à être expédiés depuis l'entrepôt aux États-Unis.",
       },
     },
     cta_title: "Vous avez un projet sur mesure ?",
@@ -242,14 +259,14 @@ const texts: Record<
         text: "Los bloques de mármol y travertino se seleccionan directamente en origen para garantizar color, veteado y calidad uniformes.",
       },
       factories: {
-        title: "Fábricas con las que trabajamos",
+        title: "Producción",
         short: "Procesado de precisión",
         text: "Líneas de producción modernas — epoxi, corte CNC y procesado a medida — convierten los bloques en productos terminados.",
       },
       warehouse: {
-        title: "Nuestro almacén en EE. UU.",
+        title: "Almacén en EE. UU.",
         short: "Stock disponible",
-        text: "Muestras, stock disponible y pedidos especiales listos para enviar desde nuestro almacén en Estados Unidos.",
+        text: "Muestras, stock disponible y pedidos especiales listos para enviar desde el almacén en Estados Unidos.",
       },
     },
     cta_title: "¿Tiene un proyecto a medida?",
@@ -286,14 +303,14 @@ const texts: Record<
         text: "Блоки мрамора и травертина отбираются прямо на месте добычи — для стабильного цвета, рисунка и качества.",
       },
       factories: {
-        title: "Заводы, с которыми мы работаем",
+        title: "Производство",
         short: "Точная обработка",
         text: "Современные производственные линии — эпоксидная обработка, резка на ЧПУ и индивидуальная обработка — превращают блоки в готовую продукцию.",
       },
       warehouse: {
-        title: "Наш склад в США",
+        title: "Склад в США",
         short: "Товар в наличии",
-        text: "Образцы, товар в наличии и специальные заказы готовы к отправке с нашего склада в США.",
+        text: "Образцы, товар в наличии и специальные заказы готовы к отправке со склада в США.",
       },
     },
     cta_title: "Есть индивидуальный проект?",
@@ -326,14 +343,14 @@ const texts: Record<
         text: "يتم اختيار كتل الرخام والترافرتين مباشرة من المصدر لضمان ثبات اللون والعروق والجودة.",
       },
       factories: {
-        title: "المصانع التي نعمل معها",
+        title: "الإنتاج",
         short: "معالجة دقيقة",
         text: "خطوط إنتاج حديثة — الإيبوكسي والقص بالـ CNC والمعالجة حسب الطلب — تحوّل الكتل الخام إلى منتجات نهائية.",
       },
       warehouse: {
-        title: "مستودعنا في الولايات المتحدة",
+        title: "مستودع في الولايات المتحدة",
         short: "مخزون جاهز",
-        text: "عينات ومخزون متوفر وطلبات خاصة جاهزة للشحن من مستودعنا في الولايات المتحدة.",
+        text: "عينات ومخزون متوفر وطلبات خاصة جاهزة للشحن من المستودع في الولايات المتحدة.",
       },
     },
     cta_title: "هل لديك مشروع حسب الطلب؟",
@@ -610,11 +627,21 @@ function scrollToSection(key: string) {
   line-height: 1.6;
 }
 
-/* Bento galeri: ilk fotograf buyuk, digerleri yaninda */
+/* Bento galeri: ilk fotograf buyuk, digerleri yaninda.
+
+   grid-auto-rows SART: `grid-template-rows` yalnizca IKI satir
+   tanimliyor ve duzen dort fotografa gore kurulmustu (ilk oge iki
+   satir, dorduncu oge iki kolon). Bolumlere yeni fotograflar eklenince
+   (SUB SUPPLIERS 16, QUARRIES 7) besinciden sonrakiler ortuk satirlara
+   dusuyor; ortuk satirlarin varsayilan yuksekligi `auto` ve
+   icerideki <img> height:100% tasidigi icin o satirlar SIFIR
+   yukseklige cokuyordu — fotograflar kayboluyordu. Ortuk satirlar da
+   220px. */
 .fab_gallery {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   grid-template-rows: repeat(2, 220px);
+  grid-auto-rows: 220px;
   gap: 0.75rem;
 }
 
@@ -643,34 +670,13 @@ function scrollToSection(key: string) {
   transition: transform 0.5s ease;
 }
 
-.fab_photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(10, 15, 30, 0.72));
-  transition: opacity 0.3s ease;
-}
+/* ALTTAN YUKARI KARARTMA DA KALDIRILDI (.fab_photo::after).
+   Tek isi uzerindeki beyaz yaziyi okunur kilmakti; yazi gidince geriye
+   her fotografin alt yarisini koyultan, hicbir sey anlatmayan bir
+   katman kaliyordu. Fotograflar artik oldugu gibi gorunuyor. */
 
 .fab_photo:hover img {
   transform: scale(1.05);
-}
-
-.fab_photo_caption {
-  position: absolute;
-  inset-inline: 0;
-  bottom: 0;
-  z-index: 1;
-  padding: 0.9rem 1rem;
-  color: #fff;
-  font-size: 14.5px;
-  font-weight: 600;
-  line-height: 1.35;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.fab_photo:first-child .fab_photo_caption {
-  padding: 1.2rem 1.3rem;
-  font-size: 17px;
 }
 
 .fab_photo_zoom {
@@ -775,6 +781,7 @@ function scrollToSection(key: string) {
   .fab_gallery {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 280px repeat(2, 180px);
+    grid-auto-rows: 180px;
   }
 
   .fab_photo:first-child {
@@ -819,12 +826,10 @@ function scrollToSection(key: string) {
 
   .fab_gallery {
     grid-template-rows: 220px repeat(2, 140px);
+    /* 991.98px dalindaki ile ayni gerekce: acik satirlardan sonrasi
+       ortuk satirlara dusuyor ve olcu verilmezse sifira cokuyor. */
+    grid-auto-rows: 140px;
     gap: 0.5rem;
-  }
-
-  .fab_photo_caption {
-    padding: 0.6rem 0.7rem;
-    font-size: 13px;
   }
 
   .fab_photo_zoom {

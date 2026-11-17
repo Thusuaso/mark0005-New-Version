@@ -1,5 +1,9 @@
 <template>
   <div class="pl" :dir="isRtl ? 'rtl' : 'ltr'">
+    <!-- Izde menudeki kisa ad kullaniliyor; sayfa basligi ("Mekmar Projects
+         Worldwide") bir iz basamagi icin fazla uzun. -->
+    <SharedBreadcrumb class="pl_crumbs" :items="[{ label: projectsLabel }]" />
+
     <!-- Baslik -->
     <header class="pl_hero">
       <span class="pl_eyebrow"><i class="bi-buildings" aria-hidden="true"></i>{{ t.eyebrow }}</span>
@@ -19,10 +23,13 @@
 
       <ul class="pl_stats">
         <li class="pl_stat">
-          <strong>100</strong><span>{{ t.stat_projects }}</span>
+          <strong>100+</strong><span>{{ t.stat_projects }}</span>
         </li>
         <li class="pl_stat">
-          <strong>{{ countries.length }}</strong><span>{{ t.stat_countries }}</span>
+          <!-- "+" yanindaki iki rakamla ayni dil ("100+", "<yil>+").
+               Sayinin kendisi gercek: veri icindeki benzersiz ulke
+               sayisi. -->
+          <strong>{{ countries.length }}+</strong><span>{{ t.stat_countries }}</span>
         </li>
         <li class="pl_stat">
           <strong>{{ years }}+</strong><span>{{ t.stat_years }}</span>
@@ -101,6 +108,11 @@ import { yearsSince } from "~/utils/years";
 const PAGE = 12;
 
 const store = useStore();
+
+/* Izdeki "Projeler" basamagi: ust menudeki kisa ad (dil dosyasindan). */
+const projectsLabel = computed(
+  () => ((store.getNavbar as Record<string, string>) ?? {}).project || "Projects",
+);
 const { lang, t, isRtl, contactLink } = useProjectTexts(store.getLang);
 
 const aiNotice = store.getProjectAiNotice as string;
