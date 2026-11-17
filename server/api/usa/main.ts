@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
             '/usa/stock/product/detail/' + TRIM(STR(k.ID)) as link
 
             from DepoUrunKartTB k,DepoUrunKart_MekmarSiteTB u,MekmarCom_StockListYeni ms
-			where MekmarSite=1 and u.UrunId=k.ID and u.TurkiyeStock=0 and ms.SkuNo = k.SkuNo
+			where MekmarSite=1 and u.UrunId=k.ID and u.TurkeyStock=0 and ms.SkuNo = k.SkuNo
             and u.Yayinla=1 and ms.StockSqft >0
             order by ms.StockSqft desc
     `;
@@ -61,7 +61,7 @@ export default defineEventHandler(async (event) => {
             DepoUrunKartTB d,DepoUrunKart_MekmarSiteTB k,MekmarCom_StockListYeni ms
             where
             d.MekmarSite=1 and k.UrunId = d.ID
-            and k.Yayinla=1 and k.TurkiyeStock = 0 and d.SkuNo = ms.SkuNo and ms.StockSqft >0
+            and k.Yayinla=1 and k.TurkeyStock = 0 and d.SkuNo = ms.SkuNo and ms.StockSqft >0
             group by k.renk_en,k.renk_fr,k.renk_es
             order by count(*) desc
     `;
@@ -91,27 +91,31 @@ select
             group by m.Size,m.LinkSize
             order by count(*) desc
     `;
-  return new Promise(async (resolve, reject) => {
-    (await api).query(productsSql, async (err, products) => {
-      (await api).query(usageAreaSql, async (err, usage) => {
-        (await api).query(categorySql, async (err, category) => {
-          (await api).query(colorSql, async (err, color) => {
-            (await api).query(sizeSql, async (err, size) => {
-              (await api).query(mosaicSizeSql, async (err, mosaic) => {
-                const data = {
-                  products: products?.recordset,
-                  usage: usage?.recordset,
-                  category: category?.recordset,
-                  color: color?.recordset,
-                  size: size?.recordset,
-                  mosaic: mosaic?.recordset,
-                };
-                resolve(data);
-              });
-            });
-          });
-        });
-      });
-    });
-  });
+  /* Alti sorgu PARALEL kosuyor.
+
+     Oncesinde ic ice callback'lerle sirayla kosuyorlardi: her biri bir
+     oncekinin sonucunu beklemek zorunda degilken /usa/stock 3.5 saniye
+     suruyordu. Aralarinda bagimlilik yok, Promise.all ile en yavas
+     sorgu kadar suruyor.
+
+     Ayrica callback imzasindaki `err` HIC OKUNMUYORDU: bir sorgu
+     patlayinca `products?.recordset` sessizce undefined doner, sayfa da
+     ilgisiz bir yerde "Cannot read properties of undefined (reading
+     'forEach')" ile cokerdi. DepoUrunKart_MekmarSiteTB'de TurkiyeStock
+     kolonu TurkeyStock olarak yeniden adlandirildiginda tam bu oldu ve
+     hatanin kaynagini SQL'de aramak gerekti. Artik hata yukari
+     tasiniyor: 500 donerken mesajda SQL'in kendi sikayeti yaziyor. */
+  const pool = await api;
+  const run = async (sql: string) => (await pool.request().query(sql)).recordset;
+
+  const [products, usage, category, color, size, mosaic] = await Promise.all([
+    run(productsSql),
+    run(usageAreaSql),
+    run(categorySql),
+    run(colorSql),
+    run(sizeSql),
+    run(mosaicSizeSql),
+  ]);
+
+  return { products, usage, category, color, size, mosaic };
 });

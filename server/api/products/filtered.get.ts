@@ -1,7 +1,10 @@
 import mssql from "mssql";
 import api from "~/sql/api";
 import {
+  CATEGORY_AREA_SOURCE,
   FILTER_KEYS,
+  areaSourceFor,
+  demoteSourcesFor,
   availableFilters,
   readFilters,
   type ActiveFilters,
@@ -43,14 +46,14 @@ const DIMENSIONS: Record<
     subquery: (placeholders: string) => string;
     valueType: mssql.ISqlType | (() => mssql.ISqlType);
     /* Boyutun secenek listesini + sayimlarini uretir. */
-    options: (whereExtra: string) => string;
+    options: (scope: string, whereExtra: string) => string;
   }
 > = {
   color: {
     subquery: (ph) =>
       `select mur.UrunId from MekmarCom_UrunlerRenkList mur where mur.RenkId in (${ph})`,
     valueType: mssql.Int,
-    options: (whereExtra) => `
+    options: (scope, whereExtra) => `
       select
         count(distinct mp.urunid) as Filtered,
         mpc.renk_en as name_en, mpc.renk_fr as name_fr, mpc.renk_es as name_es,
@@ -59,7 +62,7 @@ const DIMENSIONS: Record<
       from MekmarCom_ProductsColor mpc
       inner join MekmarCom_UrunlerRenkList mur on mur.RenkId = mpc.ID
       inner join MekmarCom_Products mp on mp.urunid = mur.UrunId
-      where mp.yayinla = 1 and mp.kategori_id = @cat ${whereExtra}
+      where mp.yayinla = 1 and ${scope} ${whereExtra}
       group by mpc.renk_en, mpc.renk_fr, mpc.renk_es, mpc.renk_ru, mpc.renk_ar, mpc.ID
       order by count(distinct mp.urunid) desc`,
   },
@@ -71,7 +74,7 @@ const DIMENSIONS: Record<
       `select mfi.urunid from MekmarCom_Finish mfi
          where lower(replace(ltrim(rtrim(mfi.finish_en)), ' ', '-')) in (${ph})`,
     valueType: mssql.NVarChar,
-    options: (whereExtra) => `
+    options: (scope, whereExtra) => `
       select
         count(distinct mp.urunid) as Filtered,
         mfi.finish_en as name_en, mfi.finish_fr as name_fr, mfi.finish_es as name_es,
@@ -79,7 +82,7 @@ const DIMENSIONS: Record<
         lower(replace(ltrim(rtrim(mfi.finish_en)), ' ', '-')) as value
       from MekmarCom_Finish mfi
       inner join MekmarCom_Products mp on mp.urunid = mfi.urunid
-      where mp.yayinla = 1 and mp.kategori_id = @cat ${whereExtra}
+      where mp.yayinla = 1 and ${scope} ${whereExtra}
       group by mfi.finish_en, mfi.finish_fr, mfi.finish_es, mfi.finish_ru, mfi.finish_ar
       order by count(distinct mp.urunid) desc`,
   },
@@ -88,7 +91,7 @@ const DIMENSIONS: Record<
     subquery: (ph) =>
       `select mkf.UrunId from MekmarCom_KenarFiltered mkf where mkf.KenarId in (${ph})`,
     valueType: mssql.Int,
-    options: (whereExtra) => `
+    options: (scope, whereExtra) => `
       select
         count(distinct mp.urunid) as Filtered,
         mkl.KenarEn as name_en, mkl.KenarFr as name_fr, mkl.KenarEs as name_es,
@@ -97,7 +100,7 @@ const DIMENSIONS: Record<
       from MekmarCom_KenarList mkl
       inner join MekmarCom_KenarFiltered mkf on mkf.KenarId = mkl.ID
       inner join MekmarCom_Products mp on mp.urunid = mkf.UrunId
-      where mp.yayinla = 1 and mp.kategori_id = @cat ${whereExtra}
+      where mp.yayinla = 1 and ${scope} ${whereExtra}
       group by mkl.KenarEn, mkl.KenarFr, mkl.KenarEs, mkl.KenarRu, mkl.KenarAr, mkl.ID
       order by count(distinct mp.urunid) desc`,
   },
@@ -106,7 +109,7 @@ const DIMENSIONS: Record<
     subquery: (ph) =>
       `select mmf.UrunId from MekmarCom_MateryalFiltered mmf where mmf.MateryalId in (${ph})`,
     valueType: mssql.Int,
-    options: (whereExtra) => `
+    options: (scope, whereExtra) => `
       select
         count(distinct mp.urunid) as Filtered,
         mml.MateryalEn as name_en, mml.MateryalFr as name_fr, mml.MateryalEs as name_es,
@@ -115,7 +118,7 @@ const DIMENSIONS: Record<
       from MekmarCom_MateryalList mml
       inner join MekmarCom_MateryalFiltered mmf on mmf.MateryalId = mml.ID
       inner join MekmarCom_Products mp on mp.urunid = mmf.UrunId
-      where mp.yayinla = 1 and mp.kategori_id = @cat ${whereExtra}
+      where mp.yayinla = 1 and ${scope} ${whereExtra}
       group by mml.MateryalEn, mml.MateryalFr, mml.MateryalEs, mml.MateryalRu, mml.MateryalAr, mml.ID
       order by count(distinct mp.urunid) desc`,
   },
@@ -124,7 +127,7 @@ const DIMENSIONS: Record<
     subquery: (ph) =>
       `select msf.UrunId from MekmarCom_StilFiltered msf where msf.StilId in (${ph})`,
     valueType: mssql.Int,
-    options: (whereExtra) => `
+    options: (scope, whereExtra) => `
       select
         count(distinct mp.urunid) as Filtered,
         msl.StilEn as name_en, msl.StilFr as name_fr, msl.StilEs as name_es,
@@ -133,7 +136,7 @@ const DIMENSIONS: Record<
       from MekmarCom_StilList msl
       inner join MekmarCom_StilFiltered msf on msf.StilId = msl.ID
       inner join MekmarCom_Products mp on mp.urunid = msf.UrunId
-      where mp.yayinla = 1 and mp.kategori_id = @cat ${whereExtra}
+      where mp.yayinla = 1 and ${scope} ${whereExtra}
       group by msl.StilEn, msl.StilFr, msl.StilEs, msl.StilRu, msl.StilAr, msl.ID
       order by count(distinct mp.urunid) desc`,
   },
@@ -142,7 +145,7 @@ const DIMENSIONS: Record<
     subquery: (ph) =>
       `select mtf.UrunId from MekmarCom_TurFiltered mtf where mtf.TurId in (${ph})`,
     valueType: mssql.Int,
-    options: (whereExtra) => `
+    options: (scope, whereExtra) => `
       select
         count(distinct mp.urunid) as Filtered,
         mtl.TurEn as name_en, mtl.TurFr as name_fr, mtl.TurEs as name_es,
@@ -151,7 +154,7 @@ const DIMENSIONS: Record<
       from MekmarCom_TurList mtl
       inner join MekmarCom_TurFiltered mtf on mtf.TurId = mtl.ID
       inner join MekmarCom_Products mp on mp.urunid = mtf.UrunId
-      where mp.yayinla = 1 and mp.kategori_id = @cat ${whereExtra}
+      where mp.yayinla = 1 and ${scope} ${whereExtra}
       group by mtl.TurEn, mtl.TurFr, mtl.TurEs, mtl.TurRu, mtl.TurAr, mtl.ID
       order by count(distinct mp.urunid) desc`,
   },
@@ -213,6 +216,45 @@ export default defineEventHandler(async (event) => {
   const active = readFilters(query as Record<string, any>, categoryId);
   const pool = await api;
 
+  /* --- Kategorinin kapsami ---
+     Normalde "bu kategoriye atanmis urunler". Sanal kategorilerde (bkz.
+     CATEGORY_AREA_SOURCE) buna o alandaki urunler de ekleniyor: Pool
+     Design'in kendi urunu yok, icerigi alan = Pool'dan geliyor.
+
+     Tek bir metin olarak uretiliyor cunku hem urun sorgusu hem alti
+     facet sayimi ayni kapsami kullanmak zorunda — biri 24'e atanmislari,
+     digeri alandakileri sayarsa yan menudeki sayilar listeyle
+     tutmazdi. */
+  const areaSrc = areaSourceFor(categoryId);
+  const scope = areaSrc
+    ? `(mp.kategori_id = @cat or mp.urunid in (
+         select mpa.UrunId from MekmarCom_ProductAreas mpa
+         where mpa.AreaId = @areaSrc))`
+    : "mp.kategori_id = @cat";
+
+  /* --- Siralama ---
+     Sanal kategoride `mp.sira` tek basina yetmiyor: sira kategori ICINDE
+     anlamli, kategoriler ARASINDA degil. Pool Design'da Kalekim
+     yapistirici/harc (kategori 11) sira 718 ve 724 ile travertine
+     paver'larin arasina dusuyordu.
+
+     CASE once kaynak kategoriye gore iki kumeye ayiriyor (taslar 0,
+     yardimci malzeme 1), kume icinde sira korunuyor. Kural tanimli
+     degilse ORDER BY eskisi gibi sadece `mp.sira`.
+
+     Id'ler parametre olarak baglaniyor, SQL metnine gomulmuyor. */
+  const demote = demoteSourcesFor(categoryId);
+  const demoteBinds = demote.map((id, i) => ({
+    name: `demote${i}`,
+    type: mssql.Int,
+    value: id,
+  }));
+  const demoteOrder = demote.length
+    ? `case when mp.kategori_id in (${demoteBinds
+        .map((b) => `@${b.name}`)
+        .join(",")}) then 1 else 0 end asc, `
+    : "";
+
   /* Yardimci: sorguyu parametrelerle kosar. */
   const run = async (
     sql: string,
@@ -220,13 +262,16 @@ export default defineEventHandler(async (event) => {
   ) => {
     const request = pool.request();
     request.input("cat", mssql.Int, categoryId);
+    if (areaSrc) request.input("areaSrc", mssql.Int, areaSrc);
     for (const bind of binds) request.input(bind.name, bind.type, bind.value);
     const result = await request.query(sql);
     return result.recordset ?? [];
   };
 
   /* --- Urunler: tum filtreler uygulanmis --- */
-  const productBinds: { name: string; type: any; value: any }[] = [];
+  const productBinds: { name: string; type: any; value: any }[] = [
+    ...demoteBinds,
+  ];
   const productWhere = buildWhere(active, productBinds);
 
   const productsSql = `
@@ -240,8 +285,8 @@ export default defineEventHandler(async (event) => {
         + TRIM(REPLACE(REPLACE(LOWER(mp.urunadi_en), ' ', '-'), 'ı', 'i'))
         + '/' + TRIM(STR(mp.urunid))) as link
     from MekmarCom_Products mp
-    where mp.yayinla = 1 and mp.kategori_id = @cat ${productWhere}
-    order by mp.sira asc`;
+    where mp.yayinla = 1 and ${scope} ${productWhere}
+    order by ${demoteOrder}mp.sira asc`;
 
   /* --- Kategori listesi: filtrelerden bagimsiz (her zaman tam liste) ---
      Kategori degistirmek filtreleri sifirliyor, o yuzden sayimlar da
@@ -261,10 +306,53 @@ export default defineEventHandler(async (event) => {
              mk.kategoriadi_ru, mk.kategoriadi_ar, mk.Id, mk.kategori_link
     order by mk.Id`;
 
-  const [products, category_f] = await Promise.all([
+  /* --- Sanal kategorilerin kategori listesindeki satiri ---
+     categorySql sayimlari kategori_id'ye gore yapiyor ve inner join
+     kullaniyor; kendi urunu olmayan bir sanal kategori (Pool Design)
+     listeden tamamen dusuyordu. Yani sayfasi 47 urun gosterirken yan
+     menude adi hic gecmiyordu.
+
+     Her sanal kategori icin tek bir ek sorgu kosuluyor ve satir listeye
+     katiliyor. Sayim sayfanin kendi kapsamiyla ayni formulu kullaniyor,
+     boylece menudeki sayi ile listedeki urun sayisi ayni. */
+  const virtualCategorySql = `
+    select
+      (select count(distinct mp.urunid)
+         from MekmarCom_Products mp
+         where mp.yayinla = 1
+           and (mp.kategori_id = @vcat
+                or mp.urunid in (
+                  select mpa.UrunId from MekmarCom_ProductAreas mpa
+                  where mpa.AreaId = @varea))) as Filtered,
+      mk.kategoriadi_en as name_en, mk.kategoriadi_fr as name_fr,
+      mk.kategoriadi_es as name_es, mk.kategoriadi_ru as name_ru,
+      mk.kategoriadi_ar as name_ar,
+      mk.Id as value,
+      ('/product/' + TRIM(LOWER(mk.kategori_link))) + '/' + TRIM(LOWER(STR(mk.Id))) as link
+    from MekmarCom_Kategoriler mk
+    where mk.Id = @vcat`;
+
+  const [products, baseCategories, ...virtualRows] = await Promise.all([
     run(productsSql, productBinds),
     run(categorySql, []),
+    ...Object.entries(CATEGORY_AREA_SOURCE).map(([vcat, varea]) =>
+      run(virtualCategorySql, [
+        { name: "vcat", type: mssql.Int, value: Number(vcat) },
+        { name: "varea", type: mssql.Int, value: varea },
+      ]),
+    ),
   ]);
+
+  /* Sanal satirlar listeye: ayni kategori zaten varsa (panelden urun
+     atanmissa) sayimi dogru olan sanal satir geciyor. */
+  const category_f = [...baseCategories];
+  for (const row of virtualRows.flat()) {
+    if (!row || !row.Filtered) continue;
+    const at = category_f.findIndex((c: any) => c.value === row.value);
+    if (at >= 0) category_f[at] = row;
+    else category_f.push(row);
+  }
+  category_f.sort((a: any, b: any) => Number(a.value) - Number(b.value));
 
   /* --- Her boyutun secenekleri: kendisi HARIC diger filtreler uygulanmis ---
      Yalnizca bu kategoride gosterilen boyutlar sorgulaniyor. Ornegin marble'da
@@ -276,7 +364,7 @@ export default defineEventHandler(async (event) => {
     shown.map(async (key) => {
       const binds: { name: string; type: any; value: any }[] = [];
       const where = buildWhere(active, binds, key);
-      const rows = await run(DIMENSIONS[key].options(where), binds);
+      const rows = await run(DIMENSIONS[key].options(scope, where), binds);
       return [key, rows] as const;
     }),
   );

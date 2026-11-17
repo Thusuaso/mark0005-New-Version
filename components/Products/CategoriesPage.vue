@@ -7,8 +7,8 @@
  * ana sayfadaki "View all products" butonu ilk kategoriye gidiyordu.
  *
  * Izgara ana sayfadaki Home/Categories.vue ile ayni dilde (cerceve yok,
- * baslikta hover'da acilan alt cizgi) ama burada bolum slogani degil
- * sayfanin kendi basligi var.
+ * kategori adi fotografin SOL ALT kosesinde, baslikta hover'da acilan
+ * alt cizgi) ama burada bolum slogani degil sayfanin kendi basligi var.
  */
 
 import { computed } from "vue";
@@ -60,15 +60,38 @@ const { el, shown } = useReveal();
       >
         <NuxtLink class="card" :to="category.link" target="_blank" rel="noopener">
           <div class="card__frame">
-            <img
+            <!-- <img> DEGIL <NuxtImg>: kategori fotograflari
+                 public/image/categories altinda 180-642 KB ve bu
+                 sayfada on iki tanesi birden var (~5 MB). Izgara dar
+                 ekranda iki, genis ekranda uc kolon (bkz.
+                 grid-template-columns), sizes bundan tureiyor.
+
+                 Ayni degisiklik ana sayfadaki kategori izgarasinda
+                 zaten yapilmisti (Home/Categories.vue); burasi
+                 atlanmisti. -->
+            <NuxtImg
               class="card__img"
               :src="category.image"
               :alt="category.name"
+              sizes="xs:50vw sm:50vw md:33vw lg:33vw xl:400px xxl:400px"
               :loading="i < 3 ? 'eager' : 'lazy'"
               decoding="async"
             />
+
+            <!-- KATEGORI ADI KADRAJIN ICINDE, SOL ALTTA.
+                 Ana sayfadaki iki izgarayla ayni dil (bkz.
+                 Home/Categories.vue ve Home/BestSellers.vue). Ad artik
+                 .card'in degil .card__frame'in cocugu: kadrajin icinde
+                 mutlak konumlanabilmesi icin gerekli.
+
+                 Perde (gradient) adin kendi zemini: kategori
+                 fotograflarinin bir kismi cok acik (beyaz mermer, acik
+                 traverten, mozaik panosu) ve ciplak beyaz yazi orada
+                 kayboluyor. -->
+            <div class="card__row">
+              <h2 class="card__name"><span class="card__line">{{ category.name }}</span></h2>
+            </div>
           </div>
-          <h2 class="card__name"><span class="card__line">{{ category.name }}</span></h2>
         </NuxtLink>
       </li>
     </ul>
@@ -142,7 +165,9 @@ const { el, shown } = useReveal();
   color: var(--mk-ink);
 }
 
+/* position: relative — ad artik kadrajin ICINDE, mutlak konumlu. */
 .card__frame {
+  position: relative;
   overflow: hidden;
   aspect-ratio: 4 / 3;
   background: var(--mk-cream-2);
@@ -166,14 +191,43 @@ const { el, shown } = useReveal();
   outline-offset: 4px;
 }
 
+/* --- Ad: kadrajin sol alt kosesi ---
+   ONCESI: kare + ALTINDA baslik (padding-top: 1rem).
+
+   `inset-inline-start` / `text-align: start` kullaniliyor, `left`
+   degil: sayfa Arapca'da dir="rtl" aliyor ve ad o zaman kendiliginden
+   sag alta geciyor.
+
+   Ust dolgu bilerek buyuk: perdenin fotografa sinmesi icin gereken
+   mesafe o, yoksa kadrajin uzerinde kesik bir cizgi olusuyor. */
+.card__row {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(0.875rem, 1.8vw, 1.375rem)
+    clamp(0.625rem, 1.4vw, 1.0625rem);
+  background: linear-gradient(
+    to top,
+    rgb(12 12 12 / 72%) 0%,
+    rgb(12 12 12 / 46%) 38%,
+    rgb(12 12 12 / 0%) 100%
+  );
+  text-align: start;
+  pointer-events: none;
+}
+
+/* text-shadow soluk fotograflar icin ikinci guvence: perde tek basina
+   acik traverten uzerinde sinirda kaliyordu. */
 .card__name {
   margin: 0;
-  padding-top: 1rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
   font-family: var(--mk-ff-display);
-  font-size: clamp(0.9375rem, 1.6vw, 1.25rem);
+  font-size: clamp(0.875rem, 1.4vw, 1.125rem);
   font-weight: 500;
   line-height: 1.3;
-  color: var(--mk-ink);
+  color: #fff;
+  text-shadow: 0 1px 3px rgb(0 0 0 / 45%);
 }
 
 .card__line {

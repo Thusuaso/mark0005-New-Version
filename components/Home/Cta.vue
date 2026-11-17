@@ -141,7 +141,7 @@ const { el, shown } = useReveal();
   margin: 0;
   font-size: 1rem;
   line-height: 1.65;
-  color: rgba(247, 243, 233, 0.7);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .cta__actions {

@@ -28,3 +28,6 @@ logs
 .agents/
 .claude/skills/
 .taste-skill/
+
+# superdesign CLI calisma dizini (tasarim canvas ciktilari, repoya girmez)
+.superdesign

@@ -120,8 +120,10 @@ const opensNewTab = computed(() => props.newTab || isExternal.value);
 
 /* 320-360px'te "DOWNLOAD CATALOGUE" gibi uzun etiketler nowrap oldugu
    icin butonu 304px'e cikariyor, kapsayici 265px olmasina ragmen grid
-   sutununu genisletip sayfaya yatay kaydirma ekliyordu. Libre Baskerville
-   onceki govde fontundan genis oldugu icin sinir bu ekranlarda asildi. */
+   sutununu genisletip sayfaya yatay kaydirma ekliyordu. Sinir o donemde
+   govde fontu Libre Baskerville (genis bir serif) oldugu icin asiliyordu;
+   site Helvetica/Arial'e gectikten sonra etiketler daralsa da kural duruyor —
+   uzun ceviriler (ru/es) ayni tasmayi yeniden uretebilir. */
 @media (max-width: 22.5rem) {
   .btn {
     font-size: 0.75rem;
@@ -137,15 +139,15 @@ const opensNewTab = computed(() => props.newTab || isExternal.value);
 /* --- Variantlar --- */
 .btn--blur {
   color: var(--mk-cream);
-  background: rgba(247, 243, 233, 0.1);
-  border-color: rgba(247, 243, 233, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(var(--mk-blur-chip));
   -webkit-backdrop-filter: blur(var(--mk-blur-chip));
 }
 
 .btn--blur:hover {
-  background: rgba(247, 243, 233, 0.18);
-  border-color: rgba(247, 243, 233, 0.45);
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
 .btn--black {

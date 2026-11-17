@@ -114,7 +114,9 @@ import { useStore } from "~/store/index";
 
 type Lang = "en" | "fr" | "es" | "ru" | "ar";
 
-const EMAILS = ["export@mekmar.com", "export1@mekmar.com"];
+/* Tek satis adresi. export1@mekmar.com kullanimdan kalkti; ayni kayit
+   footer ve iletisim verisinden de (assets/data/*.json) cikarildi. */
+const EMAILS = ["export@mekmar.com"];
 const MAP_EMBED =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3152.041530640287!2d29.152639399999998!3d37.8124962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c7166da9d086c3%3A0x18ebec808bb03a9!2sMekmar!5e0!3m2!1str!2str!4v1766650735033!5m2!1str!2str";
 const MAP_DIRECTIONS =

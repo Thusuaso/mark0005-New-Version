@@ -86,8 +86,8 @@ const socials = computed(() => {
 const BRANDS: Record<string, string> = {
   facebook: "#1877f2",
   /* X/Twitter siyahi paletin koyusuyla ayni tutuluyor. */
-  twitter: "#1c1917",
-  x: "#1c1917",
+  twitter: "#141414",
+  x: "#141414",
   youtube: "#ff0000",
   instagram: "#e4405f",
   pinterest: "#bd081c",
@@ -98,7 +98,7 @@ const BRANDS: Record<string, string> = {
 
 /* Taninmayan bir hesap gelirse marka rengi yerine temanin vurgu tonu. */
 const brandColor = (name?: string) =>
-  BRANDS[String(name).toLowerCase()] ?? "#8a7355";
+  BRANDS[String(name).toLowerCase()] ?? "#141414";
 
 const open = ref(false);
 </script>
@@ -132,7 +132,7 @@ const open = ref(false);
   width: 58px;
   height: 58px;
   padding: 0;
-  border: 1px solid rgba(247, 243, 233, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 50%;
   background: var(--mk-ink);
   /* overflow: hidden YOK: cevredeki nabiz halkasi (::before) dugmenin
@@ -140,8 +140,8 @@ const open = ref(false);
      border-radius'lariyla zaten daire icinde kaliyor. */
   cursor: pointer;
   box-shadow:
-    0 10px 26px rgba(28, 25, 23, 0.32),
-    0 2px 6px rgba(28, 25, 23, 0.18);
+    0 10px 26px rgba(20, 20, 20, 0.32),
+    0 2px 6px rgba(20, 20, 20, 0.18);
   transition:
     transform 0.2s ease,
     background-color 0.25s ease,
@@ -156,8 +156,8 @@ const open = ref(false);
   border-radius: 50%;
   background: radial-gradient(
     120% 80% at 30% 10%,
-    rgba(247, 243, 233, 0.16),
-    rgba(247, 243, 233, 0) 62%
+    rgba(255, 255, 255, 0.16),
+    rgba(255, 255, 255, 0) 62%
   );
   pointer-events: none;
 }
@@ -238,8 +238,8 @@ const open = ref(false);
   /* Acikken vurgu tonuna donuyor: liste acildi geri bildirimi. */
   background: var(--mk-accent);
   box-shadow:
-    0 14px 32px rgba(28, 25, 23, 0.38),
-    0 2px 6px rgba(28, 25, 23, 0.18);
+    0 14px 32px rgba(20, 20, 20, 0.38),
+    0 2px 6px rgba(20, 20, 20, 0.18);
 }
 
 .social_float_btn:focus-visible {
@@ -290,7 +290,7 @@ const open = ref(false);
   color: var(--mk-ink);
   font-size: 19px;
   text-decoration: none;
-  box-shadow: 0 6px 18px rgba(28, 25, 23, 0.16);
+  box-shadow: 0 6px 18px rgba(20, 20, 20, 0.16);
   transition:
     background-color 0.2s ease,
     border-color 0.2s ease,
@@ -305,7 +305,7 @@ const open = ref(false);
   border-color: var(--brand, var(--mk-accent));
   color: var(--mk-cream);
   transform: translateY(-3px);
-  box-shadow: 0 10px 22px rgba(28, 25, 23, 0.24);
+  box-shadow: 0 10px 22px rgba(20, 20, 20, 0.24);
 }
 
 .social_float_list a:focus-visible {

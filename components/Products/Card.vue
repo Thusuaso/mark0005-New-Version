@@ -11,6 +11,64 @@
 
 import { computed } from "vue";
 
+/* --- Kart gorselini tek tipe indirgemek ---
+ *
+ * Kartin kutusu her zaman ayni (asagidaki .pcard__frame, sabit en-boy
+ * orani). Esit GORUNMEMELERININ sebebi kutu degil, icine konan dosya:
+ * urun fotograflarinin bir kismi kare, bir kismi 1.25 / 1.5 / 2.04 gibi
+ * yatay oranlarda. object-fit: cover bunlarin kenarlarini kirpiyor ve
+ * her fotografta farkli oranda kirptigi icin urun kimi kartta yakin,
+ * kimi kartta uzak duruyor.
+ *
+ * Shopify CDN sunucu tarafinda kirpabiliyor: ?width=&height=&crop=center
+ * verilince dosyayi tam istenen olcude, MERKEZDEN kirpilmis halde
+ * donduruyor. Boylece tarayiciya ulasan her gorsel zaten dogru oranda
+ * oluyor — kirpma artik fotografa gore degismiyor, hepsinde ayni.
+ *
+ * Ayni parametre ikinci bir sorunu da cozuyor: katalogdaki dosyalar
+ * 400x400 ile 5311x3741 arasinda degisiyordu, yani ayni 315 px'lik
+ * kutuya kimi zaman 5 MP'lik bir dosya iniyordu. Artik kutunun
+ * boyutuna gore olcekli (srcset) isteniyor.
+ *
+ * cdn.mekmarimage.com (katalogun eski, filigranli fotograflari) bu
+ * parametreleri desteklemiyor — denendi, aynen orijinali donuyor. O
+ * dosyalara dokunulmuyor; hepsi zaten ayni 1.25 oraninda oldugu icin
+ * kendi aralarinda tutarli kirpiliyorlar. Onlarin duzelmesi fotograflarin
+ * yenilenmesine bagli, kod ile cozulemez.
+ */
+const CROPPABLE_HOSTS = ["cdn.shopify.com"];
+
+/* Kartin ekranda alabilecegi genislikler (2 ve 3 kolonlu izgara,
+   1x ve 2x ekranlar). En buyugu 960: 3 kolonlu genis ekranda kart
+   ~480 px, retinada iki kati. */
+const WIDTHS = [320, 480, 640, 960];
+
+/** "4/3" -> 1.333. Bozuk deger gelirse 1 (kare). */
+function ratioValue(ratio: string): number {
+  const [w, h] = ratio.split("/").map((n) => Number(n.trim()));
+  return w > 0 && h > 0 ? w / h : 1;
+}
+
+/**
+ * Gorseli verilen genislikte, kart oranina gore MERKEZDEN kirpilmis
+ * olarak ister. Desteklemeyen bir adres (yerel dosya, eski CDN) gelirse
+ * null doner ve cagiran taraf orijinali kullanir.
+ */
+function croppedUrl(src: string, width: number, ratio: number): string | null {
+  try {
+    /* Gorece yollar da ayristirilabilsin diye taban adres veriliyor;
+       host eslesmedigi icin zaten null donuyorlar. */
+    const url = new URL(src, "https://relative.invalid");
+    if (!CROPPABLE_HOSTS.includes(url.hostname)) return null;
+    url.searchParams.set("width", String(width));
+    url.searchParams.set("height", String(Math.round(width / ratio)));
+    url.searchParams.set("crop", "center");
+    return url.toString();
+  } catch {
+    return null;
+  }
+}
+
 const props = withDefaults(
   defineProps<{
     link: string;
@@ -30,6 +88,27 @@ const props = withDefaults(
 const isExternal = computed(
   () => /^https?:\/\//i.test(props.link) || props.link.startsWith("//"),
 );
+
+const ratioNum = computed(() => ratioValue(props.ratio));
+
+/* Kirpilabilen adreslerde orta boy (640) varsayilan src, geri kalani
+   srcset. Kirpilamayanlarda ikisi de bos birakilip orijinal veriliyor. */
+const srcset = computed(() => {
+  const parts = WIDTHS.map((w) => {
+    const url = croppedUrl(props.image, w, ratioNum.value);
+    return url ? `${url} ${w}w` : null;
+  }).filter(Boolean);
+  return parts.length ? parts.join(", ") : undefined;
+});
+
+const src = computed(
+  () => croppedUrl(props.image, 640, ratioNum.value) ?? props.image,
+);
+
+/* Izgara: 48rem altinda 2 kolon, ustunde 3. Kenar bosluklariyla birlikte
+   kabaca viewport'un yarisi / ucte biri; 480 px'te duruyor cunku kart
+   konteynerden daha genis buyumuyor. */
+const SIZES = "(min-width: 48rem) min(33vw, 480px), 50vw";
 </script>
 
 <template>
@@ -43,7 +122,9 @@ const isExternal = computed(
     <div class="pcard__frame" :style="{ aspectRatio: ratio }">
       <img
         class="pcard__image"
-        :src="image"
+        :src="src"
+        :srcset="srcset"
+        :sizes="srcset ? SIZES : undefined"
         :alt="text"
         :loading="loading"
         decoding="async"
@@ -69,7 +150,7 @@ const isExternal = computed(
   position: relative;
   overflow: hidden;
   border-radius: 3px;
-  background: var(--mk-cream-2, #efeadc);
+  background: var(--mk-cream-2, #e8e8e8);
 }
 
 .pcard:focus-visible {

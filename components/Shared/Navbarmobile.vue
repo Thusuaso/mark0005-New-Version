@@ -1179,6 +1179,56 @@ watch(isHome, (home) => {
   if (home) heroOverlay.value = true;
 });
 
+/* --- Gezindikten sonra cekmeceyi kapatmak ---
+ *
+ * Hamburger menusu Bootstrap'in collapse'i; acilip kapanmasini onun
+ * data-API'si yonetiyor (bkz. plugins/bootstrap.client.ts). Bootstrap
+ * bir baglantiya tiklanmasini duymuyor, cunku klasik bir sitede o
+ * tiklama sayfayi bastan yukler ve cekmece zaten yok olurdu. Burada
+ * gezinme SPA icinde oldugu icin menu DOM'da kaliyor: kullanici
+ * "Fabrication"a basiyor, sayfa degisiyor ama cekmece hala acik, yeni
+ * sayfanin uzerini kapatiyor.
+ *
+ * Kapatma, cekmecenin KENDI tetikleyicisine sentetik bir tiklama
+ * gondererek yapiliyor. Iki alternatif denendi, ikisi de yanlis:
+ *
+ *   1. `show` sinifini elle silmek. Bootstrap kendini hala "acik"
+ *      sayardi; sonraki tiklamada once kapatmaya calisir, hicbir sey
+ *      olmaz, menuyu acmak iki tiklama isterdi.
+ *
+ *   2. Collapse modulunu dinamik olarak yukleyip ornegi alip hide()
+ *      cagirmak. DENENDI VE MENUYU TAMAMEN KIRDI: cekmece kapandi ama
+ *      bir daha acilmadi. Sebep, Bootstrap'in ornekleri modul icindeki
+ *      bir Map'te (`Data`, anahtar "bs.collapse") tutmasi. Buradaki
+ *      dinamik import ile plugins/bootstrap.client.ts'teki statik
+ *      import ayni modulun IKI AYRI ornegine cozulebiliyor, yani iki
+ *      ayri Map: data-API'nin ornegi "acik" durumda kalirken bizim
+ *      urettigimiz ikinci ornek sinifi kaldiriyordu. Ikisi birbirinden
+ *      habersiz oldugu icin durum kalici olarak bozuluyordu.
+ *
+ * Tetikleyiciye tiklamak bu tuzaga hic girmiyor: akis Bootstrap'in
+ * kendi data-API'sinden geciyor, durumu tutan taraf yine kendisi
+ * oluyor. Ayrica aria-expanded ve butonun `collapsed` sinifi da
+ * kendiliginden guncelleniyor.
+ */
+/* `router` asagida, /usa kontrolu icin zaten kuruluyor; burada ikinci
+   kez bildirilirse derleme "Identifier 'router' has already been
+   declared" ile patliyor ve bu bilesen hic yuklenmiyor. */
+useRouter().afterEach(() => {
+  if (!import.meta.client) return;
+  const open = document.querySelector<HTMLElement>(".navbar-collapse.show");
+  if (!open) return;
+  /* Tetikleyici hedefini `data-bs-target` ya da `href` ile gosteriyor;
+     ikisi de secici olarak yazildigi icin cozup karsilastiriyoruz. */
+  const toggler = [
+    ...document.querySelectorAll<HTMLElement>('[data-bs-toggle="collapse"]'),
+  ].find((btn) => {
+    const sel = btn.getAttribute("data-bs-target") || btn.getAttribute("href");
+    return !!sel && document.querySelector(sel) === open;
+  });
+  toggler?.click();
+});
+
 const overlay = computed(() => isHome.value && heroOverlay.value);
 
 /* Arama girdisi ve onerileri SharedSearchBox icinde; burada sadece
@@ -1210,7 +1260,7 @@ const usa_link_status = computed(
 /* Hero uzerinde: fotograf gorunur kalsin diye zemin yok, arkasi
    bulaniklastiriliyor. Degerler Navbar.vue'daki .nv--over ile ayni. */
 .nvm--over {
-  background: rgba(28, 25, 23, 0.18);
+  background: rgba(20, 20, 20, 0.18);
   backdrop-filter: blur(var(--mk-blur-nav)) saturate(120%);
   -webkit-backdrop-filter: blur(var(--mk-blur-nav)) saturate(120%);
   /* Masaustundeki ile ayni: hero'nun uzerinde cizgi yok, karartma
@@ -1220,18 +1270,18 @@ const usa_link_status = computed(
 
 /* Kaydirildiktan sonra / ic sayfalarda: krem zemin (.nv--solid ile ayni). */
 .nvm--solid {
-  background: rgba(247, 243, 233, 0.88);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(var(--mk-blur-nav)) saturate(120%);
   -webkit-backdrop-filter: blur(var(--mk-blur-nav)) saturate(120%);
   border-bottom: 1px solid var(--mk-border);
-  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04);
+  box-shadow: 0 1px 2px rgba(20, 20, 20, 0.04);
   color: var(--mk-ink);
 }
 
 /* Menu acikken zemin her halukarda krem olsun: seffaf modda panelin
    icindeki arama kutusu ve baglantilar fotografin uzerinde okunmuyordu. */
 .nvm:has(.navbar-collapse.show) {
-  background: rgba(247, 243, 233, 0.96);
+  background: rgba(255, 255, 255, 0.96);
   border-bottom-color: var(--mk-border);
   color: var(--mk-ink);
 }
@@ -1239,7 +1289,7 @@ const usa_link_status = computed(
 /* backdrop-filter yoksa saydam zemin metni okunmaz yapar. */
 @supports not (backdrop-filter: blur(1px)) {
   .nvm--over {
-    background: rgba(28, 25, 23, 0.55);
+    background: rgba(20, 20, 20, 0.55);
   }
 
   .nvm--solid {

@@ -1,73 +1,90 @@
 /* ==========================================================================
-   Sayfa gecis animasyonlari
+   Sayfa gecisi
    --------------------------------------------------------------------------
-   nuxt.config.ts icindeki app.pageTransition = { name: "page",
-   mode: "out-in" } bu siniflari kullaniyor. Global olmasi sart: Vue'nun
-   <Transition> siniflari sayfa kokune biniyor, scoped stil onlara
-   ulasmazdi.
+   DIKKAT: burada Vue'nun <Transition> siniflari (.page-enter-*) YOK.
 
-   mode "out-in": cikan sayfa once kayboluyor, sonra yeni sayfa geliyor.
-   Ikisi ust uste binmedigi icin yukseklik ziplamasi ve iki h1'in ayni anda
-   DOM'da olmasi gibi sorunlar olusmuyor. Takas: toplam sure iki fazin
-   toplami, bu yuzden her faz kisa tutuldu (180ms / 260ms).
+   Onceden nuxt.config.ts'te app.pageTransition = { name: "page",
+   mode: "out-in" } vardi ve bu dosya o siniflari tanimliyordu. Sayfalarin
+   cogu <script setup> icinde ust duzey `await` kullaniyor; bu onlari async
+   bilesen yapiyor ve Nuxt onlari <Suspense> ile sariyor.
+   <Transition mode="out-in"> + <Suspense> birlesimi Vue'nun cikan dali
+   tasirken dustugu bilinen bir hataya giriyor:
+
+     NotFoundError: Failed to execute 'insertBefore' on 'Node'
+       at activeBranch.transition.afterLeave
+
+   Her gezinmede yakalanmamis bir istisna uretiyordu ve bazi sayfalarin
+   tiklandiginda bos gelmesine yol aciyordu. Bu yuzden pageTransition
+   KAPALI kaldi (bkz. nuxt.config.ts).
+
+   Gecis hissi bunun yerine saf CSS ile kuruldu: app.vue icindeki sarmalayici
+   `:key="route.path"` tasiyor, yani her rota degisiminde DOM'dan silinip
+   yeniden kuruluyor ve asagidaki animasyon bastan calisiyor. Vue'nun
+   <Transition>'i devreye girmedigi icin Suspense ile hicbir etkilesimi yok;
+   cikan sayfa beklenmedigi icin de yukseklik ziplamasi olmuyor.
+
+   Referans olarak www.gammastone.com'un hareket dili alindi: orada da
+   gecis sadece bir opaklik acilimi — kayma, olcekleme, bulaniklik yok.
+   Oncesinde bizde translateY(0.75rem) vardi; o kayma 144px'lik basliklarla
+   birlikte sayfayi her gezinmede "ziplatiyor" gibi gosteriyordu. Kibar
+   gorunum, hareketin az olmasindan geliyor.
    ========================================================================== */
 
-.page-enter-active,
-.page-leave-active {
-  transition:
-    opacity 0.26s cubic-bezier(0.2, 0.8, 0.3, 1),
-    transform 0.26s cubic-bezier(0.2, 0.8, 0.3, 1),
-    filter 0.26s ease;
+/* DOLGU MODU (animation-fill-mode) BURADA KRITIK — `both` YAZMAYIN.
+
+   `both` ile animasyon bittikten sonra da etkisi uygulanmis kaliyor;
+   tarayici o yuzden elemani KALICI bir stacking context sayiyor (Chrome
+   156'da olculdu: getAnimations() -> state "finished", fill "both", ve
+   eleman hala stacking context). Bunun gorunur sonucu sayfanin icindeki
+   Bootstrap modallarinin bozulmasi:
+
+     · .modal (z-index 1055) bu sarmalayicinin ICINDE, yani z-index'i
+       sarmalayicinin kendi baglaminda cozuluyor;
+     · .modal-backdrop'u Bootstrap JS dogrudan <body>'ye ekliyor, yani
+       sarmalayicinin DISINDA (z-index 1050).
+   Ikisi ayri baglamda oldugu icin 1055 > 1050 karsilastirmasi hic
+   yapilmiyor: body seviyesinde sarmalayici (z-index auto) once, backdrop
+   sonra boyanıyor. Sonuc, "Ask For Price"e basinca ekranin hafifce
+   kararmasi ama dialogun karartmanin ALTINDA kalmasi — tiklamalar
+   backdrop'a gidiyor, dialog kullanilamiyor.
+
+   `backwards` yalnizca animasyonun BASLAMASINDAN onceki fazi dolduruyor
+   (gecikme 0 oldugu icin pratikte ilk kareyi garantiliyor), bittikten
+   sonra hicbir etki birakmiyor. Ilk karede opacity:1 parlamasi da olmuyor. */
+.page-fade {
+  animation: page-fade-in 0.42s cubic-bezier(0.2, 0.8, 0.3, 1) backwards;
 }
 
-/* Cikis daha hizli: bekleme hissi vermesin. */
-.page-leave-active {
-  transition-duration: 0.18s;
+/* Kemer + askı: bir modal acikken animasyon TAMAMEN kapatiliyor.
+   Yukaridaki `backwards` zaten bitmis animasyonun ardinda etki
+   birakmiyor, ama animasyon HENUZ SURERKEN (ilk 0.42s) eleman gercekten
+   stacking context oluyor. Kullanici tam o aralikta modali acarsa ayni
+   hata yasanirdi. `.modal-open` sinifini Bootstrap JS modal acilirken
+   <body>'ye ekliyor, kapanirken kaldiriyor — yani bu kural tam olarak
+   riskli aralikta devreye giriyor. */
+body.modal-open .page-fade {
+  animation: none;
 }
 
-.page-enter-from {
-  opacity: 0;
-  /* Kucuk bir yukari kayma: "yeni icerik geldi" hissi, ama kaydirma
-     cubugunu oynatmayacak kadar az. */
-  transform: translateY(0.75rem);
-}
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+  }
 
-.page-leave-to {
-  opacity: 0;
-  transform: translateY(-0.375rem);
-}
-
-/* --------------------------------------------------------------------------
-   Layout gecisi
-   Sayfalar farkli layout kullanirsa (ileride) ayni dil gecerli olsun.
-   -------------------------------------------------------------------------- */
-
-.layout-enter-active,
-.layout-leave-active {
-  transition: opacity 0.22s ease;
-}
-
-.layout-enter-from,
-.layout-leave-to {
-  opacity: 0;
+  to {
+    opacity: 1;
+  }
 }
 
 /* --------------------------------------------------------------------------
    Hareket azaltma tercihi
-   Gecis tamamen kapatilmiyor — kapatilirsa Nuxt gecis bitisini beklerken
-   takilabiliyor; yalnizca anlik hale getiriliyor.
+   Animasyon tamamen kaldirilmiyor, anlik hale getiriliyor: `animation: none`
+   ile `both` dolgu modu da gider ve nadir bir yarisma durumunda eleman
+   opacity:0'da kalabilir.
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .page-enter-active,
-  .page-leave-active,
-  .layout-enter-active,
-  .layout-leave-active {
-    transition-duration: 0.01ms;
-  }
-
-  .page-enter-from,
-  .page-leave-to {
-    transform: none;
+  .page-fade {
+    animation-duration: 0.01ms;
   }
 }

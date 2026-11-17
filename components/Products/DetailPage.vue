@@ -426,8 +426,10 @@ const hashtags = computed<string[]>(() =>
 
 .pd__desc-text {
   margin: 0;
-  /* ch, "0" rakaminin genisligi; Libre Baskerville'de ortalama harften
-     genis oldugu icin 50ch satira ~70 karakter veriyor. */
+  /* ch, "0" rakaminin genisligi; Helvetica'da ortalama kucuk harften genis
+     oldugu icin 50ch satira ~65 karakter veriyor — okunur aralikta
+     (45-75). Olcu Libre Baskerville doneminde konmustu (~70 karakter);
+     Helvetica daha dar oldugu icin sayi biraz dustu, sinir yine gecerli. */
   max-width: 50ch;
   font-size: 1rem;
   line-height: 1.75;
@@ -451,7 +453,7 @@ const hashtags = computed<string[]>(() =>
 
 /* Satirlar koyu zeminde: dolgulu yuzey bir ton acik. */
 .pd__sizes :deep(.product_size) {
-  background-color: rgba(247, 243, 233, 0.07);
+  background-color: rgba(255, 255, 255, 0.07);
 }
 
 .pd__sizes :deep(.product_size_label) {

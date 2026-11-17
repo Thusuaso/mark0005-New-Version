@@ -39,7 +39,7 @@
 
     <!-- Onay rozeti: "test edilmis". Belgenin sag alt kosesine tasiyor,
          ici zemin rengiyle dolu ki altindaki kontur gorunmesin. -->
-    <circle cx="22.5" cy="22.5" r="5" fill="var(--mk-cream, #f7f3e9)" />
+    <circle cx="22.5" cy="22.5" r="5" fill="var(--mk-cream, #ffffff)" />
     <path d="M20.2 22.6 21.8 24.2l3-3.2" stroke-width="1.6" />
   </svg>
 </template>

@@ -65,7 +65,11 @@ const MAP_LINK =
 type FooterText = {
   contact: string;
   address_label: string;
+  /* Adres iki parca: sokak satiri her dilde ayni (ozel ad), alt satirda
+     posta kodu/ilce ve ulke adi yerellesiyor. Tek dize olsaydi dar
+     footer sutununda rastgele yerden kirilirdi. */
   address: string;
+  address_city: string;
   nav: string;
   follow: string;
   gallery: string;
@@ -78,7 +82,8 @@ const texts: Record<string, FooterText> = {
   en: {
     contact: "Contact",
     address_label: "Head office",
-    address: "Denizli, Türkiye",
+    address: "Akhan, Cafer Sadık Abalıoğlu Blv. No: 119",
+    address_city: "20180 Pamukkale / Denizli · Türkiye",
     nav: "Navigation",
     follow: "Follow us on our social media",
     gallery: "Gallery",
@@ -89,7 +94,8 @@ const texts: Record<string, FooterText> = {
   fr: {
     contact: "Contact",
     address_label: "Siège social",
-    address: "Denizli, Turquie",
+    address: "Akhan, Cafer Sadık Abalıoğlu Blv. No: 119",
+    address_city: "20180 Pamukkale / Denizli · Turquie",
     nav: "Navigation",
     follow: "Suivez-nous sur nos réseaux sociaux",
     gallery: "Galerie",
@@ -100,7 +106,8 @@ const texts: Record<string, FooterText> = {
   es: {
     contact: "Contacto",
     address_label: "Oficina central",
-    address: "Denizli, Turquía",
+    address: "Akhan, Cafer Sadık Abalıoğlu Blv. No: 119",
+    address_city: "20180 Pamukkale / Denizli · Turquía",
     nav: "Navegación",
     follow: "Síganos en nuestras redes sociales",
     gallery: "Galería",
@@ -111,7 +118,8 @@ const texts: Record<string, FooterText> = {
   ru: {
     contact: "Контакты",
     address_label: "Головной офис",
-    address: "Денизли, Турция",
+    address: "Akhan, Cafer Sadık Abalıoğlu Blv. No: 119",
+    address_city: "20180 Памуккале / Денизли · Турция",
     nav: "Навигация",
     follow: "Мы в социальных сетях",
     gallery: "Галерея",
@@ -122,7 +130,8 @@ const texts: Record<string, FooterText> = {
   ar: {
     contact: "اتصل بنا",
     address_label: "المكتب الرئيسي",
-    address: "دنيزلي، تركيا",
+    address: "Akhan, Cafer Sadık Abalıoğlu Blv. No: 119",
+    address_city: "20180 باموكالي / دنيزلي · تركيا",
     nav: "التنقل",
     follow: "تابعنا على وسائل التواصل الاجتماعي",
     gallery: "المعرض",
@@ -281,7 +290,10 @@ const year = new Date().getFullYear();
                 </span>
                 <span class="ft__contact-body">
                   <span class="ft__contact-label">{{ t.address_label }}</span>
-                  <span class="ft__contact-value">{{ t.address }}</span>
+                  <span class="ft__contact-value">
+                    <span class="ft__contact-line">{{ t.address }}</span>
+                    <span class="ft__contact-line">{{ t.address_city }}</span>
+                  </span>
                 </span>
               </a>
             </li>
@@ -370,9 +382,24 @@ const year = new Date().getFullYear();
                 :aria-label="`Open ${image.name}`"
                 @click="imageClick(index)"
               >
-                <img
+                <!-- <img> DEGIL <NuxtImg>: bu kareler .ft__shots'ta
+                     3.5rem (56 px) genisliginde, ama kaynak dosyalar
+                     public/image/news altinda 0.1-3.7 MB. Ham <img> ile
+                     15 fotograf HER SAYFANIN footer'inda tam boyutta
+                     iniyordu (~14 MB). NuxtImg 72 px'lik (2x icin 144)
+                     varyant uretiyor.
+
+                     width/height veriliyor: .ft__shot zaten
+                     aspect-ratio: 1/1 ile yer ayiriyor, ama oran
+                     bilgisi img'de de olunca tarayici yer ayirmayi
+                     CSS'i beklemeden yapiyor. -->
+                <NuxtImg
                   :src="image.image"
                   :alt="image.name"
+                  width="72"
+                  height="72"
+                  fit="cover"
+                  sizes="72px"
                   loading="lazy"
                   decoding="async"
                 />
@@ -404,17 +431,29 @@ const year = new Date().getFullYear();
       :show-item-navigators="true"
       :show-thumbnails="false"
     >
+      <!-- Tam ekran gorsel de olceklenmis: kaynagin 3.7 MB olmasi
+           lightbox'ta da gerekmiyor, kutu en fazla 850 px genisliginde
+           (container-style). -->
       <template #item="slotProps">
-        <img
+        <NuxtImg
           :src="slotProps.item.image"
           :alt="slotProps.item.name"
+          sizes="xs:90vw sm:90vw md:850px lg:850px xl:850px xxl:850px"
+          loading="lazy"
+          decoding="async"
           class="ft__galleria-img"
         />
       </template>
       <template #thumbnail="slotProps">
-        <img
+        <NuxtImg
           :src="slotProps.item.image"
           :alt="slotProps.item.name"
+          width="96"
+          height="96"
+          fit="cover"
+          sizes="96px"
+          loading="lazy"
+          decoding="async"
           style="display: block"
         />
       </template>
@@ -426,7 +465,7 @@ const year = new Date().getFullYear();
 .ft {
   font-family: var(--mk-ff-body);
   background: var(--mk-ink);
-  color: rgba(247, 243, 233, 0.72);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .ft__inner {
@@ -490,8 +529,9 @@ const year = new Date().getFullYear();
 .ft__intro-text {
   margin: 0;
   /* 44rem + 14px, satir basina ~101 karakter ediyordu; okunur aralik 45-75.
-     ch, "0" rakaminin genisligi; Libre Baskerville'de bu ortalama kucuk
-     harften genis, yani 62ch olcuyle satira ~89 karakter siğiyordu. */
+     ch, "0" rakaminin genisligi ve ortalama kucuk harften genis, yani
+     50ch olcusu satira ondan daha az karakter birakiyor — Helvetica'da
+     ~65 karakter. */
   max-width: 50ch;
   font-size: 1rem;
   line-height: 1.7;
@@ -557,7 +597,7 @@ const year = new Date().getFullYear();
   font-weight: 600;
   letter-spacing: 0;
   text-transform: none;
-  color: rgba(247, 243, 233, 0.78);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .ft__col-title--gap {
@@ -581,7 +621,7 @@ const year = new Date().getFullYear();
   letter-spacing: 0;
   text-transform: none;
   text-decoration: none;
-  color: rgba(247, 243, 233, 0.78);
+  color: rgba(255, 255, 255, 0.78);
   transition:
     color 0.25s ease,
     padding-inline-start 0.3s ease-out;
@@ -642,13 +682,13 @@ const year = new Date().getFullYear();
   justify-content: center;
   width: 2rem;
   height: 2rem;
-  border: 1px solid rgba(247, 243, 233, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 50%;
   transition: border-color 0.25s ease;
 }
 
 .ft__contact-link:hover .ft__ico {
-  border-color: rgba(247, 243, 233, 0.55);
+  border-color: rgba(255, 255, 255, 0.55);
 }
 
 .ft__ico svg {
@@ -666,7 +706,7 @@ const year = new Date().getFullYear();
   font-weight: 400;
   letter-spacing: 0;
   text-transform: none;
-  color: rgba(247, 243, 233, 0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .ft__contact-value {
@@ -676,6 +716,13 @@ const year = new Date().getFullYear();
   font-weight: 500;
   line-height: 1.45;
   overflow-wrap: anywhere;
+}
+
+/* Adresin iki satiri. Kendi satirinda duruyor ki sokak adi ile
+   ilce/ulke birbirine karismasin; uzun sokak adi yine kendi icinde
+   kirilabiliyor. */
+.ft__contact-line {
+  display: block;
 }
 
 /* --- Sosyal --- */
@@ -695,8 +742,8 @@ const year = new Date().getFullYear();
   width: 2.375rem;
   height: 2.375rem;
   font-size: 0.9375rem;
-  color: rgba(247, 243, 233, 0.72);
-  border: 1px solid rgba(247, 243, 233, 0.18);
+  color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 50%;
   text-decoration: none;
   transition:
@@ -723,7 +770,7 @@ const year = new Date().getFullYear();
   padding: 0;
   overflow: hidden;
   aspect-ratio: 1 / 1;
-  background: rgba(247, 243, 233, 0.06);
+  background: rgba(255, 255, 255, 0.06);
   border: 0;
   cursor: pointer;
 }
@@ -774,7 +821,7 @@ const year = new Date().getFullYear();
   margin: 0;
   font-size: 0.875rem;
   letter-spacing: 0;
-  color: rgba(247, 243, 233, 0.55);
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .ft__galleria-img {

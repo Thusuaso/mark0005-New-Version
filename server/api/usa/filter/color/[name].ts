@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
             '/usa/stock/product/detail/' + TRIM(STR(k.ID)) as link
 
             from DepoUrunKartTB k,DepoUrunKart_MekmarSiteTB u,MekmarCom_StockListYeni ms
-			where MekmarSite=1 and u.UrunId=k.ID and u.TurkiyeStock=0 and ms.SkuNo = k.SkuNo 
+			where MekmarSite=1 and u.UrunId=k.ID and u.TurkeyStock=0 and ms.SkuNo = k.SkuNo 
             and u.Yayinla=1 and u.renk_en='${name}' and ms.StockSqft >0
             order by ms.StockSqft desc
     `;
@@ -63,7 +63,7 @@ export default defineEventHandler(async (event) => {
             DepoUrunKartTB d,DepoUrunKart_MekmarSiteTB k,MekmarCom_StockListYeni ms
             where
             d.MekmarSite=1 and k.UrunId = d.ID
-            and k.Yayinla=1 and k.TurkiyeStock = 0 and d.SkuNo = ms.SkuNo and ms.StockSqft >0
+            and k.Yayinla=1 and k.TurkeyStock = 0 and d.SkuNo = ms.SkuNo and ms.StockSqft >0
             group by k.renk_en,k.renk_fr,k.renk_es
             order by count(*) desc
     `;

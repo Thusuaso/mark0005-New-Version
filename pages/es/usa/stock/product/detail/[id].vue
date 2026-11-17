@@ -12,7 +12,7 @@
                 data-fancybox="gallery" :href="first_photo">
                 <div class="customContainer " style="height:450px;">
                     <div class="customElement" style="height:450px;">
-                        <img class="lazyload" :src="first_photo" style="height:450px;" />
+                        <img class="lazyload" :src="first_photo" :alt="header" style="height:450px;" />
 
 
                     </div>
@@ -105,7 +105,7 @@
                 data-fancybox="gallery">
                 <div class="customContainer ">
                     <div class="customElement">
-                        <img class="lazyload" :src="img.image" />
+                        <img class="lazyload" :src="img.image" :alt="header" />
 
 
                     </div>

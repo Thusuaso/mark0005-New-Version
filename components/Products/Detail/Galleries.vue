@@ -4,7 +4,17 @@
             :showItemNavigators="photos.length > 1" :showThumbnails="photos.length > 1"
             :responsiveOptions="responsiveOptions">
             <template #item="slotProps">
-                <div class="product_gallery_frame" role="button" tabindex="0" @click="imageClickVisible"
+                <!-- Video karede: tiklama buyutmeyi DEGIL oynatmayi acmali,
+                     o yuzden buyutme dinleyicileri ve buyutec rozeti yalnizca
+                     fotograflarda bagli. -->
+                <div v-if="isVideoPath(slotProps.item.imagePath)" class="product_gallery_frame product_gallery_frame--video">
+                    <video class="product_gallery_video" :src="slotProps.item.imagePath" controls playsinline
+                        preload="metadata" :aria-label="slotProps.item.name"></video>
+                    <span v-if="photos.length > 1" class="product_gallery_counter">
+                        {{ active_index + 1 }} / {{ photos.length }}
+                    </span>
+                </div>
+                <div v-else class="product_gallery_frame" role="button" tabindex="0" @click="imageClickVisible"
                     @keydown.enter="imageClickVisible" @keydown.space.prevent="imageClickVisible">
                     <img :src="slotProps.item.imagePath" :alt="slotProps.item.name" />
                     <span class="product_gallery_zoom" aria-hidden="true">
@@ -20,7 +30,15 @@
                 </div>
             </template>
             <template #thumbnail="slotProps">
-                <img class="product_gallery_thumb" :src="slotProps.item.imagePath" :alt="slotProps.item.name" />
+                <!-- Kucuk resimde kontrol yok: serit zaten tiklanabilir, video
+                     etiketi burada sadece ilk kareyi (preload="metadata")
+                     gostermek icin duruyor. Uzerindeki ucgen, seritte hangi
+                     karenin video oldugunu belli ediyor. -->
+                <span v-if="isVideoPath(slotProps.item.imagePath)" class="product_gallery_thumb product_gallery_thumb--video">
+                    <video :src="slotProps.item.imagePath" preload="metadata" muted playsinline tabindex="-1"></video>
+                    <span class="product_gallery_thumb_play" aria-hidden="true"><i class="bi-play-fill"></i></span>
+                </span>
+                <img v-else class="product_gallery_thumb" :src="slotProps.item.imagePath" :alt="slotProps.item.name" />
             </template>
         </Galleria>
 
@@ -29,10 +47,17 @@
             :showItemNavigators="photos.length > 1" :showThumbnails="photos.length > 1"
             containerClass="product_gallery_full">
             <template #item="slotProps">
-                <img :src="slotProps.item.imagePath" :alt="slotProps.item.name" />
+                <video v-if="isVideoPath(slotProps.item.imagePath)" class="product_gallery_full_video"
+                    :src="slotProps.item.imagePath" controls playsinline preload="metadata"
+                    :aria-label="slotProps.item.name"></video>
+                <img v-else :src="slotProps.item.imagePath" :alt="slotProps.item.name" />
             </template>
             <template #thumbnail="slotProps">
-                <img class="product_gallery_thumb" :src="slotProps.item.imagePath" :alt="slotProps.item.name" />
+                <span v-if="isVideoPath(slotProps.item.imagePath)" class="product_gallery_thumb product_gallery_thumb--video">
+                    <video :src="slotProps.item.imagePath" preload="metadata" muted playsinline tabindex="-1"></video>
+                    <span class="product_gallery_thumb_play" aria-hidden="true"><i class="bi-play-fill"></i></span>
+                </span>
+                <img v-else class="product_gallery_thumb" :src="slotProps.item.imagePath" :alt="slotProps.item.name" />
             </template>
         </Galleria>
     </div>

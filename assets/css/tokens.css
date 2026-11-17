@@ -1,61 +1,160 @@
 /* ==========================================================================
    Tasarim tokenlari
    --------------------------------------------------------------------------
-   Referans tema: ordainit.com/html/reak/reak/index-4.html
-   Temanin duzeni/tipografisi korundu, paleti ise mermer/dogal tasa uygun
-   sekilde krem + koyu grafit olarak degistirildi:
+   Duzen referansi: ordainit.com/html/reak/reak/index-4.html (tema)
+   Tipografi ve palet referansi: www.gammastone.com
 
-     siyah alanlar  -> #18191B  (--mk-ink)
-     beyaz alanlar  -> krem     (--mk-cream / --mk-cream-2)
+   Temanin duzeni korundu; tipografisi ve paleti gammastone.com'dan
+   olculen degerlerle degistirildi — tek renkli (beyaz / acik gri /
+   #141414), Helvetica-Arial, 16px govde, 35/32/24px baslik basamaklari.
 
-   Token adlari da buna gore: eskiden --mk-white / --mk-black / --mk-grey-1
-   / --mk-dark-card vardi, degerleri artik beyaz/siyah olmadigi icin adlar
-   yanilticiydi.
+   TARIHCE: bir ara stone.gamastone.com referans alinmisti (tek "m").
+   Yanlis siteydi; oradan turetilen her deger (Roboto, 15px/1.8/300
+   govde, 64px'ten inen baslik olcegi, krem palet, 17px menu) bu dosyada
+   ve bilesenlerde gammastone.com olculeriyle degistirildi. Eski
+   degerleri arayan olursa: git gecmisinde typography-and-navigation-fixes
+   dalinda duruyor.
 
    Sadece CSS degiskeni tanimlar, hicbir elemana kural yazmaz — bu yuzden
    henuz yenilenmemis sayfalari etkilemez.
    ========================================================================== */
 
 :root {
-  /* --- Koyu: zemin ve metin ---
-     Sicak siyah. Onceki deger #18191B idi: kanallari 24/25/27, yani mavi
-     en yuksek — krem zeminin yaninda soguk/mavimsi duruyordu. Bu deger
-     28/25/23 ile kirmizi tarafta, krem ve tas tonlariyla ayni sicaklikta.
-     Algilanan koyuluk neredeyse ayni (luminans farki ihmal edilebilir). */
-  --mk-ink: #1c1917;
+  /* ========================================================================
+     PALET: www.gammastone.com
+     ------------------------------------------------------------------------
+     ONCESI krem + sicak grafit idi (--mk-ink #1c1917, --mk-cream #f7f3e9,
+     vurgu #8a7355). O palet "mermer/dogal tas" cagrisimindan turetilmisti
+     ve yanlis bir referans siteyle (stone.gamastone.com) birlikte
+     yerlesmisti.
 
-  /* --- Acik yuzeyler (krem) --- */
-  /* Birincil yuzey; temada beyaz olan her yer. */
-  --mk-cream: #f7f3e9;
-  /* Donusumlu bolumler icin bir ton koyusu; temada #f5f5f5 olan yerler. */
-  --mk-cream-2: #efeadc;
+     Dogru referans tek renkli: beyaz zemin, donusumlu bolumlerde acik
+     gri (#e8e8e8), metin saf siyaha yakin (#141414), hicbir yerde sicak
+     vurgu yok. Asagisi onun karsiligi.
+
+     Token ADLARI korundu (--mk-cream vb.): yuzlerce yerde kullaniliyor ve
+     yeniden adlandirmak bu degisikligi tasarim isi olmaktan cikarip
+     toplu yeniden yazima cevirirdi. Adlar artik renkleri tarif etmiyor —
+     yuzey rollerini tarif ediyor: cream = birincil yuzey,
+     cream-2 = donusumlu/ikincil yuzey. */
+
+  /* --- Koyu: zemin ve metin --- */
+  /* Referansin govde metni rgb(20,20,20). Saf siyah degil: koyu
+     bolumlerde zemin olarak da kullanildigi icin bir tik yumusak. */
+  --mk-ink: #141414;
+
+  /* --- Acik yuzeyler --- */
+  /* Birincil yuzey. */
+  --mk-cream: #ffffff;
+  /* Donusumlu bolumler; referansta olculen acik gri. */
+  --mk-cream-2: #e8e8e8;
 
   /* --- Metin --- */
-  --mk-body: #55524b; /* govde */
-  --mk-grey-2: #6b675f; /* ikincil / etiket */
+  --mk-body: #141414; /* govde */
+  --mk-grey-2: #5a5a5a; /* ikincil / etiket */
 
   /* --- Cizgiler --- */
-  /* Krem zeminde gri cizgi kirli duruyor; ikisi de sicak tonda. */
-  --mk-border: #e2dccb;
-  --mk-line-strong: #cfc6b2;
+  --mk-border: #d8d8d8;
+  --mk-line-strong: #bdbdbd;
 
-  /* Tek sicak vurgu. Yalnizca kucuk detaylarda — aktif sekme, madde
-     isareti, acik akordeon isareti. Buyuk alanlarda kullanilmiyor. */
-  --mk-accent: #8a7355;
+  /* Referans tek renkli: renkli bir vurgu hic kullanmiyor. Token
+     kaldirilmadi cunku aktif sekme / madde isareti / acik akordeon
+     isareti bunu okuyor — artik notr koyuya esitlendi, yani o
+     isaretler renk yerine KOYULUK ile ayirt ediliyor. */
+  --mk-accent: #141414;
 
-  /* --- Tipografi (temadan) --- */
-  /* Site genelinde tek yazi tipi: Libre Baskerville. Govde ve basliklar
-     ayni aileyi paylasiyor; ayrim yalnizca agirlik ve boyutla kuruluyor.
+  /* --- Tipografi --- */
+  /* SITE GENELINDE TEK YAZI TIPI: Helvetica / Arial.
 
-     Zincirdeki PT Serif ve Noto Naskh Arabic yedek DEGIL, tamamlayici:
-     Libre Baskerville'de Kiril ve Arapca glifi yok, tarayici karakter
-     bazinda ilerledigi icin latin harfleri Libre Baskerville'den, Kiril
-     PT Serif'ten, Arapca Noto Naskh Arabic'ten geliyor. Hicbiri inmezse
-     Georgia/Times zinciri devrede kalir. */
-  --mk-ff-body: "Libre Baskerville", "PT Serif", "Noto Naskh Arabic",
-    Georgia, "Times New Roman", serif;
-  --mk-ff-display: "Libre Baskerville", "PT Serif", "Noto Naskh Arabic",
-    Georgia, "Times New Roman", serif;
+     Istek net: "sitedeki butun font family i tek bir stilde yap, farkli
+     farkli font family ler olmasin." Bu yuzden --mk-ff-body ve
+     --mk-ff-display AYNI zinciri gosteriyor.
+
+     ONCESI Roboto idi, gerekcesi "referansin taban yazi tipi bu" —
+     ama o referans (stone.gamastone.com) yanlis siteydi. Dogru referans
+     www.gammastone.com ve orada yazi tipi `Helvetica, Arial, sans-serif`:
+     web fontu YOK, sistem yazi tipi kullaniliyor.
+
+     Bunun bir yan faydasi var: Roboto istegi tamamen kalkinca sayfa
+     Google Fonts'tan hicbir latin/kiril dosyasi indirmiyor. Geriye
+     yalnizca Arapca kapsamasi icin Noto Sans Arabic kaliyor ve o da
+     sadece /ar sayfasinda devreye giriyor.
+
+     Zincirin okunusu: macOS'ta Helvetica Neue, Windows'ta Arial (ikisi de
+     ayni grotesk iskelet), Linux'ta Liberation Sans Arial'a metrik olarak
+     birebir esit. Kiril (/ru) ucunde de var. Arapca glifi hicbirinde yok,
+     tarayici karakter bazinda ilerledigi icin /ar sayfasinda harfler
+     Noto Sans Arabic'ten cozuluyor.
+
+     Iki token neden hala AYRI duruyor: bilesenlerin bir kismi
+     --mk-ff-display, bir kismi --mk-ff-body yaziyor. Ikisini tek degere
+     baglamak, ileride baslik ailesi yeniden ayrilmak istenirse tek
+     satirlik bir degisiklige indiriyor. */
+  /* SIRA ONEMLI: Helvetica ONCE, "Noto Sans Arabic" SONRA.
+
+     Boyle olmasi sart cunku @nuxt/fonts Noto Sans Arabic icin yalnizca
+     Arapca degil LATIN unicode-range'lerini de tanimliyor (olculdu:
+     agirlik basina arabic + latin + latin-ext + sembol yuzleri, ustune
+     unicode-range tasimayan 3 yuz daha). Noto bu yiginda ilk siraya
+     alinirsa sitedeki TUM latin metin Helvetica yerine Noto Sans
+     Arabic'e gecer — tipografi kararinin tam tersi.
+
+     Bu siralamayla latin karakterler her zaman Helvetica'dan cozuluyor,
+     yani Noto'nun latin yuzleri tanimli olsa da hic indirilmiyor; font
+     yalnizca Helvetica/Arial'da karsiligi olmayan Arapca kod
+     noktalarinda devreye giriyor. Eskiden oldugu gibi.
+
+     DIKKAT: @nuxt/fonts bir CSS DEGISKENINDE yalnizca ILK aileyi
+     cozuyor (0.11.4'te olculdu: ilk sirada 19 @font-face, ucuncu sirada
+     0). Yani font bu satirda ucuncu oldugu icin modul onu BURADAN
+     goremiyor. Gormesi icin asagidaki --mk-ff-arabic degiskeni var;
+     onu silmek /ar sayfasindaki Arapca fontu sessizce dusurur. */
+  --mk-ff-body: "Helvetica Neue", Helvetica, "Noto Sans Arabic", Arial,
+    "Liberation Sans", sans-serif;
+
+  /* @nuxt/fonts ICIN KANCA — hicbir elemana uygulanmiyor, bilerek.
+
+     Modul fontlari CSS'i tarayarak buluyor ve bir degiskende sadece ilk
+     aileyi okuyor; --mk-ff-body'de Noto ucuncu sirada oldugu icin orada
+     bulunamiyor. Adi tek basina burada tutmak modulun fontu cozup
+     @font-face'leri ve kendi domainimizden servis edilen .woff2'leri
+     uretmesi icin yeterli — uretilen kurallar aile ADINA baglandigi
+     icin --mk-ff-body'deki kullanim da otomatik olarak calisiyor.
+
+     Yani bu satir "kullanilmayan olu token" degil, build girdisidir.
+     Silinirse /ar sayfasi webfontsuz kalir ve rastgele bir sistem
+     Arapca fontuna duser. Dogrulama: /ar sayfasinin tokens.css'inde
+     @font-face ve /_fonts/ URL'leri gorunuyor olmali. */
+  --mk-ff-arabic: "Noto Sans Arabic";
+  --mk-ff-display: var(--mk-ff-body);
+
+  /* --- Govde metni olculeri ---
+     www.gammastone.com'dan olculdu: 16px / 24px satir yuksekligi (1.5) /
+     agirlik 400.
+
+     ONCESI 15px / 1.8 / 300 idi ve yanlis referanstan geliyordu.
+     Agirlik 300 ozellikle onemliydi: Helvetica/Arial'in Light kesimi
+     cogu sistemde YOK, tarayici onu Regular'dan sentezliyor ya da
+     dogrudan Regular'a dusuyor — yani 300 yazmak bu yazi tipiyle ya
+     hicbir sey yapmiyor ya da harfleri inceltip bozuyordu. 400 hem
+     referansin degeri hem de bu ailede gercekten var olan kesim.
+
+     Satir yuksekligi 1.8 -> 1.5: 1.8 metin bloklarini seyreltip
+     sayfayi gereksiz uzatiyordu; referans 24/16 = 1.5. */
+  --mk-body-size: 1rem; /* 16px */
+  --mk-body-lh: 1.5; /* 24/16 */
+  --mk-body-weight: 400;
+
+  /* --- Ust menu olculeri ---
+     www.gammastone.com'da menu 12.8px / agirlik 400 / buyuk harf degil.
+     Bizde 15px idi (yanlis referanstan, orada 17px olculmustu).
+
+     12.8px kucuk gorunuyor ama bizim serit referanstakinden kalabalik:
+     7 menu ogesinin yaninda arama kutusu, iki ikon ve CTA var. Punto
+     dustukce serit rahatliyor, yani kucuk olmasi burada referansa
+     uymanin otesinde ise de yariyor. */
+  --mk-nav-size: 0.8rem; /* 12.8px */
+  --mk-nav-weight: 400;
 
   /* --- Bulaniklik (cam etkisi) --- */
   /* Ust menunun kendi zemini ile uzerindeki ogelerin (arama, ikonlar, CTA)
@@ -66,9 +165,22 @@
   --mk-blur-chip: 40px;
 
   /* --- Bolum olcegi --- */
-  /* Temada pt-120/pb-120 sabit 120px; burada kucuk ekranda daralan
-     akiskan karsiligi. */
-  --mk-section-y: clamp(3.75rem, 8vw, 7.5rem);
+  /* Bolumlerin dikey nefesi. Temada pt-120/pb-120 sabit 120px idi;
+     burada kucuk ekranda daralan akiskan karsiligi.
+
+     120 -> 88px (istek uzerine): basliklar kuculunce 120px'lik dolgu
+     bolumleri gereginden fazla birbirinden ayiriyor, sayfa uzuyor ve
+     icerik seyreliyordu. Bu token da yalnizca ana sayfa bolumlerinde
+     kullaniliyor (About, BestSellers, Categories, Cta, Facilities,
+     Projects) — Stats kendi serit olcusunu kullaniyor, ic sayfalar bu
+     tokeni hic okumuyor.
+
+     88 -> 60px (istek uzerine): dolgu hem ustte hem altta oldugu icin
+     iki bolum arasinda 176px birikiyordu, yani bir dizustu ekraninin
+     dortte biri bos zemin. Simdi 120px. Daha asagi inilmedi: bolum
+     basliklari 48px'e cikti ve 60px'in altinda baslik bir onceki
+     bolumun icerigine yapismaya basliyor. */
+  --mk-section-y: clamp(2.25rem, 4.2vw, 3.75rem); /* 36 -> 60px */
   /* Bolum icerik genisligi: metin satirlari genis ekranda bastan sona
      uzamasin. */
   --mk-container: 75rem;
@@ -86,12 +198,55 @@
      bosluk gerekiyor. */
   --mk-header-h-mobile: 3.5rem;
 
-  /* --- Dev baslik olcegi --- */
-  /* Temada .oit-section-title 144px, .fsz-120 120px, .fsz-60 60px.
-     Akiskan clamp'lerle kucuk ekranda tasmiyor. */
-  --mk-title-xl: clamp(2.75rem, 9vw, 9rem);
-  --mk-title-lg: clamp(2.25rem, 7vw, 7.5rem);
-  --mk-title-md: clamp(1.875rem, 4.5vw, 3.75rem);
+  /* --- Baslik olcegi ---
+     www.gammastone.com'dan olculdu (1486px ekran):
+       h1  35.2px / satir yuksekligi 38.72 (1.1) / agirlik 700
+       h2  32px   / satir yuksekligi 35.2  (1.1) / agirlik 700
+     Harf araligi `normal` — negatif tracking yok.
+
+     ONCESI: xl 44px, lg 32px, md 33px. O olcek yanlis referanstan
+     (stone.gamastone.com, h1 64px) turetilmis ve iki kez elle
+     kucultulmustu; 144px'ten baslayip 44'e inen uzun bir yolun sonuydu.
+     Dogru referansin h1'i 35px, yani ustelik bir adim daha asagida.
+
+     md referansta yok (ana sayfada h3 kullanmiyorlar). h2'nin bir alt
+     basamagi olarak 24px verildi; ic sayfalarin bolum basliklari bunu
+     okuyor ve 33px orada h1'den buyuk kaliyordu. */
+  /* xl BUYUTULDU: 35px -> 48px (istek uzerine, ana sayfa basliklari
+     bolumlerine gore kucuk kaliyordu). Yalnizca ANA SAYFAYI etkiliyor:
+     bu degeri okuyan tek yerler Hero'nun h1'i ve UiSectionHead'in
+     `xl` boyutu, o da sadece dort ana sayfa bolumunde kullaniliyor
+     (Categories, BestSellers, Facilities, Projects).
+
+     lg ve md'ye DOKUNULMADI: lg'yi About/Sustainability, md'yi ic
+     sayfalarin bolum basliklari okuyor (Products/CategoriesPage gibi)
+     ve istek ana sayfayla sinirliydi.
+
+     64px'e donulmedi: o olcekte Ispanyolca basliklar ("Sostenidos por
+     la naturaleza,") tek satira sigmiyordu ve bolum basliklariyla
+     icerik arasindaki bosluk basligin iki kati gorunuyordu — ikisi de
+     daha once yasandi. 48px o sinirlarin altinda. */
+  /* 24px (<=360px ekran) -> 36px (>=1440px), arada DOGRUSAL.
+
+     Orta terim saf `vw` DEGIL, `rem + vw`: saf vw'de baslik tarayici
+     yazi boyutu buyutulunce (zoom / "daha buyuk yazi" ayari) hic
+     degismez, cunku vw yalnizca pencereyi olcer — erisilebilirlik
+     acisindan kirik bir olcek olur. rem terimi o bagi kuruyor.
+
+     Egim 360->1440 arasini tam kapatacak sekilde secildi
+     (12px / 1080px = 1.111vw, sabit terim 20px = 1.25rem), yani
+     tabana ya da tavana ancak bu araligin DISINDA carpiyor. Onceki
+     deneme clamp(28px, 2.8vw, 36px) idi: taban 1000px civarinda
+     doluyordu, yani telefon ile tablet arasinda baslik hic
+     kuculmuyordu. */
+  --mk-title-xl: clamp(1.5rem, 1.25rem + 1.111vw, 2.25rem); /* 24 -> 36px */
+  --mk-title-lg: clamp(1.625rem, 2.4vw, 2rem); /* 26 -> 32px */
+  --mk-title-md: clamp(1.25rem, 1.8vw, 1.5rem); /* 20 -> 24px */
+
+  /* Referansta baslik rengi saf siyah (rgb(0,0,0)) ve zemin beyaz.
+     ONCESI #2a2522 idi: krem zeminin sicakligina gore secilmis bir
+     kahverengi-siyahti, beyaz zeminde solgun duruyor. */
+  --mk-heading: #000000;
 
   /* --- Olcek --- */
   --mk-radius-pill: 30px;

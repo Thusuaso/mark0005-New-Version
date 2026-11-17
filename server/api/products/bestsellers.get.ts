@@ -18,11 +18,11 @@ import api from "~/sql/api";
    sira uretir ve hidrasyon uyusmazligi cikar. Bu yuzden sira sabit ama
    dagitilmis. */
 const BEST_SELLER_IDS = [
-  663, //  Farmer Sink Model 105           — lavabo
+  1219, // Calacatta Viola Fluted Wall-Mount Sink — lavabo
   451, //  Emperador Light Marble          — mermer
   33, //   Classic Travertine              — traverten
   279, //  Toros Black Marble              — mermer
-  802, //  Vessel Sink Model 115           — lavabo
+  1244, // Carrara White Ribbed Wall-Mount Vanity — lavabo
   787, //  Perla Limestone                 — kirectasi
   229, //  Bianco Ibiza Marble             — mermer
   41, //   Classic Vein Cut Travertine Honed — traverten

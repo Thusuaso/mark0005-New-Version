@@ -2,8 +2,42 @@
    Global stiller
    ========================================================================== */
 
+/* Govde yazi tipi her yerde. Zincirin sonundaki sistem ailesi tokenin
+   KENDI icinde duruyor (bkz. --mk-ff-body); burada ayrica Georgia/Times
+   yaziliydi, yani token cozulemedigi anda sayfa serif'e dusuyordu —
+   govde artik sans oldugu icin yanlis yedek. */
 * {
-  font-family: var(--mk-ff-body), Georgia, "Times New Roman", serif;
+  font-family: var(--mk-ff-body);
+}
+
+/* Govde metninin olculeri (15px / 27px / agirlik 300) BURADA DEGIL:
+   assets/css/bootstrap.custom.scss icinde, Bootstrap'in $font-size-base /
+   $line-height-base / $font-weight-base degiskenleri uzerinden veriliyor.
+   Sebebi cascade sirasi — Bootstrap'in _reboot.scss'i `body` seliciyle
+   ayni ozgullukte kural yaziyor ve bu dosyadan SONRA yuklendigi icin
+   buraya yazilan degerleri eziyor. Ayrintili not o dosyada. */
+
+/* Basliklarin ailesi. Site genelinde tek yazi tipi oldugu icin
+   --mk-ff-display su an --mk-ff-body ile AYNI degeri gosteriyor, yani bu
+   kural bugun bir sey degistirmiyor. Yine de duruyor: baslik ailesi
+   ileride yeniden ayrilmak istenirse tokendaki tek satir yetiyor,
+   basliklarin govdeden kurtulmasi icin gereken acik kural (yukaridaki `*`
+   secicisine karsi) burada hazir bekliyor.
+
+   Yalnizca AILE veriliyor:
+     · punto yok — onu her bolum kendi olceginden (--mk-title-*) seciyor;
+     · RENK YOK — koyu zeminli bolumlerdeki basliklar (kapanis bandi,
+       footer, hero) rengi atalarindan miras aliyor. Buraya
+       `color: var(--mk-heading)` yazilsa eleman secicisi o mirasi keser
+       ve o basliklar koyu zeminde koyu metne donerdi. Baslik rengi
+       bilesen seviyesinde veriliyor (bkz. Ui/SectionHead.vue). */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--mk-ff-display);
 }
 
 /* --------------------------------------------------------------------------
@@ -20,16 +54,59 @@
   text-decoration: none;
 }
 
+/* "OUR MISSION" / "OUR VISION" basliklari (yalnizca about sayfalari).
+   ONCESI: 14px, font-weight: normal, siyah — yani ALTINDAKI madde
+   metniyle birebir ayni punto ve agirlik. Iki baslik da listenin bir
+   maddesi gibi okunuyordu, bolumlerin nerede baslayip bittigi
+   anlasilmiyordu.
+
+   DIKKAT, bu yorumda yol deseni YAZILMASIN: "pages" altindaki about
+   dosyalarini yildizli bir desenle yazmak yorumu erken kapatiyor
+   (desenin icindeki yildiz-bolu dizisi CSS yorum sonu demek) ve
+   hemen asagidaki kural cope gidiyor. Bir kez oldu: baslik 28px'lik
+   Bootstrap h3 varsayilaniyla, ortalanmis halde kaldi.
+
+   `start` / `margin-inline`: Arapca about sayfasi da ayni sinifi
+   kullaniyor, `left` yazilsa baslik orada yanlis kenarda kalirdi.
+   Ust kapsayicida Bootstrap'in .text-center'i var; buradaki dogrudan
+   bildirim onun kalitimini eziyor. */
 .subheader {
-  font-size: 14px;
-  color: black;
-  font-weight: normal;
-  margin: 0px auto;
-  text-align: left;
+  display: block;
+  font-family: var(--mk-ff-display, inherit);
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  color: var(--mk-ink, #141414);
+  /* "OUR VISION" bir onceki listenin devami gibi degil YENI bir bolum
+     olarak okunmali, ama 64px fazlaydi: iki blok birbirinden kopuyordu.
+     36px, basligin kendi puntosunun (22px) bir bucuk kati — ayirmaya
+     yetiyor, kopartmiyor. */
+  margin: clamp(1.75rem, 3vw, 2.25rem) 0 0.75rem;
+  text-align: start;
   vertical-align: top;
   text-decoration: none;
 }
 
+/* Ilk baslik kolonun en ustunde; ust bosluk orada sayfa basligiyla
+   arasini gereksiz aciyor. */
+.subheader:first-child {
+  margin-block-start: 0;
+}
+
+/* Mission / vision maddeleri (yalnizca about sayfalari).
+
+   ONCESI `line-height: 35px` idi — 14px'lik metinde 2.5 orani. Satirlar
+   o kadar aciliyordu ki iki satira tasan bir madde tek bir paragraf
+   degil ayri ayri satirlar gibi okunuyor, kolon da gereksiz uzuyordu.
+   Bolumdeki "cok fazla bosluk" hissinin asil kaynagi basliklarin arasi
+   degil BURASIYDI.
+
+   Simdi 1.7 (sitenin govde metni ile ayni oran) ve maddelerin ARASINA
+   ayri bir bosluk konuyor: satirlar siki, maddeler ayrik. Sabit px
+   yerine oran kullanilmasinin bir sebebi daha var — kullanici tarayici
+   yazi boyutunu buyuttugunde 35px sabit kaliyor ve satirlar ust uste
+   biniyordu. */
 .about-page-description {
   font-size: 14px;
   text-align: left;
@@ -37,7 +114,11 @@
   text-decoration: none;
   margin: 0px auto;
   padding: 0px;
-  line-height: 35px;
+  line-height: 1.7;
+}
+
+li.about-page-description + li.about-page-description {
+  margin-block-start: 0.625rem;
 }
 
 .description {
@@ -208,6 +289,65 @@
 
 .product_gallery_frame:hover img {
   transform: scale(1.06);
+}
+
+/* --- Urun videolari ---
+   Urun medyalari tek listede geliyor (MekmarCom_Fotolar) ve icinde .mp4
+   satirlari da var. Asagisi o satirlarin fotograflarla AYNI kareye
+   oturmasini sagliyor; yoksa video kendi oranini dayatip izgarayi
+   bozuyor. */
+
+/* Video karesinde imlec buyutec degil: tiklama buyutmuyor, oynatiyor. */
+.product_gallery_frame--video {
+  cursor: default;
+  /* Videonun kendi kenarlari fotograf gibi kirpilmasin diye koyu zemin:
+     dikey bir video 4/3 karede yanlardan bosluk birakiyor. */
+  background-color: var(--mk-ink);
+}
+
+.product_gallery_video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* contain, cover degil: videonun kenarlarini kirpmak goruntunun
+     bir kismini kaliciyla yok eder — fotografta kabul edilebilir, 
+     videoda degil. */
+  object-fit: contain;
+}
+
+/* Serit: video kucuk resmi <img> degil, <video> + ucgen rozet sarmalayici. */
+.product_gallery_thumb--video {
+  position: relative;
+  overflow: hidden;
+}
+
+.product_gallery_thumb--video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background-color: var(--mk-ink);
+  pointer-events: none;
+}
+
+.product_gallery_thumb_play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+/* Tam ekran galeride video. */
+.product_gallery_full_video {
+  max-width: 100%;
+  max-height: 80vh;
+  display: block;
 }
 
 .product_gallery_frame:focus-visible {
@@ -674,6 +814,19 @@
 
 .product_photo:hover img {
   transform: scale(1.06);
+}
+
+/* Izgaradaki video: fotograflarla ayni 4/3 karede, kendi oynaticisiyla. */
+.product_photo--video {
+  cursor: default;
+  background-color: var(--mk-ink);
+}
+
+.product_photo--video video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
 }
 
 .product_photo_zoom {

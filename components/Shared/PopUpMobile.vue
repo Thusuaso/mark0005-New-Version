@@ -13,6 +13,7 @@
           </button>
           <img
             src="~/public/image/banner-mobile.jpeg"
+            :alt="BANNER_ALT"
             width="300"
             height="450"
             style="text-align: center; vertical-align: top; margin: 0px auto"
@@ -25,6 +26,17 @@
 </template>
 
 <script lang="ts" setup>
+/* Banner tamamen YAZIDAN olusan bir gorsel: fuar adi, tarihi, salonu ve
+   stant numarasi yalnizca piksellerde duruyor. Alt metin o yaziyi birebir
+   tasiyor — gorsel inmezse ya da ekran okuyucu kullaniliyorsa bilgi baska
+   hicbir yerde yazmiyor.
+
+   NOT: Banner 24-27 Kasim 2025 tarihli, yani gecmis bir fuari duyuruyor.
+   Guncellenince bu metin de guncellenmeli. */
+const BANNER_ALT =
+  "Visit us at The Big 5 Expo in Dubai, 24-27 November 2025, " +
+  "Dubai World Trade Centre, Sheikh Rashid Hall A187";
+
 let isModalOpen = ref(true);
 let cookie = useCookie("modal_section_visible");
 

@@ -6,7 +6,8 @@
  * kategori izgarasi. Veri store'daki `categories`
  * (assets/data/<lang>.json) — eski ana sayfadaki listeyle ayni.
  *
- * Kart gorunumu: cerceve yok, baslikta hover'da acilan alt cizgi. Kartlarin
+ * Kart gorunumu: cerceve yok, kategori adi fotografin SOL ALT kosesinde
+ * (Best sellers ile ayni dil), baslikta hover'da acilan alt cizgi. Kartlarin
  * 01/02/03 numaralari kaldirildi (bilgi tasimiyorlardi) ve alttaki
  * "View all products" butonu da kaldirildi — izgaranin kendisi zaten tum
  * kategorileri gosteriyor.
@@ -22,30 +23,27 @@ import { useReveal } from "~/composables/useReveal";
 
 type Lang = "en" | "fr" | "es" | "ru" | "ar";
 
-const texts: Record<
-  Lang,
-  { title: string; line2: string }
-> = {
-  en: {
-    title: "Sustained by Nature,",
-    line2: "Crafted for Life",
-  },
-  fr: {
-    title: "Soutenus par la nature,",
-    line2: "façonnés pour la vie",
-  },
-  es: {
-    title: "Sostenidos por la naturaleza,",
-    line2: "creados para la vida",
-  },
-  ru: {
-    title: "Рождено природой,",
-    line2: "создано для жизни",
-  },
-  ar: {
-    title: "مستمد من الطبيعة،",
-    line2: "مصنوع للحياة",
-  },
+/* Bolum basligi, bolumun ne oldugunu soyluyor: altinda malzeme
+   kategorilerinin izgarasi var.
+
+   Oncesinde burada marka slogani ("Sustained by Nature, Crafted for
+   Life") duruyordu; o slogan ilk ekrana, sayfanin h1'ine tasindi
+   (bkz. Home/Hero.vue) ve ceviriler oradan devam ediyor. Ayni cumle
+   ayni sayfada iki kez gorunmemeli: slogan ilk ekranda markanin
+   imzasiyken burada bir bolum etiketi gibi okunuyordu ve iki yerde de
+   gecince ikisinin agirligi birden dusuyordu.
+
+   Daha oncesinde (3e7a584) basligin ustunde "MATERIALS" diye kucuk bir
+   etiket vardi ve basligin kendisi "Stone that / builds places" idi —
+   yani etiket bolumu, baslik ise markayi anlatiyordu. Etiket
+   SectionHead'den kaldirilirken tasidigi bilginin basligin icine
+   yazilmasi gerekiyordu; burada o yapiliyor. Tek satir, `line2` yok. */
+const texts: Record<Lang, { title: string }> = {
+  en: { title: "Our materials" },
+  fr: { title: "Nos matériaux" },
+  es: { title: "Nuestros materiales" },
+  ru: { title: "Наши материалы" },
+  ar: { title: "موادنا" },
 };
 
 const store = useStore();
@@ -67,13 +65,7 @@ const { el, shown } = useReveal();
     aria-labelledby="ct-title"
   >
     <div class="ct__inner">
-      <UiSectionHead
-        class="ct__head"
-        :title="t.title"
-        :line2="t.line2"
-        size="xl"
-        as="h2"
-      />
+      <UiSectionHead class="ct__head" :title="t.title" size="xl" as="h2" />
 
       <ul class="ct__grid">
         <li
@@ -89,17 +81,59 @@ const { el, shown } = useReveal();
             rel="noopener"
           >
             <div class="card__frame">
-              <img
+              <!-- <img> DEGIL <NuxtImg>: kaynak dosyalar public/image
+                   altinda tek boyutta duruyordu (katalogda 400x400 ile
+                   5311x3741 arasi), yani 315 px'lik bir kutuya kimi
+                   zaman 5 MP'lik dosya iniyordu. NuxtImg ayni dosyadan
+                   olcekli surumler uretip srcset olarak veriyor.
+
+                   width/height YOK, bilerek: CLS'i .card__frame'in
+                   aspect-ratio: 4/3'u zaten onluyor, nitelik eklemek
+                   object-fit duzenini bozmadan bir sey kazandirmiyor.
+
+                   sizes izgaranin kendisinden turetildi: 48rem altinda
+                   2 kolon (50vw), ustunde 3 kolon (33vw); konteyner
+                   75rem'de durdugu icin en genis ekranda kart
+                   1200/3 = 400 px'i gecmiyor.
+
+                   loading HEPSINDE "lazy". Oncesinde ilk uc kart
+                   `i < 3 ? 'eager' : 'lazy'` ile eager isteniyordu;
+                   kaldirildi cunku bu bolum fold'un ALTINDA: ana sayfa
+                   sirasi Hero -> Stats -> Categories ve Hero tek basina
+                   `calc(--hr-stage-h + 130vh)` yuksekliginde. Yani o uc
+                   gorsel hicbir zaman ilk ekranda gorunmuyor ama LCP
+                   adayi olan hero fotografiyla ayni anda indiriliyor ve
+                   bant genisligi icin onunla yarisiyordu.
+
+                   Olculdu: ana sayfada fetchpriority="high" tasiyan iki
+                   kaynak var (logo + hero slider) ve ikisi de yerinde;
+                   sorun bu uc eager istekti. Fold altindaki normal
+                   gorseller icin "lazy" tek basina yeterli, ayrica
+                   fetchpriority="low" EKLENMEMELI — kullanici oraya
+                   kaydirinca normal oncelikle inmeleri gerekiyor. -->
+              <NuxtImg
                 class="card__img"
                 :src="category.image"
                 :alt="category.name"
-                :loading="i < 3 ? 'eager' : 'lazy'"
+                sizes="xs:50vw sm:50vw md:33vw lg:33vw xl:400px xxl:400px"
+                loading="lazy"
                 decoding="async"
               />
-            </div>
 
-            <div class="card__row">
-              <h3 class="card__name"><span class="card__line">{{ category.name }}</span></h3>
+              <!-- KATEGORI ADI KADRAJIN ICINDE, SOL ALTTA.
+                   Best sellers bolumuyle ayni dil (bkz.
+                   Home/BestSellers.vue): ayni sayfada iki fotograf
+                   izgarasi var ve birinde ad kadrajin icinde digerinde
+                   altinda olursa ikisi iki ayri kart sistemi gibi
+                   okunuyor.
+
+                   Perde (gradient) adin kendi zemini: kategori
+                   fotograflarinin bir kismi cok acik (beyaz mermer,
+                   acik traverten) ve ciplak beyaz yazi orada
+                   kayboluyor. -->
+              <div class="card__row">
+                <h3 class="card__name"><span class="card__line">{{ category.name }}</span></h3>
+              </div>
             </div>
           </NuxtLink>
         </li>
@@ -122,18 +156,18 @@ const { el, shown } = useReveal();
   margin-inline: auto;
 }
 
-/* Baslik --mk-title-xl (1920'de 144px) ile iki satira sigmiyor: bu bolumun
-   basligi artik kisa bir tanim degil, bir slogan. Olculdugunde en uzun
-   satir Ispanyolca "Sostenidos por la naturaleza," (29 karakter) ve 144px'te
-   1300px yer istiyor — kaba 1200px. Punto bu cumleye gore kuculdu, boylece
-   bes dilde de "Sustained by Nature," / "Crafted for Life" iki satirda
-   kaliyor. */
-.ct__head :deep(.head__title) {
-  font-size: clamp(1.5rem, 4.6vw, 5rem);
-}
+/* Punto ezmesi KALDIRILDI. Buradaki clamp(1.5rem, 4.6vw, 5rem), baslik
+   bir slogan oldugu ve --mk-title-xl de 144px oldugu donemde gerekliydi:
+   o puntoda Ispanyolca "Sostenidos por la naturaleza," tek satira
+   sigmiyordu. Simdi baslik iki kelime ("Our materials") ve --mk-title-xl
+   zaten 64px — bolum basliklarinin ortak olcegi burada da dogru deger,
+   ayrica ezilmesi bu bolumu digerlerinden farkli gosteriyordu. */
 
+/* Baslik ile icerigi arasindaki bosluk. Basliklar 64 -> 48px'e inince
+   96px'lik ayrim basligi kendi bolumunden kopuk gosteriyordu: bosluk
+   basligin kendi yuksekliginden iki kat buyuktu. */
 .ct__head {
-  margin-bottom: clamp(2.5rem, 7vw, 6rem);
+  margin-bottom: clamp(1.75rem, 4.5vw, 4rem);
 }
 
 /* --- Izgara --- */
@@ -175,7 +209,9 @@ const { el, shown } = useReveal();
   color: var(--mk-ink);
 }
 
+/* position: relative — ad artik kadrajin ICINDE, mutlak konumlu. */
 .card__frame {
+  position: relative;
   overflow: hidden;
   aspect-ratio: 4 / 3;
   background: var(--mk-cream-2);
@@ -200,28 +236,46 @@ const { el, shown } = useReveal();
   outline-offset: 4px;
 }
 
+/* --- Ad: kadrajin sol alt kosesi ---
+   ONCESI: kare + ALTINDA baslik satiri (flex, cunku yaninda bir sira
+   numarasi vardi; numara kaldirildiktan sonra flex de gereksiz kaldi).
+
+   `inset-inline-start` / `text-align: start` kullaniliyor, `left`
+   degil: bolum Arapca'da dir="rtl" aliyor ve ad o zaman kendiliginden
+   sag alta geciyor.
+
+   Ust dolgu bilerek buyuk: perdenin fotografa sinmesi icin gereken
+   mesafe o, yoksa kadrajin uzerinde kesik bir cizgi olusuyor. */
 .card__row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-top: 1rem;
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(0.875rem, 1.8vw, 1.375rem)
+    clamp(0.625rem, 1.4vw, 1.0625rem);
+  background: linear-gradient(
+    to top,
+    rgb(12 12 12 / 72%) 0%,
+    rgb(12 12 12 / 46%) 38%,
+    rgb(12 12 12 / 0%) 100%
+  );
+  text-align: start;
+  pointer-events: none;
 }
 
+/* text-shadow soluk fotograflar icin ikinci guvence: perde tek basina
+   acik traverten uzerinde sinirda kaliyordu. */
 .card__name {
   margin: 0;
-  /* Flex ogesinin varsayilan min-width:auto'su uzun kategori adlarinin
-     kucuilmesini engelleyip yanindaki sira numarasini kartin disina
-     itiyordu (320px'te sayfaya yatay kaydirma). */
   min-width: 0;
   overflow-wrap: anywhere;
   font-family: var(--mk-ff-display);
-  font-size: clamp(0.9375rem, 1.6vw, 1.25rem);
+  font-size: clamp(0.875rem, 1.4vw, 1.125rem);
   font-weight: 500;
   line-height: 1.3;
-  letter-spacing: -0.01em;
+  letter-spacing: normal;
   text-transform: none;
-  color: var(--mk-ink);
+  color: #fff;
+  text-shadow: 0 1px 3px rgb(0 0 0 / 45%);
 }
 
 /* Temadaki .border-line: hover'da soldan saga acilan alt cizgi. */

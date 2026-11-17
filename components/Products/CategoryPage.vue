@@ -334,14 +334,17 @@ const clearLink = computed(() => ({ path: route.path, query: {} }));
   border-bottom: 0;
 }
 
+/* Onceden 11px, harf arasi 0.16em acilmis TUM BUYUK HARF bir mikro
+   etiketti. Filtre grubunun gercek basligi; sitenin geri kalaninda
+   yaptigimiz gibi okunur puntoda ve kendi yaziminda. */
 .fg__header {
   margin: 0 0 0.75rem;
-  font-size: 0.6875rem;
+  font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   text-align: start;
-  color: var(--mk-grey-2);
+  color: var(--mk-ink);
 }
 
 .fg__list {
@@ -423,9 +426,10 @@ const clearLink = computed(() => ({ path: route.path, query: {} }));
   text-align: start;
 }
 
+/* 11px cok kucuktu; kenar cubugunda 27 adet bu sayacdan var. */
 .fo__count {
   flex: none;
-  font-size: 0.6875rem;
+  font-size: 0.875rem;
   font-variant-numeric: tabular-nums;
   color: var(--mk-grey-2);
 }

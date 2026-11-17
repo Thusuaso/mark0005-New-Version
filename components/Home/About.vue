@@ -245,7 +245,7 @@ const { el, shown } = useReveal();
   font-size: clamp(1.25rem, 2.6vw, 2.125rem);
   font-weight: 500;
   line-height: 1.25;
-  letter-spacing: -0.02em;
+  letter-spacing: normal;
   color: var(--mk-ink);
   text-wrap: balance;
 }

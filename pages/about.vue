@@ -13,7 +13,9 @@
           {{ item.value }}
         </li>
       </ul>
-      <br />
+      <!-- <br /> KALDIRILDI: iki bolum arasindaki bosluk artik
+           .subheader'in kendi ust bosluguyla kuruluyor (default.css),
+           ikisi birlikte kalinca arada fazladan bir satir olusuyordu. -->
       <h3 class="subheader">{{ about.title_2 }}</h3>
       <ul class="about-page-description">
         <li
@@ -22,25 +24,6 @@
           :key="item.id"
         >
           {{ item.value }}
-        </li>
-      </ul>
-      <!-- Sosyal hesaplar: her ikon kendi marka renginde, uzerine
-           gelindiginde o renk daireyi dolduruyor. Onceden hepsi tek bir
-           maviydi (satir ici #1357bc), Bootstrap col-2 ile ekrana
-           yayiliyordu ve baglantilarin erisilebilir adi yoktu. -->
-      <h3 class="soc__head">{{ t.follow }}</h3>
-      <ul class="soc">
-        <li v-for="social of about?.socials" :key="social.link" class="soc__item">
-          <a
-            class="soc__link"
-            :class="`soc__link--${social.name}`"
-            :href="social.link"
-            target="_blank"
-            rel="noopener noreferrer"
-            :aria-label="social.name"
-          >
-            <i :class="social.icon" aria-hidden="true"></i>
-          </a>
         </li>
       </ul>
     </div>
@@ -56,6 +39,34 @@
         ></iframe>
       </figure>
     </div>
+  </div>
+
+  <!-- Surdurulebilirlik seridi: tam genislikte, fotograf zeminli.
+       Sosyal hesaplarin USTUNDE duruyor. Iki kolonlu satirin DISINDA,
+       cunku fotograf zeminli uzun bir paragraf yarim kolona sikisinca
+       okunmuyor. -->
+  <AboutSustainability />
+
+  <div class="container m-auto">
+    <!-- Sosyal hesaplar: her ikon kendi marka renginde, uzerine
+         gelindiginde o renk daireyi dolduruyor. Onceden hepsi tek bir
+         maviydi (satir ici #1357bc), Bootstrap col-2 ile ekrana
+         yayiliyordu ve baglantilarin erisilebilir adi yoktu. -->
+    <h3 class="soc__head">{{ t.follow }}</h3>
+    <ul class="soc">
+      <li v-for="social of about?.socials" :key="social.link" class="soc__item">
+        <a
+          class="soc__link"
+          :class="`soc__link--${social.name}`"
+          :href="social.link"
+          target="_blank"
+          rel="noopener noreferrer"
+          :aria-label="social.name"
+        >
+          <i :class="social.icon" aria-hidden="true"></i>
+        </a>
+      </li>
+    </ul>
   </div>
   </div>
 </template>
@@ -152,7 +163,7 @@ const t = { follow: FOLLOW[lang] ?? FOLLOW.en };
   --brand: #1877f2;
 }
 .soc__link--twitter {
-  --brand: #1c1917;
+  --brand: #141414;
 }
 .soc__link--youtube {
   --brand: #ff0000;

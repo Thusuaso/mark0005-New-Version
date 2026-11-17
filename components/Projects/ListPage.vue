@@ -26,7 +26,10 @@
           <strong>100+</strong><span>{{ t.stat_projects }}</span>
         </li>
         <li class="pl_stat">
-          <strong>{{ countries.length }}</strong><span>{{ t.stat_countries }}</span>
+          <!-- "+" yanindaki iki rakamla ayni dil ("100+", "<yil>+").
+               Sayinin kendisi gercek: veri icindeki benzersiz ulke
+               sayisi. -->
+          <strong>{{ countries.length }}+</strong><span>{{ t.stat_countries }}</span>
         </li>
         <li class="pl_stat">
           <strong>{{ years }}+</strong><span>{{ t.stat_years }}</span>

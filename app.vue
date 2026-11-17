@@ -32,9 +32,16 @@
        Masaustu ust menu position:fixed oldugu icin hero kasitli olarak
        altina giriyor, bu yuzden burada ara bosluk da konmuyor. -->
   <template v-if="isHome">
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+    <!-- `:key="route.path"` + .page-fade = sayfa gecisi. Vue'nun
+         <Transition>'i KULLANILMIYOR (nedeni: nuxt.config.ts'teki
+         pageTransition notu — Suspense ile cakisiyor). Key degisince bu
+         dugum silinip yeniden kuruluyor, CSS animasyonu da bastan
+         calisiyor. -->
+    <div class="page-fade" :key="route.path">
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
+    </div>
   </template>
 
   <!-- Ic sayfalar: eskisi gibi container icinde. Sabit menunun altinda
@@ -53,7 +60,13 @@
          icinde kalsa zeminler sayfanin ortasinda yuzen bloklar gibi
          gorunuyordu. Ust bosluk yine var (ana sayfadan farki: menunun
          altina giren tam ekran bir hero'su yok). -->
-    <div :class="isWide ? 'page-wide' : 'container page-container'">
+    <!-- Ayni gecis ic sayfalarda da: sinif listesine .page-fade ekleniyor,
+         key yine rota yolu. -->
+    <div
+      :key="route.path"
+      class="page-fade"
+      :class="isWide ? 'page-wide' : 'container page-container'"
+    >
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
@@ -94,6 +107,28 @@ const isHome = computed(() => HOME_PATHS.has(route.path.replace(/\/+$/, "")));
    seriyor. Yeni bir sayfa bu dile gecirildiginde desenine buraya eklenir. */
 const WIDE_PATH = /^(\/(fr|es|ru|ar))?\/product\/detail\//;
 const isWide = computed(() => WIDE_PATH.test(route.path));
+
+/* PAYLASIM GORSELI (og:image) BURADA KURULAMADI — nedeni kalici, not
+   birakiliyor ki tekrar denenmesin.
+
+   nuxt-og-image sablonu bir Nuxt "island" istegi olarak render ediyor.
+   Nuxt 3.21 island isteklerinde zorunlu hash dogrulamasi yapiyor
+   (computeIslandHash; kosulsuz, kapatilacak bir ayar yok). og-image'in
+   Nuxt 3 ile uyumlu son surumu (5.1.13) bu dogrulamadan once yazildigi
+   icin island URL'ini hash'siz kuruyor ve endpoint 400 "Invalid island
+   request hash" donuyor. Hash'i destekleyen og-image surumleri
+   (6.x/7.x) @nuxt/kit ^4 istiyor, yani Nuxt 4 gerektiriyor.
+
+   Burada `defineOgImageComponent("NuxtSeo")` cagrisi denendi: og:image
+   ve twitter:image meta etiketleri UREtILDI ama hepsi 400 donen bir
+   URL'i gosteriyordu — yani gorsel olmamasindan daha kotusu, kirik
+   gorsel vaat eden bir meta. Cagri bu yuzden kaldirildi ve modul
+   projeden cikarildi.
+
+   Paylasim gorseli isteniyorsa iki yol var: ya Nuxt 4'e gecis, ya da
+   statik bir gorseli elle vermek (public/ altina 1200x630 bir kart
+   koyup app.head.meta icinde og:image olarak bildirmek). Ikincisi
+   sayfaya gore degismez ama calisir. */
 </script>
 <style scoped>
 /* Sabit ust menunun yuksekligi. Navbar'daki dolgu (0.75rem x2) + logo

@@ -42,7 +42,8 @@ export const FILTER_KEYS: readonly FilterKey[] = [
  *
  * Kategori id'leri: 1 marble, 2 travertine, 3 limestone, 4 mosaic,
  * 5 outdoor, 6 bath & kitchen, 7 slabs, 8 quartz, 9 by-products,
- * 11 installation materials, 18 plasterboard.
+ * 11 installation materials, 18 plasterboard, 23 3d cnc design,
+ * 24 pool design.
  *
  * NOT: Bu liste editoryal bir kisit. Bir kategoride ilgili veri hic yoksa
  * grup zaten bos gelip gizleniyor; buradaki liste "veri olsa bile
@@ -50,13 +51,77 @@ export const FILTER_KEYS: readonly FilterKey[] = [
  * (plasterboard) yok.
  */
 export const FILTER_AVAILABILITY: Record<FilterKey, number[] | null> = {
-  color: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-  finish: [1, 2, 3, 4, 8],
+  /* 23 (3d cnc design): urunlerin bir kismina renk atandi, filtre
+     gorunur olsun. Kategorinin diger boyutlarinda (finish/edge/
+     material/style/type) veritabaninda tek satir yok, bu yuzden
+     buraya yalnizca color'a eklendi — bos bir grup zaten gizlenir
+     ama bosa SQL sorgusu atilmasin. */
+  color: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 23, 24],
+  finish: [1, 2, 3, 4, 8, 24],
   edge: [2],
-  material: [4, 7],
+  material: [4, 7, 24],
   style: [2],
-  type: [5, 6, 9, 11, 18],
+  /* 23 (3d cnc design): desen ekseni bu boyuta kuruldu — TurList'e
+     Fluted / Grooved (33), Wavy / Curved (34), Carved / Relief (35)
+     eklendi ve 20 urunun 17'sine atandi. 3D panelde aranan sey desen,
+     ama StilList (Cross Cut / Vein Cut) bunu karsilamiyordu; `type`
+     zaten genel bir "ne turden" boyutu ve grup basligi bes dilde hazir
+     oldugu icin yeni bir boyut acilmadi. */
+  type: [5, 6, 9, 11, 18, 24, 23],
 };
+
+/**
+ * Sanal kategoriler: kendi urunu olmayan, icerigi bir ALAN (area)
+ * degerinden gelen kategoriler.
+ *
+ * Kategori -> MekmarCom_Areas.ID
+ *
+ * Neden: `MekmarCom_Products.kategori_id` tek bir kolon, yani bir urunun
+ * tek kategorisi olabiliyor. "Pool Design" ise ayri bir urun grubu degil,
+ * mevcut urunlerin bir kullanim alani — havuz kenarinda kullanilan
+ * mozaik, dis mekan karosu, mermer... Bu urunleri 24'e TASIMAK onlari
+ * Mosaics/Outdoor'dan dusururdu; KOPYALAMAK ayni urunu iki urunid ile
+ * cogaltip ayni icerige iki adres acardi (kopya icerik).
+ *
+ * Bu yuzden kategori 24'un sayfasi "kategori_id = 24 VEYA alan = Pool"
+ * sorusunu soruyor: urun kendi kategorisinde kaliyor, detay adresi ve
+ * izi degismiyor, ama Pool Design altinda da listeleniyor.
+ *
+ * Kategori 24'e panelden DOGRUDAN urun atanirsa o da gorunur (ikisi
+ * birlesiyor), yani ileride Pool Design'in kendi urunleri olabilir.
+ */
+export const CATEGORY_AREA_SOURCE: Record<number, number> = {
+  24: 6, // Pool Design <- MekmarCom_Areas "Pool"
+};
+
+/** Kategorinin icerigini besleyen alan id'si; yoksa null. */
+export function areaSourceFor(categoryId: number): number | null {
+  return CATEGORY_AREA_SOURCE[categoryId] ?? null;
+}
+
+/**
+ * Sanal kategoride listenin SONUNA itilecek kaynak kategoriler.
+ *
+ * Kategori -> en sona gidecek kategori id'leri
+ *
+ * Sanal kategori birden fazla kategorinin urununu bir arada gosterdigi
+ * icin siralama `mp.sira`'ya birakilamiyor: `sira` kategori icinde
+ * anlamli, kategoriler arasinda degil. Pool Design'da yapistirici ve
+ * harc (Installation Materials) taslarin arasina serpilmis halde
+ * geliyordu — sayfanin anlatmak istedigi sey havuz kaplamasi, yardimci
+ * malzeme en sonda durmali.
+ *
+ * Sanal olmayan kategorilerde etkisizdir: orada butun urunler ayni
+ * kategoriden, yani kural sabit cikip siralamayi degistirmiyor.
+ */
+export const CATEGORY_DEMOTE_SOURCE: Record<number, number[]> = {
+  24: [11], // Pool Design: Installation Materials (Kalekim) en sonda
+};
+
+/** Bu kategoride en sona itilecek kaynak kategoriler; yoksa bos dizi. */
+export function demoteSourcesFor(categoryId: number): number[] {
+  return CATEGORY_DEMOTE_SOURCE[categoryId] ?? [];
+}
 
 /** Bu kategoride bu filtre gosterilmeli mi? */
 export function isFilterAvailable(

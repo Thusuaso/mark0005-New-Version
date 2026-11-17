@@ -30,7 +30,16 @@
              toggle hem link olunca Bootstrap tiklamayi yutuyor ve sayfaya
              gidilemiyordu. Acilma artik CSS'te :hover / :focus-within
              uzerinden (bkz. .nv__item--mega). -->
-        <div class="dropdown nv__item nv__item--mega">
+        <!-- Menu ACIK KALMASIN diye uc dinleyici (bkz. asagidaki
+             `megaDismissed`): tiklayinca kapaniyor, fare alandan cikinca
+             ya da odak disariya gidince yeniden acilabilir hale geliyor. -->
+        <div
+          class="dropdown nv__item nv__item--mega"
+          :class="{ 'is-dismissed': megaDismissed }"
+          @click="dismissMega"
+          @mouseleave="revealMega"
+          @focusin="revealMega"
+        >
           <NuxtLink
             class="nv__link nv__link--toggle"
             :to="navbar_link.product ?? '/products'"
@@ -165,7 +174,7 @@
  * halen onlari kullaniyor, bu yuzden silinmedi. Buradaki `nv__*` siniflari
  * scoped, yani iki tasarim birbirine karismiyor.
  */
-import { computed, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useStore } from "~/store/index";
 import { useHeroOverlay } from "~/composables/useHeroOverlay";
 /* Tek logo varligi: en/diger dil ayrimi kaldirilmisti, ikisi de bu 600x110
@@ -239,6 +248,49 @@ watch(isHome, (home) => {
 });
 
 const overlay = computed(() => isHome.value && heroOverlay.value);
+
+/* --- PRODUCTS mega menusunu tiklamadan sonra kapatmak ---
+ *
+ * Menu CSS ile aciliyor (.nv__item--mega:hover / :focus-within), yani
+ * "acik" diye bir durum yok — tarayici fare ve odak nerede diye bakip
+ * karar veriyor. Sorun da buradan cikiyordu: panelden bir kategoriye
+ * tiklayinca sayfa degisiyor ama imlec hala panelin uzerinde duruyor,
+ * :hover hala dogru, menu acik kaliyordu. Yeni sayfa menunun altinda
+ * aciliyor ve kullanici menuyu elle kapatmak zorunda kaliyordu.
+ *
+ * Cozum menuyu JS'e tasimak DEGIL — acilma hala CSS'te, cunku hover ile
+ * acilan bir menuyu JS ile yonetmek fare giris/cikislarini elle
+ * kovalamak demek. Burada yalnizca tek yonlu bir susturma var:
+ * tiklandiginda `is-dismissed` sinifi menuyu gizliyor, fare alandan
+ * cikinca (ya da odak disariya gidince) sinif kalkiyor ve menu yeniden
+ * normal davraniyor.
+ *
+ * blur() sart: tiklanan baglanti odakta kaliyor ve :focus-within tek
+ * basina menuyu acik tutmaya yetiyor.
+ *
+ * Serbest birakma `focusin` ile, `focusout` ile DEGIL — ilk denemede
+ * focusout kullanildi ve calismadi: dismissMega'nin kendi blur()
+ * cagrisi aninda bir focusout uretiyor (relatedTarget null, odak
+ * <body>'ye donuyor), bu da susturmayi daha olusmadan kaldiriyordu.
+ * focusin'in sirasi dogru: fareyle tiklamada once focusin sonra click
+ * gelir (mousedown -> focus -> click), yani sonuc "susturuldu" olur;
+ * Tab ile iceri girildiginde ise yalnizca focusin olur ve menu normal
+ * sekilde acilir. Klavyede Enter'a basildiginda odak zaten icerdedir,
+ * yeni bir focusin gelmez — menu kapanir, istenen de bu.
+ */
+const megaDismissed = ref(false);
+
+function dismissMega() {
+  megaDismissed.value = true;
+  if (import.meta.client) {
+    const active = document.activeElement as HTMLElement | null;
+    active?.blur?.();
+  }
+}
+
+function revealMega() {
+  megaDismissed.value = false;
+}
 </script>
 
 <style scoped>
@@ -263,7 +315,7 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
    olsaydi ogeler menunun zeminine karisir ve ust uste iki cam katman
    oldugu okunmazdi. */
 .nv--over {
-  background: rgba(28, 25, 23, 0.18);
+  background: rgba(20, 20, 20, 0.18);
   backdrop-filter: blur(var(--mk-blur-nav)) saturate(120%);
   -webkit-backdrop-filter: blur(var(--mk-blur-nav)) saturate(120%);
   /* 1px alt cizgi kaldirildi: hero'nun uzerinde zaten karartma var,
@@ -274,19 +326,19 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
    Burada da hafif bulaniklik var — sayfa altindan gecerken krem tamamen
    opak durmasin, menunun bir katman oldugu belli olsun. */
 .nv--solid {
-  background: rgba(247, 243, 233, 0.88);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(var(--mk-blur-nav)) saturate(120%);
   -webkit-backdrop-filter: blur(var(--mk-blur-nav)) saturate(120%);
   /* Cizgi yerine yalnizca cok hafif bir golge: bulanik zemin (backdrop
      blur) zaten serit ile icerigi ayiriyor. */
-  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.06);
+  box-shadow: 0 1px 2px rgba(20, 20, 20, 0.06);
 }
 
 /* backdrop-filter desteklenmiyorsa (eski tarayici) saydam zemin metni
    okunmaz hale getirir; o durumda opak zemine dusuluyor. */
 @supports not (backdrop-filter: blur(1px)) {
   .nv--over {
-    background: rgba(28, 25, 23, 0.55);
+    background: rgba(20, 20, 20, 0.55);
   }
 
   .nv--solid {
@@ -344,9 +396,8 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
 }
 
 /* --- Menu --- */
-/* nowrap: Libre Baskerville'e gecince satir genisligi arttigi icin son
-   oge (CONTACT) alt satira kayiyordu. Sarma kapatildi; sigdirma isi
-   punto/tracking/dolgu kisarak yapiliyor (asagida). */
+/* nowrap: serit tek satir, son oge (Contact) alt satira kaymasin.
+   Sigdirma isi punto/dolgu ile yapiliyor (asagida). */
 .nv__nav {
   display: flex;
   flex-wrap: nowrap;
@@ -355,29 +406,46 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
   flex: 1 1 auto;
 }
 
-/* Arapca ve Kiril daha buyuk/kucuk punto istiyor — tek degisken. */
+/* Arapca ve Kiril daha buyuk/kucuk punto istiyor — tek degisken.
+   Degerler --mk-nav-size (15px) etrafinda: Arapca glifleri ayni punto
+   degerinde latinden kucuk gorunuyor, Kiril ve Fransizca/Ispanyolca
+   kelimeler ise daha uzun oldugu icin bir tik kisiliyor. */
 .nv__nav--ar {
-  --nv-font: 0.8125rem;
+  --nv-font: 1rem;
 }
 
 .nv__nav--fr,
 .nv__nav--es,
 .nv__nav--ru {
-  --nv-font: 0.625rem;
+  --nv-font: 0.875rem;
 }
 
 .nv__item {
   position: static;
 }
 
+/* Referanstan (www.gammastone.com) alinan menu dili: 12.8px, agirlik 400,
+   BUYUK HARF DEGIL, tracking 0.
+
+   ONCESI: 11px / agirlik 600 / uppercase / tracking 0.02em — kucuk ama
+   bagirarak duran bir serit; Murat bey'in "daha kibar" notunun en net
+   karsiligi burasi. Sentence-case'e gecince ayni yatay alanda daha
+   buyuk punto siginiyor (buyuk harfler kucuklerden ~%35 genis), yani
+   serit hem okunakli hem de hala tek satir. Yazi tipi de artik
+   Helvetica/Arial; onceki Libre Baskerville'den belirgin olarak dar —
+   ek yer oradan.
+
+   12.8px: bizde 7 menu ogesinin yaninda arama kutusu, iki ikon ve bir
+   CTA da ayni seride duruyor, yani referansin kucuk puntosu burada
+   ayrica ise yariyor. */
 .nv__link {
   position: relative;
   display: block;
-  padding: 0.5rem 0.375rem;
-  font-size: var(--nv-font, 0.6875rem);
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  padding: 0.5rem 0.6875rem;
+  font-size: var(--nv-font, var(--mk-nav-size, 0.8rem));
+  font-weight: var(--mk-nav-weight, 400);
+  letter-spacing: 0;
+  text-transform: none;
   text-decoration: none;
   white-space: nowrap;
   transition: color 0.25s ease, opacity 0.25s ease;
@@ -395,7 +463,9 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
 .nv__link::after {
   content: "";
   position: absolute;
-  inset-inline: 0.5rem;
+  /* Yatay girinti yan dolgu ile ayni (0.6875rem): cizgi metnin tam
+     altinda baslayip bitiyor, dolgunun icine tasmiyor. */
+  inset-inline: 0.6875rem;
   bottom: 0.1875rem;
   height: 1px;
   background: currentColor;
@@ -525,6 +595,15 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
 .nv__item--mega:hover > .nv__mega,
 .nv__item--mega:focus-within > .nv__mega {
   display: grid;
+}
+
+/* Tiklamadan sonraki susturma. Acan kurallardan SONRA ve daha ozgul
+   (iki sinif + cocuk) oldugu icin onlari eziyor; `!important` gerekmiyor.
+   Asagidaki `.dropdown-menu.nv__mega.show` kuralindan da once gelmesi
+   onemsiz: mega menu Bootstrap ile acilmiyor, .show sinifi hic
+   eklenmiyor. */
+.nv__item--mega.is-dismissed > .nv__mega {
+  display: none;
 }
 
 /* Fare basliktan panele inerken aradaki bosluga denk gelip menu
@@ -704,8 +783,8 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
    kullaniyor. Ayni olsa bu ogeler menunun zeminine karisirdi. */
 .nv--over :deep(.site_search input) {
   color: var(--mk-cream);
-  background: rgba(247, 243, 233, 0.12);
-  border: 1px solid rgba(247, 243, 233, 0.32);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.32);
   backdrop-filter: blur(var(--mk-blur-chip));
   -webkit-backdrop-filter: blur(var(--mk-blur-chip));
 }
@@ -715,8 +794,8 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
    ust menu baglaminda gerekiyor (Navbarmobile'da fotograf zemini yok). */
 .nv--over :deep(.am_btn),
 .nv--over :deep(.lg__btn) {
-  background: rgba(247, 243, 233, 0.12);
-  border-color: rgba(247, 243, 233, 0.32);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.32);
   backdrop-filter: blur(var(--mk-blur-chip));
   -webkit-backdrop-filter: blur(var(--mk-blur-chip));
   /* Kendi dosyalarinda cerceve agir gorunmesin diye 0.65 opaklik var;
@@ -726,12 +805,12 @@ const overlay = computed(() => isHome.value && heroOverlay.value);
 
 .nv--over :deep(.am_btn:hover),
 .nv--over :deep(.lg__btn:hover) {
-  background: rgba(247, 243, 233, 0.2);
-  border-color: rgba(247, 243, 233, 0.6);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 .nv--over :deep(.site_search input::placeholder) {
-  color: rgba(247, 243, 233, 0.68);
+  color: rgba(255, 255, 255, 0.68);
 }
 
 .nv--over :deep(.site_search input:focus) {

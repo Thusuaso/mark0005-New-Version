@@ -2,9 +2,13 @@
 /**
  * components/Ui/SectionHead.vue
  *
- * Bolum basligi: saga kaydirilmis dev display baslik. Temada ikinci satir
- * `pl-265` ile belirgin sekilde iceri aliniyor — `line2` verilirse ayni
- * kirilim burada da uygulaniyor.
+ * Bolum basligi: iki satira kadar, SOLA HIZALI.
+ *
+ * Temada ikinci satir `pl-265` ile iceri aliniyordu ve bu girinti
+ * buraya da tasinmisti. Referans www.gammastone.com'da basliklar duz
+ * sola hizali (h1 ve h2'nin ikinci satiri ilkiyle ayni hatta basliyor),
+ * o yuzden girinti kaldirildi. `line2` artik yalnizca kirilma yerini
+ * belirliyor.
  *
  * Ustteki kucuk uppercase etiket (eyebrow) kaldirildi: bes bolumun besinde de
  * ayni kalipta duruyordu ("MATERIALS" / "PROJECTS" / "FACILITIES" / "BEST
@@ -12,17 +16,21 @@
  * soylemiyordu. Etiketin tasidigi bilgi varsa basligin ya da altindaki
  * cumlenin icine yazilir.
  *
- * Boyutlar:
- *   xl — ~144px (ana bolumler)
- *   lg — ~120px
- *   md — ~60px (yan kolon basliklari, FAQ)
+ * Boyutlar (tokenlardan; bkz. assets/css/tokens.css --mk-title-*):
+ *   xl — 28 -> 35px  (ana bolumler; referansin h1'i)
+ *   lg — 26 -> 32px  (referansin h2'si)
+ *   md — 20 -> 24px  (yan kolon basliklari, FAQ)
+ *
+ * Olcek www.gammastone.com'dan olculdu. Oncesinde once 144/120/60px,
+ * sonra yanlis referanstan (stone.gamastone.com) turetilen 44/32/33px
+ * kullaniliyordu.
  */
 
 withDefaults(
   defineProps<{
     /** Basligin ilk satiri. */
     title: string;
-    /** Ikinci satir — verilirse iceri kaydirilmis olarak alta gelir. */
+    /** Ikinci satir — verilirse alta gelir, ilk satirla ayni hizada. */
     line2?: string;
     size?: "xl" | "lg" | "md";
     /** Baslik seviyesi: sayfada tek h1 kalsin diye ayarlanabilir. */
@@ -55,11 +63,15 @@ withDefaults(
   margin: 0;
   font-family: var(--mk-ff-display);
   font-weight: 700;
-  line-height: 1.06;
-  letter-spacing: -0.02em;
+  /* Referansta h1 35.2/38.72 = 1.1, h2 32/35.2 = 1.1. */
+  line-height: 1.1;
+  /* Referansta harf araligi `normal`: 35px'lik bir baslikta negatif
+     tracking harfleri sikistirmaktan baska bir sey yapmiyor. */
+  letter-spacing: normal;
   text-transform: none;
-  color: var(--mk-ink);
-  /* Dev puntolarda kelimeler tasabiliyor; tasma yerine kirilsin. */
+  /* Referansta baslik rengi saf siyah. */
+  color: var(--mk-heading, #000);
+  /* Uzun kelimeler tasabiliyor; tasma yerine kirilsin. */
   overflow-wrap: break-word;
 }
 
@@ -67,35 +79,61 @@ withDefaults(
   color: var(--mk-cream);
 }
 
+/* `xl` BUYUK HARF, diger boyutlar degil.
+
+   Bu boyut yalnizca ana sayfanin dort bolum basliginda kullaniliyor
+   (Categories, Projects, Facilities, BestSellers); `lg` ve `md`'yi
+   ic sayfalar okuyor ve onlar cumle duzeninde kaliyor. Kural bu
+   yuzden temel .head__title'a degil sadece bu varyanta yaziliyor —
+   oraya yazilsa tum site basliklari birden buyuk harfe donerdi.
+
+   Hero'nun h1'i de disarida: o SectionHead degil kendi .hr__title'i
+   (bkz. Home/Hero.vue) ve bir slogan, bolum basligi degil.
+
+   Arapcada buyuk-kucuk harf kavrami yok; `uppercase` orada hicbir
+   sey yapmiyor, ayrica bir dal acmaya gerek kalmiyor. */
 .head__title--xl {
   font-size: var(--mk-title-xl);
+  text-transform: uppercase;
+  /* 700 -> 500 (istek uzerine).
+
+     ISTENEN "semi-bold" IDI AMA BU FONTTA YOK, bu yuzden not:
+     Latin yuzu sistem yigini (Helvetica Neue / Helvetica / Arial /
+     Liberation Sans) ve bu ailelerin yalnizca Regular ile Bold kesimi
+     var. Tarayicida olculdu (48px, "OUR MATERIALS"): 400 ve 500 ayni
+     genislikte (388.5px), 600 ve 700 ayni genislikte (396.43px). Yani
+     600 yazmak hicbir sey degistirmezdi; 500 ise Regular'a dusuyor ve
+     gercek bir incelme sagliyor. Tercih bilerek bu yonde yapildi.
+
+     Gercek bir ara agirlik istenirse 600 kesimi olan bir aile
+     yuklenmesi gerekir (@nuxt/fonts zaten kurulu, bkz. nuxt.config). */
+  font-weight: 500;
 }
 
+/* lg'nin kendi satir yuksekligi (0.9) ve agirligi (500) 120px icin
+   ayarlanmisti: o puntoda 0.9 satirlar arasini kapatiyor, 500 ise dev
+   harflerin agirligini kiriyordu. 46px'te ikisi de ters calisiyor —
+   satirlar ust uste biniyor ve baslik govdeden ayirt edilemiyor.
+   Artik yalnizca punto farki kaliyor, digerleri .head__title'dan geliyor. */
 .head__title--lg {
   font-size: var(--mk-title-lg);
-  font-weight: 500;
-  line-height: 0.9;
 }
 
 .head__title--md {
   font-size: var(--mk-title-md);
 }
 
-/* Temadaki `pl-265`: ikinci satir belirgin sekilde iceri aliniyor.
-   Kucuk ekranda kaydirma yok — dev puntoda zaten yer kalmiyor.
+/* Ikinci satirin girintisi KALDIRILDI.
 
-   Girinti 16.5rem'den 10rem'e cekildi. Olculdugunde eski deger 1920px'te
-   264px yer kapliyordu ve "builds places" icin geriye 936px kaliyordu —
-   metnin tam genisligi de 937px, yani baslik bir pikselle ucuncu satira
-   kiriliyordu. Ispanyolca ve Rusca her genislikte kiriliyordu, Rusca
-   1920px'te 25px tasiyordu. Yeni degerle ucu de rahatliyor. */
+   Temadaki `pl-265` once 16.5rem, sonra 10rem, sonra clamp(1.5rem, 5vw,
+   5rem) olarak kuculerek tasinmisti — her adimda punto dustukce girinti
+   basligi iki ayri parcaya bolup okunurlugu dusurdugu icin. Referans
+   www.gammastone.com'da boyle bir kayma hic yok, basliklar duz sola
+   hizali. 35px'lik bir baslikta girintinin tasarim degeri de kalmiyor.
+
+   Eleman duruyor: `line2` metnin NEREDE kirilacagini belirliyor, bu da
+   bes dilde satir sonlarinin elle kontrol edilmesini sagliyor. */
 .head__line2 {
   display: inline-block;
-}
-
-@media (min-width: 62rem) {
-  .head__line2 {
-    margin-inline-start: clamp(3rem, 10vw, 10rem);
-  }
 }
 </style>

@@ -17,7 +17,7 @@
         >
           <div class="customContainer" style="height: 450px">
             <div class="customElement" style="height: 450px">
-              <img class="lazyload" :src="first_photo" style="height: 450px" />
+              <img class="lazyload" :src="first_photo" :alt="header" style="height: 450px" />
             </div>
           </div>
         </a>
@@ -182,7 +182,7 @@
       >
         <div class="customContainer">
           <div class="customElement">
-            <img class="lazyload" :src="img.image" />
+            <img class="lazyload" :src="img.image" :alt="header" />
           </div>
         </div>
       </a>
